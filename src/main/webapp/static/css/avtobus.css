@@ -1,0 +1,236 @@
+body {
+    font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+header {
+    text-align: center;
+    /*background: #18BC9C;*/
+    color: white;
+}
+
+header .container {
+    padding-top: 100px;
+    padding-bottom: 50px;
+}
+
+.jumbotron {
+    margin: 0px auto;
+    padding: 50px 50px 50px 50px;
+    background: #7986CB;
+    color: white;
+}
+
+@media (min-width: 768px) {
+  header .container {
+    padding-top: 200px;
+    padding-bottom: 100px;
+  }
+  header .intro-text .name {
+    font-size: 4.75em;
+  }
+  header .intro-text .skills {
+    font-size: 1.75em;
+  }
+}
+
+.navbar-custom {
+    background: #2C3E50;
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    border: none;
+}
+.navbar-custom .navbar-brand {
+    color: white;
+}
+.navbar-custom .navbar-brand:hover, .navbar-custom .navbar-brand:focus, .navbar-custom .navbar-brand:active, .navbar-custom .navbar-brand.active {
+    color: white;
+}
+.navbar-custom .navbar-nav {
+    letter-spacing: 1px;
+}
+.navbar-custom .navbar-nav li a {
+    color: white;
+}
+.navbar-custom .navbar-nav li a:hover {
+    color: #555;
+}
+.navbar-custom .navbar-nav li a:focus, .navbar-custom .navbar-nav li a:active {
+    color: white;
+}
+.navbar-custom .navbar-nav li.active a {
+    color: white;
+    background: #18BC9C;
+}
+.navbar-custom .navbar-nav li.active a:hover, .navbar-custom .navbar-nav li.active a:focus, .navbar-custom .navbar-nav li.active a:active {
+    color: white;
+    background: #18BC9C;
+}
+.navbar-custom .navbar-toggle {
+    color: white;
+    text-transform: uppercase;
+    font-size: 10px;
+    border-color: white;
+}
+.navbar-custom .navbar-toggle:hover, .navbar-custom .navbar-toggle:focus {
+    background-color: #18BC9C;
+    color: white;
+    border-color: #18BC9C;
+}
+
+.navbar-avtobusi {
+    background: #2C3E50;
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    border: none;
+}
+.navbar-avtobusi .navbar-brand {
+    color: white;
+}
+.navbar-avtobusi .navbar-brand:hover, .navbar-avtobusi .navbar-brand:focus, .navbar-avtobusi .navbar-brand:active, .navbar-avtobusi .navbar-brand.active {
+    color: white;
+}
+.navbar-avtobusi .navbar-nav {
+    letter-spacing: 1px;
+}
+.navbar-avtobusi .navbar-nav li a {
+    color: white;
+}
+.navbar-avtobusi .navbar-nav li a:hover {
+    color: white;
+}
+.navbar-avtobusi .navbar-nav li a:focus, .navbar-avtobusi .navbar-nav li a:active {
+    color: white;
+}
+.navbar-avtobusi .navbar-nav li.active a {
+    color: white;
+}
+.navbar-avtobusi .navbar-nav li.active a:hover, .navbar-avtobusi .navbar-nav li.active a:focus, .navbar-avtobusi .navbar-nav li.active a:active {
+    color: white;
+}
+.navbar-avtobusi .navbar-toggle {
+    color: white;
+    text-transform: uppercase;
+    font-size: 10px;
+    border-color: white;
+}
+.navbar-avtobusi .navbar-toggle:hover, .navbar-avtobusi .navbar-toggle:focus {
+    background-color: #2C3E50;
+    color: white;
+    border-color: #2C3E50;
+}
+
+@media (min-width: 768px) {
+    .navbar-custom {
+        padding: 25px 0;
+        -webkit-transition: padding 0.3s;
+        -moz-transition: padding 0.3s;
+        transition: padding 0.3s;
+    }
+    .navbar-custom .navbar-brand {
+        font-size: 2em;
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+        transition: all 0.3s;
+    }
+    .navbar-custom.affix {
+        padding: 10px 0;
+    }
+    .navbar-custom.affix .navbar-brand {
+        font-size: 1.5em;
+    }
+}
+
+.avtobusidate {
+    width: 120px !important;
+}
+
+.avtobusitext {
+    width: 150px !important;
+}
+
+.avtobusicontainer {
+    color: #555 !important;
+}
+
+.avtobusitable {
+    border: 1px solid #cecece !important;
+}
+
+.avtobusilabel {
+	color: #cecece !important;
+}
+
+header .avtobusicontainer {
+    padding-top: 80px !important;
+    padding-bottom: 50px;
+}
+
+.contactcontainer {
+    padding-top: 150px !important;
+}
+
+.infocontainer {
+    padding-top: 30px !important;
+}
+
+.language {
+	float: right; 
+	padding-top: 10px;
+}
+
+.language-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 60px !important;
+  padding: 5px 0 !important;
+  margin: 2px 0 0 !important;
+  font-size: 14px;
+  text-align: left;
+  list-style: none;
+  background-color: #2C3E50;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, .15);
+  border-radius: 2px;
+}
+
+/*
+input:required {
+    background:hsl(180, 50%, 90%);
+    border:1px solid #999;
+}
+
+input:optional {
+    background:hsl(300, 50%, 90%);
+    border:1px dotted hsl(180, 50%, 90%);
+}
+
+input:valid,
+input:in-range {
+    background:hsl(120, 50%, 90%);
+    border-color:hsl(120, 50%, 50%);
+}
+
+input:invalid,
+input:out-of-range {
+    border-color:hsl(0, 50%, 50%);
+    background:hsl(0, 50%, 90%);
+}
+
+input:focus + .help,
+input:invalid + .help {
+    display:inline-block;
+}
+*/

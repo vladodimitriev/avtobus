@@ -1,0 +1,105 @@
+buildscript {
+    repositories {    
+        //mavenCentral()
+        maven {
+            url 'https://nexusl1-emea.gemalto.com/content/groups/ICS-Maven-DC/'
+            credentials {
+                username nexusUsername
+                password nexusPassword
+            } 
+        }
+    }
+    dependencies {
+        classpath "org.akhikhl.gretty:gretty:1.4.0"
+        //classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE")
+    }
+}
+ext {
+    nexus = [
+        public: 'https://nexusl1-emea.gemalto.com/content/groups/Public-Repositories/',
+        rnd: 'https://nexusl1-emea.gemalto.com/content/groups/ICS-Maven-DC/'
+    ]
+    wicketVersion = '8.0.0-M6'
+    wicketStuffVersion = '8.0.0-M6'
+    springVersion = '4.3.7.RELEASE'
+    jacksonVersion = '2.8.7'
+    springWsVersion = '2.4.0.RELEASE'
+    hibernateVersion = '5.0.4.Final'
+    dozerVersion = '5.5.1'
+    derbyVersion = '10.13.1.1'
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.akhikhl.gretty'
+//apply plugin: 'spring-boot'
+
+sourceCompatibility = 1.8
+
+jar {
+    baseName = 'avtobusi'
+}
+
+repositories {
+    /*
+    mavenCentral()
+    maven { url "https://plugins.gradle.org/m2/" }
+    maven { url "http://repo.spring.io/libs-release" }
+    maven { url "https://repository.jboss.org/nexus/content/groups/public-jboss/" }
+    */
+    maven {
+        url nexus.public
+        credentials {
+            username nexusUsername
+            password nexusPassword
+        }
+    }
+    maven {
+        url nexus.rnd
+        credentials {
+            username nexusUsername
+            password nexusPassword
+        }
+    }
+}
+
+dependencies {
+    compile 'commons-collections:commons-collections:3.2'
+    compile 'javax.transaction:jta:1.1'
+    compile 'javax.validation:validation-api:1.1.0.Final'
+
+    compile "org.springframework:spring-core:${springVersion}"
+    compile "org.springframework:spring-orm:${springVersion}"
+    compile "org.springframework:spring-webmvc:${springVersion}"
+    compile "org.springframework:spring-context:${springVersion}"
+    compile "org.springframework:spring-tx:${springVersion}"
+    compile "org.springframework:spring-web:${springVersion}"
+
+    compile "org.apache.wicket:wicket-core:${wicketVersion}"
+    compile "org.apache.wicket:wicket-spring:${wicketVersion}"
+    
+    compile "org.hibernate:hibernate-core:${hibernateVersion}"
+    compile "org.hibernate:hibernate-entitymanager:${hibernateVersion}"
+    
+    compile "net.sf.dozer:dozer:${dozerVersion}"
+    compile "net.sf.dozer:dozer-spring:${dozerVersion}"
+    
+    compile 'org.hsqldb:hsqldb:2.4.0'
+    compile 'log4j:log4j:1.2.17'
+    compile "org.postgresql:postgresql:9.4-1201-jdbc4"
+}
+
+gretty {
+    contextPath = '/avtobusi'
+    port = 4242
+}
+
+task stage(dependsOn: ['build', 'clean'])
+build.mustRunAfter clean
+
+task copyToLib(type: Copy) {
+    into "$buildDir/lib"
+    from(configurations.compile)
+}
+
+stage.dependsOn(copyToLib)

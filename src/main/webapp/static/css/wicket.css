@@ -1,0 +1,114 @@
+body {
+    font-family: sans-serif;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+h1 {
+    color: #e63;
+    font-size: 40px;
+    float: left;
+    margin: 0 20px 20px;
+}
+
+img {
+    border: none;
+}
+
+a {
+    font-weight: bold;
+    text-decoration: none;
+    color: #e63;
+}
+
+a img {
+    display: block;
+    float: left;
+}
+
+div, ul, table, h2 {
+    clear: left;
+}
+
+li {
+    margin-top: 0.25em;
+}
+
+li.feedbackPanelINFO {
+    color: green;
+    list-style-image: url('../img/info.png');
+}
+
+li.feedbackPanelWARNING {
+    color: orange;
+    font-style: italic;
+    list-style-image: url('../img/warning.png');
+}
+
+li.feedbackPanelERROR {
+    color: red;
+    font-weight: bold;
+    list-style-image: url('../img/error.png');
+}
+
+table {
+    border-collapse: collapse;
+    border-top: 2px solid #e63;
+    border-bottom: 2px solid #e63;
+}
+
+thead {
+    border-bottom: 1px solid #e63;
+}
+
+tr.odd {
+    background-color: #ffebcd;
+}
+
+td {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+.panel {
+    margin: 2em 2em 2em 0;
+    padding: 1em;
+    border: 1px solid #e63;
+}
+
+a:hover {
+    background: orange;
+    text-decoration: none;
+    font-size: 14;
+}
+
+.borderedBlock {
+    background: #DEDEDE;
+    color: blue;
+    font-weight: bold;
+    border: solid #E9601A;
+    border-width: thin;
+    padding: 2px 2px 2px 6px;
+    margin: 2px;
+}
+
+#header {
+    text-align: center;
+}
+
+#left {
+    padding: 10px;
+    vertical-align: top;
+    width: 20%;
+    height: 120px;
+}
+
+#content {
+    vertical-align: top;
+    width: 80%;
+    height: 100%;
+}
+
+#footer {
+    text-align: center;
+}
