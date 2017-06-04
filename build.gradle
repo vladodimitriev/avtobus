@@ -4,14 +4,9 @@ buildscript {
     }
     dependencies {
         classpath "org.akhikhl.gretty:gretty:1.4.0"
-        //classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE")
     }
 }
 ext {
-    nexus = [
-        public: 'https://nexusl1-emea.gemalto.com/content/groups/Public-Repositories/',
-        rnd: 'https://nexusl1-emea.gemalto.com/content/groups/ICS-Maven-DC/'
-    ]
     wicketVersion = '8.0.0-M6'
     wicketStuffVersion = '8.0.0-M6'
     springVersion = '4.3.7.RELEASE'
@@ -24,11 +19,12 @@ ext {
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'war'
 apply plugin: 'org.akhikhl.gretty'
 
 sourceCompatibility = 1.8
 
-jar {
+war {
     baseName = 'avtobusi'
 }
 
@@ -61,18 +57,9 @@ dependencies {
     compile 'log4j:log4j:1.2.17'
     compile "org.postgresql:postgresql:9.4-1201-jdbc4"
 }
-
+/*
 gretty {
     contextPath = '/avtobusi'
     port = 4242
 }
-
-task stage(dependsOn: ['build', 'clean'])
-build.mustRunAfter clean
-
-task copyToLib(type: Copy) {
-    into "$buildDir/lib"
-    from(configurations.compile)
-}
-
-stage.dependsOn(copyToLib)
+*/
