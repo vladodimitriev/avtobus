@@ -125,12 +125,6 @@ public class SearchPage extends BasePage {
 		add(img);
 		
 		Link link1 = new Link("english") {
-			
-			@Override
-			public MarkupContainer setDefaultModel(IModel model) {
-				return null;
-			}
-
 			@Override
 			public void onClick() {
 				setResponsePage(SearchPage.class, getParams("EN"));
@@ -139,12 +133,6 @@ public class SearchPage extends BasePage {
 		add(link1);
 		
 		Link link2 = new Link("macedonian") {
-
-			@Override
-			public MarkupContainer setDefaultModel(IModel model) {
-				return null;
-			}
-
 			@Override
 			public void onClick() {
 				setResponsePage(SearchPage.class, getParams("MK"));

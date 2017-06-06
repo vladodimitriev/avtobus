@@ -57,9 +57,8 @@ dependencies {
     compile 'log4j:log4j:1.2.17'
     compile "org.postgresql:postgresql:9.4-1201-jdbc4"
 }
-/*
+
 gretty {
-    contextPath = '/avtobusi'
+    contextPath = '/avtobus'
     port = 4242
 }
-*/
