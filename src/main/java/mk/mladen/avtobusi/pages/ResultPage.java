@@ -21,10 +21,11 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.wicket.request.resource.ContextRelativeResourceReference;
+import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
+import mk.mladen.avtobusi.WicketApplication;
 import mk.mladen.avtobusi.beans.SearchBean;
 import mk.mladen.avtobusi.dto.BusLineDto;
 import mk.mladen.avtobusi.service.BusLineService;
@@ -55,11 +56,11 @@ public class ResultPage extends BasePage {
 		Model imgModel = new Model();
 		Image img = new Image( "language_img", imgModel);
 		
-		ResourceReference resourceReference = new ContextRelativeResourceReference("static/flags/4x3/gb.svg");
+		ResourceReference resourceReference = new PackageResourceReference(WicketApplication.class, "static/flags/4x3/gb.svg");
 		if("EN".equalsIgnoreCase(lang)) {
-			resourceReference = new ContextRelativeResourceReference("static/flags/4x3/gb.svg");
+			resourceReference = new PackageResourceReference(WicketApplication.class, "static/flags/4x3/gb.svg");
 		} else if("MK".equalsIgnoreCase(lang)) {
-			resourceReference = new ContextRelativeResourceReference("static/flags/4x3/mk.svg");
+			resourceReference = new PackageResourceReference(WicketApplication.class, "static/flags/4x3/mk.svg");
 		}
 		img.setImageResourceReference(resourceReference);
 		add(img);

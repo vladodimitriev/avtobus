@@ -13,11 +13,12 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.wicket.request.resource.ContextRelativeResourceReference;
+import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.settings.JavaScriptLibrarySettings;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
+import mk.mladen.avtobusi.WicketApplication;
 import mk.mladen.avtobusi.service.InsertDataService;
 
 @SuppressWarnings("serial")
@@ -101,50 +102,50 @@ public class BasePage extends WebPage {
         JavaScriptLibrarySettings javaScriptSettings = getApplication().getJavaScriptLibrarySettings();
 		response.render(JavaScriptHeaderItem.forReference(javaScriptSettings.getJQueryReference()));
 		
-		ResourceReference jqueryJsRef = new ContextRelativeResourceReference("static/js/jquery.min.js", false);
+		ResourceReference jqueryJsRef = new PackageResourceReference(WicketApplication.class, "static/js/jquery.min.js");
         JavaScriptHeaderItem jqueryJsItem = JavaScriptHeaderItem.forReference(jqueryJsRef);
 		
-		ResourceReference jqueryUiJsRef = new ContextRelativeResourceReference("static/js/jquery-ui.min.js", false);
+		ResourceReference jqueryUiJsRef = new PackageResourceReference(WicketApplication.class, "static/js/jquery-ui.min.js");
         JavaScriptHeaderItem jqueryUiJsItem = JavaScriptHeaderItem.forReference(jqueryUiJsRef);
         
-        ResourceReference jqueryUii18nJsRef = new ContextRelativeResourceReference("static/js/jquery-ui-i18n.min.js", false);
+        ResourceReference jqueryUii18nJsRef = new PackageResourceReference(WicketApplication.class, "static/js/jquery-ui-i18n.min.js");
         JavaScriptHeaderItem jqueryUii18nJsItem = JavaScriptHeaderItem.forReference(jqueryUii18nJsRef);
         
-        ResourceReference bootstrapJsRef = new ContextRelativeResourceReference("static/js/bootstrap.min.js", false);
+        ResourceReference bootstrapJsRef = new PackageResourceReference(WicketApplication.class, "static/js/bootstrap.min.js");
         JavaScriptHeaderItem bootstrapJsItem = JavaScriptHeaderItem.forReference(bootstrapJsRef);
         
-        ResourceReference datepickerMkJsRef = new ContextRelativeResourceReference("static/js/datepicker-mk.js", false);
+        ResourceReference datepickerMkJsRef = new PackageResourceReference(WicketApplication.class, "static/js/datepicker-mk.js");
         JavaScriptHeaderItem datepickerMkJsItem = JavaScriptHeaderItem.forReference(datepickerMkJsRef);
         
-        ResourceReference datepickerEnJsRef = new ContextRelativeResourceReference("static/js/datepicker-en-GB.js", false);
+        ResourceReference datepickerEnJsRef = new PackageResourceReference(WicketApplication.class, "static/js/datepicker-en-GB.js");
         JavaScriptHeaderItem datepickerEnJsItem = JavaScriptHeaderItem.forReference(datepickerEnJsRef);
         
-        ResourceReference avtobusDpJsRef = new ContextRelativeResourceReference("static/js/avtobusdatepicker.js", false);
+        ResourceReference avtobusDpJsRef = new PackageResourceReference(WicketApplication.class, "static/js/avtobusdatepicker.js");
         JavaScriptHeaderItem avtobusDpJsItem = JavaScriptHeaderItem.forReference(avtobusDpJsRef);
         
-        ResourceReference validationDpJsRef = new ContextRelativeResourceReference("static/js/validation.js", false);
+        ResourceReference validationDpJsRef = new PackageResourceReference(WicketApplication.class, "static/js/validation.js");
         JavaScriptHeaderItem validationDpJsItem = JavaScriptHeaderItem.forReference(validationDpJsRef);
         
-        ResourceReference jqueryDateFormatDpJsRef = new ContextRelativeResourceReference("static/js/jquery.dateFormat.js", false);
+        ResourceReference jqueryDateFormatDpJsRef = new PackageResourceReference(WicketApplication.class, "static/js/jquery.dateFormat.js");
         JavaScriptHeaderItem jqueryDateFormatDpJsItem = JavaScriptHeaderItem.forReference(jqueryDateFormatDpJsRef);
         
-        ResourceReference jqueryValidateJsRef = new ContextRelativeResourceReference("static/js/jquery.validate.min.js", false);
+        ResourceReference jqueryValidateJsRef = new PackageResourceReference(WicketApplication.class, "static/js/jquery.validate.min.js");
         JavaScriptHeaderItem jqueryValidateJsItem = JavaScriptHeaderItem.forReference(jqueryValidateJsRef);
         
         // -- CSS
-        ResourceReference bootstrapCssRef = new ContextRelativeResourceReference("static/css/bootstrap.css", false);
+        ResourceReference bootstrapCssRef = new PackageResourceReference(WicketApplication.class, "static/css/bootstrap.css");
         CssHeaderItem bootstrapCssItem = CssHeaderItem.forReference(bootstrapCssRef);
         
-        ResourceReference fontAwesomeCssRef = new ContextRelativeResourceReference("static/css/font-awesome.min.css", false);
+        ResourceReference fontAwesomeCssRef = new PackageResourceReference(WicketApplication.class, "static/css/font-awesome.min.css");
         CssHeaderItem fontAwesomeCssItem = CssHeaderItem.forReference(fontAwesomeCssRef);
         
-        ResourceReference jQueryUiCssRef = new ContextRelativeResourceReference("static/css/jquery-ui.min.css", false);
+        ResourceReference jQueryUiCssRef = new PackageResourceReference(WicketApplication.class, "static/css/jquery-ui.min.css");
         CssHeaderItem jQueryUiCssItem = CssHeaderItem.forReference(jQueryUiCssRef);
         
-        ResourceReference flagIconCssRef = new ContextRelativeResourceReference("static/css/flag-icon.min.css", false);
+        ResourceReference flagIconCssRef = new PackageResourceReference(WicketApplication.class, "static/css/flag-icon.min.css");
         CssHeaderItem flagIconCssItem = CssHeaderItem.forReference(flagIconCssRef);
         
-        ResourceReference avtobusCssRef = new ContextRelativeResourceReference("static/css/avtobus.css", false);
+        ResourceReference avtobusCssRef = new PackageResourceReference(WicketApplication.class, "static/css/avtobus.css");
         CssHeaderItem avtobusCssItem = CssHeaderItem.forReference(avtobusCssRef);
         
         response.render(bootstrapCssItem);
