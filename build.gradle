@@ -19,12 +19,12 @@ ext {
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
-apply plugin: 'war'
+//apply plugin: 'war'
 apply plugin: 'org.akhikhl.gretty'
 
 sourceCompatibility = 1.8
 
-war {
+jar {
     baseName = 'avtobusi'
 }
 
@@ -59,8 +59,9 @@ dependencies {
     
     testCompile 'junit:junit:4.12'
 }
-
+/*
 gretty {
     contextPath = '/avtobus'
     port = 4242
 }
+*/
