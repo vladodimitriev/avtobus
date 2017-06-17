@@ -26,8 +26,8 @@ DATABASE_URL=postgres://localhost:5432/gradle_database_name
 ## Deploying to Heroku
 
 ```sh
-$ heroku create
-$ git push heroku master
+$ heroku create avtobusi
+$ heroku deploy:war build/libs/avtobusi.war
 $ heroku open
 ```
 
