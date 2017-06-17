@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/avtobusi.jar
+web: java -Dserver.port=$PORT $JAVA_OPTS -war build/libs/avtobusi.war
