@@ -3,6 +3,7 @@ package mk.mladen.avtobusi.pages;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
@@ -126,13 +127,17 @@ public class ResultPage extends BasePage {
 						  repeatingView.add(new Label(repeatingView.newChildId(), busLine.getDepartureTime()));
 						  repeatingView.add(new Label(repeatingView.newChildId(), busLine.getArrivalTime()));
 						  if("EN".equalsIgnoreCase(lang)) {
-							  repeatingView.add(new Label(repeatingView.newChildId(), busLine.getCarrier()));   
+							  Label label = new Label(repeatingView.newChildId(), busLine.getCarrier());
+							  label.add(new AttributeModifier("style", "text-align: left"));
+							  repeatingView.add(label);   
 						  } else if("MK".equalsIgnoreCase(lang)) {
-							  repeatingView.add(new Label(repeatingView.newChildId(), busLine.getCarrierCyrilic()));   
+							  Label label = new Label(repeatingView.newChildId(), busLine.getCarrierCyrilic());
+							  label.add(new AttributeModifier("style", "text-align: left"));
+							  repeatingView.add(label);   
 						  }
-						   
 						  repeatingView.add(new Label(repeatingView.newChildId(), busLine.getPrice()));
-						  item.add(repeatingView); 
+						  repeatingView.add(new Label(repeatingView.newChildId(), busLine.getPriceReturn()));
+						  item.add(repeatingView);
 					  }
 				};
 				Form form2 = new Form("purchaseForm"){
@@ -163,8 +168,17 @@ public class ResultPage extends BasePage {
 				  RepeatingView repeatingView = new RepeatingView("dataRow");
 				  repeatingView.add(new Label(repeatingView.newChildId(), busLine.getDepartureTime()));
 				  repeatingView.add(new Label(repeatingView.newChildId(), busLine.getArrivalTime()));
-				  repeatingView.add(new Label(repeatingView.newChildId(), busLine.getCarrier()));    
+				  if("EN".equalsIgnoreCase(lang)) {
+					  Label label = new Label(repeatingView.newChildId(), busLine.getCarrier());
+					  label.add(new AttributeModifier("style", "text-align: left"));
+					  repeatingView.add(label);   
+				  } else if("MK".equalsIgnoreCase(lang)) {
+					  Label label = new Label(repeatingView.newChildId(), busLine.getCarrierCyrilic());
+					  label.add(new AttributeModifier("style", "text-align: left"));
+					  repeatingView.add(label);   
+				  } 
 				  repeatingView.add(new Label(repeatingView.newChildId(), busLine.getPrice()));
+				  repeatingView.add(new Label(repeatingView.newChildId(), busLine.getPriceReturn()));
 				  item.add(repeatingView);
 			  }
 		};

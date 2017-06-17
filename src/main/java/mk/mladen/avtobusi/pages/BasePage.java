@@ -188,7 +188,7 @@ public class BasePage extends WebPage {
 		if(logger.isInfoEnabled()){
 			logger.info("insertDataIntoDb()");
 		}
-		insertDataService.insertDataIntoDerbyDb();
+		insertDataService.insertDataIntoHsqldbDb();
 	}
 }
 

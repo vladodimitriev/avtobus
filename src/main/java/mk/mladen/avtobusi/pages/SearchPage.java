@@ -31,14 +31,6 @@ public class SearchPage extends BasePage {
 	
 	private SearchBean searchBean;
 	
-	@Override
-	protected void onInitialize() {
-		super.onInitialize();
-		if(logger.isInfoEnabled()){
-			logger.info("SearchPage onInitialize()");
-		}
-	}
-	
 	public SearchPage(PageParameters params) {
 		super(params);
 		if(logger.isInfoEnabled()){

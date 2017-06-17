@@ -254,3 +254,8 @@ input:invalid + .help {
 /* add padding  */
 .left-addon input  { padding-left:  30px; }
 .right-addon input { padding-right: 30px; }
+
+th {
+    text-align: center;
+}
+

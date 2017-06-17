@@ -18,6 +18,7 @@ import mk.mladen.avtobusi.dao.BusLineDao;
 import mk.mladen.avtobusi.dto.BusLineDto;
 import mk.mladen.avtobusi.entity.BusLineEntity;
 import mk.mladen.avtobusi.service.BusLineService;
+import mk.mladen.avtobusi.util.DOW;
 
 @Service
 @SuppressWarnings("unchecked")
@@ -42,6 +43,7 @@ public class BusLineServiceImpl implements BusLineService {
 							ent.getCarrier().getName(),
 							ent.getCarrier().getNameCyrilic(),
 							ent.getPrice(),
+							ent.getPriceReturn(),
 							ent.getDepartureTime(),
 							ent.getArrivalTime());
 					result.add(dto);
@@ -63,22 +65,24 @@ public class BusLineServiceImpl implements BusLineService {
 		Date date = new Date();
 		if(StringUtils.isNotBlank(dateString)) {
 			try {
-				date = new SimpleDateFormat("dd/mm/yyyy").parse(dateString);
+				date = new SimpleDateFormat("dd/MM/yyyy").parse(dateString);
 			} catch (ParseException e1) {
 				e1.printStackTrace();
 			}
 		}
+		
 		Calendar c = Calendar.getInstance();
 	    c.setTime(date);
 	    c.setTimeZone(TimeZone.getTimeZone("CET"));
 		int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
 		String dow = String.valueOf(dayOfWeek);
+		String realDow = DOW.getRealDayOfWeek(DOW.getDayByDayNumber(dow));
 		if(logger.isInfoEnabled()){
-			logger.info("dayOfWeek: " + dayOfWeek);
+			logger.info("dayOfWeek: " + dayOfWeek + " real day of week: " + realDow);
 		}
 		
 		List<BusLineDto> result = new ArrayList<BusLineDto>();
-		List<BusLineEntity> entities = busLineDao.find(departure, destination, dow);
+		List<BusLineEntity> entities = busLineDao.find(departure, destination, realDow);
 		if(entities != null && !entities.isEmpty()) {
 			try {
 				for(BusLineEntity ent : entities) {
@@ -88,6 +92,7 @@ public class BusLineServiceImpl implements BusLineService {
 							ent.getCarrier().getName(),
 							ent.getCarrier().getNameCyrilic(),
 							ent.getPrice(),
+							ent.getPriceReturn(),
 							ent.getDepartureTime(),
 							ent.getArrivalTime());
 					result.add(dto);

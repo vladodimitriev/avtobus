@@ -21,6 +21,8 @@ public class BusLineDto implements Serializable, Comparable {
 	
 	private String price;
 	
+	private String priceReturn;
+	
 	private String departureTime;
 	
 	private String arrivalTime;
@@ -29,13 +31,14 @@ public class BusLineDto implements Serializable, Comparable {
 	}
 	
 	public BusLineDto(String name, String departurePlace, String destinationPlace, 
-			String carrier, String carrierCyrilic, String price, String departureTime, String arrivalTime) {
+			String carrier, String carrierCyrilic, String price, String priceReturn, String departureTime, String arrivalTime) {
 		this.name = name;
 		this.departurePlace = departurePlace;
 		this.destinationPlace = destinationPlace;
 		this.carrier = carrier;
 		this.carrierCyrilic = carrierCyrilic;
 		this.price = price;
+		this.priceReturn = priceReturn;
 		this.departureTime = departureTime;
 		this.arrivalTime = arrivalTime;
 	}
@@ -110,6 +113,14 @@ public class BusLineDto implements Serializable, Comparable {
 
 	public void setCarrierCyrilic(String carrierCyrilic) {
 		this.carrierCyrilic = carrierCyrilic;
+	}
+	
+	public String getPriceReturn() {
+		return priceReturn;
+	}
+
+	public void setPriceReturn(String priceReturn) {
+		this.priceReturn = priceReturn;
 	}
 
 	@Override

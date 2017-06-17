@@ -47,19 +47,20 @@
                <div class="panel-body">
                    <form wicket:id="resultSearchForm" class="form-inline">
                        <div class="row">
-	                       <div class="form-group col-sm-3">
+	                       <div class="form-group col-md-3">
 	                           <input wicket:id="departurePlace" wicket:message="placeholder :avtobusi.searchpage.departureplace" type="text" class="form-control" id="departurePlace" required/>
 	                       </div>
-	                       <div class="form-group col-sm-3">
+	                       <div class="form-group col-md-3">
 	                           <input wicket:id="destinationPlace" wicket:message="placeholder :avtobusi.searchpage.destinationplace" type="text" class="form-control" id="destinationPlace" required/>
 	                       </div>
-	                       <div class="form-group col-sm-4">
+	                       <div class="form-group col-md-3">
 	                           <div class="input-group">
 	                               <input wicket:id="departureDate" type="text" class="form-control avtobusidate" id="departureDate" wicket:message="placeholder :avtobusi.searchpage.departuredate.format" required/>
 	                               <span class="input-group-addon"><i class="glyphicon glyphicon-calendar" onclick="$(function() {$('#departureDate').datepicker('show');});"></i></span>
 	                           </div>
 	                       </div>
-	                       <div class="form-group col-sm-2">
+	                       <div class="form-group col-md-1"></div>
+	                       <div class="form-group col-md-2">
 	                           <input type="submit" class="btn btn-primary btn-block" wicket:message="value :avtobusi.searchpage.btn.search" />
 	                       </div>
                        </div>
@@ -74,9 +75,20 @@
        <div class="col-sm-10">
        <form wicket:id="purchaseForm" class="form-inline">
             <table class="table avtobusitable">
+                <thead>
+				    <tr>
+				      <th><wicket:message key="avtobusi.resultPage.table.departureTime">Departure time</wicket:message></th>
+				      <th><wicket:message key="avtobusi.resultPage.table.arrivalTime">Arrival time</wicket:message></th>
+				      <th style="text-align: left"><wicket:message key="avtobusi.resultPage.table.carrier">Carrier</wicket:message></th>
+				      <th><wicket:message key="avtobusi.resultPage.table.price">Price</wicket:message></th>
+				      <th><wicket:message key="avtobusi.resultPage.table.priceReturn">Price return</wicket:message></th>
+				    </tr>
+				 </thead>
+				 <tbody>
                 <tr wicket:id="rows">
                    <td wicket:id="dataRow"></td>
                 </tr>
+                </tbody>
             </table>
        </form>
        </div>

@@ -40,6 +40,9 @@ public class BusLineEntity {
 	@Column(name = "price")
 	private String price;
 	
+	@Column(name = "priceReturn")
+	private String priceReturn;
+	
 	@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="departureplaceid")
 	private PlaceEntity departure;
@@ -153,5 +156,13 @@ public class BusLineEntity {
 	public void setCarrier(CarrierEntity carrier) {
 		this.carrier = carrier;
 	}
-	
+
+	public String getPriceReturn() {
+		return priceReturn;
+	}
+
+	public void setPriceReturn(String priceReturn) {
+		this.priceReturn = priceReturn;
+	}
+
 }
