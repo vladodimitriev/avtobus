@@ -8,6 +8,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -21,10 +22,11 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
+@ComponentScan("mk.mladen.avtobusi")
 @EnableTransactionManagement
-@PropertySource("classpath:application.properties")
-public class DbConfig {
-	
+@PropertySource("classpath:application-test.properties")
+public class ApplicationTestConfig {
+
 	@Resource
     private Environment environment;
 	
@@ -76,5 +78,4 @@ public class DbConfig {
         properties.put("hibernate.enable_lazy_load_no_trans", environment.getRequiredProperty("hsqldb.hibernate.enable_lazy_load_no_trans"));
 		return properties;
 	}
-
 }
