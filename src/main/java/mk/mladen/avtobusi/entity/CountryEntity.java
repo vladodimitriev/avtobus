@@ -21,6 +21,9 @@ public class CountryEntity {
 	
 	@Column(name = "population")
 	private int population;
+	
+	@Column(name = "countrycode")
+	private String countryCode;
 
 	public int getId() {
 		return id;
@@ -45,5 +48,13 @@ public class CountryEntity {
 	public void setPopulation(int population) {
 		this.population = population;
 	}
-	
+
+	public String getCountryCode() {
+		return countryCode;
+	}
+
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
+
 }

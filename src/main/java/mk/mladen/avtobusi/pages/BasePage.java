@@ -36,7 +36,7 @@ public class BasePage extends WebPage {
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
-		insertDataIntoDb();
+		//insertDataIntoDb();
 	}
 	
 	@SuppressWarnings("rawtypes")
