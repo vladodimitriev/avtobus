@@ -14,9 +14,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
@@ -35,11 +32,26 @@ public class DbConfig {
 	@javax.annotation.Resource
 	private Environment environment;
 	
-	@Value("classpath:db/sql/create-db.sql")
-	private Resource schemaScript;
-
-	@Value("classpath:db/sql/insert-data.sql")
-	private Resource dataScript;
+	@Value("classpath:db/sql/0001-insert-data.sql")
+	private Resource sql0001insertDataScript;
+	
+	@Value("classpath:db/sql/0002-places.sql")
+	private Resource sql0002places;
+	
+	@Value("classpath:db/sql/0003-carriers.sql")
+	private Resource sql0003carriers;
+	
+	@Value("classpath:db/sql/1004-negotino-skopje.sql")
+	private Resource sql1004negotinoSkopje;
+	
+	@Value("classpath:db/sql/1004-skopje-negotino.sql")
+	private Resource sql1004skopjeNegotino;
+	
+	@Value("classpath:db/sql/1005-ohrid-skopje.sql")
+	private Resource sql1005ohridSkopje;
+	
+	@Value("classpath:db/sql/1005-skopje-ohrid.sql")
+	private Resource sql1005skopjeOhrid;
 
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
@@ -61,13 +73,6 @@ public class DbConfig {
 		dataSource.setUrl(environment.getRequiredProperty("hsqldb.jdbc.url.inmemory"));
 		dataSource.setUsername(environment.getRequiredProperty("hsqldb.jdbc.username"));
 		dataSource.setPassword(environment.getRequiredProperty("hsqldb.jdbc.password"));
-
-//		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-//		EmbeddedDatabase db = builder.setType(EmbeddedDatabaseType.HSQL)
-//					.addScript("db/sql/create-db.sql")
-//					.addScript("db/sql/insert-data.sql")
-//					.build();
-		
 		return dataSource;
 	}
 
@@ -95,8 +100,14 @@ public class DbConfig {
 
 	private DatabasePopulator databasePopulator() {
 	    final ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
-	    //populator.addScript(schemaScript);
-	    populator.addScript(dataScript);
+	    populator.addScript(sql0001insertDataScript);
+	    populator.addScript(sql0002places);
+	    populator.addScript(sql0003carriers);
+	    populator.addScript(sql1004negotinoSkopje);
+	    populator.addScript(sql1004negotinoSkopje);
+	    populator.addScript(sql1004skopjeNegotino);
+	    populator.addScript(sql1005ohridSkopje);
+	    populator.addScript(sql1005skopjeOhrid);
 	    return populator;
 	}
 

@@ -21,14 +21,14 @@ public class CarrierEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "name")
+	@Column(name = "name", nullable=true)
 	private String name;
 	
-	@Column(name = "name_cyrilic")
+	@Column(name = "name_cyrilic", nullable=true)
 	private String nameCyrilic;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="carrierplaceid")
+    @JoinColumn(name="carrierplaceid", nullable=true)
 	private PlaceEntity place;
 	
 	public CarrierEntity() {

@@ -1,11 +1,13 @@
 function initJQDatepicker(inputId, countryIsoCode, errorMessage, errorMessage1, errorMessage2, errorMessage3) {
 	var localizedArray = $.datepicker.regional[countryIsoCode];
 	localizedArray['dateFormat'] = 'dd/mm/yy';
+	localizedArray['numberOfMonths'] = 2;
+	localizedArray['showCurrentAtPos'] = 0;
 
 	var departureDate = $("#departureDate");
 	var departurePlace = $("#departurePlace");
 	var destinationPlace = $("#destinationPlace");
-	departureDate.datepicker(localizedArray);
+	departureDate.datepicker(localizedArray);	
 	departureDate.on('change', function() {
 	    var ds = departureDate.val();
 
@@ -26,7 +28,7 @@ function initJQDatepicker(inputId, countryIsoCode, errorMessage, errorMessage1, 
     });	
 	
 	departureDate.on('click', function() {
-		departureDate.datepicker(localizedArray);	
+		departureDate.datepicker(localizedArray);
 		
 		departureDate.get(0).setCustomValidity("");
 		destinationPlace.get(0).setCustomValidity("");

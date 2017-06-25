@@ -19,40 +19,43 @@ public class BusLineEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "name")
+	@Column(name = "name", nullable=true)
 	private String name;
 	
-	@Column(name = "departuretime")
+	@Column(name = "departuretime", nullable=true)
 	private String departureTime;
 	
-	@Column(name = "arrivaltime")
+	@Column(name = "arrivaltime", nullable=true)
 	private String arrivalTime;
 	
-	@Column(name = "distance")
-	private int distance;
+	@Column(name = "distance", nullable=true)
+	private Integer distance;
 	
-	@Column(name = "jurneytime")
+	@Column(name = "jurneytime", nullable=true)
 	private String jurneyTime;
 	
-	@Column(name = "operationdays")
+	@Column(name = "operationdays", nullable=true)
 	private String operationDays;
 	
-	@Column(name = "price")
+	@Column(name = "operationperiod", nullable=true)
+	private String operationPeriod;
+	
+	@Column(name = "price", nullable=true)
 	private String price;
 	
-	@Column(name = "priceReturn")
+	@Column(name = "priceReturn", nullable=true)
 	private String priceReturn;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="departureplaceid")
+    @JoinColumn(name="departureplaceid", nullable=true)
 	private PlaceEntity departure;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="destinationplaceid")
+    @JoinColumn(name="destinationplaceid", nullable=true)
 	private PlaceEntity destination;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="carrierid")
+    @JoinColumn(name="carrierid", nullable=true)
 	private CarrierEntity carrier;
 	
 	public BusLineEntity() {
@@ -99,14 +102,6 @@ public class BusLineEntity {
 
 	public void setArrivalTime(String arrivalTime) {
 		this.arrivalTime = arrivalTime;
-	}
-
-	public int getDistance() {
-		return distance;
-	}
-
-	public void setDistance(int distance) {
-		this.distance = distance;
 	}
 
 	public String getJurneyTime() {
@@ -163,6 +158,22 @@ public class BusLineEntity {
 
 	public void setPriceReturn(String priceReturn) {
 		this.priceReturn = priceReturn;
+	}
+
+	public Integer getDistance() {
+		return distance;
+	}
+
+	public void setDistance(Integer distance) {
+		this.distance = distance;
+	}
+
+	public String getOperationPeriod() {
+		return operationPeriod;
+	}
+
+	public void setOperationPeriod(String operationPeriod) {
+		this.operationPeriod = operationPeriod;
 	}
 
 }

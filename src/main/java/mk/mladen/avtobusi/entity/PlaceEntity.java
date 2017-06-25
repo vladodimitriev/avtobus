@@ -19,20 +19,20 @@ public class PlaceEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "name")
+	@Column(name = "name", nullable=true)
 	private String name;
 	
-	@Column(name = "name_cyrilic")
+	@Column(name = "name_cyrilic", nullable=true)
 	private String nameCyrilic;
 	
-	@Column(name = "population")
-	private int population;
+	@Column(name = "population", nullable=true)
+	private Integer population;
 	
-	@Column(name = "postalcode")
+	@Column(name = "postalcode", nullable=true)
 	private String postalCode;
 
 	@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="countryid")
+    @JoinColumn(name="countryid", nullable=true)
 	private CountryEntity country;
 	
 	public PlaceEntity() {
@@ -61,14 +61,6 @@ public class PlaceEntity {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public int getPopulation() {
-		return population;
-	}
-
-	public void setPopulation(int population) {
-		this.population = population;
 	}
 
 	public String getPostalCode() {

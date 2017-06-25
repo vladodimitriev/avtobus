@@ -16,13 +16,13 @@ public class CountryEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "name")
+	@Column(name = "name", nullable=true)
 	private String name;
 	
-	@Column(name = "population")
-	private int population;
+	@Column(name = "population", nullable=true)
+	private Integer population;
 	
-	@Column(name = "countrycode")
+	@Column(name = "countrycode", nullable=true)
 	private String countryCode;
 
 	public int getId() {
@@ -41,20 +41,20 @@ public class CountryEntity {
 		this.name = name;
 	}
 
-	public int getPopulation() {
-		return population;
-	}
-
-	public void setPopulation(int population) {
-		this.population = population;
-	}
-
 	public String getCountryCode() {
 		return countryCode;
 	}
 
 	public void setCountryCode(String countryCode) {
 		this.countryCode = countryCode;
+	}
+
+	public Integer getPopulation() {
+		return population;
+	}
+
+	public void setPopulation(Integer population) {
+		this.population = population;
 	}
 
 }

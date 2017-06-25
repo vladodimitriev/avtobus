@@ -1,0 +1,18 @@
+/* 1*/ insert into CARRIER (name, name_cyrilic, carrierplaceid) values ('Makedonija Soobracaj', 'Македонија Сообраќај', '1');
+/* 2*/ insert into CARRIER (name, name_cyrilic, carrierplaceid) values ('Rule Turs', 'Руле Турс', '1');
+/* 3*/ insert into CARRIER (name, name_cyrilic, carrierplaceid) values ('Vardar Express', 'Вардар Експрес', '1');
+/* 4*/ insert into CARRIER (name, name_cyrilic, carrierplaceid) values ('Mlaz Bogdanci', 'Млаз Богданци', '1');
+/* 5*/ insert into CARRIER (name, name_cyrilic, carrierplaceid) values ('Antigona Trans', 'Антигона Транс', '2');
+/* 6*/ insert into CARRIER (name, name_cyrilic, carrierplaceid) values ('Dajo Turs', 'Дајо Турс', '2');
+/* 7*/ insert into CARRIER (name, name_cyrilic, carrierplaceid) values ('Pamela', 'Памела', '2');
+/* 8*/ insert into CARRIER (name, name_cyrilic, carrierplaceid) values ('Sam-Vel', 'Сам-Вел', '3');
+/* 9*/ insert into CARRIER (name, name_cyrilic, carrierplaceid) values ('Ekstra bus', 'Екстра бус', '3');
+/*10*/ insert into CARRIER (name, name_cyrilic, carrierplaceid) values ('Kam Smark DOO', 'Кам Смарк ДОО', '3');
+/*11*/ insert into CARRIER (name, name_cyrilic, carrierplaceid) values ('Galeb', 'Галеб', '4');
+/*12*/ insert into CARRIER (name, name_cyrilic, carrierplaceid) values ('Delfina Turs', 'Делфина Турс', '4');
+/*13*/ insert into CARRIER (name, name_cyrilic, carrierplaceid) values ('Klasik kompani', 'Класик компани', '4');
+/*14*/ insert into CARRIER (name, name_cyrilic, carrierplaceid) values ('Transkop', '', '9');
+/*15*/ insert into CARRIER (name, name_cyrilic, carrierplaceid) values ('Pelagonija Turs', 'Пелагонија Турс', '10');
+/*16*/ insert into CARRIER (name, name_cyrilic, carrierplaceid) values ('Strumica express', 'Струмица екпрес', '11');
+/*17*/ insert into CARRIER (name, name_cyrilic, carrierplaceid) values ('Ina P kompani', 'ИНА П КОМПАНИ', '4');
+/*18*/ insert into CARRIER (name, name_cyrilic, carrierplaceid) values ('Biser Prom', 'БИСЕР ПРОМ', '4');
