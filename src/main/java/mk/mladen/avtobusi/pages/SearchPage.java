@@ -1,10 +1,15 @@
 package mk.mladen.avtobusi.pages;
 
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
+import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteTextField;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
@@ -13,12 +18,16 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.request.Response;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
+import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.util.string.Strings;
 
 import mk.mladen.avtobusi.WicketApplication;
 import mk.mladen.avtobusi.beans.SearchBean;
+import mk.mladen.avtobusi.service.PlaceService;
 
 @SuppressWarnings({ "rawtypes", "serial", "unchecked" })
 public class SearchPage extends BasePage {
@@ -31,6 +40,9 @@ public class SearchPage extends BasePage {
 	
 	private SearchBean searchBean;
 	
+	@SpringBean
+	private PlaceService placeService;
+	
 	public SearchPage(PageParameters params) {
 		super(params);
 		if(logger.isInfoEnabled()){
@@ -41,14 +53,29 @@ public class SearchPage extends BasePage {
 		PropertyModel destinationModel = new PropertyModel(searchBean, "destinationPlace");
 		PropertyModel dateModel = new PropertyModel(searchBean, "departureDate");
 
-		TextField tf1 = new TextField<String>("departurePlace", departureModel);
-		tf1.add(new OnChangeAjaxBehavior(){
-	        @Override
-	        protected void onUpdate(final AjaxRequestTarget target){
-	        	ajax1 = ((TextField<String>) getComponent()).getModelObject();
-	        }
-	    });
-		tf1.setRequired(true);
+//		TextField tf1 = new TextField<String>("departurePlace", departureModel);
+//		tf1.add(new OnChangeAjaxBehavior(){
+//	        @Override
+//	        protected void onUpdate(final AjaxRequestTarget target){
+//	        	ajax1 = ((TextField<String>) getComponent()).getModelObject();
+//	        }
+//	    });
+//		tf1.setRequired(true);
+		
+		AutoCompleteTextField<String> actf1 = new AutoCompleteTextField<String>("departurePlace", departureModel) {
+			@Override
+			protected Iterator<String> getChoices(String input) {
+				logger.debug("get choices input: " + input);
+				logger.info("get choices input: " + input);
+				if (Strings.isEmpty(input) && input != null && input.length() > 3) {
+                    List<String> emptyList = Collections.emptyList();
+                    return emptyList.iterator();
+                }
+                List<String> choices = placeService.findAllPlacesNames(input);
+				return choices.iterator();
+			}
+		};
+		actf1.setRequired(true);
 		
 		TextField tf2 = new TextField<String>("destinationPlace", destinationModel);
 		tf2.add(new OnChangeAjaxBehavior(){
@@ -71,11 +98,11 @@ public class SearchPage extends BasePage {
 		Form form = new Form("searchForm") {
 			@Override
 			protected void onSubmit() {
-				tf1.validate();
+				actf1.validate();
 				tf2.validate();
 				tf3.validate();
 				
-				if(tf1.isValid() && tf2.isValid() && tf3.isValid()) {
+				if(actf1.isValid() && tf2.isValid() && tf3.isValid()) {
 				    String departurePlace = searchBean.getDeparturePlace();
 				    String destinationPlace = searchBean.getDestinationPlace();
 				    String departureDate = searchBean.getDepartureDate();
@@ -97,9 +124,9 @@ public class SearchPage extends BasePage {
 			}
 		};
 		
-		form.add(tf1);
 		form.add(tf2);
 		form.add(tf3);
+		form.add(actf1);
 		
 		Model langLabelModel = new Model(lang);
 		Label languageLabel = new Label("language_label", langLabelModel);

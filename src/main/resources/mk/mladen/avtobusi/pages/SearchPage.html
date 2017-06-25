@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:wicket="http://wicket.apache.org">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Avtobusi.mk</title>
+<wicket:head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>Avtobusi.mk</title>
+<style type="text/css">
+    .ui-departurePlace {
+        max-height: 200px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-right: 20px;
+    }   
+</style>
+</wicket:head>
 </head>
 <body>
 <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
@@ -45,7 +55,7 @@
               <form wicket:id="searchForm" id="searchForm" method="get">
                  <div class="row">
                      <div class="col-sm-6 form-group">
-                         <input wicket:id="departurePlace" wicket:message="placeholder :avtobusi.searchpage.departureplace" type="text" class="form-control" id="departurePlace" required />
+                         <input wicket:id="departurePlace" wicket:message="placeholder :avtobusi.searchpage.departureplace" type="text" class="form-control departurePlace" id="departurePlace" required />
                      </div>
                      <div class="col-sm-6 form-group">
                          <input wicket:id="destinationPlace" wicket:message="placeholder :avtobusi.searchpage.destinationplace" type="text" class="form-control" id="destinationPlace" required />

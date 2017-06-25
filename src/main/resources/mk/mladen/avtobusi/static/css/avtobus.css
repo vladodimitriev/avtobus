@@ -259,3 +259,16 @@ th {
     text-align: center;
 }
 
+#departurePlace {
+	max-height: 200px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding-right: 20px;
+}   
+
+.departurePlace {
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 20px;
+}   

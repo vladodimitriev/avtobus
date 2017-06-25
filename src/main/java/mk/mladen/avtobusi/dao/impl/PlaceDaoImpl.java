@@ -1,5 +1,8 @@
 package mk.mladen.avtobusi.dao.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
@@ -32,6 +35,46 @@ public class PlaceDaoImpl extends GenericDaoImpl<PlaceEntity> implements PlaceDa
 			return longValue;
 		}
 		return 0;
+	}
+
+	@Override
+	public List<String> getAllPlacesNames() {
+		List<String> results = new ArrayList<String>();
+		Query query = getEntityManager().createQuery("select ple.name from PlaceEntity ple");
+		query.setMaxResults(10);
+		Object object = query.getResultList();
+		if(object instanceof List) {
+			results = (List)object;
+		}
+		return results;
+	}
+	
+	@Override
+	public List<String> getAllPlacesNames(String name) {
+		String message = "getAllPlacesNames name: " + name;
+		logger.debug(message);
+		logger.info(message);
+		List<String> results = new ArrayList<String>();
+		Query query = getEntityManager().createQuery("select ple.name from PlaceEntity ple where ple.name like :name order by ple.name desc");
+		query.setParameter("name", "%" + name + "%");
+		query.setMaxResults(10);
+		Object object = query.getResultList();
+		if(object instanceof List) {
+			results = (List)object;
+		}
+		return results;
+	}
+
+	@Override
+	public List<String> getAllPlacesNamesByLanguage(String language) {
+		List<String> results = new ArrayList<String>();
+		Query query = getEntityManager().createQuery("select ple.name from PlaceEntity ple");
+		query.setMaxResults(10);
+		Object object = query.getResultList();
+		if(object instanceof List) {
+			results = (List)object;
+		}
+		return results;
 	}
 
 }
