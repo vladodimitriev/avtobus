@@ -25,7 +25,7 @@ apply plugin: 'org.akhikhl.gretty'
 
 sourceCompatibility = 1.8
 
-war {
+jar {
     baseName = 'avtobusi'
 }
 
@@ -65,7 +65,7 @@ dependencies {
     
     compile 'org.apache.poi:poi:3.16'
     compile 'net.sourceforge.jexcelapi:jxl:2.6.12'
-    
+    compile 'com.github.jsimone:webapp-runner:8.5.11.3'
     
     testCompile 'junit:junit:4.12'
     testCompile 'org.dbunit:dbunit:2.5.2'
@@ -77,6 +77,20 @@ dependencies {
     
     
 }
+
+task stage() {
+    dependsOn clean, war
+}
+war.mustRunAfter clean
+
+task copyToLib(type: Copy) {
+    into "$buildDir/server"
+    from(configurations.compile) {
+        include "webapp-runner*"
+    }
+}
+
+stage.dependsOn(copyToLib)
 /*
 gretty {
     contextPath = '/avtobus'

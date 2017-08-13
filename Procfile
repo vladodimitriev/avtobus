@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT $JAVA_OPTS -war build/libs/avtobusi.war
+web: java -jar build/server/webapp-runner-*.jar build/libs/*.war
