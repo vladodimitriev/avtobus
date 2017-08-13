@@ -1,0 +1,4 @@
+insert into BUSLINE (name, departuretime, arrivaltime, operationdays, price, priceReturn, departureplaceid, destinationplaceid, carrierid) values ('Skopje-Sveti Nikole','10:45:00','12:00:00','1,2,3,4,5,6,7','240.00','350.00','1','32','42');
+insert into BUSLINE (name, departuretime, arrivaltime, operationdays, price, priceReturn, departureplaceid, destinationplaceid, carrierid) values ('Skopje-Sveti Nikole','12:30:00','14:05:00','1,2,3,4,5,6,7','220.00','0.00','1','32','25');
+insert into BUSLINE (name, departuretime, arrivaltime, operationdays, price, priceReturn, departureplaceid, destinationplaceid, carrierid) values ('Skopje-Sveti Nikole','15:00:00','16:30:00','1,2,3,4,5,6','240.00','350.00','1','32','42');
+insert into BUSLINE (name, departuretime, arrivaltime, operationdays, price, priceReturn, departureplaceid, destinationplaceid, carrierid) values ('Skopje-Sveti Nikole','19:00:00','20:20:00','1,2,3,4,5,6,7','240.00','350.00','1','32','42');

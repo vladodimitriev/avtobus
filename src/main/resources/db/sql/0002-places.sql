@@ -26,7 +26,7 @@
 /*26*/ insert into PLACE (name, name_cyrilic, countryid) values ('Radovish', 'Радовиш', '1');
 /*27*/ insert into PLACE (name, name_cyrilic, countryid) values ('Delchevo', 'Делчево', '1');
 /*28*/ insert into PLACE (name, name_cyrilic, countryid) values ('Berovo', 'Берово', '1');
-/*29*/ insert into PLACE (name, name_cyrilic, countryid) values ('Makedonska Kamenitsa', 'Македонска Каменица', '1');
+/*29*/ insert into PLACE (name, name_cyrilic, countryid) values ('Makedonska Kamenica', 'Македонска Каменица', '1');
 /*30*/ insert into PLACE (name, name_cyrilic, countryid) values ('Pehchevo', 'Пехчево', '1');
 /*31*/ insert into PLACE (name, name_cyrilic, countryid) values ('Kratovo', 'Кратово', '1');
 /*32*/ insert into PLACE (name, name_cyrilic, countryid) values ('Sveti Nikole', 'Свети Николе', '1');
@@ -34,3 +34,4 @@
 /*34*/ insert into PLACE (name, name_cyrilic, countryid) values ('Star Dojran', 'Стар Дојран', '1');
 /*35*/ insert into PLACE (name, name_cyrilic, countryid) values ('Nov Dojran', 'Нов Дојран', '1');
 /*36*/ insert into PLACE (name, name_cyrilic, countryid) values ('Probishtip', 'Пробиштип', '1');
+/*37*/ insert into PLACE (name, name_cyrilic, countryid) values ('Vinica', 'ВИНИЦА', '1');

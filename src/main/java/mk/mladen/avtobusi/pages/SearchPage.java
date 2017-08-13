@@ -53,14 +53,14 @@ public class SearchPage extends BasePage {
 		PropertyModel destinationModel = new PropertyModel(searchBean, "destinationPlace");
 		PropertyModel dateModel = new PropertyModel(searchBean, "departureDate");
 
-//		TextField tf1 = new TextField<String>("departurePlace", departureModel);
-//		tf1.add(new OnChangeAjaxBehavior(){
-//	        @Override
-//	        protected void onUpdate(final AjaxRequestTarget target){
-//	        	ajax1 = ((TextField<String>) getComponent()).getModelObject();
-//	        }
-//	    });
-//		tf1.setRequired(true);
+		TextField tf1 = new TextField<String>("departurePlace", departureModel);
+		tf1.add(new OnChangeAjaxBehavior(){
+	        @Override
+	        protected void onUpdate(final AjaxRequestTarget target){
+	        	ajax1 = ((TextField<String>) getComponent()).getModelObject();
+	        }
+	    });
+		tf1.setRequired(true);
 		
 		AutoCompleteTextField<String> actf1 = new AutoCompleteTextField<String>("departurePlace", departureModel) {
 			@Override
@@ -126,7 +126,7 @@ public class SearchPage extends BasePage {
 		
 		form.add(tf2);
 		form.add(tf3);
-		form.add(actf1);
+		form.add(tf1);
 		
 		Model langLabelModel = new Model(lang);
 		Label languageLabel = new Label("language_label", langLabelModel);

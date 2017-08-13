@@ -44,14 +44,11 @@ public class DbConfig {
 	@Value("classpath:db/sql/1004-negotino-skopje.sql")
 	private Resource sql1004negotinoSkopje;
 	
-	@Value("classpath:db/sql/1004-skopje-negotino.sql")
-	private Resource sql1004skopjeNegotino;
-	
 	@Value("classpath:db/sql/1005-ohrid-skopje.sql")
 	private Resource sql1005ohridSkopje;
 	
-	@Value("classpath:db/sql/1005-skopje-ohrid.sql")
-	private Resource sql1005skopjeOhrid;
+	@Value("classpath:db/sql/0004-from-skopje.sql")
+	private Resource sql0004fromSkopje;
 
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
@@ -104,10 +101,8 @@ public class DbConfig {
 	    populator.addScript(sql0002places);
 	    populator.addScript(sql0003carriers);
 	    populator.addScript(sql1004negotinoSkopje);
-	    populator.addScript(sql1004negotinoSkopje);
-	    populator.addScript(sql1004skopjeNegotino);
 	    populator.addScript(sql1005ohridSkopje);
-	    populator.addScript(sql1005skopjeOhrid);
+	    populator.addScript(sql0004fromSkopje);
 	    return populator;
 	}
 

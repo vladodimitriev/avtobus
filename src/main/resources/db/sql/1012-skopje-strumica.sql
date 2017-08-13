@@ -1,24 +1,26 @@
 insert into BUSLINE (name, departuretime, arrivaltime, distance, jurneytime, operationdays, price, priceReturn, departureplaceid, destinationplaceid, carrierid) 
-values ('Skopje-Kavadarci', '06:00', '08:00', '120', '2h', '1,2,3,4,5,6,7', '260', '500', '1', '3', '11');
+values ('Skopje-Strumica', '06:00', '09:30', '200', '3h30m', '1,2,3,4,5', '530', '730', '1', '11', '16');
 insert into BUSLINE (name, departuretime, arrivaltime, distance, jurneytime, operationdays, price, priceReturn, departureplaceid, destinationplaceid, carrierid) 
-values ('Skopje-Kavadarci', '09:00', '11:00', '120', '2h', '1,2,3,4,5', '270', '410', '1', '3', '8');
+values ('Skopje-Strumica', '08:00', '11:00', '200', '3h30m', '1,2,3,4,5,6,7', '530', '730', '1', '11', '16');
 insert into BUSLINE (name, departuretime, arrivaltime, distance, jurneytime, operationdays, price, priceReturn, departureplaceid, destinationplaceid, carrierid) 
-values ('Skopje-Kavadarci', '12:00', '14:10', '120', '2h10m', '1,2,3,4,5,6,7', '270', '410', '1', '3', '8');
+values ('Skopje-Strumica', '10:00', '13:30', '200', '3h30m', '1,2,3,4,5,6,7', '530', '730', '1', '11', '16');
 insert into BUSLINE (name, departuretime, arrivaltime, distance, jurneytime, operationdays, price, priceReturn, departureplaceid, destinationplaceid, carrierid) 
-values ('Skopje-Kavadarci', '13:45', '15:45', '120', '2h', '1,2,3,4,5', '270', '410', '1', '3', '8');
+values ('Skopje-Strumica', '12:00', '15:00', '200', '3h30m', '1,2,3,4,5,6,7', '530', '730', '1', '11', '16');
 insert into BUSLINE (name, departuretime, arrivaltime, distance, jurneytime, operationdays, price, priceReturn, departureplaceid, destinationplaceid, carrierid) 
-values ('Skopje-Kavadarci', '15:00', '17:10', '120', '2h10m', '1,2,3,4,5,6,7', '270', '410', '1', '3', '8');
+values ('Skopje-Strumica', '13:00', '16:00', '200', '3h30m', '1,2,3,4,5,6', '530', '730', '1', '11', '16');
 insert into BUSLINE (name, departuretime, arrivaltime, distance, jurneytime, operationdays, price, priceReturn, departureplaceid, destinationplaceid, carrierid) 
-values ('Skopje-Kavadarci', '15:45', '17:10', '120', '1h35m', '1,2,3,4,5,6,7', '310', '0', '1', '3', '9');
+values ('Skopje-Strumica', '14:00', '17:30', '200', '3h30m', '1,2,3,4,5,6,7', '530', '730', '1', '11', '16');
 insert into BUSLINE (name, departuretime, arrivaltime, distance, jurneytime, operationdays, price, priceReturn, departureplaceid, destinationplaceid, carrierid) 
-values ('Skopje-Kavadarci', '17:00', '19:00', '120', '2h', '1,2,3,4,5,6,7', '270', '410', '1', '3', '8');
+values ('Skopje-Strumica', '15:30', '19:00', '200', '3h30m', '1,2,3,4,5,6,7', '530', '730', '1', '11', '16');
 insert into BUSLINE (name, departuretime, arrivaltime, distance, jurneytime, operationdays, price, priceReturn, departureplaceid, destinationplaceid, carrierid) 
-values ('Skopje-Kavadarci', '17:50', '20:00', '120', '2h10m', '1,2,3,4,5,6,7', '270', '410', '1', '3', '10');
+values ('Skopje-Strumica', '16:00', '19:30', '200', '3h30m', '1,2,3,4,5,6,7', '530', '730', '1', '11', '16');
 insert into BUSLINE (name, departuretime, arrivaltime, distance, jurneytime, operationdays, price, priceReturn, departureplaceid, destinationplaceid, carrierid) 
-values ('Skopje-Kavadarci', '18:40', '21:00', '120', '2h20m', '1,2,3,4,5,6,7', '270', '410', '1', '3', '10');
+values ('Skopje-Strumica', '17:00', '20:00', '200', '3h30m', '1,2,3,4,5,6,7', '530', '730', '1', '11', '16');
 insert into BUSLINE (name, departuretime, arrivaltime, distance, jurneytime, operationdays, price, priceReturn, departureplaceid, destinationplaceid, carrierid) 
-values ('Skopje-Kavadarci', '19:30', '21:40', '120', '2h10m', '1,2,3,4,5,6,7', '270', '410', '1', '3', '8');
+values ('Skopje-Strumica', '17:30', '20:30', '200', '3h30m', '1,2,3,4,5,6,7', '530', '730', '1', '11', '16');
 insert into BUSLINE (name, departuretime, arrivaltime, distance, jurneytime, operationdays, price, priceReturn, departureplaceid, destinationplaceid, carrierid) 
-values ('Skopje-Kavadarci', '20:15', '21:40', '120', '1h25m', '1,2,3,4,5,6,7', '310', '0', '1', '3', '9');
+values ('Skopje-Strumica', '18:00', '21:00', '200', '3h30m', '1,2,3,4,5,6,7', '530', '730', '1', '11', '16');
 insert into BUSLINE (name, departuretime, arrivaltime, distance, jurneytime, operationdays, price, priceReturn, departureplaceid, destinationplaceid, carrierid) 
-values ('Skopje-Kavadarci', '21:05', '23:15', '120', '2h10m', '1,2,3,4,5,6,7', '270', '410', '1', '3', '10');
+values ('Skopje-Strumica', '19:00', '22:00', '200', '3h30m', '1,2,3,4,5,6,7', '530', '730', '1', '11', '16');
+insert into BUSLINE (name, departuretime, arrivaltime, distance, jurneytime, operationdays, price, priceReturn, departureplaceid, destinationplaceid, carrierid) 
+values ('Skopje-Strumica', '20:37', '23:50', '200', '3h30m', '1,2,3,4,5,6,7', '530', '730', '1', '11', '16');

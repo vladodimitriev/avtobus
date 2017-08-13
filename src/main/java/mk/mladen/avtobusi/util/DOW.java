@@ -1,5 +1,11 @@
 package mk.mladen.avtobusi.util;
 
+/**
+ * Day of week
+ * 
+ * @author vlado
+ *
+ */
 public enum DOW {
 	
 	MONDAY("2"),
