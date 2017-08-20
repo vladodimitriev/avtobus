@@ -1,5 +1,0 @@
-insert into BUSLINE (name, departuretime, arrivaltime, operationdays, price, priceReturn, departureplaceid, destinationplaceid, carrierid) values ('Skopje-Delchevo','07:30:00','11:20:00','1,2,3,4,5,6,7','390.00','520.00','1','27','27');
-insert into BUSLINE (name, departuretime, arrivaltime, operationdays, price, priceReturn, departureplaceid, destinationplaceid, carrierid) values ('Skopje-Delchevo','12:30:00','16:20:00','1,2,3,4,5,6,7','390.00','520.00','1','27','27');
-insert into BUSLINE (name, departuretime, arrivaltime, operationdays, price, priceReturn, departureplaceid, destinationplaceid, carrierid) values ('Skopje-Delchevo','14:45:00','17:30:00','1,2,3,4,5','390.00','520.00','1','27','27');
-insert into BUSLINE (name, departuretime, arrivaltime, operationdays, price, priceReturn, departureplaceid, destinationplaceid, carrierid) values ('Skopje-Delchevo','16:15:00','19:00:00','1,2,3,4,5,6,7','390.00','520.00','1','27','27');
-insert into BUSLINE (name, departuretime, arrivaltime, operationdays, price, priceReturn, departureplaceid, destinationplaceid, carrierid) values ('Skopje-Delchevo','17:15:00','20:00:00','1,2,3,4,5','390.00','520.00','1','27','27');

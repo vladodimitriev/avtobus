@@ -17,12 +17,14 @@ import mk.mladen.avtobusi.entity.CarrierEntity;
 @Repository(value = "carrierDao")
 public class CarrierDaoImpl extends GenericDaoImpl<CarrierEntity> implements CarrierDao {
 	
+	@SuppressWarnings("unused")
 	private final static Logger logger = Logger.getLogger(CarrierDaoImpl.class);
 
 	public CarrierDaoImpl() {
 		super(CarrierEntity.class);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public CarrierEntity getByCarrierName(String carrier) {
 		Query query = getEntityManager().createQuery("select ce from CarrierEntity ce where ce.nameCyrilic like :name");
@@ -36,7 +38,6 @@ public class CarrierDaoImpl extends GenericDaoImpl<CarrierEntity> implements Car
 		} catch(NoResultException nre) {
 			return null;
 		} catch(NonUniqueResultException nure) {
-			logger.info("getByCyrilicName() - nure carrier: " + carrier);
 			List<Object> list = query.getResultList();
 			Object object = list.get(0);
 			if(object instanceof CarrierEntity) {

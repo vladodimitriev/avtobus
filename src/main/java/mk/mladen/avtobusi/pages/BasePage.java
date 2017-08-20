@@ -123,9 +123,6 @@ public class BasePage extends WebPage {
         ResourceReference avtobusDpJsRef = new PackageResourceReference(WicketApplication.class, "static/js/avtobus.js");
         JavaScriptHeaderItem avtobusDpJsItem = JavaScriptHeaderItem.forReference(avtobusDpJsRef);
         
-        ResourceReference validationDpJsRef = new PackageResourceReference(WicketApplication.class, "static/js/validation.js");
-        JavaScriptHeaderItem validationDpJsItem = JavaScriptHeaderItem.forReference(validationDpJsRef);
-        
         ResourceReference jqueryDateFormatDpJsRef = new PackageResourceReference(WicketApplication.class, "static/js/jquery.dateFormat.js");
         JavaScriptHeaderItem jqueryDateFormatDpJsItem = JavaScriptHeaderItem.forReference(jqueryDateFormatDpJsRef);
         
@@ -133,7 +130,7 @@ public class BasePage extends WebPage {
         JavaScriptHeaderItem jqueryValidateJsItem = JavaScriptHeaderItem.forReference(jqueryValidateJsRef);
         
         // -- CSS
-        ResourceReference bootstrapCssRef = new PackageResourceReference(WicketApplication.class, "static/css/bootstrap.css");
+        ResourceReference bootstrapCssRef = new PackageResourceReference(WicketApplication.class, "static/css/bootstrap.min.css");
         CssHeaderItem bootstrapCssItem = CssHeaderItem.forReference(bootstrapCssRef);
         
         ResourceReference fontAwesomeCssRef = new PackageResourceReference(WicketApplication.class, "static/css/font-awesome.min.css");
@@ -154,7 +151,6 @@ public class BasePage extends WebPage {
         response.render(flagIconCssItem);
         response.render(avtobusCssItem);
         
-        //response.render(jqueryJsItem);
         response.render(jqueryUiJsItem);
         response.render(jqueryUii18nJsItem);
         response.render(bootstrapJsItem);
