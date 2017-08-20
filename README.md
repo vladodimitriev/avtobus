@@ -13,5 +13,6 @@ DATABASE_URL=postgres://localhost:5432/gradle_database_name
 ```sh
 $ heroku create avtobusi
 $ heroku deploy:war build/libs/avtobusi.war
+$ heroku ps:scale web=1
 $ heroku open
 ```

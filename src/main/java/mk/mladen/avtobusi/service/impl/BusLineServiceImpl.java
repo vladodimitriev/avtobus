@@ -61,14 +61,12 @@ public class BusLineServiceImpl implements BusLineService {
 	
 	@Override
 	public List<BusLineDto> getRelation(String departure, String destination, String dateString) {
-		if(logger.isInfoEnabled()){
-			logger.info("DATE: " + dateString);
-		}
 		Date date = new Date();
 		if(StringUtils.isNotBlank(dateString)) {
 			try {
 				date = new SimpleDateFormat("dd/MM/yyyy").parse(dateString);
 			} catch (ParseException e1) {
+				logger.debug("date parse exception");
 				e1.printStackTrace();
 			}
 		}
@@ -79,9 +77,6 @@ public class BusLineServiceImpl implements BusLineService {
 		int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
 		String dow = String.valueOf(dayOfWeek);
 		String realDow = DOW.getRealDayOfWeek(DOW.getDayByDayNumber(dow));
-		if(logger.isInfoEnabled()){
-			logger.info("dayOfWeek: " + dayOfWeek + " real day of week: " + realDow);
-		}
 		
 		List<BusLineDto> result = new ArrayList<BusLineDto>();
 		List<BusLineEntity> entities = busLineDao.find(departure, destination, realDow);

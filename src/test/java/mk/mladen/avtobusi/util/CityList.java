@@ -29,9 +29,9 @@ import mk.mladen.avtobusi.entity.PlaceEntity;
 
 public class CityList {
 	
-	private static final String inputFile = "/home/vlado/Projects/Avtobusi/avtobus/files/linii-good.xls";
+	private static final String inputFile = "static/files/linii-good.xls";
 	private static final String outputFile = "/home/vlado/Projects/Avtobusi/avtobus/files/all-places.txt";
-	private static final String citiesFile = "/home/vlado/Projects/Avtobusi/avtobus/files/cities.txt";
+	private static final String citiesFile = "static/files/cities.txt";
 	private Set<String> citySet = new HashSet<String>();
 	
 	private static long ccc = 0l;

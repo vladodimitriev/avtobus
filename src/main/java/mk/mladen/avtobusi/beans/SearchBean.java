@@ -1,10 +1,12 @@
 package mk.mladen.avtobusi.beans;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 public class SearchBean implements Serializable {
@@ -32,6 +34,12 @@ public class SearchBean implements Serializable {
 			this.departurePlace = params.get("departure").toString();
 			this.destinationPlace = params.get("destination").toString();
 			this.departureDate = params.get("date").toString();
+		}  
+			
+		if(StringUtils.isBlank(departureDate)) {
+			Date d = new Date();
+			SimpleDateFormat sde = new SimpleDateFormat("dd/MM/yyyy");
+			this.departureDate = sde.format(d);
 		}
 	}
 	

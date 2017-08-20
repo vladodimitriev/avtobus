@@ -180,9 +180,11 @@ public class ResultPage extends BasePage {
 				  final BusLineDto busLine = item.getModelObject();
 				  final RepeatingView repeatingView = new RepeatingView("dataRow");
 				  final Label label1 = new Label(repeatingView.newChildId(), busLine.getDepartureTime());
+				  label1.add(new AttributeModifier("style", "text-align: left"));
 				  repeatingView.add(label1);
 				  
 				  final Label label2 = new Label(repeatingView.newChildId(), busLine.getArrivalTime());
+				  label2.add(new AttributeModifier("style", "text-align: left"));
 				  repeatingView.add(label2);
 				  if("EN".equalsIgnoreCase(lang)) {
 					  final Label label = new Label(repeatingView.newChildId(), busLine.getCarrier());
@@ -193,8 +195,6 @@ public class ResultPage extends BasePage {
 					  label.add(new AttributeModifier("style", "text-align: left"));
 					  repeatingView.add(label);   
 				  }
-				  Label label3 = new Label(repeatingView.newChildId(), busLine.getPrice());
-				  repeatingView.add(label3);
 				  item.addOrReplace(repeatingView);
 			  }
 		};

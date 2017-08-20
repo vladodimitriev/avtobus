@@ -2,6 +2,7 @@ package mk.mladen.avtobusi.service.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -37,8 +38,8 @@ public class InsertDataServiceImpl implements InsertDataService {
 
 	private final static Logger logger = Logger.getLogger(InsertDataServiceImpl.class);
 
-	private static final String inputFile = "/home/vlado/Projects/Avtobusi/avtobus/files/linii-good.xls";
-	private static final String citiesFile = "/home/vlado/Projects/Avtobusi/avtobus/files/cities.txt";
+	private static final String inputFile = "linii-good.xls";
+	private static final String citiesFile = "cities.txt";
 	private Set<String> citySet = new HashSet<String>();
 
 	@Autowired
@@ -82,7 +83,8 @@ public class InsertDataServiceImpl implements InsertDataService {
 	}
 
 	private void createCitySet() throws IOException {
-		Path path = Paths.get(citiesFile);
+		URL url = getClass().getResource(citiesFile);
+		Path path = Paths.get(url.getPath());
 		Stream<String> stream = Files.lines(path);
 		Iterator<String> iterator = stream.iterator();
 		while (iterator.hasNext()) {
@@ -94,7 +96,8 @@ public class InsertDataServiceImpl implements InsertDataService {
 	@SuppressWarnings("unused")
 	private void createBusLines() throws BiffException, IOException {
 		logger.info("createBusLines()");
-		File inputWorkbook = new File(inputFile);
+		URL url = getClass().getResource(inputFile);
+		File inputWorkbook = new File(url.getPath());
 		Workbook w = Workbook.getWorkbook(inputWorkbook);
 		Sheet sheet = w.getSheet(0);
 
