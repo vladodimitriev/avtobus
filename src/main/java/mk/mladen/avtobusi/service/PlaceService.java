@@ -12,8 +12,10 @@ public interface PlaceService {
 	
 	public List<String> findAllPlacesNames();
 	
-	public List<String> findAllPlacesNames(String name);
+	public List<String> findAllPlacesNames(String name, String lang);
 	
 	public List<String> findAllPlacesNamesByLanguage(String language);
+	
+	public List<String> findAllPlacesNamesByLanguageAndName(String language, String name);
 	
 }

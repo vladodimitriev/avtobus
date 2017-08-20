@@ -1,12 +1,15 @@
 package mk.mladen.avtobusi.pages;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
+import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteTextField;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
@@ -25,11 +28,13 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.util.string.Strings;
 
 import mk.mladen.avtobusi.WicketApplication;
 import mk.mladen.avtobusi.beans.SearchBean;
 import mk.mladen.avtobusi.dto.BusLineDto;
 import mk.mladen.avtobusi.service.BusLineService;
+import mk.mladen.avtobusi.service.PlaceService;
 
 @SuppressWarnings({ "rawtypes", "serial", "unchecked" })
 public class ResultPage extends BasePage {
@@ -43,7 +48,8 @@ public class ResultPage extends BasePage {
 	@SpringBean
 	private BusLineService busLineService;
 	
-	private List<BusLineDto> busLines;
+	@SpringBean
+	private PlaceService placeService;
 	
 	public ResultPage(PageParameters params) {
 		super(params);
@@ -65,6 +71,11 @@ public class ResultPage extends BasePage {
 		}
 		img.setImageResourceReference(resourceReference);
 		add(img);
+		
+		Model imgSwitchModel = new Model();
+		Image imgSwitch = new Image( "switch-img", imgSwitchModel);
+		ResourceReference rr1 = new PackageResourceReference(WicketApplication.class, "static/img/switch50.jpg");
+		imgSwitch.setImageResourceReference(rr1);
 		
 		Link link1 = new Link("english") {
 			@Override
@@ -90,21 +101,45 @@ public class ResultPage extends BasePage {
 		};
 		add(link2);
 		
-		TextField tf1 = new TextField<String>("departurePlace", new PropertyModel(searchBean, "departurePlace"));
-		tf1.add(new OnChangeAjaxBehavior(){
+		AutoCompleteTextField<String> actf1 = new AutoCompleteTextField<String>("departurePlace", new PropertyModel(searchBean, "departurePlace")) {
+			@Override
+			protected Iterator<String> getChoices(String input) {
+				if (Strings.isEmpty(input) && input != null && input.length() > 3) {
+                    List<String> emptyList = Collections.emptyList();
+                    return emptyList.iterator();
+                }
+                List<String> choices = placeService.findAllPlacesNamesByLanguageAndName(lang, input);
+				return choices.iterator();
+			}
+		};
+		actf1.add(new OnChangeAjaxBehavior(){
 	        @Override
 	        protected void onUpdate(final AjaxRequestTarget target){
-	        	ajax1 = ((TextField<String>) getComponent()).getModelObject();
+	        	ajax1 = ((AutoCompleteTextField<String>) getComponent()).getModelObject();
 	        }
 	    });
+		actf1.setRequired(true);
+		actf1.setOutputMarkupId(true);
 		
-		TextField tf2 = new TextField<String>("destinationPlace", new PropertyModel(searchBean, "destinationPlace"));
-		tf2.add(new OnChangeAjaxBehavior(){
+		AutoCompleteTextField<String> actf2 = new AutoCompleteTextField<String>("destinationPlace", new PropertyModel(searchBean, "destinationPlace")) {
+			@Override
+			protected Iterator<String> getChoices(String input) {
+				if (Strings.isEmpty(input) && input != null && input.length() > 3) {
+                    List<String> emptyList = Collections.emptyList();
+                    return emptyList.iterator();
+                }
+                List<String> choices = placeService.findAllPlacesNamesByLanguageAndName(lang, input);
+				return choices.iterator();
+			}
+		};
+		actf2.add(new OnChangeAjaxBehavior(){
 	        @Override
 	        protected void onUpdate(final AjaxRequestTarget target){
-	        	ajax2 = ((TextField<String>) getComponent()).getModelObject();
+	        	ajax2 = ((AutoCompleteTextField<String>) getComponent()).getModelObject();
 	        }
 	    });
+		actf2.setRequired(true);
+		actf2.setOutputMarkupId(true);
 		
 		TextField tf3 = new TextField<String>("departureDate", new PropertyModel(searchBean, "departureDate"));
 		tf3.add(new OnChangeAjaxBehavior(){
@@ -114,82 +149,58 @@ public class ResultPage extends BasePage {
 	        }
 	    });
 		
-		Form form = new Form("resultSearchForm"){
-			@Override
-			protected void onSubmit() {
-				busLines = loadRelations();
-				ListDataProvider<BusLineDto> listDataProvider = new ListDataProvider<BusLineDto>(busLines);
-				DataView<BusLineDto> dataView = new DataView<BusLineDto>("rows", listDataProvider) {
-					  @Override
-					  protected void populateItem(Item<BusLineDto> item) {
-						  BusLineDto busLine = item.getModelObject();
-						  RepeatingView repeatingView = new RepeatingView("dataRow");
-						  repeatingView.add(new Label(repeatingView.newChildId(), busLine.getDepartureTime()));
-						  repeatingView.add(new Label(repeatingView.newChildId(), busLine.getArrivalTime()));
-						  if("EN".equalsIgnoreCase(lang)) {
-							  Label label = new Label(repeatingView.newChildId(), busLine.getCarrier());
-							  label.add(new AttributeModifier("style", "text-align: left"));
-							  repeatingView.add(label);   
-						  } else if("MK".equalsIgnoreCase(lang)) {
-							  Label label = new Label(repeatingView.newChildId(), busLine.getCarrierCyrilic());
-							  label.add(new AttributeModifier("style", "text-align: left"));
-							  repeatingView.add(label);   
-						  }
-						  repeatingView.add(new Label(repeatingView.newChildId(), busLine.getPrice()));
-						  repeatingView.add(new Label(repeatingView.newChildId(), busLine.getPriceReturn()));
-						  item.add(repeatingView);
-					  }
-				};
-				Form form2 = new Form("purchaseForm"){
-					@Override
-					protected void onSubmit() {}
-				};
-				form2.add(dataView);
-				ResultPage.this.replace(form2);
-				setResponsePage(getPage());
-			}
-		};
-		
-		//ResourceReference iconReference = new ContextRelativeResourceReference("static/img/info.png");
-		//form.add(new Image("switchIcon", iconReference));
-		
-		form.add(tf1);
-		form.add(tf2);
-		form.add(tf3);
-		add(form);
-		
-		busLines = loadRelations();
-		ListDataProvider<BusLineDto> listDataProvider = new ListDataProvider<BusLineDto>(busLines);
-		
-		DataView<BusLineDto> dataView = new DataView<BusLineDto>("rows", listDataProvider) {
-			  @Override
-			  protected void populateItem(Item<BusLineDto> item) {
-				  BusLineDto busLine = item.getModelObject();
-				  RepeatingView repeatingView = new RepeatingView("dataRow");
-				  repeatingView.add(new Label(repeatingView.newChildId(), busLine.getDepartureTime()));
-				  repeatingView.add(new Label(repeatingView.newChildId(), busLine.getArrivalTime()));
-				  if("EN".equalsIgnoreCase(lang)) {
-					  Label label = new Label(repeatingView.newChildId(), busLine.getCarrier());
-					  label.add(new AttributeModifier("style", "text-align: left"));
-					  repeatingView.add(label);   
-				  } else if("MK".equalsIgnoreCase(lang)) {
-					  Label label = new Label(repeatingView.newChildId(), busLine.getCarrierCyrilic());
-					  label.add(new AttributeModifier("style", "text-align: left"));
-					  repeatingView.add(label);   
-				  } 
-				  repeatingView.add(new Label(repeatingView.newChildId(), busLine.getPrice()));
-				  repeatingView.add(new Label(repeatingView.newChildId(), busLine.getPriceReturn()));
-				  item.add(repeatingView);
-			  }
-		};
+		DataView<BusLineDto> dataView = createDataView();
 		Form form2 = new Form("purchaseForm"){
 			@Override
 			protected void onSubmit() {}
 		};
-		form2.add(dataView);
+		form2.addOrReplace(dataView);
 		add(form2);
+		
+		Form form = new Form("resultSearchForm"){
+			@Override
+			protected void onSubmit() {
+				DataView<BusLineDto> dataView = createDataView();
+				form2.addOrReplace(dataView);
+			}
+		};
+		form.add(actf1);
+		form.add(actf2);
+		form.add(tf3);
+		form.add(imgSwitch);
+		add(form);
 	}
 	
+	private DataView<BusLineDto> createDataView() {
+		List<BusLineDto> busLines = loadRelations();
+		ListDataProvider<BusLineDto> listDataProvider = new ListDataProvider<BusLineDto>(busLines);
+		DataView<BusLineDto> dataView = new DataView<BusLineDto>("rows", listDataProvider) {
+			  @Override
+			  protected void populateItem(Item<BusLineDto> item) {
+				  final BusLineDto busLine = item.getModelObject();
+				  final RepeatingView repeatingView = new RepeatingView("dataRow");
+				  final Label label1 = new Label(repeatingView.newChildId(), busLine.getDepartureTime());
+				  repeatingView.add(label1);
+				  
+				  final Label label2 = new Label(repeatingView.newChildId(), busLine.getArrivalTime());
+				  repeatingView.add(label2);
+				  if("EN".equalsIgnoreCase(lang)) {
+					  final Label label = new Label(repeatingView.newChildId(), busLine.getCarrier());
+					  label.add(new AttributeModifier("style", "text-align: left"));
+					  repeatingView.add(label);   
+				  } else if("MK".equalsIgnoreCase(lang)) {
+					  final Label label = new Label(repeatingView.newChildId(), busLine.getCarrierCyrilic());
+					  label.add(new AttributeModifier("style", "text-align: left"));
+					  repeatingView.add(label);   
+				  }
+				  Label label3 = new Label(repeatingView.newChildId(), busLine.getPrice());
+				  repeatingView.add(label3);
+				  item.addOrReplace(repeatingView);
+			  }
+		};
+		return dataView;
+	}
+
 	private List<BusLineDto> loadRelations() {
 		List<BusLineDto> dtos = new ArrayList<BusLineDto>();
 		if(busLineService != null) {

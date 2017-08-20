@@ -3,6 +3,8 @@ package mk.mladen.avtobusi.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
@@ -12,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import mk.mladen.avtobusi.dao.PlaceDao;
 import mk.mladen.avtobusi.entity.PlaceEntity;
 
+@SuppressWarnings({ "unchecked", "rawtypes" })
 @Transactional
 @Repository(value = "placeDao")
 public class PlaceDaoImpl extends GenericDaoImpl<PlaceEntity> implements PlaceDao {
@@ -28,11 +31,7 @@ public class PlaceDaoImpl extends GenericDaoImpl<PlaceEntity> implements PlaceDa
 		Object obj = query.getSingleResult();
 		if(obj instanceof Long) {
 			Long ll = (Long)obj;
-			long longValue = ll.longValue();
-			if(logger.isInfoEnabled()){
-				logger.info("count longValue: " + longValue);
-			}
-			return longValue;
+			return ll.longValue();
 		}
 		return 0;
 	}
@@ -51,11 +50,8 @@ public class PlaceDaoImpl extends GenericDaoImpl<PlaceEntity> implements PlaceDa
 	
 	@Override
 	public List<String> getAllPlacesNames(String name) {
-		String message = "getAllPlacesNames name: " + name;
-		logger.debug(message);
-		logger.info(message);
 		List<String> results = new ArrayList<String>();
-		Query query = getEntityManager().createQuery("select ple.name from PlaceEntity ple where ple.name like :name order by ple.name desc");
+		Query query = getEntityManager().createQuery("select ple.name from PlaceEntity ple where (ple.name like :name or ple.nameCyrilic like :name) order by ple.name desc");
 		query.setParameter("name", "%" + name + "%");
 		query.setMaxResults(10);
 		Object object = query.getResultList();
@@ -69,6 +65,43 @@ public class PlaceDaoImpl extends GenericDaoImpl<PlaceEntity> implements PlaceDa
 	public List<String> getAllPlacesNamesByLanguage(String language) {
 		List<String> results = new ArrayList<String>();
 		Query query = getEntityManager().createQuery("select ple.name from PlaceEntity ple");
+		query.setMaxResults(10);
+		Object object = query.getResultList();
+		if(object instanceof List) {
+			results = (List)object;
+		}
+		return results;
+	}
+
+	@Override
+	public PlaceEntity getByCyrilicName(String name) {
+		Query query = getEntityManager().createQuery("select ple from PlaceEntity ple where ple.nameCyrilic like :name");
+		query.setParameter("name", "%" + name + "%");
+		try {
+			Object object = query.getSingleResult();
+			if(object instanceof PlaceEntity) {
+				PlaceEntity pe = (PlaceEntity)object;
+				return pe;
+			}
+		} catch(NoResultException nre) {
+			logger.info("getByCyrilicName() - nre name: " + name);
+			return null;
+		} catch(NonUniqueResultException nure) {
+			logger.info("getByCyrilicName() - nure name: " + name);
+			return null;
+		}
+		return null;
+	}
+
+	@Override
+	public List<String> getAllPlacesNamesByLanguageAndName(String language, String name) {
+		List<String> results = new ArrayList<String>();
+		String queryStr = "select ple.name from PlaceEntity ple where (ple.name like :name or ple.nameCyrilic like :name)";
+		if("MK".equals(language)) {
+			queryStr = "select ple.nameCyrilic from PlaceEntity ple where (ple.name like :name or ple.nameCyrilic like :name)";
+		}
+		Query query = getEntityManager().createQuery(queryStr);
+		query.setParameter("name", name + "%");
 		query.setMaxResults(10);
 		Object object = query.getResultList();
 		if(object instanceof List) {

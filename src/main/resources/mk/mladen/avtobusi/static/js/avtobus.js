@@ -1,8 +1,9 @@
 function initJQDatepicker(inputId, countryIsoCode, errorMessage, errorMessage1, errorMessage2, errorMessage3) {
 	var localizedArray = $.datepicker.regional[countryIsoCode];
 	localizedArray['dateFormat'] = 'dd/mm/yy';
-	localizedArray['numberOfMonths'] = 2;
+	localizedArray['numberOfMonths'] = 1;
 	localizedArray['showCurrentAtPos'] = 0;
+	localizedArray['selectOtherMonths'] = true;
 
 	var departureDate = $("#departureDate");
 	var departurePlace = $("#departurePlace");
@@ -43,7 +44,7 @@ function initJQDatepicker(inputId, countryIsoCode, errorMessage, errorMessage1, 
 		destinationPlace.get(0).setCustomValidity(errorMessage3);
 	});
 	
-	departurePlace.on('click', function() {je
+	departurePlace.on('click', function() {
 		departureDate.get(0).setCustomValidity("");
 		destinationPlace.get(0).setCustomValidity("");
 		departurePlace.get(0).setCustomValidity("");
@@ -55,6 +56,13 @@ function initJQDatepicker(inputId, countryIsoCode, errorMessage, errorMessage1, 
 		departurePlace.get(0).setCustomValidity("");
 	});
 	
+	$("#switchImg").on('click', function() {
+		var d1 = $("#departurePlace").val();
+		var d2 = $("#destinationPlace").val();
+		
+		$("#departurePlace").val(d2);
+		$("#destinationPlace").val(d1);
+	});
 	
 };
 

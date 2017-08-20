@@ -1,5 +1,6 @@
 package mk.mladen.avtobusi.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -54,7 +55,7 @@ public class BusLineEntity {
     @JoinColumn(name="destinationplaceid", nullable=true)
 	private PlaceEntity destination;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.PERSIST)
     @JoinColumn(name="carrierid", nullable=true)
 	private CarrierEntity carrier;
 	
@@ -174,6 +175,11 @@ public class BusLineEntity {
 
 	public void setOperationPeriod(String operationPeriod) {
 		this.operationPeriod = operationPeriod;
+	}
+	
+	@Override
+	public String toString() {
+		return departure.getName() + " " + destination.getName() + " " + departureTime + " " + arrivalTime + " " + carrier + ", distance: " + distance + ", days of work: " + operationDays;
 	}
 
 }

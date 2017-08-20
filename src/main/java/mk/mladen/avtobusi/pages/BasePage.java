@@ -36,7 +36,7 @@ public class BasePage extends WebPage {
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
-		//insertDataIntoDb();
+		insertDataIntoDb();
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -120,7 +120,7 @@ public class BasePage extends WebPage {
         ResourceReference datepickerEnJsRef = new PackageResourceReference(WicketApplication.class, "static/js/datepicker-en-GB.js");
         JavaScriptHeaderItem datepickerEnJsItem = JavaScriptHeaderItem.forReference(datepickerEnJsRef);
         
-        ResourceReference avtobusDpJsRef = new PackageResourceReference(WicketApplication.class, "static/js/avtobusdatepicker.js");
+        ResourceReference avtobusDpJsRef = new PackageResourceReference(WicketApplication.class, "static/js/avtobus.js");
         JavaScriptHeaderItem avtobusDpJsItem = JavaScriptHeaderItem.forReference(avtobusDpJsRef);
         
         ResourceReference validationDpJsRef = new PackageResourceReference(WicketApplication.class, "static/js/validation.js");

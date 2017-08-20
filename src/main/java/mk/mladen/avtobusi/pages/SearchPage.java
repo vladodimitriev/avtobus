@@ -18,7 +18,6 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
-import org.apache.wicket.request.Response;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
@@ -32,6 +31,7 @@ import mk.mladen.avtobusi.service.PlaceService;
 @SuppressWarnings({ "rawtypes", "serial", "unchecked" })
 public class SearchPage extends BasePage {
 	
+	@SuppressWarnings("unused")
 	private final static Logger logger = Logger.getLogger(SearchPage.class);
 
 	private String ajax1;
@@ -45,46 +45,50 @@ public class SearchPage extends BasePage {
 	
 	public SearchPage(PageParameters params) {
 		super(params);
-		if(logger.isInfoEnabled()){
-			logger.info("SearchPage constructor()");
-		}
 		searchBean = new SearchBean(params);
 		PropertyModel departureModel = new PropertyModel(searchBean, "departurePlace");
 		PropertyModel destinationModel = new PropertyModel(searchBean, "destinationPlace");
 		PropertyModel dateModel = new PropertyModel(searchBean, "departureDate");
-
-		TextField tf1 = new TextField<String>("departurePlace", departureModel);
-		tf1.add(new OnChangeAjaxBehavior(){
-	        @Override
-	        protected void onUpdate(final AjaxRequestTarget target){
-	        	ajax1 = ((TextField<String>) getComponent()).getModelObject();
-	        }
-	    });
-		tf1.setRequired(true);
 		
 		AutoCompleteTextField<String> actf1 = new AutoCompleteTextField<String>("departurePlace", departureModel) {
 			@Override
 			protected Iterator<String> getChoices(String input) {
-				logger.debug("get choices input: " + input);
-				logger.info("get choices input: " + input);
 				if (Strings.isEmpty(input) && input != null && input.length() > 3) {
                     List<String> emptyList = Collections.emptyList();
                     return emptyList.iterator();
                 }
-                List<String> choices = placeService.findAllPlacesNames(input);
+                List<String> choices = placeService.findAllPlacesNamesByLanguageAndName(lang, input);
 				return choices.iterator();
 			}
 		};
-		actf1.setRequired(true);
-		
-		TextField tf2 = new TextField<String>("destinationPlace", destinationModel);
-		tf2.add(new OnChangeAjaxBehavior(){
+		actf1.add(new OnChangeAjaxBehavior(){
 	        @Override
 	        protected void onUpdate(final AjaxRequestTarget target){
-	        	ajax2 = ((TextField<String>) getComponent()).getModelObject();
+	        	ajax1 = ((AutoCompleteTextField<String>) getComponent()).getModelObject();
 	        }
 	    });
-		tf2.setRequired(true);
+		actf1.setRequired(true);
+		actf1.setOutputMarkupId(true);
+		
+		AutoCompleteTextField<String> actf2 = new AutoCompleteTextField<String>("destinationPlace", destinationModel) {
+			@Override
+			protected Iterator<String> getChoices(String input) {
+				if (Strings.isEmpty(input) && input != null && input.length() > 3) {
+                    List<String> emptyList = Collections.emptyList();
+                    return emptyList.iterator();
+                }
+                List<String> choices = placeService.findAllPlacesNamesByLanguageAndName(lang, input);
+				return choices.iterator();
+			}
+		};
+		actf2.add(new OnChangeAjaxBehavior(){
+	        @Override
+	        protected void onUpdate(final AjaxRequestTarget target){
+	        	ajax2 = ((AutoCompleteTextField<String>) getComponent()).getModelObject();
+	        }
+	    });
+		actf2.setRequired(true);
+		actf2.setOutputMarkupId(true);
 		
 		TextField tf3 = new TextField<String>("departureDate", dateModel);
 		tf3.add(new OnChangeAjaxBehavior(){
@@ -99,14 +103,12 @@ public class SearchPage extends BasePage {
 			@Override
 			protected void onSubmit() {
 				actf1.validate();
-				tf2.validate();
+				actf2.validate();
 				tf3.validate();
-				
-				if(actf1.isValid() && tf2.isValid() && tf3.isValid()) {
+				if(actf1.isValid() && actf2.isValid() && tf3.isValid()) {
 				    String departurePlace = searchBean.getDeparturePlace();
 				    String destinationPlace = searchBean.getDestinationPlace();
 				    String departureDate = searchBean.getDepartureDate();
-				    
 					if(StringUtils.isNotBlank(departurePlace) &&
 							StringUtils.isNotBlank(destinationPlace) &&
 							StringUtils.isNotBlank(departureDate)) {
@@ -118,15 +120,13 @@ public class SearchPage extends BasePage {
 						params.add("lang", lang);
 						setResponsePage(ResultPage.class, params);
 					} 
-				} else {
-					
-				}
+				} 
 			}
 		};
 		
-		form.add(tf2);
+		form.add(actf1);
+		form.add(actf2);
 		form.add(tf3);
-		form.add(tf1);
 		
 		Model langLabelModel = new Model(lang);
 		Label languageLabel = new Label("language_label", langLabelModel);
@@ -134,6 +134,12 @@ public class SearchPage extends BasePage {
 		
 		Model imgModel = new Model();
 		Image img = new Image( "language_img", imgModel);
+		
+		Model img2Model = new Model();
+		Image img2 = new Image( "switch-img", img2Model);
+		ResourceReference rr1 = new PackageResourceReference(WicketApplication.class, "static/img/switch50.jpg");
+		img2.setImageResourceReference(rr1);
+		form.add(img2);
 		
 		ResourceReference resourceReference = new PackageResourceReference(WicketApplication.class, "static/flags/4x3/gb.svg");
 		if("EN".equalsIgnoreCase(lang)) {
@@ -145,12 +151,10 @@ public class SearchPage extends BasePage {
 		add(img);
 		
 		Link link1 = new Link("english") {
-			
 			@Override
 			public MarkupContainer setDefaultModel(IModel model) {
 				return null;
 			}
-			
 			@Override
 			public void onClick() {
 				setResponsePage(SearchPage.class, getParams("EN"));
@@ -159,12 +163,10 @@ public class SearchPage extends BasePage {
 		add(link1);
 		
 		Link link2 = new Link("macedonian") {
-			
 			@Override
 			public MarkupContainer setDefaultModel(IModel model) {
 				return null;
 			}
-			
 			@Override
 			public void onClick() {
 				setResponsePage(SearchPage.class, getParams("MK"));

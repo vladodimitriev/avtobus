@@ -2,20 +2,12 @@
 <html lang="en" xmlns:wicket="http://wicket.apache.org">
 <head>
 <wicket:head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
-<meta name="author" content="">
-<title>Avtobusi.mk</title>
-<style type="text/css">
-    .ui-departurePlace {
-        max-height: 200px;
-        overflow-y: auto;
-        overflow-x: hidden;
-        padding-right: 20px;
-    }   
-</style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Avtobusi.mk</title>
 </wicket:head>
 </head>
 <body>
@@ -50,32 +42,35 @@
 <header>
     <div class="container text-center">
       <div class="row">
-          <div class="col-sm-3"></div>
-          <div class="col-sm-6">    
+          <div class="col-sm-6 col-sm-offset-3">    
               <form wicket:id="searchForm" id="searchForm" method="get">
                  <div class="row">
-                     <div class="col-sm-6 form-group">
+                     <div class="col-sm-5 form-group">
                          <input wicket:id="departurePlace" wicket:message="placeholder :avtobusi.searchpage.departureplace" type="text" class="form-control departurePlace" id="departurePlace" required />
                      </div>
-                     <div class="col-sm-6 form-group">
+                     <div class="col-sm-2">
+                        <img id="switchImg" wicket:id="switch-img" class="switch-button" src="static/img/switch50.jpg" height="30" width="30" />
+                     </div>
+                     <div class="col-sm-5 form-group">
                          <input wicket:id="destinationPlace" wicket:message="placeholder :avtobusi.searchpage.destinationplace" type="text" class="form-control" id="destinationPlace" required />
                      </div>
-                     <div class="col-sm-6 form-group">
+                 </div>
+                 <div class="row">
+                    <div class="col-sm-5 form-group">
                          <div class="input-group">
-	                         <input wicket:id="departureDate" type="text" class="form-control" name="departureDate" id="departureDate" wicket:message="placeholder :avtobusi.searchpage.departuredate.format" required />
-	                         <span class="input-group-addon" ><i class="glyphicon glyphicon-calendar" onclick="$(function() {$('#departureDate').datepicker('show');});"></i></span>
+                             <input wicket:id="departureDate" type="text" class="form-control" name="departureDate" id="departureDate" wicket:message="placeholder :avtobusi.searchpage.departuredate.format" required />
+                             <span class="input-group-addon" ><i class="glyphicon glyphicon-calendar" onclick="$(function() {$('#departureDate').datepicker('show');});"></i></span>
                          </div>
                      </div>
-                     <div class="col-sm-6 form-group">
+                     <div class="col-sm-2"></div>
+                     <div class="col-sm-5 form-group">
                          <input id="sbt" type="submit" class="btn btn-primary btn-block" wicket:message="value :avtobusi.searchpage.btn.search" />
                      </div>
                  </div>
               </form>    
           </div>
-          <div class="col-sm-3"></div>
       </div>
     </div>  
 </header>
-
 </body>
 </html>

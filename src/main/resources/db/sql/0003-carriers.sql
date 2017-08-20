@@ -48,5 +48,5 @@
 /* ****************************************************************************************************** */
 /*41*/ insert into CARRIER (name, name_cyrilic, carrierplaceid) values ('Marjan Turs', 'МАРЈАН ТУРС', '31');
 /*42*/ insert into CARRIER (name, name_cyrilic, carrierplaceid) values ('Sotka Bus', 'СОТКА БУС', '32');
-/*43*/ insert into CARRIER (name, name_cyrilic, carrierplaceid) values ('Gogo Trans', 'ГОГО ТРАНС', '36');
+/*43*/ insert into CARRIER (name, name_cyrilic, carrierplaceid) values ('Gogo Trans', 'ГОГО ТРАНС', '34');
 /*44*/ insert into CARRIER (name, name_cyrilic, carrierplaceid) values ('Eko-Turs', 'ЕКО-ТУРС', '6');

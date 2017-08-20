@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +14,9 @@ import mk.mladen.avtobusi.entity.BusLineEntity;
 @Transactional
 @Repository(value = "busLineDao")
 public class BusLineDaoImpl extends GenericDaoImpl<BusLineEntity> implements BusLineDao {
+	
+	@SuppressWarnings("unused")
+	private final static Logger logger = Logger.getLogger(BusLineDaoImpl.class);
 
 	public BusLineDaoImpl() {
 		super(BusLineEntity.class);
@@ -37,6 +41,19 @@ public class BusLineDaoImpl extends GenericDaoImpl<BusLineEntity> implements Bus
 		query.setParameter("operationDays", "%" + dow + "%");
 		List<BusLineEntity> list = query.getResultList();
 		return list;
+	}
+
+	@Override
+	public long countBitolaSkopje() {
+		Query query = getEntityManager().createQuery("select count(ble) from BusLineEntity ble where (ble.departure.name like :departure) and (ble.destination.name like :destination)");
+		query.setParameter("departure", "%Bitola%");
+		query.setParameter("destination", "%Skopje%");
+		Object obj = query.getSingleResult();
+		if(obj instanceof Long) {
+			Long ll = (Long)obj;
+			return ll.longValue();
+		}
+		return 0;
 	}
 
 }

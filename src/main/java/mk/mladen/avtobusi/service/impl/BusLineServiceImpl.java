@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 import mk.mladen.avtobusi.dao.BusLineDao;
 import mk.mladen.avtobusi.dto.BusLineDto;
 import mk.mladen.avtobusi.entity.BusLineEntity;
+import mk.mladen.avtobusi.entity.CarrierEntity;
+import mk.mladen.avtobusi.entity.PlaceEntity;
 import mk.mladen.avtobusi.service.BusLineService;
 import mk.mladen.avtobusi.util.DOW;
 
@@ -86,11 +88,14 @@ public class BusLineServiceImpl implements BusLineService {
 		if(entities != null && !entities.isEmpty()) {
 			try {
 				for(BusLineEntity ent : entities) {
+					CarrierEntity carrier = ent.getCarrier();
+					PlaceEntity departurePlace = ent.getDeparture();
+					PlaceEntity destinationPlace = ent.getDestination();
 					BusLineDto dto = new BusLineDto(ent.getName(), 
-							ent.getDeparture().getName(), 
-							ent.getDestination().getName(),
-							ent.getCarrier().getName(),
-							ent.getCarrier().getNameCyrilic(),
+							departurePlace.getName(), 
+							destinationPlace.getName(),
+							carrier == null ? null : carrier.getName(),
+							carrier == null ? null : carrier.getNameCyrilic(),
 							ent.getPrice(),
 							ent.getPriceReturn(),
 							ent.getDepartureTime(),

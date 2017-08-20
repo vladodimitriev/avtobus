@@ -39,10 +39,28 @@ public class BusLineDto implements Serializable, Comparable {
 		this.carrierCyrilic = carrierCyrilic;
 		this.price = price;
 		this.priceReturn = priceReturn;
-		this.departureTime = departureTime;
-		this.arrivalTime = arrivalTime;
+		this.departureTime = convertTime(departureTime);
+		this.arrivalTime = convertTime(arrivalTime);
 	}
 	
+	private String convertTime(String time) {
+		String newTime = time;
+		if(time != null && (time.length() == 4)) { 
+			newTime = "0"+time;
+		} else if(time != null && (time.length() == 7)) { 
+			newTime = "0"+time;
+			newTime = newTime.substring(0, 5);
+		} else if(time != null && (time.length() == 8)) { 
+			newTime = newTime.substring(0, 5);
+		}
+		
+		if(newTime.contains(".")) {
+			newTime = newTime.replace(".", ":");
+		}
+		
+		return newTime;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -127,7 +145,9 @@ public class BusLineDto implements Serializable, Comparable {
 	public int compareTo(Object o) {
 		if(o != null && o instanceof BusLineDto) {
 			BusLineDto d = (BusLineDto)o;
-			return this.departureTime.compareTo(d.getDepartureTime());
+			String dt1 = this.departureTime;
+			String dt2 = d.getDepartureTime();
+			return dt1.compareTo(dt2);
 		}
 		return 0;
 	}

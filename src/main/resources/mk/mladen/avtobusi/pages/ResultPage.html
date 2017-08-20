@@ -50,6 +50,9 @@
 	                       <div class="form-group col-md-3">
 	                           <input wicket:id="departurePlace" wicket:message="placeholder :avtobusi.searchpage.departureplace" type="text" class="form-control" id="departurePlace" required/>
 	                       </div>
+	                       <div class="col-sm-1">
+	                          <img id="switchImg" wicket:id="switch-img" class="switch-button" src="static/img/switch50.jpg" height="30" width="30" />
+	                       </div>
 	                       <div class="form-group col-md-3">
 	                           <input wicket:id="destinationPlace" wicket:message="placeholder :avtobusi.searchpage.destinationplace" type="text" class="form-control" id="destinationPlace" required/>
 	                       </div>
@@ -59,7 +62,6 @@
 	                               <span class="input-group-addon"><i class="glyphicon glyphicon-calendar" onclick="$(function() {$('#departureDate').datepicker('show');});"></i></span>
 	                           </div>
 	                       </div>
-	                       <div class="form-group col-md-1"></div>
 	                       <div class="form-group col-md-2">
 	                           <input type="submit" class="btn btn-primary btn-block" wicket:message="value :avtobusi.searchpage.btn.search" />
 	                       </div>
@@ -81,7 +83,6 @@
 				      <th><wicket:message key="avtobusi.resultPage.table.arrivalTime">Arrival time</wicket:message></th>
 				      <th style="text-align: left"><wicket:message key="avtobusi.resultPage.table.carrier">Carrier</wicket:message></th>
 				      <th><wicket:message key="avtobusi.resultPage.table.price">Price</wicket:message></th>
-				      <th><wicket:message key="avtobusi.resultPage.table.priceReturn">Price return</wicket:message></th>
 				    </tr>
 				 </thead>
 				 <tbody>

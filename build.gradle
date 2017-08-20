@@ -65,6 +65,8 @@ dependencies {
     
     compile 'org.apache.poi:poi:3.16'
     compile 'net.sourceforge.jexcelapi:jxl:2.6.12'
+    compile 'com.ibm.icu:icu4j:59.1'
+    
     
     
     testCompile 'junit:junit:4.12'

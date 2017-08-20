@@ -14,4 +14,8 @@ public interface PlaceDao extends GenericDao<PlaceEntity> {
 	
 	public List<String> getAllPlacesNamesByLanguage(String language);
 
+	public PlaceEntity getByCyrilicName(String name);
+
+	public List<String> getAllPlacesNamesByLanguageAndName(String language, String name);
+
 }

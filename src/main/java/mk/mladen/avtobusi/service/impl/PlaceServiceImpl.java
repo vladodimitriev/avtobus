@@ -1,5 +1,6 @@
 package mk.mladen.avtobusi.service.impl;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +32,20 @@ public class PlaceServiceImpl implements PlaceService {
 	}
 	
 	@Override
-	public List<String> findAllPlacesNames(String name) {
+	public List<String> findAllPlacesNames(String name, String language) {
 		return placeDao.getAllPlacesNames(name);
 	}
 
 	@Override
 	public List<String> findAllPlacesNamesByLanguage(String language) {
 		return placeDao.getAllPlacesNamesByLanguage(language);
+	}
+	
+	@Override
+	public List<String> findAllPlacesNamesByLanguageAndName(String language, String name) {
+		List<String> places = placeDao.getAllPlacesNamesByLanguageAndName(language, name);
+		Collections.sort(places);
+		return places;
 	}
 
 }
