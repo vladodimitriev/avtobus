@@ -31,6 +31,9 @@ public class BusLineEntity {
 	
 	@Column(name = "distance", nullable=true)
 	private Integer distance;
+
+	@Column(name = "dist", nullable=true)
+	private Double dist;
 	
 	@Column(name = "jurneytime", nullable=true)
 	private String jurneyTime;
@@ -40,12 +43,18 @@ public class BusLineEntity {
 	
 	@Column(name = "operationperiod", nullable=true)
 	private String operationPeriod;
+
+	@Column(name = "operationmonths", nullable=true)
+	private String operationMonths;
 	
 	@Column(name = "price", nullable=true)
 	private String price;
 	
-	@Column(name = "priceReturn", nullable=true)
+	@Column(name = "pricereturn", nullable=true)
 	private String priceReturn;
+
+	@Column(name = "comment", nullable = true)
+	private String comment;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="departureplaceid", nullable=true)
@@ -176,10 +185,34 @@ public class BusLineEntity {
 	public void setOperationPeriod(String operationPeriod) {
 		this.operationPeriod = operationPeriod;
 	}
-	
+
+	public Double getDist() {
+		return dist;
+	}
+
+	public void setDist(Double dist) {
+		this.dist = dist;
+	}
+
+	public String getOperationMonths() {
+		return operationMonths;
+	}
+
+	public void setOperationMonths(String operationMonths) {
+		this.operationMonths = operationMonths;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
 	@Override
 	public String toString() {
-		return departure.getName() + " " + destination.getName() + " " + departureTime + " " + arrivalTime + " " + carrier + ", distance: " + distance + ", days of work: " + operationDays;
+		return "BusLineEntity: [" + departure + " " + destination + " " + departureTime + " " + arrivalTime + " " + carrier + ", distance: " + distance + ", days of work: " + operationDays + "]";
 	}
 
 }

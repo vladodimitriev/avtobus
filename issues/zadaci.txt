@@ -1,0 +1,4 @@
+1. Baza na podatoci (postgresql)
+2. Administracija na linii
+3. Avtomatsko povrzuvanje na linii od razlicni prevoznici (primer: Negotino - Ohrid da najde linija)
+4. 

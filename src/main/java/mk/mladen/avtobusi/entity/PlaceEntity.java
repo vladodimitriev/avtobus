@@ -22,7 +22,7 @@ public class PlaceEntity {
 	@Column(name = "name", nullable=true)
 	private String name;
 	
-	@Column(name = "name_cyrilic", nullable=true)
+	@Column(name = "namecyrillic", nullable=true)
 	private String nameCyrilic;
 	
 	@Column(name = "population", nullable=true)
@@ -86,5 +86,9 @@ public class PlaceEntity {
 	public void setNameCyrilic(String nameCyrilic) {
 		this.nameCyrilic = nameCyrilic;
 	}
-	
+
+	@Override
+	public String toString() {
+		return String.format("PlaceEntity[%s, %s]", name, nameCyrilic);
+	}
 }

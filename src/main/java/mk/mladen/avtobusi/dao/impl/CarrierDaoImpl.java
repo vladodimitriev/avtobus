@@ -49,4 +49,15 @@ public class CarrierDaoImpl extends GenericDaoImpl<CarrierEntity> implements Car
 		return null;
 	}
 
+	@Override
+	public long countAll() {
+		Query query = getEntityManager().createQuery("select count(ple) from CarrierEntity ple");
+		Object obj = query.getSingleResult();
+		if(obj instanceof Long) {
+			Long ll = (Long)obj;
+			return ll.longValue();
+		}
+		return 0;
+	}
+
 }

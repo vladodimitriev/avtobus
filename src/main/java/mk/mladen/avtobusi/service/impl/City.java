@@ -9,6 +9,8 @@ public class City implements Comparable<City>{
 	private int lineNumber;
 	private String daysOfWork; 
 	private int distance;
+	private double dist;
+
 	
 	public City() {
 	}
@@ -68,11 +70,21 @@ public class City implements Comparable<City>{
 		this.distance = distance;
 	}
 
+	public double getDist() {
+		return dist;
+	}
+
+	public void setDist(double dist) {
+		this.dist = dist;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if(obj != null && obj instanceof City) {
 			City c = (City)obj;
-			if(c.getName().equalsIgnoreCase(this.getName())) {
+			if(c.getName().equals(this.getName())
+					&& c.getTime().equals(this.getTime())
+					&& c.getOrder() == this.getOrder()) {
 				return true;
 			}
 		}

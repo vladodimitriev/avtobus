@@ -84,10 +84,10 @@ public class PlaceDaoImpl extends GenericDaoImpl<PlaceEntity> implements PlaceDa
 				return pe;
 			}
 		} catch(NoResultException nre) {
-			logger.info("getByCyrilicName() - nre name: " + name);
+			//logger.info("getByCyrilicName() - nre name: " + name);
 			return null;
 		} catch(NonUniqueResultException nure) {
-			logger.info("getByCyrilicName() - nure name: " + name);
+			//logger.info("getByCyrilicName() - nure name: " + name);
 			return null;
 		}
 		return null;

@@ -18,6 +18,9 @@ public class CountryEntity {
 	
 	@Column(name = "name", nullable=true)
 	private String name;
+
+	@Column(name = "namecyrillic", nullable=true)
+	private String namecyrillic;
 	
 	@Column(name = "population", nullable=true)
 	private Integer population;
@@ -57,4 +60,16 @@ public class CountryEntity {
 		this.population = population;
 	}
 
+	public String getNamecyrillic() {
+		return namecyrillic;
+	}
+
+	public void setNamecyrillic(String namecyrillic) {
+		this.namecyrillic = namecyrillic;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("CountryEntity[%s, %s]", name, namecyrillic);
+	}
 }

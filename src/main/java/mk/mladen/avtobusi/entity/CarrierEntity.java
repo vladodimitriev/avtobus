@@ -24,7 +24,7 @@ public class CarrierEntity {
 	@Column(name = "name", nullable=true)
 	private String name;
 	
-	@Column(name = "name_cyrilic", nullable=true)
+	@Column(name = "namecyrilic", nullable=true)
 	private String nameCyrilic;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -76,6 +76,11 @@ public class CarrierEntity {
 
 	public void setPlace(PlaceEntity place) {
 		this.place = place;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("CarrierEntity[%s, %s]", name, nameCyrilic);
 	}
 	
 }

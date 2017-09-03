@@ -5,11 +5,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class BusLineServiceTest {
 
 	@Test
+	@Ignore
 	public void dateConverterTest() {
 	
 		String dateString = "18/06/2017";

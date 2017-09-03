@@ -6,4 +6,5 @@ public interface CarrierDao extends GenericDao<CarrierEntity> {
 
 	CarrierEntity getByCarrierName(String carrier);
 
+	long countAll();
 }

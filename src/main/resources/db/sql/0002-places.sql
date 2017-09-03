@@ -1,5 +1,5 @@
-/* 1*/ insert into PLACE (name, name_cyrilic, population, postalcode, countryid) values ('Skopje', 'Скопје', '700000', '1000', '1');
-/* 2*/ insert into PLACE (name, name_cyrilic, population, postalcode, countryid) values ('Negotino', 'Неготино', '15000', '1440', '1');
+/* 1*/ insert into PLACE (name, name_cyrilic, countryid) values ('Skopje', 'Скопје', '1');
+/* 2*/ insert into PLACE (name, name_cyrilic, countryid) values ('Negotino', 'Неготино', '1');
 /* 3*/ insert into PLACE (name, name_cyrilic, countryid) values ('Kavadarci', 'Кавадарци', '1');
 /* 4*/ insert into PLACE (name, name_cyrilic, countryid) values ('Ohrid', 'Охрид', '1');
 /* 5*/ insert into PLACE (name, name_cyrilic, countryid) values ('Veles', 'Велес', '1');

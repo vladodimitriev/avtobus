@@ -1,0 +1,18 @@
+1. Administration part
+2. Facebook, twitter, instagram links
+3. Koga userot ce klikne na textfield so e za gradot 
+   da se pojavi lista od najposetuvani gradovi
+4. Aplikacijata da pravi povrzuvanje na mesta 
+   za koi nema linii, megutoa konekcija moze da se naprave megu 
+   dve razlicni linii
+5. Senkata na language button da se smene
+6. Rastojanieto megu gradovite i znakceto za smena 
+   e premnogu golemo na prvata stranica. 
+   Isto na vtorata strana moze da se smene
+7. Tabelata na vtorata stranica da se smene,
+   namesto tabela moze da bide div, so povece 
+   podatoci
+8. Datum da ne mora da se vnese,
+   vo slucaj da ne vnesi, 
+   da se prikaze tabela so site linii
+   i so zabeleska za koi denovi odat
