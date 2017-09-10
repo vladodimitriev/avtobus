@@ -17,5 +17,6 @@ public interface PlaceService {
 	public List<String> findAllPlacesNamesByLanguage(String language);
 	
 	public List<String> findAllPlacesNamesByLanguageAndName(String language, String name);
-	
+
+    public List<String> findCommonPlaces(String lang);
 }

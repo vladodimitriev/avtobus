@@ -48,4 +48,9 @@ public class PlaceServiceImpl implements PlaceService {
 		return places;
 	}
 
+	@Override
+	public List<String> findCommonPlaces(String lang) {
+		return placeDao.getCommonPlaces(lang);
+	}
+
 }

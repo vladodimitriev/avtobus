@@ -23,6 +23,10 @@ public class SearchBean implements Serializable {
 	private String departureDate;
 	
 	private String returnDate;
+
+	private String distance;
+
+	private String travelTime;
 	
 	private Date date;
 	
@@ -88,5 +92,20 @@ public class SearchBean implements Serializable {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
+
+	public String getDistance() {
+		return distance;
+	}
+
+	public void setDistance(String distance) {
+		this.distance = distance;
+	}
+
+	public String getTravelTime() {
+		return travelTime;
+	}
+
+	public void setTravelTime(String travelTime) {
+		this.travelTime = travelTime;
+	}
 }

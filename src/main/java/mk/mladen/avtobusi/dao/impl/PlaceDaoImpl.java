@@ -110,4 +110,20 @@ public class PlaceDaoImpl extends GenericDaoImpl<PlaceEntity> implements PlaceDa
 		return results;
 	}
 
+	@Override
+	public List<String> getCommonPlaces(String language) {
+		List<String> results = new ArrayList<String>();
+		String queryStr = "select ple.name from PlaceEntity ple";
+		if("MK".equals(language)) {
+			queryStr = "select ple.nameCyrilic from PlaceEntity ple";
+		}
+		Query query = getEntityManager().createQuery(queryStr);
+		query.setMaxResults(5);
+		Object object = query.getResultList();
+		if(object instanceof List) {
+			results = (List)object;
+		}
+		return results;
+	}
+
 }

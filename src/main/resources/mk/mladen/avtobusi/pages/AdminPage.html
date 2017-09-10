@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:wicket="http://wicket.apache.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Avtobusi.mk</title>
+    <link rel="stylesheet" href="static/css/bootstrap.css">
+    <link rel="stylesheet" href="static/css/font-awesome.min.css">
+</head>
+<body>
+<div class="avtobusi-nav">
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-avtobusi">
+        <div class="container">
+            <div class="navbar-header">
+                <a wicket:id="searchPage" class="navbar-brand" href="#">
+                    <wicket:message key="avtobusi.title">Avtobusi</wicket:message>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#about" wicket:id="AboutPage"><wicket:message key="avtobusi.navbar.about">About</wicket:message></a>
+                    </li>
+                    <li>
+                        <a href="#contact" wicket:id="ContactPage"><wicket:message key="avtobusi.navbar.contact">Contact</wicket:message></a>
+                    </li>
+                    <li>
+                        <a href="#login" wicket:id="LoginPage"><wicket:message key="avtobusi.navbar.login">About</wicket:message></a>
+                    </li>
+                    <li>
+                        <a data-toggle="dropdown" href="#">
+                            <img wicket:id="language_img" alt="EN" height="21" width="21" /> <span wicket:id="language_label"></span> <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu language-dropdown-menu">
+                            <li><a wicket:id="english" class="dropdown-item" href="#"><img src="static/flags/4x3/gb.svg" alt="EN" height="21" width="21" /> EN</a></li>
+                            <li><a wicket:id="macedonian" class="dropdown-item" href="#"><img src="static/flags/4x3/mk.svg" alt="MK" height="21" width="21" /> MK</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+<form wicket:id="resultSearchForm" class="form-inline">
+<div class="row avtobusicontainer">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10">
+        <div class="panel avtobusi-panel">
+                <div class="row avtobusi-row">
+                    <div class="form-group col-md-4">
+                        <div class="avtobusi-space"></div>
+                        <input wicket:id="departurePlace" wicket:message="placeholder :avtobusi.searchpage.departureplace" type="text" class="form-control avtobusi-text" id="departurePlace" required/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <input wicket:id="destinationPlace" wicket:message="placeholder :avtobusi.searchpage.destinationplace" type="text" class="form-control avtobusi-text" id="destinationPlace" required/>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <input type="submit" class="btn btn-warning btn-block" wicket:message="value :avtobusi.searchpage.btn.search" />
+                    </div>
+                    <div class="col-md-2">
+                        <button wicket:id="addBtn" id="addBtn" class="btn btn-warning btn-block" wicket:message="value :avtobusi.searchpage.btn.add"></button>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+    <div class="col-sm-1"></div>
+</div>
+
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+            <section>
+                <article class="row article-row" wicket:id="rows">
+                    <div class="col-sm-1">
+                        <img wicket:id="bus_img" alt="" height="21" width="21" />
+                    </div>
+                    <div class="col-sm-2 dep-arr-time" wicket:id="departureArrivalTime"></div>
+                    <div class="col-sm-2 dep-arr-time" wicket:id="departureArrivalPlace"></div>
+                    <div class="col-sm-5 dep-arr-time" wicket:id="carrier"></div>
+                    <div class="col-sm-1 dep-arr-time"><button wicket:id="detailsBtn" class="btn btn-warning btn-block"></button></div>
+                    <div class="col-sm-1 dep-arr-time"><button wicket:id="deleteBtn" class="btn btn-warning btn-block"></button></div>
+
+                    <!--
+                    <div class="col-sm-1">
+                        <img wicket:id="bus_img" alt="" height="21" width="21" />
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="row"><div wicket:id="carrier"></div></div>
+                        <div class="row">
+                            <div class="col-sm-4 dep-arr-time" wicket:id="departureArrivalTime"></div>
+                            <div class="col-sm-4 dep-arr-time" wicket:id="departureArrivalPlace"></div>
+                            <div class="col-sm-4"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="row"><div wicket:id="travelTime"></div></div>
+                        <div class="row"><div wicket:id="travelDistance"></div></div>
+                        <div class="row"><div wicket:id="details"></div></div>
+                    </div>
+                    -->
+                    <!--
+                    <div class="col-sm-2">
+                        <div class="row">310.00 MKD</div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="row"><button class="btn btn-warning btn-block" value="Purchase">Ponatamu</button></div>
+                    </div>
+                    -->
+                </article>
+            </section>
+        </div>
+    </div>
+</form>
+<div wicket:id="modal1"></div><br/>
+</body>
+</html>

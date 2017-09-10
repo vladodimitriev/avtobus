@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:wicket="http://wicket.apache.org">
 <head>
-<wicket:head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Avtobusi.mk</title>
-</wicket:head>
+    <link rel="stylesheet" href="static/css/bootstrap.css">
+    <link rel="stylesheet" href="static/css/font-awesome.min.css">
 </head>
 <body>
 <div>
@@ -45,36 +45,32 @@
     </nav>
 </div>
 <div class="container text-center avtobusi-search-container">
-    <div class="col-sm-8 col-sm-offset-2">
-        <form wicket:id="searchForm" id="searchForm" method="get">
-        <section>
-            <article class="article-search-row">
-
-                    <div class="row">
-                        <div class="city1 form-group">
-                            <input wicket:id="departurePlace" wicket:message="placeholder :avtobusi.searchpage.departureplace" type="text" class="form-control departurePlace" id="departurePlace" required />
-                        </div>
-                        <div class="city2 form-group">
-                            <img id="switchImg" wicket:id="switch-img" class="switch-button" src="static/img/switch50x999.jpg" height="30" width="30" />
-                        </div>
-                        <div class="city3 form-group">
-                            <input wicket:id="destinationPlace" wicket:message="placeholder :avtobusi.searchpage.destinationplace" type="text" class="form-control" id="destinationPlace" required />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="city1 form-group">
-                            <input wicket:id="departureDate" type="text" class="form-control" name="departureDate" id="departureDate" wicket:message="placeholder :avtobusi.searchpage.departuredate.format" required />
-                        </div>
-                        <div class="city2 form-group"></div>
-                        <div class="city3 form-group">
-                            <input id="sbt" type="submit" class="btn btn-warning btn-block" wicket:message="value :avtobusi.searchpage.btn.search" />
-                        </div>
-                    </div>
-
-            </article>
-        </section>
+<div class="col-sm-4 col-sm-offset-4">
+    <section>
+        <article class="article-login">
+        <div class="row article-login-row">
+            <h1 class="text-center login-title">Login</h1>
+        </div>
+        <form wicket:id="loginForm">
+            <div class="row">
+                <div class="form-group">
+                    <input wicket:id="username" id="username" type="text" class="form-control" placeholder="username" required />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <input wicket:id="password" id="password" type="password" class="form-control" placeholder="password" required/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <input id="sbt" type="submit" class="btn btn-warning btn-block" wicket:message="value :avtobusi.loginpage.btn.login" />
+                </div>
+            </div>
         </form>
-    </div>
+        </article>
+    </section>
+</div>
 </div>
 </body>
 </html>

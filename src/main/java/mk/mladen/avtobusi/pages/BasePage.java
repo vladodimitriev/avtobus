@@ -79,7 +79,7 @@ public class BasePage extends WebPage {
 		add(aboutPage);
 		
 		Link<String> contactPage = new Link<String>("ContactPage") {
-			
+
 			@Override
 			public MarkupContainer setDefaultModel(IModel model) {
 				return null;
@@ -91,6 +91,20 @@ public class BasePage extends WebPage {
 			}
 		};
 		add(contactPage);
+
+		Link<String> adminPage = new Link<String>("LoginPage") {
+
+			@Override
+			public MarkupContainer setDefaultModel(IModel model) {
+				return null;
+			}
+
+			@Override
+			public void onClick() {
+				setResponsePage(LoginPage.class, parameters);
+			}
+		};
+		add(adminPage);
 	}
 
 	@SuppressWarnings("unused")

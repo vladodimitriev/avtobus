@@ -16,6 +16,8 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.PropertyListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.RepeatingView;
@@ -50,18 +52,31 @@ public class ResultPage extends BasePage {
 	
 	@SpringBean
 	private PlaceService placeService;
-	
+
+	private ResourceReference busResourceReference;
+
+	private PropertyListView<BusLineDto> dataView;
+
 	public ResultPage(PageParameters params) {
+
 		super(params);
-		
+
+		PageParameters params2 = new PageParameters();
+		params2.add("departure", "Skopje");
+		params2.add("destination", "Negotino");
+		params2.add("date", "03/07/2017");
+		params2.add("lang", "EN");
 		searchBean = new SearchBean(params);
-		
+
+		busResourceReference = new PackageResourceReference(WicketApplication.class, "static/img/bus21x21x999.jpg");
+
 		Model langLabelModel = new Model(lang);
 		Label languageLabel = new Label("language_label", langLabelModel);
 		add(languageLabel);
 		
 		Model imgModel = new Model();
 		Image img = new Image( "language_img", imgModel);
+
 		
 		ResourceReference resourceReference = new PackageResourceReference(WicketApplication.class, "static/flags/4x3/gb.svg");
 		if("EN".equalsIgnoreCase(lang)) {
@@ -71,12 +86,12 @@ public class ResultPage extends BasePage {
 		}
 		img.setImageResourceReference(resourceReference);
 		add(img);
-		
+
 		Model imgSwitchModel = new Model();
 		Image imgSwitch = new Image( "switch-img", imgSwitchModel);
-		ResourceReference rr1 = new PackageResourceReference(WicketApplication.class, "static/img/switch50.jpg");
+		ResourceReference rr1 = new PackageResourceReference(WicketApplication.class, "static/img/switch50x999.jpg");
 		imgSwitch.setImageResourceReference(rr1);
-		
+
 		Link link1 = new Link("english") {
 			@Override
 			public MarkupContainer setDefaultModel(IModel model) {
@@ -148,54 +163,71 @@ public class ResultPage extends BasePage {
 	        	ajax3 = ((TextField<String>) getComponent()).getModelObject();
 	        }
 	    });
-		
-		DataView<BusLineDto> dataView = createDataView();
-		Form form2 = new Form("purchaseForm"){
-			@Override
-			protected void onSubmit() {}
-		};
-		form2.addOrReplace(dataView);
-		add(form2);
-		
+
+		dataView = createDataView();
+		dataView.setOutputMarkupId(true);
+
 		Form form = new Form("resultSearchForm"){
 			@Override
 			protected void onSubmit() {
-				DataView<BusLineDto> dataView = createDataView();
-				form2.addOrReplace(dataView);
+				dataView = createDataView();
+				this.addOrReplace(dataView);
 			}
 		};
 		form.add(actf1);
 		form.add(actf2);
 		form.add(tf3);
 		form.add(imgSwitch);
+		form.addOrReplace(dataView);
 		add(form);
 	}
 	
-	private DataView<BusLineDto> createDataView() {
+	private PropertyListView<BusLineDto> createDataView() {
 		List<BusLineDto> busLines = loadRelations();
-		ListDataProvider<BusLineDto> listDataProvider = new ListDataProvider<BusLineDto>(busLines);
-		DataView<BusLineDto> dataView = new DataView<BusLineDto>("rows", listDataProvider) {
+		dataView = new PropertyListView<BusLineDto>("rows", busLines) {
 			  @Override
-			  protected void populateItem(Item<BusLineDto> item) {
+			  protected void populateItem(ListItem<BusLineDto> item) {
 				  final BusLineDto busLine = item.getModelObject();
-				  final RepeatingView repeatingView = new RepeatingView("dataRow");
-				  final Label label1 = new Label(repeatingView.newChildId(), busLine.getDepartureTime());
-				  label1.add(new AttributeModifier("style", "text-align: left"));
-				  repeatingView.add(label1);
-				  
-				  final Label label2 = new Label(repeatingView.newChildId(), busLine.getArrivalTime());
-				  label2.add(new AttributeModifier("style", "text-align: left"));
-				  repeatingView.add(label2);
+				  Model imgModel = new Model();
+				  Image bus_img = new Image( "bus_img", imgModel);
+				  bus_img.setImageResourceReference(busResourceReference);
+
+				  item.add(bus_img);
 				  if("EN".equalsIgnoreCase(lang)) {
-					  final Label label = new Label(repeatingView.newChildId(), busLine.getCarrier());
+					  final Label label = new Label("carrier", busLine.getCarrier());
 					  label.add(new AttributeModifier("style", "text-align: left"));
-					  repeatingView.add(label);   
+					  item.add(label);
 				  } else if("MK".equalsIgnoreCase(lang)) {
-					  final Label label = new Label(repeatingView.newChildId(), busLine.getCarrierCyrilic());
+					  final Label label = new Label("carrier", busLine.getCarrierCyrilic());
 					  label.add(new AttributeModifier("style", "text-align: left"));
-					  repeatingView.add(label);   
+					  item.add(label);
 				  }
-				  item.addOrReplace(repeatingView);
+
+				  String departureTime = busLine.getDepartureTime();
+				  String arrivalTime = busLine.getArrivalTime();
+				  String allTime = departureTime + " - " + arrivalTime;
+				  Label label1 = new Label("departureArrivalTime", allTime);
+				  label1.add(new AttributeModifier("style", "text-align: left"));
+				  item.add(label1);
+
+				  String allPlace = searchBean.getDeparturePlace() + " - " + searchBean.getDestinationPlace();
+				  label1 = new Label("departureArrivalPlace", allPlace);
+				  label1.add(new AttributeModifier("style", "text-align: left"));
+				  item.add(label1);
+
+//				  Label label3 = new Label("travelTime", busLine.getTravelTime());
+//				  label3.add(new AttributeModifier("style", "text-align: left"));
+//				  item.add(label3);
+
+//				  Label label4 = new Label("details", "details");
+//				  label4.add(new AttributeModifier("style", "text-align: left"));
+//				  item.add(label4);
+
+//				  Label label5 = new Label("travelDistance", busLine.getDistance());
+//				  label5.add(new AttributeModifier("style", "text-align: left"));
+//				  item.add(label5);
+
+				  //item.addOrReplace(repeatingView);
 			  }
 		};
 		return dataView;

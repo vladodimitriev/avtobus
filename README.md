@@ -10,9 +10,11 @@ DATABASE_URL=postgres://localhost:5432/gradle_database_name
 
 ## Deploying to Heroku
 
-```sh
+$ git add .
+$ git commit -m "Added a Procfile."
+$ heroku login
 $ heroku create avtobusi
 $ heroku deploy:war build/libs/avtobusi.war
 $ heroku ps:scale web=1
 $ heroku open
-```
+#postgresql-corrugated-20593

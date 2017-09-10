@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.MarkupContainer;
+import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
 import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteTextField;
@@ -81,12 +82,13 @@ public class SearchPage extends BasePage {
 				return choices.iterator();
 			}
 		};
-		actf2.add(new OnChangeAjaxBehavior(){
-	        @Override
-	        protected void onUpdate(final AjaxRequestTarget target){
-	        	ajax2 = ((AutoCompleteTextField<String>) getComponent()).getModelObject();
-	        }
-	    });
+
+		actf2.add(new AjaxEventBehavior("click") {
+			@Override
+			protected void onEvent(AjaxRequestTarget target) {
+
+			}
+		});
 		actf2.setRequired(true);
 		actf2.setOutputMarkupId(true);
 		
@@ -123,7 +125,7 @@ public class SearchPage extends BasePage {
 				} 
 			}
 		};
-		
+
 		form.add(actf1);
 		form.add(actf2);
 		form.add(tf3);
@@ -137,7 +139,7 @@ public class SearchPage extends BasePage {
 		
 		Model img2Model = new Model();
 		Image img2 = new Image( "switch-img", img2Model);
-		ResourceReference rr1 = new PackageResourceReference(WicketApplication.class, "static/img/switch50.jpg");
+		ResourceReference rr1 = new PackageResourceReference(WicketApplication.class, "static/img/switch50x999.jpg");
 		img2.setImageResourceReference(rr1);
 		form.add(img2);
 		

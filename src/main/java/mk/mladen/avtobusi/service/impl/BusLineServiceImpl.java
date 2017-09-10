@@ -47,7 +47,9 @@ public class BusLineServiceImpl implements BusLineService {
 							ent.getPrice(),
 							ent.getPriceReturn(),
 							ent.getDepartureTime(),
-							ent.getArrivalTime());
+							ent.getArrivalTime(),
+							ent.getDist(),
+							ent.getJurneyTime());
 					result.add(dto);
 				}
 			} catch (Exception e) {
@@ -94,7 +96,9 @@ public class BusLineServiceImpl implements BusLineService {
 							ent.getPrice(),
 							ent.getPriceReturn(),
 							ent.getDepartureTime(),
-							ent.getArrivalTime());
+							ent.getArrivalTime(),
+							ent.getDist(),
+							ent.getJurneyTime());
 					result.add(dto);
 				}
 			} catch (Exception e) {

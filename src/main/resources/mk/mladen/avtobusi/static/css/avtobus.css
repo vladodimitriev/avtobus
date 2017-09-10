@@ -22,7 +22,7 @@ header .container {
 .jumbotron {
     margin: 0px auto;
     padding: 50px 50px 50px 50px;
-    background: #7986CB;
+    background: #337ab7;/*7986CB*/
     color: white;
 }
 
@@ -86,7 +86,7 @@ header .container {
 }
 
 .navbar-avtobusi {
-    background: #2C3E50;
+    background: #2C3E50; /*#2C3E50;*/
     font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-transform: uppercase;
     font-weight: 700;
@@ -151,15 +151,122 @@ header .container {
 }
 
 .avtobusidate {
-    width: 120px !important;
+    border-width: 0px;
+    margin: 0px;
+    padding: 0px;
+    border-color: white;
+    color: #555;
 }
 
-.avtobusitext {
-    width: 150px !important;
+.avtobusi-nav {
+    margin-bottom: 50px;
+}
+
+.avtobusi-space {
+    margin-left: 10px;
 }
 
 .avtobusicontainer {
-    color: #555 !important;
+    color: #555;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: #337ab7;
+}
+
+.avtobusi-search-panel {
+    margin-top: 100px;
+    padding: 20px;
+    background-color: #337ab7;
+}
+
+.avtobusi-search-container {
+    margin-top: 150px;
+}
+
+.avtobusi-panel {
+    margin: 0px;
+    padding: 0px;
+    background-color: #ffffff;
+}
+
+.avtobusi-row {
+    padding: 0px;
+}
+
+.avtobusi-section {
+    margin-top: 20px;
+}
+
+.article-row {
+    padding: 10px;
+    margin: 10px;
+    border-color: #337ab7;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 5px;
+    color: #999999;
+}
+
+.article-search-row {
+    border-color: #337ab7;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 5px;
+    margin-top: 50px;
+    padding: 50px;
+    padding-top: 70px;
+}
+
+.article-login {
+    border-color: #337ab7;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 5px;
+    margin-top: 50px;
+    padding: 30px;
+    color: #999999;
+}
+
+.article-login-row {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+.avtobusi-modal-container {
+    width: 500px;
+    height: 600px;
+    margin-top: 0px;
+    padding: 0px;
+}
+
+.article-modal {
+    border-color: #ffffff;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 5px;
+    color: #999999;
+    padding: 10px;
+}
+
+.button-modal {
+
+    margin-top: 10px;
+}
+
+.article-modal-row {
+    margin-bottom: 10px;
+    padding-bottom: 20px;
+}
+
+.avtobusi-button {
+    margin: 0px;
+}
+
+.avtobusi-text {
+    border-width: 0px;
+    margin: 0px;
+    padding: 5px;
+    border-color: #ffffff;
 }
 
 .avtobusitable {
@@ -171,8 +278,9 @@ header .container {
 }
 
 header .avtobusicontainer {
-    padding-top: 80px !important;
+    padding-top: 10px;
     padding-bottom: 50px;
+    background-color: green;
 }
 
 .contactcontainer {
@@ -231,8 +339,44 @@ th {
 	max-height: 200px;
 	overflow-y: auto;
 	overflow-x: hidden;
-	padding-right: 20px;
-}   
+	padding-left: 40px;
+	background: url("/avtobus/static/img/input24x24x999.png") no-repeat left 10px center;
+	color: #999999;
+}
+
+#destinationPlace {
+	max-height: 200px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding-left: 40px;
+	background: url("/avtobus/static/img/input24x24x999.png") no-repeat left 10px center;
+	color: #999999;
+}
+
+#departureDate {
+	max-height: 200px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding-left: 40px;
+	background: url("/avtobus/static/img/calendar24x24x999.png") no-repeat left 10px center;
+	color: #999999;
+}
+
+#username {
+	max-height: 200px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding-left: 40px;
+	background: url("/avtobus/static/img/input24x24x999.png") no-repeat left 10px center;
+}
+
+#password {
+	max-height: 200px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding-left: 40px;
+	background: url("/avtobus/static/img/input24x24x999.png") no-repeat left 10px center;
+}
 
 .departurePlace {
     max-height: 200px;
@@ -269,4 +413,28 @@ div.wicket-aa ul li.selected {
 
 .switch-button:hover {
     background-color: #ffffff; /* Green */
+}
+
+.city-container {
+    width: 80%;
+    height: 200px;
+    margin: auto;
+    padding: 10px;
+}
+
+.city1 {
+    width: 45%;
+    float: left;
+}
+.city2 {
+    width: 10%;
+    float: left;
+}
+.city3 {
+    width: 45%;
+    float: left;
+}
+
+.row .dep-arr-time {
+    padding-left: 0px;
 }

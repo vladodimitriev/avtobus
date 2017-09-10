@@ -26,12 +26,17 @@ public class BusLineDto implements Serializable, Comparable {
 	private String departureTime;
 	
 	private String arrivalTime;
+
+	private String distance;
+
+	private String travelTime;
 	
 	public BusLineDto() {
 	}
 	
 	public BusLineDto(String name, String departurePlace, String destinationPlace, 
-			String carrier, String carrierCyrilic, String price, String priceReturn, String departureTime, String arrivalTime) {
+			String carrier, String carrierCyrilic, String price, String priceReturn,
+		    String departureTime, String arrivalTime, Double distance, String travelTime) {
 		this.name = name;
 		this.departurePlace = departurePlace;
 		this.destinationPlace = destinationPlace;
@@ -41,8 +46,33 @@ public class BusLineDto implements Serializable, Comparable {
 		this.priceReturn = priceReturn;
 		this.departureTime = convertTime(departureTime);
 		this.arrivalTime = convertTime(arrivalTime);
+		this.distance = getStrDistance(distance);
+		this.travelTime = travelTime;
 	}
-	
+
+	private String getStrDistance(Double distance) {
+		String result = "";
+		if(distance == null) {
+			return result + " km";
+		}
+
+		if(!(distance instanceof Double)) {
+			return result + " km";
+		}
+
+		try {
+			result = String.valueOf(distance.doubleValue());
+			if(distance.doubleValue() < 0) {
+				result = String.valueOf(distance.doubleValue() * -1);
+			}
+
+		}catch(NumberFormatException nfe) {
+			return result + " km";
+		}
+
+		return result + " km";
+	}
+
 	private String convertTime(String time) {
 		String newTime = time;
 		if(time != null && (time.length() == 4)) { 
@@ -139,6 +169,22 @@ public class BusLineDto implements Serializable, Comparable {
 
 	public void setPriceReturn(String priceReturn) {
 		this.priceReturn = priceReturn;
+	}
+
+	public String getDistance() {
+		return distance;
+	}
+
+	public void setDistance(String distance) {
+		this.distance = distance;
+	}
+
+	public String getTravelTime() {
+		return travelTime;
+	}
+
+	public void setTravelTime(String travelTime) {
+		this.travelTime = travelTime;
 	}
 
 	@Override
