@@ -340,7 +340,7 @@ th {
 	overflow-y: auto;
 	overflow-x: hidden;
 	padding-left: 40px;
-	background: url("/avtobus/static/img/input24x24x999.png") no-repeat left 10px center;
+	background: url("/static/img/input24x24x999.png") no-repeat left 10px center;
 	color: #999999;
 }
 
@@ -349,7 +349,7 @@ th {
 	overflow-y: auto;
 	overflow-x: hidden;
 	padding-left: 40px;
-	background: url("/avtobus/static/img/input24x24x999.png") no-repeat left 10px center;
+	background: url("/static/img/input24x24x999.png") no-repeat left 10px center;
 	color: #999999;
 }
 
@@ -358,7 +358,7 @@ th {
 	overflow-y: auto;
 	overflow-x: hidden;
 	padding-left: 40px;
-	background: url("/avtobus/static/img/calendar24x24x999.png") no-repeat left 10px center;
+	background: url("/static/img/calendar24x24x999.png") no-repeat left 10px center;
 	color: #999999;
 }
 
@@ -367,7 +367,7 @@ th {
 	overflow-y: auto;
 	overflow-x: hidden;
 	padding-left: 40px;
-	background: url("/avtobus/static/img/input24x24x999.png") no-repeat left 10px center;
+	background: url("/static/img/input24x24x999.png") no-repeat left 10px center;
 }
 
 #password {

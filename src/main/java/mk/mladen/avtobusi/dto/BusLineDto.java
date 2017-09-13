@@ -34,9 +34,26 @@ public class BusLineDto implements Serializable, Comparable {
 	public BusLineDto() {
 	}
 	
-	public BusLineDto(String name, String departurePlace, String destinationPlace, 
+	public BusLineDto(int id, String name, String departurePlace, String destinationPlace,
 			String carrier, String carrierCyrilic, String price, String priceReturn,
 		    String departureTime, String arrivalTime, Double distance, String travelTime) {
+		this.id = id;
+		this.name = name;
+		this.departurePlace = departurePlace;
+		this.destinationPlace = destinationPlace;
+		this.carrier = carrier;
+		this.carrierCyrilic = carrierCyrilic;
+		this.price = price;
+		this.priceReturn = priceReturn;
+		this.departureTime = convertTime(departureTime);
+		this.arrivalTime = convertTime(arrivalTime);
+		this.distance = getStrDistance(distance);
+		this.travelTime = travelTime;
+	}
+
+	public BusLineDto(String name, String departurePlace, String destinationPlace,
+					  String carrier, String carrierCyrilic, String price, String priceReturn,
+					  String departureTime, String arrivalTime, Double distance, String travelTime) {
 		this.name = name;
 		this.departurePlace = departurePlace;
 		this.destinationPlace = destinationPlace;

@@ -270,6 +270,7 @@ public class AdminPage extends BasePage {
                 }
 
                 Button btn1 = new Button("detailsBtn", new Model<>("Details"));
+
                 item.add(btn1);
                 Button btn2 = new Button("deleteBtn", new Model<>("Delete"));
                 item.add(btn2);

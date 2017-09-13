@@ -14,7 +14,7 @@ $ git add .
 $ git commit -m "Added a Procfile."
 $ heroku login
 $ heroku create avtobusi
-$ heroku deploy:war build/libs/avtobusi.war
-$ heroku ps:scale web=1
-$ heroku open
+$ heroku deploy:war build/libs/avtobusi.war --app avtobusi
+$ heroku ps:scale web=1 --app avtobusi
+$ heroku open --app avtobusi
 #postgresql-corrugated-20593
