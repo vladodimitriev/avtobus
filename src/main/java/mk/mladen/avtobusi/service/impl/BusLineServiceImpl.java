@@ -39,7 +39,8 @@ public class BusLineServiceImpl implements BusLineService {
 		if(entities != null && !entities.isEmpty()) {
 			try {
 				for(BusLineEntity ent : entities) {
-					BusLineDto dto = new BusLineDto(ent.getName(), 
+					BusLineDto dto = new BusLineDto(ent.getId(),
+							ent.getName(),
 							ent.getDeparture().getName(), 
 							ent.getDestination().getName(),
 							ent.getCarrier().getName(),
@@ -88,7 +89,8 @@ public class BusLineServiceImpl implements BusLineService {
 					CarrierEntity carrier = ent.getCarrier();
 					PlaceEntity departurePlace = ent.getDeparture();
 					PlaceEntity destinationPlace = ent.getDestination();
-					BusLineDto dto = new BusLineDto(ent.getName(), 
+					BusLineDto dto = new BusLineDto(ent.getId(),
+							ent.getName(),
 							departurePlace.getName(), 
 							destinationPlace.getName(),
 							carrier == null ? null : carrier.getName(),

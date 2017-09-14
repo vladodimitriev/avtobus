@@ -1,6 +1,7 @@
 package mk.mladen.avtobusi.pages;
 
 import mk.mladen.avtobusi.WicketApplication;
+import mk.mladen.avtobusi.beans.AddBean;
 import mk.mladen.avtobusi.beans.SearchBean;
 import mk.mladen.avtobusi.dto.BusLineDto;
 import mk.mladen.avtobusi.service.BusLineService;
@@ -57,6 +58,8 @@ public class AdminPage extends BasePage {
     private PlaceService placeService;
 
     private ResourceReference busResourceReference;
+
+    private PropertyListView<BusLineDto> dataView;
 
     public AdminPage(PageParameters parameters) {
         super(parameters);
@@ -155,24 +158,29 @@ public class AdminPage extends BasePage {
         });
 
         //PropertyListView<BusLineDto> dataView = createDataView();
-
+        dataView = createDataView();
+        dataView.setOutputMarkupId(true);
 
         Form form = new Form("resultSearchForm"){
             @Override
             protected void onSubmit() {
-                this.addOrReplace(createDataView());
+                System.out.println("submit btn");
+                dataView = createDataView();
+                dataView.setOutputMarkupId(true);
+                this.addOrReplace(dataView);
             }
         };
         form.add(actf1);
         form.add(actf2);
 
         ModalWindow modal1 = new ModalWindow("modal1");
+        modal1.setOutputMarkupId(true);
         modal1.setResizable(true);
-        modal1.setInitialHeight(600);
+        modal1.setInitialHeight(400);
         //modal1.setInitialWidth(400);
         add(modal1);
 
-        modal1.setContent(new ModalPanel1(modal1.getContentId()));
+        modal1.setContent(new ModalPanel1(modal1.getContentId(), null));
         //modal1.setTitle("Modal window\n'panel\" content.");
 
         modal1.setCloseButtonCallback(new ModalWindow.CloseButtonCallback() {
@@ -192,27 +200,23 @@ public class AdminPage extends BasePage {
 
         Button btn = new Button("addBtn", new Model<>("Add"));
         btn.setOutputMarkupId(true);
-        form.add(btn);
-        form.addOrReplace(createDataView());
-        /*
-        add(new AjaxLink<Void>("showModal") {
-            @Override
-            public void onClick(AjaxRequestTarget target) {
-                modal2.show(target);
-            }
-        });
-        */
         btn.add(new AjaxEventBehavior("click") {
             @Override
             protected void onEvent(AjaxRequestTarget target) {
-                //setResponsePage(MyWebPage.class);
-                //searchBean.setDeparturePlace("Skopje");
-                //target.add(actf1);
-
+                System.out.println("add btn");
                 modal1.show(target);
             }
         });
 
+        AjaxLink<String> link = new AjaxLink<String>("addLink") {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                System.out.println("details link");
+                modal1.show(target);
+            }
+        };
+        form.add(link);
+        form.add(dataView);
         add(form);
     }
 
@@ -226,6 +230,7 @@ public class AdminPage extends BasePage {
     }
 
     private PropertyListView<BusLineDto> createDataView() {
+        System.out.println("create data view");
         List<BusLineDto> busLines = loadRelations();
         //ListDataProvider<BusLineDto> listDataProvider = new ListDataProvider<BusLineDto>(busLines);
         PropertyListView<BusLineDto> dataView = new PropertyListView<BusLineDto>("rows", busLines) {
@@ -238,10 +243,6 @@ public class AdminPage extends BasePage {
                 bus_img.setImageResourceReference(busResourceReference);
                 item.add(bus_img);
 
-//                Label label1 = new Label("id", "" + busLine.getId());
-//                label1.add(new AttributeModifier("style", "text-align: left"));
-//                item.add(label1);
-
                 String departureTime = busLine.getDepartureTime();
                 String arrivalTime = busLine.getArrivalTime();
                 String allTime = departureTime + " - " + arrivalTime;
@@ -249,10 +250,6 @@ public class AdminPage extends BasePage {
                 Label label1 = new Label("departureArrivalTime", allTime);
                 label1.add(new AttributeModifier("style", "text-align: left"));
                 item.add(label1);
-
-//                label1 = new Label("arrivalTime", arrivalTime);
-//                label1.add(new AttributeModifier("style", "text-align: left"));
-//                item.add(label1);
 
                 String allPlace = searchBean.getDeparturePlace() + " - " + searchBean.getDestinationPlace();
                 label1 = new Label("departureArrivalPlace", allPlace);
@@ -269,50 +266,59 @@ public class AdminPage extends BasePage {
                     item.add(label);
                 }
 
+                AddBean addBean = new AddBean();
+                addBean.setId(String.valueOf(busLine.getId()));
+
+                ModalWindow modal2 = new ModalWindow("modal2");
+                modal2.setOutputMarkupId(true);
+                modal2.setContent(new ModalPanel1(modal2.getContentId(), addBean));
+                modal2.setResizable(true);
+                modal2.setInitialHeight(400);
+                item.add(modal2);
                 Button btn1 = new Button("detailsBtn", new Model<>("Details"));
+                btn1.add(new AjaxEventBehavior("click") {
+                    @Override
+                    protected void onEvent(AjaxRequestTarget target) {
+                        System.out.println("details btn");
+                        modal2.show(target);
+                    }
+                });
 
-                item.add(btn1);
+
+                ModalWindow modal3 = new ModalWindow("modal3");
+                modal3.setOutputMarkupId(true);
+                modal3.setContent(new ModalPanel1(modal3.getContentId(), addBean));
+                modal3.setResizable(true);
+                modal3.setInitialHeight(400);
+                item.add(modal3);
                 Button btn2 = new Button("deleteBtn", new Model<>("Delete"));
-                item.add(btn2);
-
-//                final Label label0 = new Label(repeatingView.newChildId(), "" + busLine.getId());
-//                label0.add(new AttributeModifier("style", "text-align: left"));
-//                repeatingView.add(label0);
-
-//                final Label label1 = new Label(repeatingView.newChildId(), busLine.getDepartureTime());
-//                label1.add(new AttributeModifier("style", "text-align: left"));
-//                repeatingView.add(label1);
-//
-//                final Label label2 = new Label(repeatingView.newChildId(), busLine.getArrivalTime());
-//                label2.add(new AttributeModifier("style", "text-align: left"));
-//                repeatingView.add(label2);
-//                if("EN".equalsIgnoreCase(lang)) {
-//                    final Label label = new Label(repeatingView.newChildId(), busLine.getCarrier());
-//                    label.add(new AttributeModifier("style", "text-align: left"));
-//                    repeatingView.add(label);
-//                } else if("MK".equalsIgnoreCase(lang)) {
-//                    final Label label = new Label(repeatingView.newChildId(), busLine.getCarrierCyrilic());
-//                    label.add(new AttributeModifier("style", "text-align: left"));
-//                    repeatingView.add(label);
-//                }
+                btn2.add(new AjaxEventBehavior("click") {
+                    @Override
+                    protected void onEvent(AjaxRequestTarget target) {
+                        System.out.println("delete btn");
+                        modal3.show(target);
+                    }
+                });
 
 
-
-                AjaxLink<String> link1 = new AjaxLink<String>("details") {
+                AjaxLink<String> link1 = new AjaxLink<String>("detailsLink") {
                     @Override
                     public void onClick(AjaxRequestTarget target) {
                         System.out.println("details link");
+                        modal2.show(target);
                     }
                 };
+                item.add(link1);
 
-                AjaxLink<String> link2 = new AjaxLink<String>("delete") {
+                AjaxLink<String> link2 = new AjaxLink<String>("deleteLink") {
                     @Override
                     public void onClick(AjaxRequestTarget target) {
                         System.out.println("delete link");
+                        modal3.show(target);
                     }
                 };
-//                repeatingView.add(link1);
-//                item.addOrReplace(repeatingView);
+                item.add(link2);
+
             }
         };
         return dataView;

@@ -6,6 +6,8 @@ public class AddBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private String id;
+
     private String departurePlace;
 
     private String arrivalPlace;
@@ -32,6 +34,14 @@ public class AddBean implements Serializable {
 
     public AddBean() {
 
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getDeparturePlace() {

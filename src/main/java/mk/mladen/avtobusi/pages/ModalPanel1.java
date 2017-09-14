@@ -12,11 +12,19 @@ import java.util.Map;
 
 public class ModalPanel1 extends Panel {
 
-    public ModalPanel1(String id) {
+    private AddBean bean;
+
+    public ModalPanel1(String id, AddBean abean) {
         super(id);
         //add(new Label("hello", new Model<>("Hello")));
-        AddBean bean = new AddBean();
 
+        if(abean == null) {
+            bean = new AddBean();
+        } else {
+            bean = abean;
+        }
+
+        PropertyModel idModel = new PropertyModel(bean, "id");
         PropertyModel departureModel = new PropertyModel(bean, "departurePlace");
         PropertyModel arrivalModel = new PropertyModel(bean, "arrivalPlace");
         PropertyModel departureTimeModel = new PropertyModel(bean, "departureTime");
@@ -32,6 +40,7 @@ public class ModalPanel1 extends Panel {
         PropertyModel lineNumberModel = new PropertyModel(bean, "lineNumber");
         PropertyModel carrierModel = new PropertyModel(bean, "carrier");
 
+        TextField idTxt = new TextField("id", idModel);
         TextField departurePlaceTxt = new TextField("departurePlace", departureModel);
         TextField arrivalPlaceTxt = new TextField("arrivalPlace", arrivalModel);
         TextField departureTimeTxt = new TextField("departureTime", departureTimeModel);
@@ -51,6 +60,7 @@ public class ModalPanel1 extends Panel {
             }
         };
 
+        form.add(idTxt);
         form.add(departurePlaceTxt);
         form.add(arrivalPlaceTxt);
         form.add(departureTimeTxt);
