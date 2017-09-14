@@ -239,6 +239,13 @@ header .container {
     padding: 0px;
 }
 
+.avtobusi-delete-modal-container {
+    width: 500px;
+    height: 300px;
+    margin-top: 0px;
+    padding: 0px;
+}
+
 .article-modal {
     border-color: #ffffff;
     border-width: 2px;
@@ -380,7 +387,7 @@ th {
 	overflow-y: auto;
 	overflow-x: hidden;
 	padding-left: 40px;
-	background: url("/avtobus/static/img/input24x24x999.png") no-repeat left 10px center;
+	background: url("/static/img/input24x24x999.png") no-repeat left 10px center;
 }
 
 .departurePlace {

@@ -66,8 +66,6 @@ public class LoginPage extends BasePage {
         TextField<String> tf1 = new TextField<String>("username", model1);
 
         Model<String> model2 = new Model<String>();
-        //TextField<String> tf2 = new TextField<String>("password", model2);
-
         PasswordTextField ptf = new PasswordTextField("password", model2);
         Form form = new Form("loginForm") {
             @Override

@@ -30,6 +30,18 @@ public class BusLineDto implements Serializable, Comparable {
 	private String distance;
 
 	private String travelTime;
+
+	private String comment;
+
+	private String hasPrice;
+
+	private String operationDays;
+
+	private String operationMonths;
+
+	private String operationPeriod;
+
+	private String lineNumber;
 	
 	public BusLineDto() {
 	}
@@ -202,6 +214,54 @@ public class BusLineDto implements Serializable, Comparable {
 
 	public void setTravelTime(String travelTime) {
 		this.travelTime = travelTime;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	public String getHasPrice() {
+		return hasPrice;
+	}
+
+	public void setHasPrice(String hasPrice) {
+		this.hasPrice = hasPrice;
+	}
+
+	public String getOperationDays() {
+		return operationDays;
+	}
+
+	public void setOperationDays(String operationDays) {
+		this.operationDays = operationDays;
+	}
+
+	public String getOperationMonths() {
+		return operationMonths;
+	}
+
+	public void setOperationMonths(String operationMonths) {
+		this.operationMonths = operationMonths;
+	}
+
+	public String getOperationPeriod() {
+		return operationPeriod;
+	}
+
+	public void setOperationPeriod(String operationPeriod) {
+		this.operationPeriod = operationPeriod;
+	}
+
+	public String getLineNumber() {
+		return lineNumber;
+	}
+
+	public void setLineNumber(String lineNumber) {
+		this.lineNumber = lineNumber;
 	}
 
 	@Override

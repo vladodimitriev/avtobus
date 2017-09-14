@@ -1,0 +1,154 @@
+<wicket:panel xmlns:wicket="http://wicket.apache.org">
+    <div class="container text-center avtobusi-modal-container">
+        <section>
+            <article class="article-modal">
+                <div class="row article-modal-row">
+                    <h1 class="text-center modal-title">Add new bus line</h1>
+                </div>
+                <form wicket:id="addForm">
+                    <div class="row modal-row">
+                        <div class="form-group">
+                            <div class="col-sm-6 text-left">
+                                <span>ID</span>
+                            </div>
+                            <div class="col-sm-6">
+                                <input wicket:id="id" type="text" class="form-control"  />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row modal-row">
+                        <div class="form-group">
+                            <div class="col-sm-6 text-left">
+                                <span>Departure place</span>
+                            </div>
+                            <div class="col-sm-6">
+                                <input wicket:id="departurePlace" type="text" class="form-control"  />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row modal-row">
+                        <div class="form-group">
+                            <div class="col-sm-6 text-left">
+                                <span>Arrival place</span>
+                            </div>
+                            <div class="col-sm-6">
+                                <input wicket:id="arrivalPlace" type="text" class="form-control"  />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row modal-row">
+                        <div class="form-group">
+                            <div class="col-sm-6 text-left">
+                                <span>Departure time</span>
+                            </div>
+                            <div class="col-sm-6">
+                                <input wicket:id="departureTime" type="text" class="form-control"  />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row modal-row">
+                        <div class="form-group">
+                            <div class="col-sm-6 text-left">
+                                <span>Arrival time</span>
+                            </div>
+                            <div class="col-sm-6">
+                                <input wicket:id="arrivalTime" type="text" class="form-control"  />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row modal-row">
+                        <div class="form-group">
+                            <div class="col-sm-6 text-left">
+                                <span>Operation days</span>
+                            </div>
+                            <div class="col-sm-6">
+                                <input wicket:id="operationDays" type="text" class="form-control"  />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row modal-row">
+                        <div class="form-group">
+                            <div class="col-sm-6 text-left">
+                                <span>Operation months</span>
+                            </div>
+                            <div class="col-sm-6">
+                                <input wicket:id="operationMonths" type="text" class="form-control"  />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row modal-row">
+                        <div class="form-group">
+                            <div class="col-sm-6 text-left">
+                                <span>Operation period</span>
+                            </div>
+                            <div class="col-sm-6">
+                                <input wicket:id="operationPeriod" type="text" class="form-control"  />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row modal-row">
+                        <div class="form-group">
+                            <div class="col-sm-6 text-left">
+                                <span>Comment</span>
+                            </div>
+                            <div class="col-sm-6">
+                                <input wicket:id="comment" type="text" class="form-control"  />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row modal-row">
+                        <div class="form-group">
+                            <div class="col-sm-6 text-left">
+                                <span>Price</span>
+                            </div>
+                            <div class="col-sm-6">
+                                <input wicket:id="price" type="text" class="form-control"  />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row modal-row">
+                        <div class="form-group">
+                            <div class="col-sm-6 text-left">
+                                <span>Can buy ticket online</span>
+                            </div>
+                            <div class="col-sm-6">
+                                <input wicket:id="hasPrice" type="text" class="form-control"  />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row modal-row">
+                        <div class="form-group">
+                            <div class="col-sm-6 text-left">
+                                <span>Line number</span>
+                            </div>
+                            <div class="col-sm-6">
+                                <input wicket:id="lineNumber" type="text" class="form-control"  />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row modal-row">
+                        <div class="form-group">
+                            <div class="col-sm-6 text-left">
+                                <span>Carrier</span>
+                            </div>
+                            <div class="col-sm-6">
+                                <input wicket:id="carrier" type="text" class="form-control"  />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row modal-row">
+                    </div>
+                    <div class="row modal-row">
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-4 button-modal">
+                                <input id="sbt" type="submit" class="btn btn-warning btn-block" wicket:message="value :avtobusi.adminpage.btn.submit" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </article>
+        </section>
+    </div>
+</wicket:panel>

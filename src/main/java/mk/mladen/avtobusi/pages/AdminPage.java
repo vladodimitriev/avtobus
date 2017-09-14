@@ -2,7 +2,9 @@ package mk.mladen.avtobusi.pages;
 
 import mk.mladen.avtobusi.WicketApplication;
 import mk.mladen.avtobusi.beans.AddBean;
+import mk.mladen.avtobusi.beans.DeleteBean;
 import mk.mladen.avtobusi.beans.SearchBean;
+import mk.mladen.avtobusi.beans.UpdateBean;
 import mk.mladen.avtobusi.dto.BusLineDto;
 import mk.mladen.avtobusi.service.BusLineService;
 import mk.mladen.avtobusi.service.PlaceService;
@@ -157,14 +159,12 @@ public class AdminPage extends BasePage {
             }
         });
 
-        //PropertyListView<BusLineDto> dataView = createDataView();
         dataView = createDataView();
         dataView.setOutputMarkupId(true);
 
         Form form = new Form("resultSearchForm"){
             @Override
             protected void onSubmit() {
-                System.out.println("submit btn");
                 dataView = createDataView();
                 dataView.setOutputMarkupId(true);
                 this.addOrReplace(dataView);
@@ -176,42 +176,27 @@ public class AdminPage extends BasePage {
         ModalWindow modal1 = new ModalWindow("modal1");
         modal1.setOutputMarkupId(true);
         modal1.setResizable(true);
-        modal1.setInitialHeight(400);
-        //modal1.setInitialWidth(400);
-        add(modal1);
-
-        modal1.setContent(new ModalPanel1(modal1.getContentId(), null));
-        //modal1.setTitle("Modal window\n'panel\" content.");
-
+        modal1.setInitialHeight(600);
+        modal1.setContent(new ModalPanelAdd(modal1.getContentId()));
+        /*
         modal1.setCloseButtonCallback(new ModalWindow.CloseButtonCallback() {
             @Override
             public boolean onCloseButtonClicked(AjaxRequestTarget target) {
-                //setResult("Modal window 2 - close button");
                 return true;
             }
         });
-
         modal1.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
             @Override
             public void onClose(AjaxRequestTarget target) {
                 //target.add(result);
             }
         });
-
-        Button btn = new Button("addBtn", new Model<>("Add"));
-        btn.setOutputMarkupId(true);
-        btn.add(new AjaxEventBehavior("click") {
-            @Override
-            protected void onEvent(AjaxRequestTarget target) {
-                System.out.println("add btn");
-                modal1.show(target);
-            }
-        });
+        */
+        add(modal1);
 
         AjaxLink<String> link = new AjaxLink<String>("addLink") {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                System.out.println("details link");
                 modal1.show(target);
             }
         };
@@ -230,9 +215,7 @@ public class AdminPage extends BasePage {
     }
 
     private PropertyListView<BusLineDto> createDataView() {
-        System.out.println("create data view");
         List<BusLineDto> busLines = loadRelations();
-        //ListDataProvider<BusLineDto> listDataProvider = new ListDataProvider<BusLineDto>(busLines);
         PropertyListView<BusLineDto> dataView = new PropertyListView<BusLineDto>("rows", busLines) {
             @Override
             protected void populateItem(ListItem<BusLineDto> item) {
@@ -266,45 +249,31 @@ public class AdminPage extends BasePage {
                     item.add(label);
                 }
 
-                AddBean addBean = new AddBean();
-                addBean.setId(String.valueOf(busLine.getId()));
+                UpdateBean updateBean = createUpdateBean(busLine);
+
 
                 ModalWindow modal2 = new ModalWindow("modal2");
                 modal2.setOutputMarkupId(true);
-                modal2.setContent(new ModalPanel1(modal2.getContentId(), addBean));
+                modal2.setContent(new ModalPanelUpdate(modal2.getContentId(), updateBean));
                 modal2.setResizable(true);
-                modal2.setInitialHeight(400);
+                modal2.setInitialHeight(600);
                 item.add(modal2);
-                Button btn1 = new Button("detailsBtn", new Model<>("Details"));
-                btn1.add(new AjaxEventBehavior("click") {
-                    @Override
-                    protected void onEvent(AjaxRequestTarget target) {
-                        System.out.println("details btn");
-                        modal2.show(target);
-                    }
-                });
 
 
                 ModalWindow modal3 = new ModalWindow("modal3");
                 modal3.setOutputMarkupId(true);
-                modal3.setContent(new ModalPanel1(modal3.getContentId(), addBean));
+
+                DeleteBean deleteBean = new DeleteBean();
+                deleteBean.setId(String.valueOf(busLine.getId()));
+                modal3.setContent(new ModalPanelDelete(modal3.getContentId(), deleteBean));
                 modal3.setResizable(true);
-                modal3.setInitialHeight(400);
+                modal3.setInitialHeight(300);
                 item.add(modal3);
-                Button btn2 = new Button("deleteBtn", new Model<>("Delete"));
-                btn2.add(new AjaxEventBehavior("click") {
-                    @Override
-                    protected void onEvent(AjaxRequestTarget target) {
-                        System.out.println("delete btn");
-                        modal3.show(target);
-                    }
-                });
 
 
                 AjaxLink<String> link1 = new AjaxLink<String>("detailsLink") {
                     @Override
                     public void onClick(AjaxRequestTarget target) {
-                        System.out.println("details link");
                         modal2.show(target);
                     }
                 };
@@ -313,7 +282,6 @@ public class AdminPage extends BasePage {
                 AjaxLink<String> link2 = new AjaxLink<String>("deleteLink") {
                     @Override
                     public void onClick(AjaxRequestTarget target) {
-                        System.out.println("delete link");
                         modal3.show(target);
                     }
                 };
@@ -322,6 +290,26 @@ public class AdminPage extends BasePage {
             }
         };
         return dataView;
+    }
+
+    private UpdateBean createUpdateBean(BusLineDto busLine) {
+        UpdateBean updateBean = new UpdateBean();
+        updateBean.setId(String.valueOf(busLine.getId()));
+        updateBean.setArrivalPlace(busLine.getDestinationPlace());
+        updateBean.setArrivalTime(busLine.getArrivalTime());
+        updateBean.setCarrier(busLine.getCarrier());
+        updateBean.setComment(busLine.getComment());
+        updateBean.setHasPrice(busLine.getPrice());
+        updateBean.setOperationDays(busLine.getOperationDays());
+        updateBean.setOperationMonths(busLine.getOperationMonths());
+        updateBean.setOperationPeriod(busLine.getOperationPeriod());
+        updateBean.setDeparturePlace(busLine.getDeparturePlace());
+        updateBean.setDepartureTime(busLine.getDepartureTime());
+        updateBean.setPrice(busLine.getPrice());
+        updateBean.setLineNumber(busLine.getLineNumber());
+        updateBean.setPriceReturn(busLine.getPriceReturn());
+        updateBean.setTravelTime(busLine.getTravelTime());
+        return updateBean;
     }
 
     private List<BusLineDto> loadRelations() {
