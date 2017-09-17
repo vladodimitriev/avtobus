@@ -1,39 +1,34 @@
 <wicket:panel xmlns:wicket="http://wicket.apache.org">
     <div class="container text-center avtobusi-delete-modal-container">
         <section>
-            <article class="article-modal">
+            <article class="article-modal text-center">
                 <div class="row article-modal-row">
                     <h1 class="text-center modal-title">Delete bus line</h1>
                 </div>
-                <form wicket:id="deleteForm">
-                    <div class="row modal-row">
-                       <span>Are you sure you want to delete?</span>
+                <div class="row modal-row-delete-line">
+                    <div class="col-sm-3 text-center">
+                        <span wicket:id="departureTime"></span> - <span wicket:id="arrivalTime"></span>
                     </div>
+                    <div class="col-sm-4 text-center">
+                        <span wicket:id="departurePlace"></span> - <span wicket:id="arrivalPlace"></span>
+                    </div>
+                    <div class="col-sm-5 text-center">
+                        <span wicket:id="carrier"></span>
+                    </div>
+                </div>
 
-                    <div class="row modal-row">
-                        <div class="form-group">
-                            <div class="col-sm-6 text-left">
-                                <span>ID</span>
-                            </div>
-                            <div class="col-sm-6">
-                                <input wicket:id="id" type="text" class="form-control"  />
-                            </div>
-                        </div>
+                <div class="row modal-row"></div>
+                <div class="row modal-row-delete">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-3 button-modal-delete">
+                        <a id="deleteYesLink" wicket:id="deleteYesLink" class="btn btn-warning btn-block" wicket:message="value :avtobusi.adminpage.btn.delete.yes">Yes</a>
                     </div>
+                    <div class="col-sm-3 button-modal-delete">
+                        <a id="deleteNoLink" wicket:id="deleteNoLink" class="btn btn-warning btn-block" wicket:message="value :avtobusi.adminpage.btn.delete.no">No</a>
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
 
-                    <div class="row modal-row">
-                    </div>
-                    <div class="row modal-row">
-                        <div class="form-group">
-                            <div class="col-sm-6 button-modal">
-                                <input id="sbt" type="submit" class="btn btn-warning btn-block" wicket:message="value :avtobusi.adminpage.btn.delete.yes" />
-                            </div>
-                            <div class="col-sm-6 button-modal">
-                                <input id="sbt2" type="submit" class="btn btn-warning btn-block" wicket:message="value :avtobusi.adminpage.btn.delete.no" />
-                            </div>
-                        </div>
-                    </div>
-                </form>
             </article>
         </section>
     </div>

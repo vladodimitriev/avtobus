@@ -1,16 +1,25 @@
 package mk.mladen.avtobusi.pages;
 
 import mk.mladen.avtobusi.beans.AddBean;
+import mk.mladen.avtobusi.service.BusLineService;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.ajax.markup.html.form.AjaxButton;
+import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 public class ModalPanelAdd extends Panel {
 
+    @SpringBean
+    private BusLineService busLineService;
+
     private AddBean bean;
 
-    public ModalPanelAdd(String id) {
+    public ModalPanelAdd(String id, ModalWindow window) {
         super(id);
         AddBean bean = new AddBean();
 
@@ -47,6 +56,7 @@ public class ModalPanelAdd extends Panel {
         Form form = new Form("addForm") {
             @Override
             protected void onSubmit() {
+                busLineService.addNewBusLine(bean);
             }
         };
 
@@ -66,8 +76,22 @@ public class ModalPanelAdd extends Panel {
         form.add(lineNumberTxt);
         form.add(carrierTxt);
 
+        AjaxLink<String> cancelLink = new AjaxLink<String>("cancelLink") {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                window.close(target);
+            }
+        };
 
+        AjaxButton saveBtn = new AjaxButton("saveBtn") {
+            @Override
+            protected void onSubmit(AjaxRequestTarget target) {
+                window.close(target);
+            }
+        };
 
+        form.add(cancelLink);
+        form.add(saveBtn);
         add(form);
     }
 }

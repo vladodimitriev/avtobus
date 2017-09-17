@@ -54,7 +54,7 @@ public class DbConfig {
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 		em.setDataSource(dataSource());
-		em.setPackagesToScan(new String[] { "mk.mladen.avtobusi.entity" });
+		em.setPackagesToScan(new String[] { "mk.mladen.avtobusi.entity", "mk.mladen.avtobusi.dao", "mk.mladen.avtobusi.service" });
 
 		JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		em.setJpaVendorAdapter(vendorAdapter);
@@ -74,7 +74,6 @@ public class DbConfig {
 	}
 
 	@Bean
-	@Autowired
 	public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
 		transactionManager.setEntityManagerFactory(emf);
@@ -113,7 +112,7 @@ public class DbConfig {
 		properties.put("hibernate.format_sql", environment.getRequiredProperty("postgres.hibernate.format_sql"));
 		properties.put("hibernate.hbm2ddl.auto", environment.getRequiredProperty("postgres.hibernate.hbm2ddl.auto"));
 		properties.put("hibernate.dialect", environment.getRequiredProperty("postgres.hibernate.dialect"));
-		properties.put("hibernate.cache.provider_class", environment.getRequiredProperty("derby.hibernate.cache.provider_class"));
+		properties.put("hibernate.cache.provider_class", environment.getRequiredProperty("postgres.hibernate.cache.provider_class"));
 		properties.put("hibernate.enable_lazy_load_no_trans", environment.getRequiredProperty("postgres.hibernate.enable_lazy_load_no_trans"));
 		return properties;
 	}

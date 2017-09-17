@@ -10,6 +10,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import mk.mladen.avtobusi.dao.GenericDao;
+import org.springframework.transaction.annotation.Transactional;
+
 
 public abstract class GenericDaoImpl<T> implements GenericDao<T> {
 

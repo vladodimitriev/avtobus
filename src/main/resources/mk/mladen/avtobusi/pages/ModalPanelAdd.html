@@ -138,14 +138,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row modal-row">
-                    </div>
-                    <div class="row modal-row">
-                        <div class="form-group">
-                            <div class="col-sm-4 col-sm-offset-4 button-modal">
-                                <input id="sbt" type="submit" class="btn btn-warning btn-block" wicket:message="value :avtobusi.adminpage.btn.submit" />
-                            </div>
+                    <div class="row modal-row"></div>
+                    <div class="row modal-row-add">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-3 button-modal-add">
+                            <input type="submit" wicket:id="saveBtn" class="btn btn-warning btn-block" wicket:message="value :avtobusi.adminpage.btn.add.save" />
                         </div>
+                        <div class="col-sm-3 button-modal-add">
+                            <a id="cancelLink" wicket:id="cancelLink" class="btn btn-warning btn-block" wicket:message="value :avtobusi.adminpage.btn.add.cancel">Cancel</a>
+                        </div>
+                        <div class="col-sm-3"></div>
                     </div>
                 </form>
             </article>

@@ -5,7 +5,7 @@
                 <div class="row article-modal-row">
                     <h1 class="text-center modal-title">Update bus line</h1>
                 </div>
-                <form wicket:id="addForm">
+                <form wicket:id="updateForm" method="post">
                     <div class="row modal-row">
                         <div class="form-group">
                             <div class="col-sm-6 text-left">
@@ -139,14 +139,19 @@
                         </div>
                     </div>
                     <div class="row modal-row">
+
                     </div>
-                    <div class="row modal-row">
-                        <div class="form-group">
-                            <div class="col-sm-4 col-sm-offset-4 button-modal">
-                                <input id="sbt" type="submit" class="btn btn-warning btn-block" wicket:message="value :avtobusi.adminpage.btn.submit" />
-                            </div>
-                        </div>
+
+                <div class="row modal-row-update">
+                    <div class="col-sm-3 "></div>
+                    <div class="col-sm-3 button-modal-update">
+                        <input type="submit" wicket:id="saveBtn" class="btn btn-warning btn-block" wicket:message="value :avtobusi.adminpage.btn.update.save" />
                     </div>
+                    <div class="col-sm-3 button-modal-update">
+                        <a id="cancelLink" wicket:id="cancelLink" class="btn btn-warning btn-block" wicket:message="value :avtobusi.adminpage.btn.update.cancel">Cancel</a>
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
                 </form>
             </article>
         </section>

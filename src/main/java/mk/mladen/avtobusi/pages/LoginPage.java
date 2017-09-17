@@ -74,7 +74,7 @@ public class LoginPage extends BasePage {
                 String password = model2.getObject();
                 if(StringUtils.isNotBlank(username) && StringUtils.isNotBlank(password)) {
                     if(username.equals(password)) {
-                        setResponsePage(AdminPage.class);
+                        setResponsePage(AdminPage.class, getParams("EN"));
                     }
                 }
             }

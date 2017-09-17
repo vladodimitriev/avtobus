@@ -12,12 +12,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.Page;
+import org.apache.wicket.PageReference;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteTextField;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
@@ -63,8 +65,11 @@ public class AdminPage extends BasePage {
 
     private PropertyListView<BusLineDto> dataView;
 
+    private WebMarkupContainer wmc;
+
     public AdminPage(PageParameters parameters) {
         super(parameters);
+
         Model langLabelModel = new Model(lang);
         Label languageLabel = new Label("language_label", langLabelModel);
         add(languageLabel);
@@ -162,47 +167,48 @@ public class AdminPage extends BasePage {
         dataView = createDataView();
         dataView.setOutputMarkupId(true);
 
+        wmc = new WebMarkupContainer("wmc");
+        wmc.setOutputMarkupId(true);
+
         Form form = new Form("resultSearchForm"){
             @Override
             protected void onSubmit() {
                 dataView = createDataView();
                 dataView.setOutputMarkupId(true);
-                this.addOrReplace(dataView);
+                wmc.addOrReplace(dataView);
             }
         };
         form.add(actf1);
         form.add(actf2);
 
-        ModalWindow modal1 = new ModalWindow("modal1");
-        modal1.setOutputMarkupId(true);
-        modal1.setResizable(true);
-        modal1.setInitialHeight(600);
-        modal1.setContent(new ModalPanelAdd(modal1.getContentId()));
-        /*
-        modal1.setCloseButtonCallback(new ModalWindow.CloseButtonCallback() {
+        ModalWindow modalWindow = new ModalWindow("modalWindow");
+        modalWindow.setOutputMarkupId(true);
+        modalWindow.setResizable(true);
+        modalWindow.setInitialHeight(600);
+        modalWindow.setContent(new ModalPanelAdd(modalWindow.getContentId(), modalWindow));
+        modalWindow.showUnloadConfirmation(false);
+        modalWindow.setWindowClosedCallback(new ModalWindow.WindowClosedCallback()
+        {
             @Override
-            public boolean onCloseButtonClicked(AjaxRequestTarget target) {
-                return true;
+            public void onClose(AjaxRequestTarget target)
+            {
+                dataView = createDataView();
+                wmc.addOrReplace(dataView);
+                target.add(wmc);
             }
         });
-        modal1.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
-            @Override
-            public void onClose(AjaxRequestTarget target) {
-                //target.add(result);
-            }
-        });
-        */
-        add(modal1);
+        add(modalWindow);
 
         AjaxLink<String> link = new AjaxLink<String>("addLink") {
             @Override
             public void onClick(AjaxRequestTarget target) {
-                modal1.show(target);
+                modalWindow.show(target);
             }
         };
         form.add(link);
-        form.add(dataView);
+        wmc.add(dataView);
         add(form);
+        add(wmc);
     }
 
     private PageParameters getParams(String language) {
@@ -250,31 +256,18 @@ public class AdminPage extends BasePage {
                 }
 
                 UpdateBean updateBean = createUpdateBean(busLine);
+                ModalWindow modalWindowUpdate = createModalWindowUpdate(updateBean);
+                item.add(modalWindowUpdate);
 
-
-                ModalWindow modal2 = new ModalWindow("modal2");
-                modal2.setOutputMarkupId(true);
-                modal2.setContent(new ModalPanelUpdate(modal2.getContentId(), updateBean));
-                modal2.setResizable(true);
-                modal2.setInitialHeight(600);
-                item.add(modal2);
-
-
-                ModalWindow modal3 = new ModalWindow("modal3");
-                modal3.setOutputMarkupId(true);
-
-                DeleteBean deleteBean = new DeleteBean();
+                DeleteBean deleteBean = createDeleteBean(busLine);
                 deleteBean.setId(String.valueOf(busLine.getId()));
-                modal3.setContent(new ModalPanelDelete(modal3.getContentId(), deleteBean));
-                modal3.setResizable(true);
-                modal3.setInitialHeight(300);
-                item.add(modal3);
-
+                ModalWindow modalWindowDelete = createModalWindowDelete(deleteBean);
+                item.add(modalWindowDelete);
 
                 AjaxLink<String> link1 = new AjaxLink<String>("detailsLink") {
                     @Override
                     public void onClick(AjaxRequestTarget target) {
-                        modal2.show(target);
+                        modalWindowUpdate.show(target);
                     }
                 };
                 item.add(link1);
@@ -282,14 +275,55 @@ public class AdminPage extends BasePage {
                 AjaxLink<String> link2 = new AjaxLink<String>("deleteLink") {
                     @Override
                     public void onClick(AjaxRequestTarget target) {
-                        modal3.show(target);
+                        modalWindowDelete.show(target);
                     }
                 };
                 item.add(link2);
-
             }
         };
         return dataView;
+    }
+
+    private DeleteBean createDeleteBean(BusLineDto busLine) {
+        DeleteBean deleteBean = new DeleteBean();
+        deleteBean.setId(String.valueOf(busLine.getId()));
+
+        deleteBean.setArrivalPlace(busLine.getDestinationPlace());
+        deleteBean.setArrivalTime(busLine.getArrivalTime());
+        deleteBean.setDeparturePlace(busLine.getDeparturePlace());
+        deleteBean.setDepartureTime(busLine.getDepartureTime());
+        deleteBean.setCarrier(busLine.getCarrier());
+        return deleteBean;
+    }
+
+    private ModalWindow createModalWindowUpdate(UpdateBean updateBean) {
+        ModalWindow modalWindowUpdate = new ModalWindow("modalWindowUpdate");
+        modalWindowUpdate.setOutputMarkupId(true);
+        modalWindowUpdate.setContent(new ModalPanelUpdate(modalWindowUpdate.getContentId(), updateBean, modalWindowUpdate));
+        modalWindowUpdate.setResizable(true);
+        modalWindowUpdate.setInitialHeight(600);
+        modalWindowUpdate.showUnloadConfirmation(false);
+        modalWindowUpdate.setWindowClosedCallback(new ModalWindow.WindowClosedCallback()
+        {
+            @Override
+            public void onClose(AjaxRequestTarget target)
+            {
+                dataView = createDataView();
+                wmc.addOrReplace(dataView);
+                target.add(wmc);
+            }
+        });
+        return modalWindowUpdate;
+    }
+
+    private ModalWindow createModalWindowDelete(DeleteBean deleteBean) {
+        ModalWindow modalWindowDelete = new ModalWindow("modalWindowDelete");
+        modalWindowDelete.setOutputMarkupId(true);
+        modalWindowDelete.setContent(new ModalPanelDelete(modalWindowDelete.getContentId(), deleteBean, modalWindowDelete));
+        modalWindowDelete.setResizable(true);
+        modalWindowDelete.setInitialHeight(400);
+        modalWindowDelete.setInitialWidth(800);
+        return modalWindowDelete;
     }
 
     private UpdateBean createUpdateBean(BusLineDto busLine) {

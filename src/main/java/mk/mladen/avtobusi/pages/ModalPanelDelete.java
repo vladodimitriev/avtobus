@@ -2,16 +2,25 @@ package mk.mladen.avtobusi.pages;
 
 import mk.mladen.avtobusi.beans.AddBean;
 import mk.mladen.avtobusi.beans.DeleteBean;
+import mk.mladen.avtobusi.service.BusLineService;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 public class ModalPanelDelete extends Panel {
 
+    @SpringBean
+    private BusLineService busLineService;
+
     private DeleteBean bean;
 
-    public ModalPanelDelete(String id, DeleteBean dbean) {
+    public ModalPanelDelete(String id, DeleteBean dbean, ModalWindow window) {
         super(id);
 
         if(dbean == null) {
@@ -21,15 +30,41 @@ public class ModalPanelDelete extends Panel {
         }
 
         PropertyModel idModel = new PropertyModel(bean, "id");
-        TextField idTxt = new TextField("id", idModel);
+        PropertyModel departureModel = new PropertyModel(bean, "departurePlace");
+        PropertyModel arrivalModel = new PropertyModel(bean, "arrivalPlace");
+        PropertyModel departureTimeModel = new PropertyModel(bean, "departureTime");
+        PropertyModel arrivalTimeModel = new PropertyModel(bean, "arrivalTime");
+        PropertyModel carrierModel = new PropertyModel(bean, "carrier");
 
-        Form form = new Form("deleteForm") {
+        Label idLbl = new Label("id", idModel);
+        Label departurePlaceLbl = new Label("departurePlace", departureModel);
+        Label destinationPlaceLbl = new Label("arrivalPlace", arrivalModel);
+        Label departureTimeLbl = new Label("departureTime", departureTimeModel);
+        Label arrivalTimeLbl = new Label("arrivalTime", arrivalTimeModel);
+        Label carrierLbl = new Label("carrier", carrierModel);
+
+        AjaxLink<String> deleteYesLink = new AjaxLink<String>("deleteYesLink") {
             @Override
-            protected void onSubmit() {
+            public void onClick(AjaxRequestTarget target) {
+                busLineService.deleteBusLine(bean.getId());
+                window.close(target);
             }
         };
 
-        form.add(idTxt);
-        add(form);
+        AjaxLink<String> deleteNoLink = new AjaxLink<String>("deleteNoLink") {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                window.close(target);
+            }
+        };
+
+        //add(idLbl);
+        add(departurePlaceLbl);
+        add(destinationPlaceLbl);
+        add(departureTimeLbl);
+        add(arrivalTimeLbl);
+        add(carrierLbl);
+        add(deleteYesLink);
+        add(deleteNoLink);
     }
 }

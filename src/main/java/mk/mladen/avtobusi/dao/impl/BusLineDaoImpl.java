@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import mk.mladen.avtobusi.dao.BusLineDao;
 import mk.mladen.avtobusi.entity.BusLineEntity;
 
-@Transactional
 @Repository(value = "busLineDao")
 public class BusLineDaoImpl extends GenericDaoImpl<BusLineEntity> implements BusLineDao {
 	
@@ -54,6 +53,13 @@ public class BusLineDaoImpl extends GenericDaoImpl<BusLineEntity> implements Bus
 			return ll.longValue();
 		}
 		return 0;
+	}
+
+	@Override
+	public void delete(int id) {
+		Query query = getEntityManager().createQuery("delete from BusLineEntity ble where ble.id = :id");
+		query.setParameter("id", id);
+		int result = query.executeUpdate();
 	}
 
 }

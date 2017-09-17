@@ -2,24 +2,27 @@ package mk.mladen.avtobusi.pages;
 
 import mk.mladen.avtobusi.beans.AddBean;
 import mk.mladen.avtobusi.beans.UpdateBean;
+import mk.mladen.avtobusi.service.BusLineService;
+import org.apache.wicket.ajax.AjaxEventBehavior;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.ajax.markup.html.form.AjaxButton;
+import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
+import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 public class ModalPanelUpdate extends Panel {
 
-    private UpdateBean bean;
+    @SpringBean
+    private BusLineService busLineService;
 
-    public ModalPanelUpdate(String id, UpdateBean ubean) {
+    public ModalPanelUpdate(String id, UpdateBean bean, ModalWindow window) {
         super(id);
-        //add(new Label("hello", new Model<>("Hello")));
-
-        if(ubean == null) {
-            bean = new UpdateBean();
-        } else {
-            bean = ubean;
-        }
 
         PropertyModel idModel = new PropertyModel(bean, "id");
         PropertyModel departureModel = new PropertyModel(bean, "departurePlace");
@@ -30,7 +33,7 @@ public class ModalPanelUpdate extends Panel {
         PropertyModel operationDaysModel = new PropertyModel(bean, "operationDays");
         PropertyModel operationMonthsModel = new PropertyModel(bean, "operationMonths");
         PropertyModel operationPeriodModel = new PropertyModel(bean, "operationPeriod");
-        PropertyModel commentModel = new PropertyModel(bean, "comment");
+        PropertyModel<String> commentModel = new PropertyModel<String>(bean, "comment");
 
         PropertyModel priceModel = new PropertyModel(bean, "price");
         PropertyModel hasPriceModel = new PropertyModel(bean, "hasPrice");
@@ -45,15 +48,16 @@ public class ModalPanelUpdate extends Panel {
         TextField operationDaysTxt = new TextField("operationDays", operationDaysModel);
         TextField operationMonthsTxt = new TextField("operationMonths", operationMonthsModel);
         TextField operationPeriodTxt = new TextField("operationPeriod", operationPeriodModel);
-        TextField commentTxt = new TextField("comment", commentModel);
+        TextField<String> commentTxt = new TextField<String>("comment", new PropertyModel<String>(bean, "comment"));
         TextField priceTxt = new TextField("price", priceModel);
         TextField hasPriceTxt = new TextField("hasPrice", hasPriceModel);
         TextField lineNumberTxt = new TextField("lineNumber", lineNumberModel);
         TextField carrierTxt = new TextField("carrier", carrierModel);
 
-        Form form = new Form("addForm") {
+        Form<Void> form = new Form<Void>("updateForm"){
             @Override
             protected void onSubmit() {
+                busLineService.updateBusLine(bean);
             }
         };
 
@@ -73,8 +77,22 @@ public class ModalPanelUpdate extends Panel {
         form.add(lineNumberTxt);
         form.add(carrierTxt);
 
+        AjaxLink<String> cancelLink = new AjaxLink<String>("cancelLink") {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                window.close(target);
+            }
+        };
 
+        AjaxButton saveBtn = new AjaxButton("saveBtn") {
+            @Override
+            protected void onSubmit(AjaxRequestTarget target) {
+                window.close(target);
+            }
+        };
 
+        form.add(cancelLink);
+        form.add(saveBtn);
         add(form);
     }
 

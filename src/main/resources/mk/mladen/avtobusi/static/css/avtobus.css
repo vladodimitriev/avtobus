@@ -240,8 +240,8 @@ header .container {
 }
 
 .avtobusi-delete-modal-container {
-    width: 500px;
-    height: 300px;
+    width: 700px;
+    height: 400px;
     margin-top: 0px;
     padding: 0px;
 }
@@ -260,6 +260,21 @@ header .container {
     margin-top: 10px;
 }
 
+.button-modal-delete {
+    width: 150px;
+    margin-top: 10px;
+}
+
+.button-modal-update {
+    width: 150px;
+    margin-top: 10px;
+}
+
+.button-modal-add {
+    width: 150px;
+    margin-top: 10px;
+}
+
 .article-modal-row {
     margin-bottom: 10px;
     padding-bottom: 20px;
@@ -269,6 +284,25 @@ header .container {
     margin-bottom: 5px;
 }
 
+.modal-row-delete {
+    margin-bottom: 5px;
+    margin-top: 100px;
+}
+
+.modal-row-update {
+    margin-bottom: 5px;
+    margin-top: 100px;
+}
+
+.modal-row-add {
+    margin-bottom: 5px;
+    margin-top: 100px;
+}
+
+.modal-row-delete-line {
+    margin-bottom: 5px;
+    margin-top: 75px;
+}
 
 .avtobusi-button {
     margin: 0px;
