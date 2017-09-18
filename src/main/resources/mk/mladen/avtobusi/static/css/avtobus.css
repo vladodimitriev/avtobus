@@ -233,7 +233,7 @@ header .container {
 }
 
 .avtobusi-modal-container {
-    width: 500px;
+    width: 540px;
     height: 600px;
     margin-top: 0px;
     padding: 0px;
@@ -290,13 +290,13 @@ header .container {
 }
 
 .modal-row-update {
-    margin-bottom: 5px;
-    margin-top: 100px;
+    margin-bottom: 0px;
+    margin-top: 20px;
 }
 
 .modal-row-add {
-    margin-bottom: 5px;
-    margin-top: 100px;
+    margin-bottom: 0px;
+    margin-top: 20px;
 }
 
 .modal-row-delete-line {
@@ -483,4 +483,8 @@ div.wicket-aa ul li.selected {
 
 .row .dep-arr-time {
     padding-left: 0px;
+}
+
+textarea {
+    resize: none;
 }

@@ -8,6 +8,12 @@ public class UpdateBean implements Serializable {
 
     private String id;
 
+    private int departurePlaceId;
+
+    private int destinationPlaceId;
+
+    private int carrierId;
+
     private String departurePlace;
 
     private String arrivalPlace;
@@ -154,5 +160,34 @@ public class UpdateBean implements Serializable {
 
     public void setTravelTime(String travelTime) {
         this.travelTime = travelTime;
+    }
+
+    public int getDeparturePlaceId() {
+        return departurePlaceId;
+    }
+
+    public void setDeparturePlaceId(int departurePlaceId) {
+        this.departurePlaceId = departurePlaceId;
+    }
+
+    public int getDestinationPlaceId() {
+        return destinationPlaceId;
+    }
+
+    public void setDestinationPlaceId(int destinationPlaceId) {
+        this.destinationPlaceId = destinationPlaceId;
+    }
+
+    public int getCarrierId() {
+        return carrierId;
+    }
+
+    public void setCarrierId(int carrierId) {
+        this.carrierId = carrierId;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("UpdateBean[comment = %s]", comment);
     }
 }

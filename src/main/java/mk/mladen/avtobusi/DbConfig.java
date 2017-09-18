@@ -54,7 +54,7 @@ public class DbConfig {
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 		em.setDataSource(dataSource());
-		em.setPackagesToScan(new String[] { "mk.mladen.avtobusi.entity", "mk.mladen.avtobusi.dao", "mk.mladen.avtobusi.service" });
+		em.setPackagesToScan(new String[] { "mk.mladen.avtobusi.entity" });
 
 		JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		em.setJpaVendorAdapter(vendorAdapter);

@@ -8,50 +8,40 @@
                 <form wicket:id="updateForm" method="post">
                     <div class="row modal-row">
                         <div class="form-group">
-                            <div class="col-sm-6 text-left">
-                                <span>ID</span>
-                            </div>
-                            <div class="col-sm-6">
-                                <input wicket:id="id" type="text" class="form-control"  />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row modal-row">
-                        <div class="form-group">
-                            <div class="col-sm-6 text-left">
+                            <div class="col-sm-4 text-left">
                                 <span>Departure place</span>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-8">
                                 <input wicket:id="departurePlace" type="text" class="form-control"  />
                             </div>
                         </div>
                     </div>
                     <div class="row modal-row">
                         <div class="form-group">
-                            <div class="col-sm-6 text-left">
-                                <span>Arrival place</span>
+                            <div class="col-sm-4 text-left">
+                                <span>Destination place</span>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-8">
                                 <input wicket:id="arrivalPlace" type="text" class="form-control"  />
                             </div>
                         </div>
                     </div>
                     <div class="row modal-row">
                         <div class="form-group">
-                            <div class="col-sm-6 text-left">
+                            <div class="col-sm-4 text-left">
                                 <span>Departure time</span>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-8">
                                 <input wicket:id="departureTime" type="text" class="form-control"  />
                             </div>
                         </div>
                     </div>
                     <div class="row modal-row">
                         <div class="form-group">
-                            <div class="col-sm-6 text-left">
+                            <div class="col-sm-4 text-left">
                                 <span>Arrival time</span>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-8">
                                 <input wicket:id="arrivalTime" type="text" class="form-control"  />
                             </div>
                         </div>
@@ -59,99 +49,74 @@
 
                     <div class="row modal-row">
                         <div class="form-group">
-                            <div class="col-sm-6 text-left">
+                            <div class="col-sm-4 text-left">
                                 <span>Operation days</span>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-8">
                                 <input wicket:id="operationDays" type="text" class="form-control"  />
                             </div>
                         </div>
                     </div>
                     <div class="row modal-row">
                         <div class="form-group">
-                            <div class="col-sm-6 text-left">
+                            <div class="col-sm-4 text-left">
                                 <span>Operation months</span>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-8">
                                 <input wicket:id="operationMonths" type="text" class="form-control"  />
                             </div>
                         </div>
                     </div>
                     <div class="row modal-row">
                         <div class="form-group">
-                            <div class="col-sm-6 text-left">
+                            <div class="col-sm-4 text-left">
                                 <span>Operation period</span>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-8">
                                 <input wicket:id="operationPeriod" type="text" class="form-control"  />
                             </div>
                         </div>
                     </div>
                     <div class="row modal-row">
                         <div class="form-group">
-                            <div class="col-sm-6 text-left">
-                                <span>Comment</span>
-                            </div>
-                            <div class="col-sm-6">
-                                <input wicket:id="comment" type="text" class="form-control"  />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row modal-row">
-                        <div class="form-group">
-                            <div class="col-sm-6 text-left">
+                            <div class="col-sm-4 text-left">
                                 <span>Price</span>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-8">
                                 <input wicket:id="price" type="text" class="form-control"  />
                             </div>
                         </div>
                     </div>
                     <div class="row modal-row">
                         <div class="form-group">
-                            <div class="col-sm-6 text-left">
-                                <span>Can buy ticket online</span>
-                            </div>
-                            <div class="col-sm-6">
-                                <input wicket:id="hasPrice" type="text" class="form-control"  />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row modal-row">
-                        <div class="form-group">
-                            <div class="col-sm-6 text-left">
-                                <span>Line number</span>
-                            </div>
-                            <div class="col-sm-6">
-                                <input wicket:id="lineNumber" type="text" class="form-control"  />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row modal-row">
-                        <div class="form-group">
-                            <div class="col-sm-6 text-left">
+                            <div class="col-sm-4 text-left">
                                 <span>Carrier</span>
                             </div>
-                            <div class="col-sm-6">
-                                <input wicket:id="carrier" type="text" class="form-control"  />
+                            <div class="col-sm-8">
+                                <textarea wicket:id="carrier" rows="2" cols="10" class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="row modal-row">
-
+                        <div class="form-group">
+                            <div class="col-sm-4 text-left">
+                                <span>Comment</span>
+                            </div>
+                            <div class="col-sm-8">
+                                <textarea wicket:id="comment" rows="2" cols="10" class="form-control"></textarea>
+                            </div>
+                        </div>
                     </div>
-
-                <div class="row modal-row-update">
-                    <div class="col-sm-3 "></div>
-                    <div class="col-sm-3 button-modal-update">
-                        <input type="submit" wicket:id="saveBtn" class="btn btn-warning btn-block" wicket:message="value :avtobusi.adminpage.btn.update.save" />
+                    <div class="row modal-row-update">
+                        <div class="col-sm-3 "></div>
+                        <div class="col-sm-3 button-modal-update">
+                            <input type="submit" wicket:id="saveBtn" class="btn btn-warning btn-block" wicket:message="value :avtobusi.adminpage.btn.update.save" />
+                        </div>
+                        <div class="col-sm-3 button-modal-update">
+                            <a id="cancelLink" wicket:id="cancelLink" class="btn btn-warning btn-block" wicket:message="value :avtobusi.adminpage.btn.update.cancel">Cancel</a>
+                        </div>
+                        <div class="col-sm-3"></div>
                     </div>
-                    <div class="col-sm-3 button-modal-update">
-                        <a id="cancelLink" wicket:id="cancelLink" class="btn btn-warning btn-block" wicket:message="value :avtobusi.adminpage.btn.update.cancel">Cancel</a>
-                    </div>
-                    <div class="col-sm-3"></div>
-                </div>
                 </form>
             </article>
         </section>

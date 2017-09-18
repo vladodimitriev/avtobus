@@ -10,11 +10,17 @@ public class BusLineDto implements Serializable, Comparable {
 	private int id;
 	
 	private String name;
+
+	private int departurePlaceId;
 	
 	private String departurePlace;
+
+	private int destinationPlaceId;
 	
 	private String destinationPlace;
-	
+
+	private int carrierId;
+
 	private String carrier;
 	
 	private String carrierCyrilic;
@@ -53,6 +59,7 @@ public class BusLineDto implements Serializable, Comparable {
 		this.name = name;
 		this.departurePlace = departurePlace;
 		this.destinationPlace = destinationPlace;
+
 		this.carrier = carrier;
 		this.carrierCyrilic = carrierCyrilic;
 		this.price = price;
@@ -63,12 +70,17 @@ public class BusLineDto implements Serializable, Comparable {
 		this.travelTime = travelTime;
 	}
 
-	public BusLineDto(String name, String departurePlace, String destinationPlace,
-					  String carrier, String carrierCyrilic, String price, String priceReturn,
+	public BusLineDto(int id, String name, int departurePlaceId, String departurePlace, int destinationPlaceId,
+					  String destinationPlace, int carrierId, String carrier, String carrierCyrilic,
+					  String price, String priceReturn,
 					  String departureTime, String arrivalTime, Double distance, String travelTime) {
+		this.id = id;
+		this.departurePlaceId = departurePlaceId;
+		this.destinationPlaceId = destinationPlaceId;
 		this.name = name;
 		this.departurePlace = departurePlace;
 		this.destinationPlace = destinationPlace;
+		this.carrierId = carrierId;
 		this.carrier = carrier;
 		this.carrierCyrilic = carrierCyrilic;
 		this.price = price;
@@ -113,7 +125,7 @@ public class BusLineDto implements Serializable, Comparable {
 			newTime = newTime.substring(0, 5);
 		}
 		
-		if(newTime.contains(".")) {
+		if(newTime != null && newTime.contains(".")) {
 			newTime = newTime.replace(".", ":");
 		}
 		
@@ -264,12 +276,39 @@ public class BusLineDto implements Serializable, Comparable {
 		this.lineNumber = lineNumber;
 	}
 
+	public int getDeparturePlaceId() {
+		return departurePlaceId;
+	}
+
+	public void setDeparturePlaceId(int departurePlaceId) {
+		this.departurePlaceId = departurePlaceId;
+	}
+
+	public int getDestinationPlaceId() {
+		return destinationPlaceId;
+	}
+
+	public void setDestinationPlaceId(int destinationPlaceId) {
+		this.destinationPlaceId = destinationPlaceId;
+	}
+
+	public int getCarrierId() {
+		return carrierId;
+	}
+
+	public void setCarrierId(int carrierId) {
+		this.carrierId = carrierId;
+	}
+
 	@Override
 	public int compareTo(Object o) {
 		if(o != null && o instanceof BusLineDto) {
 			BusLineDto d = (BusLineDto)o;
 			String dt1 = this.departureTime;
 			String dt2 = d.getDepartureTime();
+			if(dt1 == null) {
+				return -1;
+			}
 			return dt1.compareTo(dt2);
 		}
 		return 0;

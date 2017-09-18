@@ -184,7 +184,7 @@ public class AdminPage extends BasePage {
         ModalWindow modalWindow = new ModalWindow("modalWindow");
         modalWindow.setOutputMarkupId(true);
         modalWindow.setResizable(true);
-        modalWindow.setInitialHeight(600);
+        modalWindow.setInitialHeight(620);
         modalWindow.setContent(new ModalPanelAdd(modalWindow.getContentId(), modalWindow));
         modalWindow.showUnloadConfirmation(false);
         modalWindow.setWindowClosedCallback(new ModalWindow.WindowClosedCallback()
@@ -301,7 +301,7 @@ public class AdminPage extends BasePage {
         modalWindowUpdate.setOutputMarkupId(true);
         modalWindowUpdate.setContent(new ModalPanelUpdate(modalWindowUpdate.getContentId(), updateBean, modalWindowUpdate));
         modalWindowUpdate.setResizable(true);
-        modalWindowUpdate.setInitialHeight(600);
+        modalWindowUpdate.setInitialHeight(620);
         modalWindowUpdate.showUnloadConfirmation(false);
         modalWindowUpdate.setWindowClosedCallback(new ModalWindow.WindowClosedCallback()
         {
@@ -343,6 +343,9 @@ public class AdminPage extends BasePage {
         updateBean.setLineNumber(busLine.getLineNumber());
         updateBean.setPriceReturn(busLine.getPriceReturn());
         updateBean.setTravelTime(busLine.getTravelTime());
+        updateBean.setDeparturePlaceId(busLine.getDeparturePlaceId());
+        updateBean.setDestinationPlaceId(busLine.getDestinationPlaceId());
+        updateBean.setCarrierId(busLine.getCarrierId());
         return updateBean;
     }
 

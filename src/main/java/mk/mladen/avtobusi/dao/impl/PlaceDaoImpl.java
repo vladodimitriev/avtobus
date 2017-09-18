@@ -39,8 +39,8 @@ public class PlaceDaoImpl extends GenericDaoImpl<PlaceEntity> implements PlaceDa
 	@Override
 	public List<String> getAllPlacesNames() {
 		List<String> results = new ArrayList<String>();
-		Query query = getEntityManager().createQuery("select ple.name from PlaceEntity ple");
-		query.setMaxResults(10);
+		Query query = getEntityManager().createQuery("select ple.name from PlaceEntity ple order by ple.name asc");
+		query.setMaxResults(100);
 		Object object = query.getResultList();
 		if(object instanceof List) {
 			results = (List)object;
@@ -124,6 +124,26 @@ public class PlaceDaoImpl extends GenericDaoImpl<PlaceEntity> implements PlaceDa
 			results = (List)object;
 		}
 		return results;
+	}
+
+	@Override
+	public PlaceEntity getByName(String name) {
+		Query query = getEntityManager().createQuery("select ple from PlaceEntity ple where ple.name = :name");
+		query.setParameter("name", name);
+		try {
+			Object object = query.getSingleResult();
+			if(object instanceof PlaceEntity) {
+				PlaceEntity pe = (PlaceEntity)object;
+				return pe;
+			}
+		} catch(NoResultException nre) {
+			//logger.info("getByCyrilicName() - nre name: " + name);
+			return null;
+		} catch(NonUniqueResultException nure) {
+			//logger.info("getByCyrilicName() - nure name: " + name);
+			return null;
+		}
+		return null;
 	}
 
 }
