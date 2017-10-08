@@ -1,8 +1,8 @@
 package mk.mladen.avtobusi.dao;
 
-import java.util.List;
-
 import mk.mladen.avtobusi.entity.PlaceEntity;
+
+import java.util.List;
 
 public interface PlaceDao extends GenericDao<PlaceEntity> {
 
@@ -21,4 +21,6 @@ public interface PlaceDao extends GenericDao<PlaceEntity> {
     public List<String> getCommonPlaces(String language);
 
     public PlaceEntity getByName(String departurePlace);
+
+	public List<String> getAllPlacesNamesByLanguageAndNameAndMask(String language, String name);
 }

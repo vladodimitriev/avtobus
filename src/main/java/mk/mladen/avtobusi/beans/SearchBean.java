@@ -1,13 +1,12 @@
 package mk.mladen.avtobusi.beans;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
+
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import javax.validation.constraints.NotNull;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 public class SearchBean implements Serializable {
 

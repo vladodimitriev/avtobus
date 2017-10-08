@@ -1,9 +1,9 @@
 package mk.mladen.avtobusi.dao;
 
-import static org.junit.Assert.assertNotNull;
-
-import java.util.List;
-
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import mk.mladen.avtobusi.ApplicationTestConfig;
+import mk.mladen.avtobusi.entity.BusLineEntity;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,11 +14,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
+import java.util.List;
 
-import mk.mladen.avtobusi.ApplicationTestConfig;
-import mk.mladen.avtobusi.entity.BusLineEntity;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ApplicationTestConfig.class})
@@ -29,7 +27,6 @@ public class BusLineDaoTest {
 	private BusLineDao busLineDao;
 	
 	@Test
-	@Ignore
 	@DatabaseSetup("BusLineSampleData.xml")
 	public void getAllTest() {
 		List<BusLineEntity> busLines = busLineDao.getAll();

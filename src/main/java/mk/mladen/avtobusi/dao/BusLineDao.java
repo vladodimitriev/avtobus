@@ -1,8 +1,8 @@
 package mk.mladen.avtobusi.dao;
 
-import java.util.List;
-
 import mk.mladen.avtobusi.entity.BusLineEntity;
+
+import java.util.List;
 
 public interface BusLineDao extends GenericDao<BusLineEntity> {
 

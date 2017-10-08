@@ -1,7 +1,7 @@
 package mk.mladen.avtobusi.pages;
 
-import java.util.Locale;
-
+import mk.mladen.avtobusi.WicketApplication;
+import mk.mladen.avtobusi.service.InsertDataService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.MarkupContainer;
@@ -18,8 +18,7 @@ import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.settings.JavaScriptLibrarySettings;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import mk.mladen.avtobusi.WicketApplication;
-import mk.mladen.avtobusi.service.InsertDataService;
+import java.util.Locale;
 
 @SuppressWarnings("serial")
 public class BasePage extends WebPage {

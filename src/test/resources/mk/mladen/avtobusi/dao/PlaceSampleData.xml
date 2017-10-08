@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <PLACE id="0" name="Skopje" importance="10"/>
+    <PLACE id="1" name="Strumica" importance="8" />
+    <PLACE id="2" name="Struga" importance="5" />
+    <PLACE id="3" name="Kavadarci" importance="7" />
+    <PLACE id="4" name="Kumanovo" importance="9" />
+    <PLACE id="5" name="Kriva Palanka" importance="2" />
+    <PLACE id="6" name="Kochani" importance="6" />
+    <PLACE id="7" name="Kichevo" importance="5" />
+    <PLACE id="8" name="Krushevo" importance="6" />
+    <PLACE id="9" name="Negotino" importance="9" />
+    <PLACE id="10" name="Veles" importance="8" />
+    <PLACE id="11" name="Probishtip" importance="2" />
+    <PLACE id="12" name="Bitola" importance="9" />
+    <PLACE id="13" name="Prilep" importance="8" />
+    <PLACE id="14" name="Start Dojran" importance="3" />
+</dataset>

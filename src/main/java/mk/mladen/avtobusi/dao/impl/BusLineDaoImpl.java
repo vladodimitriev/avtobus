@@ -1,15 +1,12 @@
 package mk.mladen.avtobusi.dao.impl;
 
-import java.util.List;
-
-import javax.persistence.Query;
-
-import org.apache.log4j.Logger;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
 import mk.mladen.avtobusi.dao.BusLineDao;
 import mk.mladen.avtobusi.entity.BusLineEntity;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Repository;
+
+import javax.persistence.Query;
+import java.util.List;
 
 @Repository(value = "busLineDao")
 public class BusLineDaoImpl extends GenericDaoImpl<BusLineEntity> implements BusLineDao {

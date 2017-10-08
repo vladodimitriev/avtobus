@@ -1,10 +1,9 @@
 package mk.mladen.avtobusi.service.impl;
 
 import mk.mladen.avtobusi.dao.CarrierDao;
+import mk.mladen.avtobusi.service.CarrierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import mk.mladen.avtobusi.service.CarrierService;
 
 import java.util.List;
 

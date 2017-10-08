@@ -1,19 +1,16 @@
 package mk.mladen.avtobusi.dao.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
-import javax.persistence.Query;
-
-import mk.mladen.avtobusi.entity.PlaceEntity;
+import mk.mladen.avtobusi.dao.CarrierDao;
+import mk.mladen.avtobusi.entity.CarrierEntity;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import mk.mladen.avtobusi.dao.CarrierDao;
-import mk.mladen.avtobusi.entity.CarrierEntity;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
+import javax.persistence.Query;
+import java.util.ArrayList;
+import java.util.List;
 
 @Transactional
 @Repository(value = "carrierDao")

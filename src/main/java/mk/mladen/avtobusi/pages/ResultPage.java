@@ -1,14 +1,15 @@
 package mk.mladen.avtobusi.pages;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-
+import mk.mladen.avtobusi.WicketApplication;
+import mk.mladen.avtobusi.beans.SearchBean;
+import mk.mladen.avtobusi.dto.BusLineDto;
+import mk.mladen.avtobusi.service.BusLineService;
+import mk.mladen.avtobusi.service.PlaceService;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
+import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteSettings;
 import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteTextField;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
@@ -19,10 +20,6 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PropertyListView;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.markup.repeater.Item;
-import org.apache.wicket.markup.repeater.RepeatingView;
-import org.apache.wicket.markup.repeater.data.DataView;
-import org.apache.wicket.markup.repeater.data.ListDataProvider;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
@@ -32,11 +29,10 @@ import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.Strings;
 
-import mk.mladen.avtobusi.WicketApplication;
-import mk.mladen.avtobusi.beans.SearchBean;
-import mk.mladen.avtobusi.dto.BusLineDto;
-import mk.mladen.avtobusi.service.BusLineService;
-import mk.mladen.avtobusi.service.PlaceService;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 @SuppressWarnings({ "rawtypes", "serial", "unchecked" })
 public class ResultPage extends BasePage {
@@ -115,15 +111,14 @@ public class ResultPage extends BasePage {
 			}
 		};
 		add(link2);
+
+		AutoCompleteSettings opts = new AutoCompleteSettings();
+		opts.setShowListOnEmptyInput(true);
 		
-		AutoCompleteTextField<String> actf1 = new AutoCompleteTextField<String>("departurePlace", new PropertyModel(searchBean, "departurePlace")) {
+		AutoCompleteTextField<String> actf1 = new AutoCompleteTextField<String>("departurePlace", new PropertyModel(searchBean, "departurePlace"), opts) {
 			@Override
 			protected Iterator<String> getChoices(String input) {
-				if (Strings.isEmpty(input) && input != null && input.length() > 3) {
-                    List<String> emptyList = Collections.emptyList();
-                    return emptyList.iterator();
-                }
-                List<String> choices = placeService.findAllPlacesNamesByLanguageAndName(lang, input);
+				List<String> choices = placeService.findAllPlacesNamesByLanguageAndName(lang, input);
 				return choices.iterator();
 			}
 		};
@@ -136,14 +131,10 @@ public class ResultPage extends BasePage {
 		actf1.setRequired(true);
 		actf1.setOutputMarkupId(true);
 		
-		AutoCompleteTextField<String> actf2 = new AutoCompleteTextField<String>("destinationPlace", new PropertyModel(searchBean, "destinationPlace")) {
+		AutoCompleteTextField<String> actf2 = new AutoCompleteTextField<String>("destinationPlace", new PropertyModel(searchBean, "destinationPlace"), opts) {
 			@Override
 			protected Iterator<String> getChoices(String input) {
-				if (Strings.isEmpty(input) && input != null && input.length() > 3) {
-                    List<String> emptyList = Collections.emptyList();
-                    return emptyList.iterator();
-                }
-                List<String> choices = placeService.findAllPlacesNamesByLanguageAndName(lang, input);
+				List<String> choices = placeService.findAllPlacesNamesByLanguageAndName(lang, input);
 				return choices.iterator();
 			}
 		};

@@ -1,14 +1,13 @@
 package mk.mladen.avtobusi.service.impl;
 
-import java.util.Collections;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import mk.mladen.avtobusi.dao.PlaceDao;
 import mk.mladen.avtobusi.entity.PlaceEntity;
 import mk.mladen.avtobusi.service.PlaceService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.Collections;
+import java.util.List;
 
 @Component
 public class PlaceServiceImpl implements PlaceService {
@@ -44,6 +43,9 @@ public class PlaceServiceImpl implements PlaceService {
 	@Override
 	public List<String> findAllPlacesNamesByLanguageAndName(String language, String name) {
 		List<String> places = placeDao.getAllPlacesNamesByLanguageAndName(language, name);
+		if(places == null || places.isEmpty()) {
+			places = placeDao.getAllPlacesNamesByLanguageAndNameAndMask(language, name);
+		}
 		Collections.sort(places);
 		return places;
 	}

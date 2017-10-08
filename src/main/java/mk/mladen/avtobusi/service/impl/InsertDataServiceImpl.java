@@ -1,20 +1,5 @@
 package mk.mladen.avtobusi.service.impl;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.*;
-import java.util.stream.Stream;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
@@ -25,6 +10,20 @@ import mk.mladen.avtobusi.entity.BusLineEntity;
 import mk.mladen.avtobusi.entity.CarrierEntity;
 import mk.mladen.avtobusi.entity.PlaceEntity;
 import mk.mladen.avtobusi.service.InsertDataService;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
+import java.util.stream.Stream;
 
 @Service
 @Transactional
@@ -51,20 +50,20 @@ public class InsertDataServiceImpl implements InsertDataService {
 	public void insertDataIntoHsqldbDb() {
 		try {
 			long placeCount = placeDao.countAll();
-			if(placeCount < 1) {
+//			if(placeCount < 1) {
 				createCitySet();
-				insertCities();
-				insertCarriers();
-				Date d1 = new Date();
-				long l1 = d1.getTime();
-				System.out.println("create lines time1: " + l1);
+//				insertCities();
+//				insertCarriers();
+//				Date d1 = new Date();
+//				long l1 = d1.getTime();
+//				System.out.println("create lines time1: " + l1);
 				createBusLines();
-				d1 = new Date();
-				long l2 = d1.getTime();
-				System.out.println("finish create lines time2: " + l2);
-				System.out.println("Time difference: " + (l2 - l1));
-				System.out.println("Bus line count: " + line_count);
-			}
+//				d1 = new Date();
+//				long l2 = d1.getTime();
+//				System.out.println("finish create lines time2: " + l2);
+//				System.out.println("Time difference: " + (l2 - l1));
+//				System.out.println("Bus line count: " + line_count);
+//			}
 		} catch (IOException | BiffException e) {
 			e.printStackTrace();
 		}
@@ -72,6 +71,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 
 	private void insertCarriers() throws IOException, BiffException {
 		logger.info("insertCarriers()");
+		System.out.println("insertCarriers");
 		System.out.println("============================================================================================");
 		URL url = getClass().getResource(inputFile);
 		File inputWorkbook = new File(url.getPath());
@@ -80,6 +80,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 		int rows = sheet.getRows();
 		for (int i = 0; i < rows; i++) {
 			String cell0 = sheet.getCell(0, i).getContents();//carrier
+			//System.out.println(cell0);
 			if (StringUtils.isNotBlank(cell0)) {
 				String cyrilic = cell0.trim();
 				CarrierEntity ce = carrierDao.getByCarrierName(cyrilic);
@@ -88,8 +89,8 @@ public class InsertDataServiceImpl implements InsertDataService {
 					carrier.setNameCyrilic(cyrilic);
 					String latinName = OperationsUtil.createLatinName(cyrilic);
 					carrier.setName(latinName);
-					//System.out.println(carrier);
 					carrierDao.persist(carrier);
+					//System.out.println(carrier);
 				}
 			}
 		}
@@ -106,6 +107,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 		Sheet sheet = w.getSheet(0);
 
 		int rows = sheet.getRows();
+		System.out.println("rows: " + rows);
 		List<City> cities = new ArrayList<City>();
 		int cityCount = 0;
 		int lineNumber = 0;
@@ -118,6 +120,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 		boolean light2 = false;
 		for(int j = 5; j < 13; j++) {
 			for (int i = 0; i < rows; i++) {
+				//logger.info("createBusLines i=" + i);
 				String cell0 = sheet.getCell(0, i).getContents();  //carrier
 				String cell1 = sheet.getCell(1, i).getContents();  //line number (not unique)
 				String cell2 = sheet.getCell(2, i).getContents();  //first - last place
@@ -182,6 +185,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 						City city = new City(cell14, timeCell, cityCount);
 						city.setCarrier(carrier);
 						city.setDaysOfWork(daysOfWork);
+						//logger.info("create lines, city = " + city);
 						try {
 							if (StringUtils.isNotBlank(cell13)) {
 								//city.setDistance(Integer.valueOf(cell13));
@@ -195,9 +199,12 @@ public class InsertDataServiceImpl implements InsertDataService {
 						}
 					}
 					light2 = true;
+
+
 				}
 
 				if (!light1 && light2) {
+
 					createLines(cities);
 					cities.clear();
 				}
@@ -420,6 +427,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 							String latinName = OperationsUtil.createLatinName(cyrilic);
 							pen.setName(latinName);
 							placeDao.persist(pen);
+							System.out.println(pen);
 						}
 					}
 				}

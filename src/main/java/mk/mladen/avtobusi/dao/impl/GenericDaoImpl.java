@@ -1,6 +1,6 @@
 package mk.mladen.avtobusi.dao.impl;
 
-import java.util.List;
+import mk.mladen.avtobusi.dao.GenericDao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -8,9 +8,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-
-import mk.mladen.avtobusi.dao.GenericDao;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
 
 
 public abstract class GenericDaoImpl<T> implements GenericDao<T> {

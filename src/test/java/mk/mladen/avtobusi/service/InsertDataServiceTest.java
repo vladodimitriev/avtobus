@@ -3,7 +3,6 @@ package mk.mladen.avtobusi.service;
 import jxl.Sheet;
 import jxl.Workbook;
 import mk.mladen.avtobusi.ApplicationTestConfig;
-import mk.mladen.avtobusi.entity.CarrierEntity;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -40,7 +39,9 @@ public class InsertDataServiceTest {
     @Test
     @Ignore
     public void insertDataIntoDvTest() {
+        System.out.println("Inserting data into DB");
         insertDataService.insertDataIntoHsqldbDb();
+        System.out.println("Data inserted into DB");
     }
 
     @Test

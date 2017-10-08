@@ -1,13 +1,11 @@
 package mk.mladen.avtobusi;
 
-import mk.mladen.avtobusi.pages.ResultPage;
+import mk.mladen.avtobusi.pages.SearchPage;
 import org.apache.wicket.RuntimeConfigurationType;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import mk.mladen.avtobusi.pages.SearchPage;
 
 public class WicketApplication extends WebApplication {
 	

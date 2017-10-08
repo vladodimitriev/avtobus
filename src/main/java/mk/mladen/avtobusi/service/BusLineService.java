@@ -1,10 +1,10 @@
 package mk.mladen.avtobusi.service;
 
-import java.util.List;
-
 import mk.mladen.avtobusi.beans.AddBean;
 import mk.mladen.avtobusi.beans.UpdateBean;
 import mk.mladen.avtobusi.dto.BusLineDto;
+
+import java.util.List;
 
 public interface BusLineService {
 

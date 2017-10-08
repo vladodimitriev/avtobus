@@ -1,14 +1,6 @@
 package mk.mladen.avtobusi.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="PLACE")
@@ -30,6 +22,9 @@ public class PlaceEntity {
 	
 	@Column(name = "postalcode", nullable=true)
 	private String postalCode;
+
+	@Column(name = "importance", nullable=true)
+	private Integer importance;
 
 	@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="countryid", nullable=true)

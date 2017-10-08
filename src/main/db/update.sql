@@ -1,0 +1,18 @@
+ALTER TABLE place ADD importance integer;
+update place set importance = 10 where name = 'Skopje';
+update place set importance = 10 where name = 'Bitola';
+update place set importance = 10 where name = 'Ohrid';
+update place set importance = 10 where name = 'Kumanovo';
+update place set importance = 10 where name = 'Strumica';
+update place set importance = 8 where name = 'Kavadarci';
+update place set importance = 8 where name = 'Negotino';
+update place set importance = 8 where name = 'Veles';
+update place set importance = 8 where name = 'SHtip';
+update place set importance = 8 where name = 'Prilep';
+update place set importance = 6 where name = 'Gevgelija';
+update place set importance = 6 where name = 'Kichevo';
+update place set importance = 6 where name = 'Struga';
+update place set importance = 5 where name = 'Krushevo';
+update place set importance = 4 where name = 'Berovo';
+update place set importance = 4 where name = 'Star Dojran';
+update place set importance = 6 where name = 'Kochani';

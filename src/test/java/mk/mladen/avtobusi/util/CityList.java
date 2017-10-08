@@ -1,31 +1,17 @@
 package mk.mladen.avtobusi.util;
 
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Stream;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import jxl.Sheet;
-import jxl.Workbook;
-import jxl.read.biff.BiffException;
-import mk.mladen.avtobusi.dao.BusLineDao;
-import mk.mladen.avtobusi.dao.CarrierDao;
-import mk.mladen.avtobusi.dao.PlaceDao;
-import mk.mladen.avtobusi.entity.BusLineEntity;
-import mk.mladen.avtobusi.entity.CarrierEntity;
-import mk.mladen.avtobusi.entity.PlaceEntity;
 
 public class CityList {
 	

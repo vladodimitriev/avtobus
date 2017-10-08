@@ -1,15 +1,16 @@
 package mk.mladen.avtobusi.pages;
 
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-
+import mk.mladen.avtobusi.WicketApplication;
+import mk.mladen.avtobusi.beans.SearchBean;
+import mk.mladen.avtobusi.service.PlaceService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
+import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteSettings;
 import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteTextField;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -25,9 +26,9 @@ import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.Strings;
 
-import mk.mladen.avtobusi.WicketApplication;
-import mk.mladen.avtobusi.beans.SearchBean;
-import mk.mladen.avtobusi.service.PlaceService;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 @SuppressWarnings({ "rawtypes", "serial", "unchecked" })
 public class SearchPage extends BasePage {
@@ -50,47 +51,43 @@ public class SearchPage extends BasePage {
 		PropertyModel departureModel = new PropertyModel(searchBean, "departurePlace");
 		PropertyModel destinationModel = new PropertyModel(searchBean, "destinationPlace");
 		PropertyModel dateModel = new PropertyModel(searchBean, "departureDate");
-		
-		AutoCompleteTextField<String> actf1 = new AutoCompleteTextField<String>("departurePlace", departureModel) {
+
+		AutoCompleteSettings opts = new AutoCompleteSettings();
+		opts.setShowListOnEmptyInput(true);
+
+		AutoCompleteTextField<String> actf1 = new AutoCompleteTextField<String>("departurePlace", departureModel, opts) {
 			@Override
 			protected Iterator<String> getChoices(String input) {
-				if (Strings.isEmpty(input) && input != null && input.length() > 3) {
-                    List<String> emptyList = Collections.emptyList();
-                    return emptyList.iterator();
-                }
                 List<String> choices = placeService.findAllPlacesNamesByLanguageAndName(lang, input);
 				return choices.iterator();
 			}
 		};
 		actf1.add(new OnChangeAjaxBehavior(){
-	        @Override
-	        protected void onUpdate(final AjaxRequestTarget target){
-	        	ajax1 = ((AutoCompleteTextField<String>) getComponent()).getModelObject();
-	        }
-	    });
+			@Override
+			protected void onUpdate(final AjaxRequestTarget target){
+				ajax1 = ((AutoCompleteTextField<String>) getComponent()).getModelObject();
+			}
+		});
 		actf1.setRequired(true);
 		actf1.setOutputMarkupId(true);
-		
-		AutoCompleteTextField<String> actf2 = new AutoCompleteTextField<String>("destinationPlace", destinationModel) {
+		actf1.setOutputMarkupPlaceholderTag(true);
+
+		AutoCompleteTextField<String> actf2 = new AutoCompleteTextField<String>("destinationPlace", destinationModel, opts) {
 			@Override
 			protected Iterator<String> getChoices(String input) {
-				if (Strings.isEmpty(input) && input != null && input.length() > 3) {
-                    List<String> emptyList = Collections.emptyList();
-                    return emptyList.iterator();
-                }
                 List<String> choices = placeService.findAllPlacesNamesByLanguageAndName(lang, input);
 				return choices.iterator();
 			}
 		};
-
-		actf2.add(new AjaxEventBehavior("click") {
+		actf2.add(new OnChangeAjaxBehavior(){
 			@Override
-			protected void onEvent(AjaxRequestTarget target) {
-
+			protected void onUpdate(final AjaxRequestTarget target){
+				ajax2 = ((AutoCompleteTextField<String>) getComponent()).getModelObject();
 			}
 		});
 		actf2.setRequired(true);
 		actf2.setOutputMarkupId(true);
+		actf2.setOutputMarkupPlaceholderTag(true);
 		
 		TextField tf3 = new TextField<String>("departureDate", dateModel);
 		tf3.add(new OnChangeAjaxBehavior(){

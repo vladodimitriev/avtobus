@@ -1,6 +1,7 @@
 package mk.mladen.avtobusi.util;
 
-import static org.junit.Assert.assertEquals;
+import org.apache.commons.lang3.StringUtils;
+import org.junit.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,8 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-import org.apache.commons.lang3.StringUtils;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 public class DOWTest {
 

@@ -1,7 +1,6 @@
 package mk.mladen.avtobusi.pages;
 
 import mk.mladen.avtobusi.beans.AddBean;
-import mk.mladen.avtobusi.beans.SearchBean;
 import mk.mladen.avtobusi.service.BusLineService;
 import mk.mladen.avtobusi.service.CarrierService;
 import mk.mladen.avtobusi.service.PlaceService;

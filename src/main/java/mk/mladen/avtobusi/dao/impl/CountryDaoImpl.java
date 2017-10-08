@@ -1,10 +1,9 @@
 package mk.mladen.avtobusi.dao.impl;
 
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
 import mk.mladen.avtobusi.dao.CountryDao;
 import mk.mladen.avtobusi.entity.CountryEntity;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @Repository(value = "countryDao")

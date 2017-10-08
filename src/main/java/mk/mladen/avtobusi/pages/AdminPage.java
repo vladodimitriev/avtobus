@@ -1,7 +1,6 @@
 package mk.mladen.avtobusi.pages;
 
 import mk.mladen.avtobusi.WicketApplication;
-import mk.mladen.avtobusi.beans.AddBean;
 import mk.mladen.avtobusi.beans.DeleteBean;
 import mk.mladen.avtobusi.beans.SearchBean;
 import mk.mladen.avtobusi.beans.UpdateBean;
@@ -11,27 +10,19 @@ import mk.mladen.avtobusi.service.PlaceService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.MarkupContainer;
-import org.apache.wicket.Page;
-import org.apache.wicket.PageReference;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteSettings;
 import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteTextField;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PropertyListView;
-import org.apache.wicket.markup.repeater.Item;
-import org.apache.wicket.markup.repeater.RepeatingView;
-import org.apache.wicket.markup.repeater.data.DataView;
-import org.apache.wicket.markup.repeater.data.ListDataProvider;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
@@ -121,48 +112,28 @@ public class AdminPage extends BasePage {
         };
         add(link2);
 
-        AutoCompleteTextField<String> actf1 = new AutoCompleteTextField<String>("departurePlace", new PropertyModel(searchBean, "departurePlace")) {
+        AutoCompleteSettings opts = new AutoCompleteSettings();
+        opts.setShowListOnEmptyInput(true);
+
+        AutoCompleteTextField<String> actf1 = new AutoCompleteTextField<String>("departurePlace", new PropertyModel(searchBean, "departurePlace"), opts) {
             @Override
             public Iterator<String> getChoices(String input) {
-                if (StringUtils.isBlank(input)) {
-                    List<String> emptyList = placeService.findCommonPlaces(lang);
-                    return emptyList.iterator();
-                }
                 List<String> choices = placeService.findAllPlacesNamesByLanguageAndName(lang, input);
                 return choices.iterator();
             }
         };
         actf1.setRequired(true);
         actf1.setOutputMarkupId(true);
-        actf1.add(new AjaxEventBehavior("click") {
-            @Override
-            protected void onEvent(AjaxRequestTarget target) {
-                //setResponsePage(MyWebPage.class);
-                searchBean.setDeparturePlace("Skopje");
-                target.add(actf1);
-            }
-        });
 
-        AutoCompleteTextField<String> actf2 = new AutoCompleteTextField<String>("destinationPlace", new PropertyModel(searchBean, "destinationPlace")) {
+        AutoCompleteTextField<String> actf2 = new AutoCompleteTextField<String>("destinationPlace", new PropertyModel(searchBean, "destinationPlace"), opts) {
             @Override
             protected Iterator<String> getChoices(String input) {
-                if (Strings.isEmpty(input) && input != null && input.length() > 3) {
-                    List<String> emptyList = Collections.emptyList();
-                    return emptyList.iterator();
-                }
                 List<String> choices = placeService.findAllPlacesNamesByLanguageAndName(lang, input);
                 return choices.iterator();
             }
         };
         actf2.setRequired(true);
         actf2.setOutputMarkupId(true);
-        actf2.add(new AjaxEventBehavior("click") {
-            @Override
-            protected void onEvent(AjaxRequestTarget target) {
-                searchBean.setDestinationPlace("Negotino");
-                target.add(actf2);
-            }
-        });
 
         dataView = createDataView();
         dataView.setOutputMarkupId(true);

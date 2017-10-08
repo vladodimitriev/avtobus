@@ -1,8 +1,8 @@
 package mk.mladen.avtobusi.service;
 
-import java.util.List;
-
 import mk.mladen.avtobusi.entity.PlaceEntity;
+
+import java.util.List;
 
 public interface PlaceService {
 
