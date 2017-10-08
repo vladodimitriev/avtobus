@@ -226,6 +226,10 @@ public class AdminPage extends BasePage {
                     item.add(label);
                 }
 
+                Label label5 = new Label("travelDistance", busLine.getDistance());
+                label5.add(new AttributeModifier("style", "text-align: left"));
+                item.add(label5);
+
                 UpdateBean updateBean = createUpdateBean(busLine);
                 ModalWindow modalWindowUpdate = createModalWindowUpdate(updateBean);
                 item.add(modalWindowUpdate);
