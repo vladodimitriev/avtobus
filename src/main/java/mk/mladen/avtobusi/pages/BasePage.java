@@ -17,6 +17,7 @@ import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.settings.JavaScriptLibrarySettings;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.springframework.context.MessageSource;
 
 import java.util.Locale;
 
@@ -27,10 +28,15 @@ public class BasePage extends WebPage {
 	
 	@SpringBean
 	private InsertDataService insertDataService;
+
+	@SpringBean
+	protected MessageSource messageSource;
 	
 	protected PageParameters parameters;
 	
 	protected String lang = "EN";
+	protected String ttmh;
+	protected String ttmm;
 	
 	@Override
 	protected void onInitialize() {
@@ -104,6 +110,8 @@ public class BasePage extends WebPage {
 			}
 		};
 		add(adminPage);
+		ttmh = messageSource.getMessage("avtobusi.resultpage.traveltime.hour",null, getSession().getLocale());
+		ttmm = messageSource.getMessage("avtobusi.resultpage.traveltime.min",null, getSession().getLocale());
 	}
 
 	@SuppressWarnings("unused")

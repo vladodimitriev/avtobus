@@ -1,6 +1,9 @@
 package mk.mladen.avtobusi.service.impl;
 
 import org.apache.commons.lang3.StringUtils;
+import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 
 public class OperationsUtilTest {
 
@@ -66,6 +69,114 @@ public class OperationsUtilTest {
         return MacedonianToLatin.getInstance().translate(name);
     }
 
+    @Test
+    public void generateTravelTime() {
+        String arrivalTime = "18.55";
+        String departureTime = "16.45";
+        System.out.println("Travel time3: " + "" + arrivalTime + " - " + departureTime);
+        try {
+            String[] ata = arrivalTime.split("\\.");
+            String[] dta = departureTime.split("\\.");
+            Integer ah = Integer.valueOf(ata[0]);
+            Integer dh = Integer.valueOf(dta[0]);
+
+            Integer am = Integer.valueOf(ata[1]);
+            Integer dm = Integer.valueOf(dta[1]);
+
+            int at = ah * 60 + am;
+            int dt = dh * 60 + dm;
+
+
+            int rmt = at - dt;
+            int rh = rmt / 60;
+            int rm = rmt % 60;
+
+            System.out.println("AH: " + at);
+            System.out.println("DH: " + dt);
+            System.out.println("AM: " + am);
+            System.out.println("DM: " + dm);
+            System.out.println("AT: " + at);
+            System.out.println("DT: " + dt);
+            System.out.println("RMT: " + rmt);
+            System.out.println("RH: " + dt);
+            System.out.println("RM: " + dt);
+
+            System.out.println("Travel time3: " + "" + rh + ":" + rm);
+        } catch(Exception e) {
+        }
+        assertTrue(true);
+    }
+
+    @Test
+    public void generateTravelTime2() {
+        //09:00 - 12:40
+        String arrivalTime = "09.00";
+        String departureTime = "12.40";
+        System.out.println("Travel time3: " + "" + arrivalTime + " - " + departureTime);
+        try {
+            String[] ata = arrivalTime.split("\\.");
+            String[] dta = departureTime.split("\\.");
+            Integer ah = Integer.valueOf(ata[0]);
+            Integer dh = Integer.valueOf(dta[0]);
+
+            Integer am = Integer.valueOf(ata[1]);
+            Integer dm = Integer.valueOf(dta[1]);
+
+            int at = ah * 60 + am;
+            int dt = dh * 60 + dm;
+
+
+            int rmt = at - dt;
+            int rh = rmt / 60;
+            int rm = rmt % 60;
+
+            System.out.println("AH: " + at);
+            System.out.println("DH: " + dt);
+            System.out.println("AM: " + am);
+            System.out.println("DM: " + dm);
+            System.out.println("AT: " + at);
+            System.out.println("DT: " + dt);
+            System.out.println("RMT: " + rmt);
+            System.out.println("RH: " + dt);
+            System.out.println("RM: " + dt);
+
+            System.out.println("Travel time3: " + "" + rh + ":" + rm);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        assertTrue(true);
+    }
+
+    @Test
+    public void generateTravelTime3() {
+        String travelTime = "3:40";
+        System.out.println("Travel time1: " + travelTime);
+        String result;
+        try {
+            String[] tta = travelTime.split(":");
+            String tth = tta[0] + " " + "hours(s)";
+            String ttm = "";
+            if(hasMinutes(tta[1])) {
+                ttm = tta[1] + " " + "min(s)";
+            }
+            result = tth + " " + ttm;
+        } catch(Exception e) {
+            result = travelTime;
+        }
+        System.out.println("Travel time2: " + result);
+    }
+
+    private boolean hasMinutes(String s) {
+        try {
+            Integer min = Integer.valueOf(s);
+            if(min > 0) {
+                return true;
+            }
+            return false;
+        }catch(Exception e) {
+            return false;
+        }
+    }
 
 }
 

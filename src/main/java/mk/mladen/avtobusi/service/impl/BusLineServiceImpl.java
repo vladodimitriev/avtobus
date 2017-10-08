@@ -64,7 +64,6 @@ public class BusLineServiceImpl implements BusLineService {
 					dto.setOperationMonths(ent.getOperationMonths());
 					dto.setOperationPeriod(ent.getOperationPeriod());
 					dto.setComment(ent.getComment());
-					dto.setTravelTime(ent.getJurneyTime());
 					dto.setLineNumber(ent.getName());
 					result.add(dto);
 				}

@@ -226,6 +226,10 @@ public class AdminPage extends BasePage {
                     item.add(label);
                 }
 
+                Label label3 = new Label("travelTime", generateTravelTime(busLine.getTravelTime()));
+                label3.add(new AttributeModifier("style", "text-align: left"));
+                item.add(label3);
+
                 Label label5 = new Label("travelDistance", busLine.getDistance());
                 label5.add(new AttributeModifier("style", "text-align: left"));
                 item.add(label5);
@@ -257,6 +261,34 @@ public class AdminPage extends BasePage {
             }
         };
         return dataView;
+    }
+
+    private String generateTravelTime(String travelTime) {
+        String result;
+        try {
+            String[] tta = travelTime.split(":");
+            String tth = tta[0] + " " + ttmh;
+            String ttm = "";
+            if(hasMinutes(tta[1])) {
+                ttm = tta[1] + " " + ttmm;
+            }
+            result = tth + " " + ttm;
+        } catch(Exception e) {
+            result = travelTime;
+        }
+        return result;
+    }
+
+    private boolean hasMinutes(String s) {
+        try {
+            Integer min = Integer.valueOf(s);
+            if(min > 0) {
+                return true;
+            }
+            return false;
+        }catch(Exception e) {
+            return false;
+        }
     }
 
     private DeleteBean createDeleteBean(BusLineDto busLine) {

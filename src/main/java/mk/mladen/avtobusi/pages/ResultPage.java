@@ -53,6 +53,9 @@ public class ResultPage extends BasePage {
 
 	private PropertyListView<BusLineDto> dataView;
 
+
+
+
 	public ResultPage(PageParameters params) {
 
 		super(params);
@@ -206,9 +209,9 @@ public class ResultPage extends BasePage {
 				  label1.add(new AttributeModifier("style", "text-align: left"));
 				  item.add(label1);
 
-//				  Label label3 = new Label("travelTime", busLine.getTravelTime());
-//				  label3.add(new AttributeModifier("style", "text-align: left"));
-//				  item.add(label3);
+				  Label label3 = new Label("travelTime", generateTravelTime(busLine.getTravelTime()));
+				  label3.add(new AttributeModifier("style", "text-align: left"));
+				  item.add(label3);
 
 //				  Label label4 = new Label("details", "details");
 //				  label4.add(new AttributeModifier("style", "text-align: left"));
@@ -217,11 +220,37 @@ public class ResultPage extends BasePage {
 				  Label label5 = new Label("travelDistance", busLine.getDistance());
 				  label5.add(new AttributeModifier("style", "text-align: left"));
 				  item.add(label5);
-
-				  //item.addOrReplace(repeatingView);
 			  }
 		};
 		return dataView;
+	}
+
+	private String generateTravelTime(String travelTime) {
+		String result;
+		try {
+			String[] tta = travelTime.split(":");
+			String tth = tta[0] + " " + ttmh;
+			String ttm = "";
+			if(hasMinutes(tta[1])) {
+				ttm = tta[1] + " " + ttmm;
+			}
+			result = tth + " " + ttm;
+		} catch(Exception e) {
+			result = travelTime;
+		}
+		return result;
+	}
+
+	private boolean hasMinutes(String s) {
+		try {
+			Integer min = Integer.valueOf(s);
+			if(min > 0) {
+				return true;
+			}
+			return false;
+		}catch(Exception e) {
+			return false;
+		}
 	}
 
 	private List<BusLineDto> loadRelations() {

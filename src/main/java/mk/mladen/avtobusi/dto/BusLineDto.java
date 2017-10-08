@@ -67,7 +67,7 @@ public class BusLineDto implements Serializable, Comparable {
 		this.departureTime = convertTime(departureTime);
 		this.arrivalTime = convertTime(arrivalTime);
 		this.distance = getStrDistance(distance);
-		this.travelTime = travelTime;
+		this.travelTime = generateTravelTime(arrivalTime, departureTime);
 	}
 
 	public BusLineDto(int id, String name, int departurePlaceId, String departurePlace, int destinationPlaceId,
@@ -88,7 +88,29 @@ public class BusLineDto implements Serializable, Comparable {
 		this.departureTime = convertTime(departureTime);
 		this.arrivalTime = convertTime(arrivalTime);
 		this.distance = getStrDistance(distance);
-		this.travelTime = travelTime;
+		this.travelTime = generateTravelTime(arrivalTime, departureTime);
+	}
+
+	private String generateTravelTime(String arrivalTime, String departureTime) {
+		try {
+			String[] ata = arrivalTime.split("\\.");
+			String[] dta = departureTime.split("\\.");
+			Integer ah = Integer.valueOf(ata[0]);
+			Integer dh = Integer.valueOf(dta[0]);
+
+			Integer am = Integer.valueOf(ata[1]);
+			Integer dm = Integer.valueOf(dta[1]);
+
+			int at = ah * 60 + am;
+			int dt = dh * 60 + dm;
+
+			int rmt = at - dt;
+			int rh = rmt / 60;
+			int rm = rmt % 60;
+			return "" + rh + ":" + rm;
+		} catch(Exception e) {
+			return "";
+		}
 	}
 
 	private String getStrDistance(Double distance) {
