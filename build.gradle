@@ -23,6 +23,9 @@ apply plugin: 'eclipse'
 apply plugin: 'war'
 apply plugin: 'org.akhikhl.gretty'
 
+group = 'mk.mladen'
+version = '1.0.0-SNAPSHOT'
+
 sourceCompatibility = 1.8
 
 war {
