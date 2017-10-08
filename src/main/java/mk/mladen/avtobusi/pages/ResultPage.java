@@ -214,9 +214,9 @@ public class ResultPage extends BasePage {
 //				  label4.add(new AttributeModifier("style", "text-align: left"));
 //				  item.add(label4);
 
-//				  Label label5 = new Label("travelDistance", busLine.getDistance());
-//				  label5.add(new AttributeModifier("style", "text-align: left"));
-//				  item.add(label5);
+				  Label label5 = new Label("travelDistance", busLine.getDistance());
+				  label5.add(new AttributeModifier("style", "text-align: left"));
+				  item.add(label5);
 
 				  //item.addOrReplace(repeatingView);
 			  }
