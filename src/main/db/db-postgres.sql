@@ -41,6 +41,7 @@ CREATE TABLE BUSLINE (
     price varchar(20),
     pricereturn varchar(20),
     comment varchar(500),
+    smallplaces varchar(500),
     departureplaceid integer REFERENCES PLACE (id),
     destinationplaceid integer REFERENCES PLACE (id),
     carrierid integer REFERENCES CARRIER (id)

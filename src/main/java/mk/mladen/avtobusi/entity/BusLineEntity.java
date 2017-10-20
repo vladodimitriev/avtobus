@@ -46,6 +46,9 @@ public class BusLineEntity {
 
 	@Column(name = "comment", nullable = true)
 	private String comment;
+
+	@Column(name = "smallplaces", nullable = true)
+	private String smallPlaces;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="departureplaceid", nullable=true)
@@ -199,6 +202,14 @@ public class BusLineEntity {
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	public String getSmallPlaces() {
+		return smallPlaces;
+	}
+
+	public void setSmallPlaces(String smallPlaces) {
+		this.smallPlaces = smallPlaces;
 	}
 
 	@Override

@@ -7,10 +7,12 @@ import mk.mladen.avtobusi.service.BusLineService;
 import mk.mladen.avtobusi.service.PlaceService;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.MarkupContainer;
+import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
 import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteSettings;
 import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteTextField;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
@@ -18,6 +20,7 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.list.PropertyListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
@@ -29,10 +32,7 @@ import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.Strings;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @SuppressWarnings({ "rawtypes", "serial", "unchecked" })
 public class ResultPage extends BasePage {
@@ -52,9 +52,6 @@ public class ResultPage extends BasePage {
 	private ResourceReference busResourceReference;
 
 	private PropertyListView<BusLineDto> dataView;
-
-
-
 
 	public ResultPage(PageParameters params) {
 
@@ -173,6 +170,7 @@ public class ResultPage extends BasePage {
 		form.add(tf3);
 		form.add(imgSwitch);
 		form.addOrReplace(dataView);
+
 		add(form);
 	}
 	
@@ -182,6 +180,7 @@ public class ResultPage extends BasePage {
 			  @Override
 			  protected void populateItem(ListItem<BusLineDto> item) {
 				  final BusLineDto busLine = item.getModelObject();
+				  List<String> placesList = createSmallPlaces(busLine.getSmallPlaces());
 				  Model imgModel = new Model();
 				  Image bus_img = new Image( "bus_img", imgModel);
 				  bus_img.setImageResourceReference(busResourceReference);
@@ -213,16 +212,90 @@ public class ResultPage extends BasePage {
 				  label3.add(new AttributeModifier("style", "text-align: left"));
 				  item.add(label3);
 
-//				  Label label4 = new Label("details", "details");
-//				  label4.add(new AttributeModifier("style", "text-align: left"));
-//				  item.add(label4);
+				  Label label4 = new Label("details", "details");
+				  //label4.add(new AttributeModifier("style", "text-align: left"));
+				  item.add(label4);
 
 				  Label label5 = new Label("travelDistance", busLine.getDistance());
 				  label5.add(new AttributeModifier("style", "text-align: left"));
 				  item.add(label5);
+
+				  WebMarkupContainer detailsPanel = new WebMarkupContainer("detailsPanel");
+				  detailsPanel.setOutputMarkupPlaceholderTag(true);
+				  ListView<String> circles = new ListView<String>("circles", placesList.subList(0, placesList.size() - 1)) {
+					  @Override
+					  protected void populateItem(ListItem<String> item) {
+
+					  }
+				  };
+				  detailsPanel.add(circles);
+
+				  ListView<String> places = new ListView<String>("places", placesList) {
+					  @Override
+					  protected void populateItem(ListItem<String> item2) {
+						  String object = item2.getModelObject();
+						  String[] arr = object.split("=");
+						  String data = arr[0] + " " + convertTime(arr[1]);
+						  Label label = new Label("segment-place", data);
+					      item2.add(label);
+					  }
+				  };
+				  detailsPanel.add(places);
+				  detailsPanel.setVisible(false);
+				  item.add(detailsPanel);
+
+				  Label glyphicon = new Label("glyphicon", "");
+				  //label4.add(new AttributeModifier("style", "text-align: left"));
+				  glyphicon.add(getAjaxBehavior(detailsPanel, glyphicon));
+				  label4.add(getAjaxBehavior(detailsPanel, glyphicon));
+				  item.add(glyphicon);
+
+
+
 			  }
 		};
 		return dataView;
+	}
+
+	private String convertTime(String time) {
+		String newTime = time;
+		if(time != null && (time.length() == 4)) {
+			newTime = "0"+time;
+		} else if(time != null && (time.length() == 7)) {
+			newTime = "0"+time;
+			newTime = newTime.substring(0, 5);
+		} else if(time != null && (time.length() == 8)) {
+			newTime = newTime.substring(0, 5);
+		}
+
+		if(newTime != null && newTime.contains(".")) {
+			newTime = newTime.replace(".", ":");
+		}
+
+		return newTime;
+	}
+
+	private List<String> createSmallPlaces(String smallPlaces) {
+		String[] array = smallPlaces.split(",");
+		return Arrays.asList(array);
+	}
+
+	private AjaxEventBehavior getAjaxBehavior(WebMarkupContainer detailsPanel, Label glyphicon) {
+		return new AjaxEventBehavior("click") {
+			private static final long serialVersionUID = 42L;
+
+			@Override
+			protected void onEvent(AjaxRequestTarget target) {
+				if (detailsPanel.isVisible()) {
+					detailsPanel.setVisible(false);
+					glyphicon.add(AttributeModifier.replace("class", "glyphicon glyphicon-plus-sign"));
+				} else {
+					detailsPanel.setVisible(true);
+					glyphicon.add(AttributeModifier.replace("class", "glyphicon glyphicon-minus-sign"));
+				}
+				target.add(detailsPanel, glyphicon);
+			}
+		};
 	}
 
 	private String generateTravelTime(String travelTime) {

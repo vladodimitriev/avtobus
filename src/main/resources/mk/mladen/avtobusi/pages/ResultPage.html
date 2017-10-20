@@ -83,47 +83,32 @@
                     <div class="row">
                         <div class="col-sm-4 dep-arr-time" wicket:id="departureArrivalTime"></div>
                         <div class="col-sm-4 dep-arr-time" wicket:id="departureArrivalPlace"></div>
-                        <div class="col-sm-4"></div>
+                    </div>
+                    <div class="row glyph">
+                        <span wicket:id="glyphicon" class="glyphicon glyphicon-plus-sign"></span>
+                        <span wicket:id="details" class="title" wicket:message="value :avtobusi.searchpage.btn.details"></span>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="row"><div wicket:id="travelTime"></div></div>
                     <div class="row"><div wicket:id="travelDistance"></div></div>
                 </div>
-                <!--
-                <div class="col-sm-1">
-                    <img wicket:id="bus_img" alt="" height="21" width="21" />
-                </div>
-                <div class="col-sm-2 dep-arr-time" wicket:id="departureArrivalTime"></div>
-                <div class="col-sm-3 dep-arr-time" wicket:id="departureArrivalPlace"></div>
-                <div class="col-sm-6 dep-arr-time" wicket:id="carrier"></div>
-                -->
-                <!--
-                <div class="col-sm-1">
-                    <img wicket:id="bus_img" alt="" height="21" width="21" />
-                </div>
-                <div class="col-sm-7">
-                    <div class="row"><div wicket:id="carrier"></div></div>
-                    <div class="row">
-                        <div class="col-sm-4 dep-arr-time" wicket:id="departureArrivalTime"></div>
-                        <div class="col-sm-4 dep-arr-time" wicket:id="departureArrivalPlace"></div>
-                        <div class="col-sm-4"></div>
+                <div wicket:id="detailsPanel" class="toggle-content">
+                    <div class="segment-info">
+                        <div class="entry" wicket:id="circles">
+                            <div class="circle"></div>
+                            <div class="verticalline"></div>
+                        </div>
+                        <div class="entry">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                    <div class="segment-details">
+                        <div class="location-platform" wicket:id="places">
+                            <div wicket:id="segment-place">Skopje</div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-4">
-                    <div class="row"><div wicket:id="travelTime"></div></div>
-                    <div class="row"><div wicket:id="travelDistance"></div></div>
-                    <div class="row"><div wicket:id="details"></div></div>
-                </div>
-                -->
-                <!--
-                <div class="col-sm-2">
-                    <div class="row">310.00 MKD</div>
-                </div>
-                <div class="col-sm-2">
-                    <div class="row"><button class="btn btn-warning btn-block" value="Purchase">Ponatamu</button></div>
-                </div>
-                -->
             </article>
         </section>
    </div>

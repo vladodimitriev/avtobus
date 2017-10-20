@@ -59,7 +59,8 @@ public class BusLineServiceImpl implements BusLineService {
 							ent.getDepartureTime(),
 							ent.getArrivalTime(),
 							ent.getDist(),
-							ent.getJurneyTime());
+							ent.getJurneyTime(),
+							ent.getSmallPlaces());
 					dto.setOperationDays(ent.getOperationDays());
 					dto.setOperationMonths(ent.getOperationMonths());
 					dto.setOperationPeriod(ent.getOperationPeriod());
@@ -114,7 +115,8 @@ public class BusLineServiceImpl implements BusLineService {
 							ent.getDepartureTime(),
 							ent.getArrivalTime(),
 							ent.getDist(),
-							ent.getJurneyTime());
+							ent.getJurneyTime(),
+							ent.getSmallPlaces());
 					result.add(dto);
 				}
 			} catch (Exception e) {

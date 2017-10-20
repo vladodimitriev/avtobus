@@ -48,13 +48,16 @@ public class BusLineDto implements Serializable, Comparable {
 	private String operationPeriod;
 
 	private String lineNumber;
+
+	private String smallPlaces;
 	
 	public BusLineDto() {
 	}
 	
 	public BusLineDto(int id, String name, String departurePlace, String destinationPlace,
 			String carrier, String carrierCyrilic, String price, String priceReturn,
-		    String departureTime, String arrivalTime, Double distance, String travelTime) {
+		    String departureTime, String arrivalTime, Double distance, String travelTime,
+		    String smallPlaces) {
 		this.id = id;
 		this.name = name;
 		this.departurePlace = departurePlace;
@@ -68,12 +71,14 @@ public class BusLineDto implements Serializable, Comparable {
 		this.arrivalTime = convertTime(arrivalTime);
 		this.distance = getStrDistance(distance);
 		this.travelTime = generateTravelTime(arrivalTime, departureTime);
+		this.smallPlaces = smallPlaces;
 	}
 
 	public BusLineDto(int id, String name, int departurePlaceId, String departurePlace, int destinationPlaceId,
 					  String destinationPlace, int carrierId, String carrier, String carrierCyrilic,
 					  String price, String priceReturn,
-					  String departureTime, String arrivalTime, Double distance, String travelTime) {
+					  String departureTime, String arrivalTime, Double distance, String travelTime,
+					  String smallPlaces) {
 		this.id = id;
 		this.departurePlaceId = departurePlaceId;
 		this.destinationPlaceId = destinationPlaceId;
@@ -89,6 +94,7 @@ public class BusLineDto implements Serializable, Comparable {
 		this.arrivalTime = convertTime(arrivalTime);
 		this.distance = getStrDistance(distance);
 		this.travelTime = generateTravelTime(arrivalTime, departureTime);
+		this.smallPlaces = smallPlaces;
 	}
 
 	private String generateTravelTime(String arrivalTime, String departureTime) {
@@ -320,6 +326,14 @@ public class BusLineDto implements Serializable, Comparable {
 
 	public void setCarrierId(int carrierId) {
 		this.carrierId = carrierId;
+	}
+
+	public String getSmallPlaces() {
+		return smallPlaces;
+	}
+
+	public void setSmallPlaces(String smallPlaces) {
+		this.smallPlaces = smallPlaces;
 	}
 
 	@Override
