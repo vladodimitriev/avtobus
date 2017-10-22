@@ -11,37 +11,7 @@
     <link rel="stylesheet" href="static/css/font-awesome.min.css">
 </head>
 <body>
-<nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
-    <div class="container">
-        <div class="navbar-header">
-            <a wicket:id="searchPage" class="navbar-brand" href="#">
-		        <wicket:message key="avtobusi.title">Avtobusi</wicket:message>
-		    </a>
-        </div>
-        <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="#about" wicket:id="AboutPage"><wicket:message key="avtobusi.navbar.about">About</wicket:message></a>
-                </li>
-                <li>
-                    <a href="#contact" wicket:id="ContactPage"><wicket:message key="avtobusi.navbar.contact">Contact</wicket:message></a>
-                </li>
-                <li>
-                    <a href="#login" wicket:id="LoginPage"><wicket:message key="avtobusi.navbar.login">About</wicket:message></a>
-                </li>
-                <li>
-                    <a data-toggle="dropdown" href="#">
-                        <img wicket:id="language_img" alt="EN" height="21" width="21" /> <span wicket:id="language_label"></span> <span class="caret"></span> 
-                    </a>
-                    <ul class="dropdown-menu language-dropdown-menu">
-                        <li><a wicket:id="english" id="en" class="dropdown-item" href="#"><img src="static/flags/4x3/gb.svg" alt="EN" height="21" width="21" /> EN</a></li>
-                        <li><a wicket:id="macedonian" id="mk" class="dropdown-item" href="#"><img src="static/flags/4x3/mk.svg" alt="MK" height="21" width="21" /> MK</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<wicket:extend>
  <div class="container text-center contactcontainer">
    <div class="row">
        <div class="col-sm-3"></div>
@@ -50,75 +20,76 @@
    </div>
  </div>  
 <div class="container infocontainer">
-      <div class="row">
-          <div class="col-sm-2"></div>
-          <div class="col-sm-8">    
-              <div class="row">  
-                  <table class="table">
-                  <thead>
-			        <tr>
-			            <th><wicket:message key="avtobusi.contactpage.busstation">Bus station</wicket:message></th>
-			            <th><wicket:message key="avtobusi.contactpage.telnumber">Tel. number</wicket:message></th>
-			            <th><wicket:message key="avtobusi.contactpage.website">Web site</wicket:message></th>
-			        </tr>
-			      </thead>
-                  <tbody>
-                   <tr>
-                    <td><wicket:message key="avtobusi.contactpage.contact1">Contact1</wicket:message></td>
-                    <td><wicket:message key="avtobusi.contactpage.contact1.tel">Contact1</wicket:message></td>
-                    <td><wicket:message key="avtobusi.contactpage.contact1.web">Contact1</wicket:message></td>
-                   </tr>
-                   <tr>
-                    <td><wicket:message key="avtobusi.contactpage.contact2">Contact1</wicket:message></td>
-                    <td><wicket:message key="avtobusi.contactpage.contact2.tel">Contact1</wicket:message></td>
-                    <td><wicket:message key="avtobusi.contactpage.contact2.web">Contact1</wicket:message></td>
-                   </tr>
-                   <tr>
-                    <td><wicket:message key="avtobusi.contactpage.contact3">Contact1</wicket:message></td>
-                    <td><wicket:message key="avtobusi.contactpage.contact3.tel">Contact1</wicket:message></td>
-                    <td><wicket:message key="avtobusi.contactpage.contact3.web">Contact1</wicket:message></td>
-                   </tr>
-                   <tr>
-                    <td><wicket:message key="avtobusi.contactpage.contact4">Contact1</wicket:message></td>
-                    <td><wicket:message key="avtobusi.contactpage.contact4.tel">Contact1</wicket:message></td>
-                    <td><wicket:message key="avtobusi.contactpage.contact4.web">Contact1</wicket:message></td>
-                   </tr>
-                   <tr>
-                    <td><wicket:message key="avtobusi.contactpage.contact5">Contact1</wicket:message></td>
-                    <td><wicket:message key="avtobusi.contactpage.contact5.tel">Contact1</wicket:message></td>
-                    <td><wicket:message key="avtobusi.contactpage.contact5.web">Contact1</wicket:message></td>
-                   </tr>
-                   <tr>
-                    <td><wicket:message key="avtobusi.contactpage.contact6">Contact1</wicket:message></td>
-                    <td><wicket:message key="avtobusi.contactpage.contact6.tel">Contact1</wicket:message></td>
-                    <td><wicket:message key="avtobusi.contactpage.contact6.web">Contact1</wicket:message></td>
-                   </tr>
-                   <tr>
-                    <td><wicket:message key="avtobusi.contactpage.contact7">Contact1</wicket:message></td>
-                    <td><wicket:message key="avtobusi.contactpage.contact7.tel">Contact1</wicket:message></td>
-                    <td><wicket:message key="avtobusi.contactpage.contact7.web">Contact1</wicket:message></td>
-                   </tr>
-                   <tr>
-                    <td><wicket:message key="avtobusi.contactpage.contact8">Contact1</wicket:message></td>
-                    <td><wicket:message key="avtobusi.contactpage.contact8.tel">Contact1</wicket:message></td>
-                    <td><wicket:message key="avtobusi.contactpage.contact8.web">Contact1</wicket:message></td>
-                   </tr>
-                   <tr>
-                    <td><wicket:message key="avtobusi.contactpage.contact9">Contact1</wicket:message></td>
-                    <td><wicket:message key="avtobusi.contactpage.contact9.tel">Contact1</wicket:message></td>
-                    <td><wicket:message key="avtobusi.contactpage.contact9.web">Contact1</wicket:message></td>
-                   </tr>
-                   <tr>
-                    <td><wicket:message key="avtobusi.contactpage.contact10">Contact1</wicket:message></td>
-                    <td><wicket:message key="avtobusi.contactpage.contact10.tel">Contact1</wicket:message></td>
-                    <td><wicket:message key="avtobusi.contactpage.contact10.web">Contact1</wicket:message></td>
-                   </tr>
-                  </tbody> 
-                  </table>  
-              </div>
+    <div class="row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8">
+          <div class="row">
+              <table class="table">
+              <thead>
+                <tr>
+                    <th><wicket:message key="avtobusi.contactpage.busstation">Bus station</wicket:message></th>
+                    <th><wicket:message key="avtobusi.contactpage.telnumber">Tel. number</wicket:message></th>
+                    <th><wicket:message key="avtobusi.contactpage.website">Web site</wicket:message></th>
+                </tr>
+              </thead>
+              <tbody>
+               <tr>
+                <td><wicket:message key="avtobusi.contactpage.contact1">Contact1</wicket:message></td>
+                <td><wicket:message key="avtobusi.contactpage.contact1.tel">Contact1</wicket:message></td>
+                <td><wicket:message key="avtobusi.contactpage.contact1.web">Contact1</wicket:message></td>
+               </tr>
+               <tr>
+                <td><wicket:message key="avtobusi.contactpage.contact2">Contact1</wicket:message></td>
+                <td><wicket:message key="avtobusi.contactpage.contact2.tel">Contact1</wicket:message></td>
+                <td><wicket:message key="avtobusi.contactpage.contact2.web">Contact1</wicket:message></td>
+               </tr>
+               <tr>
+                <td><wicket:message key="avtobusi.contactpage.contact3">Contact1</wicket:message></td>
+                <td><wicket:message key="avtobusi.contactpage.contact3.tel">Contact1</wicket:message></td>
+                <td><wicket:message key="avtobusi.contactpage.contact3.web">Contact1</wicket:message></td>
+               </tr>
+               <tr>
+                <td><wicket:message key="avtobusi.contactpage.contact4">Contact1</wicket:message></td>
+                <td><wicket:message key="avtobusi.contactpage.contact4.tel">Contact1</wicket:message></td>
+                <td><wicket:message key="avtobusi.contactpage.contact4.web">Contact1</wicket:message></td>
+               </tr>
+               <tr>
+                <td><wicket:message key="avtobusi.contactpage.contact5">Contact1</wicket:message></td>
+                <td><wicket:message key="avtobusi.contactpage.contact5.tel">Contact1</wicket:message></td>
+                <td><wicket:message key="avtobusi.contactpage.contact5.web">Contact1</wicket:message></td>
+               </tr>
+               <tr>
+                <td><wicket:message key="avtobusi.contactpage.contact6">Contact1</wicket:message></td>
+                <td><wicket:message key="avtobusi.contactpage.contact6.tel">Contact1</wicket:message></td>
+                <td><wicket:message key="avtobusi.contactpage.contact6.web">Contact1</wicket:message></td>
+               </tr>
+               <tr>
+                <td><wicket:message key="avtobusi.contactpage.contact7">Contact1</wicket:message></td>
+                <td><wicket:message key="avtobusi.contactpage.contact7.tel">Contact1</wicket:message></td>
+                <td><wicket:message key="avtobusi.contactpage.contact7.web">Contact1</wicket:message></td>
+               </tr>
+               <tr>
+                <td><wicket:message key="avtobusi.contactpage.contact8">Contact1</wicket:message></td>
+                <td><wicket:message key="avtobusi.contactpage.contact8.tel">Contact1</wicket:message></td>
+                <td><wicket:message key="avtobusi.contactpage.contact8.web">Contact1</wicket:message></td>
+               </tr>
+               <tr>
+                <td><wicket:message key="avtobusi.contactpage.contact9">Contact1</wicket:message></td>
+                <td><wicket:message key="avtobusi.contactpage.contact9.tel">Contact1</wicket:message></td>
+                <td><wicket:message key="avtobusi.contactpage.contact9.web">Contact1</wicket:message></td>
+               </tr>
+               <tr>
+                <td><wicket:message key="avtobusi.contactpage.contact10">Contact1</wicket:message></td>
+                <td><wicket:message key="avtobusi.contactpage.contact10.tel">Contact1</wicket:message></td>
+                <td><wicket:message key="avtobusi.contactpage.contact10.web">Contact1</wicket:message></td>
+               </tr>
+              </tbody>
+              </table>
           </div>
-          <div class="col-sm-2"></div>
       </div>
-    </div>  
+      <div class="col-sm-2"></div>
+    </div>
+</div>
+</wicket:extend>
 </body>
 </html>

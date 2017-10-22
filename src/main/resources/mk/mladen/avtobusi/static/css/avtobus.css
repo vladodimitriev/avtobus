@@ -549,3 +549,13 @@ textarea {
 .location-platform {
     height: 75px;
 }
+
+.nav-side-menu {
+    overflow: auto;
+    position: fixed;
+    top: 100;
+    width: 234px;
+    height: 100%;
+    color: #ffffff;
+    background-color: #2C3E50;
+}

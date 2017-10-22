@@ -1,0 +1,22 @@
+<wicket:panel xmlns:wicket="http://wicket.apache.org">
+    <div class="container text-center avtobusi-delete-modal-container">
+        <section>
+            <article class="article-modal text-center">
+                <div class="row article-modal-row">
+                    <h1 class="text-center modal-title">Delete <span wicket:id="nameLbl"></span> ?</h1>
+                </div>
+                <div class="row modal-row-delete">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-3 button-modal-delete">
+                        <a id="deleteYesLink" wicket:id="deleteYesLink" class="btn btn-warning btn-block" wicket:message="value :avtobusi.adminpage.btn.delete.yes">Yes</a>
+                    </div>
+                    <div class="col-sm-3 button-modal-delete">
+                        <a id="deleteNoLink" wicket:id="deleteNoLink" class="btn btn-warning btn-block" wicket:message="value :avtobusi.adminpage.btn.delete.no">No</a>
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
+
+            </article>
+        </section>
+    </div>
+</wicket:panel>

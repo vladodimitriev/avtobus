@@ -13,4 +13,6 @@ public interface CarrierDao extends GenericDao<CarrierEntity> {
     List<String> getAllCarrierNames();
 
 	CarrierEntity getByName(String carrier);
+
+    List<CarrierEntity> getCarriers(String carrier);
 }

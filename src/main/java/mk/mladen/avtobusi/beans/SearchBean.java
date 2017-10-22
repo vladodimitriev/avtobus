@@ -28,6 +28,10 @@ public class SearchBean implements Serializable {
 	private String travelTime;
 	
 	private Date date;
+
+	private String place;
+
+	private String carrier;
 	
 	public SearchBean() {
 	}
@@ -106,5 +110,21 @@ public class SearchBean implements Serializable {
 
 	public void setTravelTime(String travelTime) {
 		this.travelTime = travelTime;
+	}
+
+	public String getPlace() {
+		return place;
+	}
+
+	public void setPlace(String place) {
+		this.place = place;
+	}
+
+	public String getCarrier() {
+		return carrier;
+	}
+
+	public void setCarrier(String carrier) {
+		this.carrier = carrier;
 	}
 }

@@ -37,6 +37,8 @@ import java.util.*;
 @SuppressWarnings({ "rawtypes", "serial", "unchecked" })
 public class ResultPage extends BasePage {
 
+	private static final long serialVersionUID = 1L;
+
 	private String ajax1;
 	private String ajax2;
 	private String ajax3;
@@ -66,51 +68,10 @@ public class ResultPage extends BasePage {
 
 		busResourceReference = new PackageResourceReference(WicketApplication.class, "static/img/bus21x21x999.jpg");
 
-		Model langLabelModel = new Model(lang);
-		Label languageLabel = new Label("language_label", langLabelModel);
-		add(languageLabel);
-		
-		Model imgModel = new Model();
-		Image img = new Image( "language_img", imgModel);
-
-		
-		ResourceReference resourceReference = new PackageResourceReference(WicketApplication.class, "static/flags/4x3/gb.svg");
-		if("EN".equalsIgnoreCase(lang)) {
-			resourceReference = new PackageResourceReference(WicketApplication.class, "static/flags/4x3/gb.svg");
-		} else if("MK".equalsIgnoreCase(lang)) {
-			resourceReference = new PackageResourceReference(WicketApplication.class, "static/flags/4x3/mk.svg");
-		}
-		img.setImageResourceReference(resourceReference);
-		add(img);
-
 		Model imgSwitchModel = new Model();
 		Image imgSwitch = new Image( "switch-img", imgSwitchModel);
 		ResourceReference rr1 = new PackageResourceReference(WicketApplication.class, "static/img/switch50x999.jpg");
 		imgSwitch.setImageResourceReference(rr1);
-
-		Link link1 = new Link("english") {
-			@Override
-			public MarkupContainer setDefaultModel(IModel model) {
-				return null;
-			}
-			@Override
-			public void onClick() {
-				setResponsePage(ResultPage.class, getParams("EN"));
-			}
-		};
-		add(link1);
-		
-		Link link2 = new Link("macedonian") {
-			@Override
-			public MarkupContainer setDefaultModel(IModel model) {
-				return null;
-			}
-			@Override
-			public void onClick() {
-				setResponsePage(ResultPage.class, getParams("MK"));
-			}
-		};
-		add(link2);
 
 		AutoCompleteSettings opts = new AutoCompleteSettings();
 		opts.setShowListOnEmptyInput(true);
@@ -173,7 +134,7 @@ public class ResultPage extends BasePage {
 
 		add(form);
 	}
-	
+
 	private PropertyListView<BusLineDto> createDataView() {
 		List<BusLineDto> busLines = loadRelations();
 		dataView = new PropertyListView<BusLineDto>("rows", busLines) {
@@ -347,31 +308,40 @@ public class ResultPage extends BasePage {
 		}
 		
 	}
-	
-	private PageParameters getParams(String language) {
+
+	@Override
+	protected void setResponse(PageParameters params) {
+		setResponsePage(SearchPage.class, getParams(params));
+	}
+
+	private PageParameters getParams(PageParameters parameters) {
 		PageParameters params = new PageParameters();
 		if(ajax1 != null) {
 			params.add("departure", ajax1);
 		} else if(searchBean.getDeparturePlace() != null) {
 			params.add("departure", searchBean.getDeparturePlace());
 		}
-		
+
 		if(ajax2 != null) {
 			params.add("destination", ajax2);
 		} else if(searchBean.getDestinationPlace() != null) {
 			params.add("destination", searchBean.getDestinationPlace());
 		}
-		
+
 		if(ajax3 != null) {
 			params.add("date", ajax3);
 		} else if(searchBean.getDepartureDate() != null) {
 			params.add("date", searchBean.getDepartureDate());
 		}
-		
+
+		String language = "EN";
+		if(params != null && parameters.get("lang") != null) {
+			language = parameters.get("lang").toString();
+		}
 		if(language != null) {
 			params.add("lang", language);
 		}
-		
+
 		return params;
 	}
 	

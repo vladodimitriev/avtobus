@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings({ "unchecked", "rawtypes" })
-@Transactional
 @Repository(value = "placeDao")
 public class PlaceDaoImpl extends GenericDaoImpl<PlaceEntity> implements PlaceDao {
 	
@@ -52,6 +51,19 @@ public class PlaceDaoImpl extends GenericDaoImpl<PlaceEntity> implements PlaceDa
 		Query query = getEntityManager().createQuery("select ple.name from PlaceEntity ple where (ple.name like :name or ple.nameCyrilic like :name) order by ple.name desc");
 		query.setParameter("name", "%" + name + "%");
 		query.setMaxResults(10);
+		Object object = query.getResultList();
+		if(object instanceof List) {
+			results = (List)object;
+		}
+		return results;
+	}
+
+	@Override
+	public List<PlaceEntity> getAllPlaces(String name) {
+		List<PlaceEntity> results = new ArrayList<PlaceEntity>();
+		Query query = getEntityManager().createQuery("select ple from PlaceEntity ple where (ple.name like :name or ple.nameCyrilic like :name) order by ple.name desc");
+		query.setParameter("name", "%" + name + "%");
+		query.setMaxResults(100);
 		Object object = query.getResultList();
 		if(object instanceof List) {
 			results = (List)object;

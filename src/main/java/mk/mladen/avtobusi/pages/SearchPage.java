@@ -32,6 +32,8 @@ import java.util.List;
 
 @SuppressWarnings({ "rawtypes", "serial", "unchecked" })
 public class SearchPage extends BasePage {
+
+	private static final long serialVersionUID = 1L;
 	
 	@SuppressWarnings("unused")
 	private final static Logger logger = Logger.getLogger(SearchPage.class);
@@ -127,78 +129,48 @@ public class SearchPage extends BasePage {
 		form.add(actf2);
 		form.add(tf3);
 		
-		Model langLabelModel = new Model(lang);
-		Label languageLabel = new Label("language_label", langLabelModel);
-		add(languageLabel);
-		
-		Model imgModel = new Model();
-		Image img = new Image( "language_img", imgModel);
-		
 		Model img2Model = new Model();
 		Image img2 = new Image( "switch-img", img2Model);
 		ResourceReference rr1 = new PackageResourceReference(WicketApplication.class, "static/img/switch50x999.jpg");
 		img2.setImageResourceReference(rr1);
 		form.add(img2);
-		
-		ResourceReference resourceReference = new PackageResourceReference(WicketApplication.class, "static/flags/4x3/gb.svg");
-		if("EN".equalsIgnoreCase(lang)) {
-			resourceReference = new PackageResourceReference(WicketApplication.class, "static/flags/4x3/gb.svg");
-		} else if("MK".equalsIgnoreCase(lang)) {
-			resourceReference = new PackageResourceReference(WicketApplication.class, "static/flags/4x3/mk.svg");
-		}
-		img.setImageResourceReference(resourceReference);
-		add(img);
-		
-		Link link1 = new Link("english") {
-			@Override
-			public MarkupContainer setDefaultModel(IModel model) {
-				return null;
-			}
-			@Override
-			public void onClick() {
-				setResponsePage(SearchPage.class, getParams("EN"));
-			}
-		};
-		add(link1);
-		
-		Link link2 = new Link("macedonian") {
-			@Override
-			public MarkupContainer setDefaultModel(IModel model) {
-				return null;
-			}
-			@Override
-			public void onClick() {
-				setResponsePage(SearchPage.class, getParams("MK"));
-			}
-		};
-		add(link2);
+
 		add(form);
 	}
-	
-	private PageParameters getParams(String language) {
+
+	@Override
+	protected void setResponse(PageParameters params) {
+		setResponsePage(SearchPage.class, getParams(params));
+	}
+
+	private PageParameters getParams(PageParameters parameters) {
 		PageParameters params = new PageParameters();
 		if(ajax1 != null) {
 			params.add("departure", ajax1);
 		} else if(searchBean.getDeparturePlace() != null) {
 			params.add("departure", searchBean.getDeparturePlace());
 		}
-		
+
 		if(ajax2 != null) {
 			params.add("destination", ajax2);
 		} else if(searchBean.getDestinationPlace() != null) {
 			params.add("destination", searchBean.getDestinationPlace());
 		}
-		
+
 		if(ajax3 != null) {
 			params.add("date", ajax3);
 		} else if(searchBean.getDepartureDate() != null) {
 			params.add("date", searchBean.getDepartureDate());
 		}
-		
+
+		String language = "EN";
+		if(params != null && parameters.get("lang") != null) {
+			language = parameters.get("lang").toString();
+		}
 		if(language != null) {
 			params.add("lang", language);
 		}
-		
+
 		return params;
 	}
 	

@@ -10,14 +10,16 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-public class ModalPanelDelete extends Panel {
+public class ModalPanelBusLineDelete extends Panel {
+
+    private static final long serialVersionUID = 1L;
 
     @SpringBean
     private BusLineService busLineService;
 
     private DeleteBean bean;
 
-    public ModalPanelDelete(String id, DeleteBean dbean, ModalWindow window) {
+    public ModalPanelBusLineDelete(String id, DeleteBean dbean, ModalWindow window) {
         super(id);
 
         if(dbean == null) {

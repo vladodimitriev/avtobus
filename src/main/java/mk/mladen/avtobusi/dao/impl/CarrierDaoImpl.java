@@ -2,6 +2,7 @@ package mk.mladen.avtobusi.dao.impl;
 
 import mk.mladen.avtobusi.dao.CarrierDao;
 import mk.mladen.avtobusi.entity.CarrierEntity;
+import mk.mladen.avtobusi.entity.PlaceEntity;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +13,6 @@ import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-@Transactional
 @Repository(value = "carrierDao")
 public class CarrierDaoImpl extends GenericDaoImpl<CarrierEntity> implements CarrierDao {
 	
@@ -89,6 +89,19 @@ public class CarrierDaoImpl extends GenericDaoImpl<CarrierEntity> implements Car
 			return null;
 		}
 		return null;
+	}
+
+	@Override
+	public List<CarrierEntity> getCarriers(String carrier) {
+		List<CarrierEntity> results = new ArrayList<CarrierEntity>();
+		Query query = getEntityManager().createQuery("select ple from CarrierEntity ple where (ple.name like :name or ple.nameCyrilic like :name) order by ple.name desc");
+		query.setParameter("name", "%" + carrier + "%");
+		query.setMaxResults(100);
+		Object object = query.getResultList();
+		if(object instanceof List) {
+			results = (List)object;
+		}
+		return results;
 	}
 
 }
