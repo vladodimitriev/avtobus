@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org/">
+<head>
+    <title>Avtobusi - Admin Bus Line Page</title>
+</head>
+<body>
+<wicket:extend>
+<div>
+<form wicket:id="resultSearchForm" class="form-inline">
+    <div class="row avtobusicontainer">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10">
+            <div class="panel avtobusi-panel">
+                <div class="row avtobusi-row">
+                    <div class="form-group col-md-4">
+                        <div class="avtobusi-space"></div>
+                        <input wicket:id="departurePlace" wicket:message="placeholder :avtobusi.searchpage.departureplace" type="text" class="form-control avtobusi-text" id="departurePlace" required/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <input wicket:id="destinationPlace" wicket:message="placeholder :avtobusi.searchpage.destinationplace" type="text" class="form-control avtobusi-text" id="destinationPlace" required/>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <input type="submit" class="btn btn-warning btn-block" wicket:message="value :avtobusi.searchpage.btn.search" />
+                    </div>
+                    <div class="col-md-2">
+                        <a href="#" wicket:id="addLink" id="addBtn" class="btn btn-warning btn-block" wicket:message="value :avtobusi.searchpage.btn.add">Add</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-1"></div>
+    </div>
+</form>
+<div class="row">
+    <div class="col-sm-10 col-sm-offset-1" >
+        <section wicket:id="wmc">
+            <article class="row article-row" wicket:id="rows">
+                <div class="col-sm-1">
+                    <img wicket:id="bus_img" alt="" height="21" width="21" />
+                </div>
+                <div class="col-sm-6">
+                    <div class="row"><div wicket:id="carrier"></div></div>
+                    <div class="row">
+                        <div class="col-sm-4 dep-arr-time" wicket:id="departureArrivalTime"></div>
+                        <div class="col-sm-4 dep-arr-time" wicket:id="departureArrivalPlace"></div>
+                        <div class="col-sm-4"></div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="row"><div wicket:id="travelTime"></div></div>
+                    <div class="row"><div wicket:id="travelDistance"></div></div>
+                </div>
+                <div class="col-sm-1 dep-arr-time"><a href="#" wicket:id="detailsLink" class="btn btn-warning btn-block">Details</a></div>
+                <div class="col-sm-1 dep-arr-time"><a href="#" wicket:id="deleteLink" class="btn btn-warning btn-block">Delete</a></div>
+                <div wicket:id="modalWindowUpdate"></div>
+                <div wicket:id="modalWindowDelete"></div>
+            </article>
+        </section>
+    </div>
+</div>
+</div>
+<div wicket:id="modalWindow"></div>
+</wicket:extend>
+</body>
+</html>

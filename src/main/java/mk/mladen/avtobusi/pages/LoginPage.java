@@ -16,52 +16,10 @@ import org.apache.wicket.request.resource.ResourceReference;
 
 public class LoginPage extends BasePage {
 
+    private static final long serialVersionUID = 1L;
+
     public LoginPage(PageParameters parameters) {
         super(parameters);
-        Model langLabelModel = new Model(lang);
-        Label languageLabel = new Label("language_label", langLabelModel);
-        add(languageLabel);
-
-        Model imgModel = new Model();
-        Image img = new Image( "language_img", imgModel);
-
-        ResourceReference resourceReference = new ContextRelativeResourceReference("static/flags/4x3/gb.svg");
-        if("EN".equalsIgnoreCase(lang)) {
-            resourceReference = new ContextRelativeResourceReference("static/flags/4x3/gb.svg");
-        } else if("MK".equalsIgnoreCase(lang)) {
-            resourceReference = new ContextRelativeResourceReference("static/flags/4x3/mk.svg");
-        }
-        img.setImageResourceReference(resourceReference);
-        add(img);
-
-        Link link1 = new Link("english") {
-
-            @Override
-            public MarkupContainer setDefaultModel(IModel model) {
-                return null;
-            }
-
-            @Override
-            public void onClick() {
-                setResponsePage(ContactPage.class, getParams("EN"));
-            }
-        };
-        add(link1);
-
-        Link link2 = new Link("macedonian") {
-
-            @Override
-            public MarkupContainer setDefaultModel(IModel model) {
-                return null;
-            }
-
-            @Override
-            public void onClick() {
-                setResponsePage(ContactPage.class, getParams("MK"));
-            }
-        };
-        add(link2);
-
         Model<String> model1 = new Model<String>();
         TextField<String> tf1 = new TextField<String>("username", model1);
 
@@ -74,13 +32,15 @@ public class LoginPage extends BasePage {
                 String password = model2.getObject();
                 if(StringUtils.isNotBlank(username) && StringUtils.isNotBlank(password)) {
                     if(username.equals(password)) {
-                        setResponsePage(AdminPage.class, getParams("EN"));
+                        //setResponsePage(AdminPage.class, getParams("EN"));
+                        setResponsePage(AdminHomePage.class, getParams("EN"));
                     }
                 }
             }
         };
         form.add(tf1);
         form.add(ptf);
+
         add(form);
     }
 
@@ -91,5 +51,10 @@ public class LoginPage extends BasePage {
         }
 
         return params;
+    }
+
+    @Override
+    protected void setResponse(PageParameters params) {
+        setResponsePage(LoginPage.class, params);
     }
 }

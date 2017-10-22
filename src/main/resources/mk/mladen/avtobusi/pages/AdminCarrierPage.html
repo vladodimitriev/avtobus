@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org/">
+<head>
+    <title>Avtobusi - Admin Carrier Page</title>
+</head>
+<body>
+<wicket:extend>
+<div>
+    <form wicket:id="resultSearchForm" class="form-inline">
+        <div class="row avtobusicontainer">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10">
+                <div class="panel avtobusi-panel">
+                    <div class="row avtobusi-row">
+                        <div class="form-group col-md-4">
+                            <div class="avtobusi-space"></div>
+                            <input wicket:id="carrier" wicket:message="placeholder :avtobusi.admin.carrier.name" type="text" class="form-control avtobusi-text" id="departurePlace" />
+                        </div>
+                        <div class="form-group col-md-4"></div>
+                        <div class="form-group col-md-2">
+                            <input type="submit" class="btn btn-warning btn-block" wicket:message="value :avtobusi.searchpage.btn.search" />
+                        </div>
+                        <div class="col-md-2">
+                            <a href="#" wicket:id="addLink" id="addBtn" class="btn btn-warning btn-block" wicket:message="value :avtobusi.searchpage.btn.add">Add</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1" >
+            <section wicket:id="wmc">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td class="col-md-1">ID:</td>
+                        <td class="col-md-4">Name:</td>
+                        <td class="col-md-4">Name cyrillic:</td>
+                        <td class="col-md-1"></td>
+                        <td class="col-md-1"></td>
+                        <td class="col-md-1"></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr wicket:id="rows">
+                        <td><span wicket:id="id"></span></td>
+                        <td><span wicket:id="name"></span></td>
+                        <td><span wicket:id="nameCyrillic"></span></td>
+                        <td><a href="#" wicket:id="detailsLink">Details</a></td>
+                        <td><a href="#" wicket:id="deleteLink">Delete</a></td>
+                        <div wicket:id="modalWindowUpdate"></div>
+                        <div wicket:id="modalWindowDelete"></div>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+</div>
+<div wicket:id="modalWindow"></div>
+</wicket:extend>
+</body>
+</html>

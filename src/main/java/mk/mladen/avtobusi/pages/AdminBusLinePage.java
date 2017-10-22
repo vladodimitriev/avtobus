@@ -31,13 +31,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class AdminPage extends BasePage {
+public class AdminBusLinePage extends BaseAdminPage {
 
     private static final long serialVersionUID = 1L;
-
-    private String ajax1;
-    private String ajax2;
-    private String ajax3;
 
     private SearchBean searchBean = new SearchBean();
 
@@ -53,9 +49,8 @@ public class AdminPage extends BasePage {
 
     private WebMarkupContainer wmc;
 
-    public AdminPage(PageParameters parameters) {
+    public AdminBusLinePage(PageParameters parameters) {
         super(parameters);
-
         Model imgSwitchModel = new Model();
         Image imgSwitch = new Image( "switch-img", imgSwitchModel);
         ResourceReference rr1 = new PackageResourceReference(WicketApplication.class, "static/img/switch50x999.jpg");
@@ -131,10 +126,6 @@ public class AdminPage extends BasePage {
         add(wmc);
     }
 
-    @Override
-    protected void setResponse(PageParameters params) {
-        setResponsePage(AdminPage.class, params);
-    }
     private PropertyListView<BusLineDto> createDataView() {
         List<BusLineDto> busLines = loadRelations();
         PropertyListView<BusLineDto> dataView = new PropertyListView<BusLineDto>("rows", busLines) {
@@ -312,4 +303,8 @@ public class AdminPage extends BasePage {
         return dtos;
     }
 
+    @Override
+    protected void setResponse(PageParameters params) {
+        setResponsePage(AdminBusLinePage.class, params);
+    }
 }

@@ -31,8 +31,8 @@ public class InsertDataServiceImpl implements InsertDataService {
 
 	private final static Logger logger = Logger.getLogger(InsertDataServiceImpl.class);
 
-	private static final String inputFile = "linii-bad-small.xls";
-	private static final String citiesFile = "cities-bad-small.txt";
+	private static final String inputFile = "linii-bad.xls";
+	private static final String citiesFile = "cities.txt";
 
 	@Autowired
 	private PlaceDao placeDao;
@@ -52,8 +52,8 @@ public class InsertDataServiceImpl implements InsertDataService {
 			long placeCount = placeDao.countAll();
 //			if(placeCount < 1) {
 				createCitySet();
-//				insertCities();
-//				insertCarriers();
+				insertCities();
+				insertCarriers();
 //				Date d1 = new Date();
 //				long l1 = d1.getTime();
 //				System.out.println("create lines time1: " + l1);
@@ -79,8 +79,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 		Sheet sheet = w.getSheet(0);
 		int rows = sheet.getRows();
 		for (int i = 0; i < rows; i++) {
-			String cell0 = sheet.getCell(0, i).getContents();//carrier
-			//System.out.println(cell0);
+			String cell0 = sheet.getCell(0, i).getContents();
 			if (StringUtils.isNotBlank(cell0)) {
 				String cyrilic = cell0.trim();
 				CarrierEntity ce = carrierDao.getByCarrierName(cyrilic);
@@ -90,13 +89,11 @@ public class InsertDataServiceImpl implements InsertDataService {
 					String latinName = OperationsUtil.createLatinName(cyrilic);
 					carrier.setName(latinName);
 					carrierDao.persist(carrier);
-					//System.out.println(carrier);
 				}
 			}
 		}
 		System.out.println("============================================================================================");
 	}
-
 
 	@SuppressWarnings("unused")
 	private void createBusLines() throws BiffException, IOException {
@@ -109,6 +106,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 		int rows = sheet.getRows();
 		System.out.println("rows: " + rows);
 		List<City> cities = new ArrayList<City>();
+//		List<String> places = new ArrayList<String>();
 		int cityCount = 0;
 		int lineNumber = 0;
 		String carrier = null;
@@ -185,7 +183,14 @@ public class InsertDataServiceImpl implements InsertDataService {
 						City city = new City(cell14, timeCell, cityCount);
 						city.setCarrier(carrier);
 						city.setDaysOfWork(daysOfWork);
-						//logger.info("create lines, city = " + city);
+						Integer linenumber = null;
+						try {
+							linenumber = Integer.valueOf(cell1);
+							city.setLineNumber(linenumber);
+						} catch(NumberFormatException nfe) {
+							linenumber = null;
+						}
+
 						try {
 							if (StringUtils.isNotBlank(cell13)) {
 								//city.setDistance(Integer.valueOf(cell13));
@@ -198,6 +203,10 @@ public class InsertDataServiceImpl implements InsertDataService {
 							cities.add(city);
 						}
 					}
+//					else if (StringUtils.isNotBlank(timeCell) && !timeCell.equals("/")) {
+//						String smallplace = cell4.trim() + " - " + timeCell;
+//						places.add(smallplace);
+//					}
 					light2 = true;
 
 
@@ -207,8 +216,8 @@ public class InsertDataServiceImpl implements InsertDataService {
 
 					createLines(cities);
 					cities.clear();
+//					places.clear();
 				}
-
 			}
 
 			createLines(cities);
@@ -281,6 +290,13 @@ public class InsertDataServiceImpl implements InsertDataService {
 						City city = new City(cell14, timeCell, cityCount);
 						city.setCarrier(carrier);
 						city.setDaysOfWork(daysOfWork);
+						Integer linenumber = null;
+						try {
+							linenumber = Integer.valueOf(cell1);
+							city.setLineNumber(linenumber);
+						} catch(NumberFormatException nfe) {
+
+						}
 						try {
 							if (StringUtils.isNotBlank(cell13)) {
 								//city.setDistance(Integer.valueOf(cell13));
@@ -295,14 +311,11 @@ public class InsertDataServiceImpl implements InsertDataService {
 					}
 					light2 = true;
 				}
-
 				if (!light1 && light2) {
 					createLines(cities);
 					cities.clear();
 				}
-
 			}
-
 			createLines(cities);
 		}
 	}
@@ -324,9 +337,12 @@ public class InsertDataServiceImpl implements InsertDataService {
 		City firstCity = list.get(0);
 		int counter = 1;
 		int size = list.size();
+		List<City> smallplaces = new ArrayList<City>();
+		smallplaces.add(firstCity);
 		while (counter < size) {
 			City city1 = list.get(counter);
-			createBusLine(firstCity, city1);
+			smallplaces.add(city1);
+			createBusLine(firstCity, city1, smallplaces);
 			counter++;
 		}
 		list.remove(firstCity);
@@ -334,7 +350,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 	}
 
 
-	private void createBusLine(City city1, City city2) {
+	private void createBusLine(City city1, City city2, List<City> smallplaces) {
 		if (!canCreateBusLine(city1, city2)) {
 			return;
 		}
@@ -353,6 +369,10 @@ public class InsertDataServiceImpl implements InsertDataService {
 		ble.setDist(city2.getDist() - city1.getDist());
 		ble.setOperationDays(OperationsUtil.getOperationDays(daysOfWork));
 		ble.setComment(daysOfWork);
+		String smallplacesstr = createSmallPlaces(smallplaces);
+		ble.setSmallPlaces(smallplacesstr);
+		String lineName = createName(city1.getName(), city2.getName());
+		ble.setName(lineName);
 		//ble.setOperationPeriod(OperationsUtil.getOperationPeriod(daysOfWork));
 		//ble.setOperationMonths(OperationsUtil.getOperationMonths(daysOfWork));
 		CarrierEntity ce = carrierDao.getByCarrierName(city1Carrier);
@@ -366,6 +386,22 @@ public class InsertDataServiceImpl implements InsertDataService {
 			busLineDao.persist(ble);
 		}
 
+	}
+
+	private String createName(String name1, String name2) {
+		String name = name1 + " - " + name2;
+		return name;
+	}
+
+	private String createSmallPlaces(List<City> smallplaces) {
+		String smallplace = "";
+		for(City sp : smallplaces) {
+			smallplace = smallplace + sp.getName() + "=" + sp.getTime() + ",";
+		}
+		if(StringUtils.isNotBlank(smallplace)) {
+			smallplace = smallplace.substring(0, smallplace.length() - 1);
+		}
+		return  smallplace;
 	}
 
 	private boolean canCreateBusLine(City city1, City city2) {

@@ -19,7 +19,9 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import java.util.Arrays;
 import java.util.List;
 
-public class ModalPanelAdd extends Panel {
+public class ModalPanelBusLineAdd extends Panel {
+
+    private static final long serialVersionUID = 1L;
 
     @SpringBean
     private BusLineService busLineService;
@@ -30,11 +32,9 @@ public class ModalPanelAdd extends Panel {
     @SpringBean
     private CarrierService carrierService;
 
-    private AddBean bean;
-
     private static final List<String> CARRIERS = Arrays.asList(new String[] {"Rule Turs", "Sam-Vel", "Galeb" });
 
-    public ModalPanelAdd(String id, ModalWindow window) {
+    public ModalPanelBusLineAdd(String id, ModalWindow window) {
         super(id);
 
         List<String> carriers = carrierService.findAllCarrierNames();

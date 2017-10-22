@@ -11,66 +11,35 @@
     <link rel="stylesheet" href="static/css/font-awesome.min.css">
 </head>
 <body>
-<div>
-    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
-        <div class="container">
-            <div class="navbar-header">
-                <a wicket:id="searchPage" class="navbar-brand" href="#">
-                    <wicket:message key="avtobusi.title">Avtobusi</wicket:message>
-                </a>
-            </div>
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="#about" wicket:id="AboutPage"><wicket:message key="avtobusi.navbar.about">About</wicket:message></a>
-                    </li>
-                    <li>
-                        <a href="#contact" wicket:id="ContactPage"><wicket:message key="avtobusi.navbar.contact">Contact</wicket:message></a>
-                    </li>
-                    <li>
-                        <a href="#login" wicket:id="LoginPage"><wicket:message key="avtobusi.navbar.login">About</wicket:message></a>
-                    </li>
-                    <li>
-                        <a data-toggle="dropdown" href="#">
-                            <img wicket:id="language_img" alt="EN" height="21" width="21" /> <span wicket:id="language_label"></span> <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu language-dropdown-menu">
-                            <li><a wicket:id="english" id="en" class="dropdown-item" href="#"><img src="static/flags/4x3/gb.svg" alt="EN" height="21" width="21" /> EN</a></li>
-                            <li><a wicket:id="macedonian" id="mk" class="dropdown-item" href="#"><img src="static/flags/4x3/mk.svg" alt="MK" height="21" width="21" /> MK</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</div>
+<wicket:extend>
 <div class="container text-center avtobusi-search-container">
-<div class="col-sm-4 col-sm-offset-4">
-    <section>
-        <article class="article-login">
-        <div class="row article-login-row">
-            <h1 class="text-center login-title">Login</h1>
-        </div>
-        <form wicket:id="loginForm">
-            <div class="row">
-                <div class="form-group">
-                    <input wicket:id="username" id="username" type="text" class="form-control" placeholder="username" required />
-                </div>
+    <div class="col-sm-4 col-sm-offset-4">
+        <section>
+            <article class="article-login">
+            <div class="row article-login-row">
+                <h1 class="text-center login-title">Login</h1>
             </div>
-            <div class="row">
-                <div class="form-group">
-                    <input wicket:id="password" id="password" type="password" class="form-control" placeholder="password" required/>
+            <form wicket:id="loginForm">
+                <div class="row">
+                    <div class="form-group">
+                        <input wicket:id="username" id="username" type="text" class="form-control" placeholder="username" required />
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="form-group">
-                    <input id="sbt" type="submit" class="btn btn-warning btn-block" wicket:message="value :avtobusi.loginpage.btn.login" />
+                <div class="row">
+                    <div class="form-group">
+                        <input wicket:id="password" id="password" type="password" class="form-control" placeholder="password" required/>
+                    </div>
                 </div>
-            </div>
-        </form>
-        </article>
-    </section>
+                <div class="row">
+                    <div class="form-group">
+                        <input id="sbt" type="submit" class="btn btn-warning btn-block" wicket:message="value :avtobusi.loginpage.btn.login" />
+                    </div>
+                </div>
+            </form>
+            </article>
+        </section>
+    </div>
 </div>
-</div>
+</wicket:extend>
 </body>
 </html>
