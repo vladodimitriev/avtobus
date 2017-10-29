@@ -26,7 +26,7 @@ public class CarrierDaoImpl extends GenericDaoImpl<CarrierEntity> implements Car
 	@SuppressWarnings("unchecked")
 	@Override
 	public CarrierEntity getByCarrierName(String carrier) {
-		Query query = getEntityManager().createQuery("select ce from CarrierEntity ce where ce.nameCyrilic like :name");
+		Query query = getEntityManager().createQuery("select ce from CarrierEntity ce where UPPER(ce.nameCyrilic) like UPPER(:name)");
 		query.setParameter("name", "%" + carrier + "%");
 		try {
 			Object object = query.getSingleResult();

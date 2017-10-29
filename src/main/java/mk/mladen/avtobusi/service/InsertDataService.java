@@ -2,5 +2,5 @@ package mk.mladen.avtobusi.service;
 
 public interface InsertDataService {
 
-	public void insertDataIntoHsqldbDb();
+	public void insertDataIntoDb();
 }

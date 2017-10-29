@@ -1,9 +1,8 @@
 package mk.mladen.avtobusi.pages;
 
-import mk.mladen.avtobusi.WicketApplication;
-import mk.mladen.avtobusi.service.InsertDataService;
+import java.util.Locale;
+
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
@@ -16,22 +15,20 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.wicket.request.resource.ContextRelativeResourceReference;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.settings.JavaScriptLibrarySettings;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.springframework.context.MessageSource;
 
-import java.util.Locale;
+import mk.mladen.avtobusi.WicketApplication;
+import mk.mladen.avtobusi.service.InsertDataService;
 
 @SuppressWarnings("serial")
 public abstract class BasePage extends WebPage {
 
 	private static final long serialVersionUID = 1L;
 
-	private final static Logger logger = Logger.getLogger(BasePage.class);
-	
 	@SpringBean
 	private InsertDataService insertDataService;
 
@@ -47,7 +44,6 @@ public abstract class BasePage extends WebPage {
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
-		//insertDataIntoDb();
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -117,28 +113,22 @@ public abstract class BasePage extends WebPage {
 		};
 		add(adminPage);
 
-		Model langLabelModel = new Model(lang);
+		Model langLabelModel = new Model<String>(lang);
+		
 		Label languageLabel = new Label("language_label", langLabelModel);
 		add(languageLabel);
 
 		Model imgModel = new Model();
 		Image img = new Image( "language_img", imgModel);
 
-		ResourceReference busResourceReference = new PackageResourceReference(WicketApplication.class, "static/img/bus21x21x999.jpg");
-
-		ResourceReference resourceReference = new ContextRelativeResourceReference("static/flags/4x3/gb.svg");
+		ResourceReference resourceReference = new PackageResourceReference(WicketApplication.class, "static/flags/4x3/gb.svg");
 		if("EN".equalsIgnoreCase(lang)) {
-			resourceReference = new ContextRelativeResourceReference("static/flags/4x3/gb.svg");
+			resourceReference = new PackageResourceReference(WicketApplication.class, "static/flags/4x3/gb.svg");
 		} else if("MK".equalsIgnoreCase(lang)) {
-			resourceReference = new ContextRelativeResourceReference("static/flags/4x3/mk.svg");
+			resourceReference = new PackageResourceReference(WicketApplication.class, "static/flags/4x3/mk.svg");
 		}
 		img.setImageResourceReference(resourceReference);
 		add(img);
-
-		Model imgSwitchModel = new Model();
-		Image imgSwitch = new Image( "switch-img", imgSwitchModel);
-		ResourceReference rr1 = new PackageResourceReference(WicketApplication.class, "static/img/switch50x999.jpg");
-		imgSwitch.setImageResourceReference(rr1);
 
 		Link link1 = new Link("english") {
 
@@ -149,7 +139,6 @@ public abstract class BasePage extends WebPage {
 
 			@Override
 			public void onClick() {
-				//setResponsePage(ContactPage.class, getParams("EN"));
 				setResponse(getParams("EN"));
 			}
 		};
@@ -164,7 +153,6 @@ public abstract class BasePage extends WebPage {
 
 			@Override
 			public void onClick() {
-				//setResponsePage(ContactPage.class, getParams("MK"));
 				setResponse(getParams("MK"));
 			}
 		};
@@ -271,12 +259,6 @@ public abstract class BasePage extends WebPage {
         getSession().setLocale(new Locale(localeString));
     }
 	
-	private void insertDataIntoDb() {
-		if(logger.isInfoEnabled()){
-			logger.info("insertDataIntoDb()");
-		}
-		insertDataService.insertDataIntoHsqldbDb();
-	}
 }
 
 
