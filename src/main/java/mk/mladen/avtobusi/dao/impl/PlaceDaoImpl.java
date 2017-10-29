@@ -85,8 +85,28 @@ public class PlaceDaoImpl extends GenericDaoImpl<PlaceEntity> implements PlaceDa
 
 	@Override
 	public PlaceEntity getByCyrilicName(String name) {
-		Query query = getEntityManager().createQuery("select ple from PlaceEntity ple where ple.nameCyrilic like :name");
+		Query query = getEntityManager().createQuery("select ple from PlaceEntity ple where UPPER(ple.nameCyrilic) like UPPER(:name)");
 		query.setParameter("name", "%" + name + "%");
+		try {
+			Object object = query.getSingleResult();
+			if(object instanceof PlaceEntity) {
+				PlaceEntity pe = (PlaceEntity)object;
+				return pe;
+			}
+		} catch(NoResultException nre) {
+			//logger.info("getByCyrilicName() - nre name: " + name);
+			return null;
+		} catch(NonUniqueResultException nure) {
+			//logger.info("getByCyrilicName() - nure name: " + name);
+			return null;
+		}
+		return null;
+	}
+	
+	@Override
+	public PlaceEntity getByCyrilicNameForInsert(String name) {
+		Query query = getEntityManager().createQuery("select ple from PlaceEntity ple where UPPER(ple.nameCyrilic) = UPPER(:name)");
+		query.setParameter("name", name);
 		try {
 			Object object = query.getSingleResult();
 			if(object instanceof PlaceEntity) {

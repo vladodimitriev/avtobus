@@ -17,6 +17,7 @@ CREATE TABLE PLACE (
     namecyrillic varchar(100),
     population integer,
     postalcode varchar(10),
+    sinonimi varchar(200),
     importance integer,
     countryid integer REFERENCES COUNTRY (id)
  );
@@ -40,8 +41,8 @@ CREATE TABLE BUSLINE (
     operationmonth varchar(50),
     price varchar(20),
     pricereturn varchar(20),
-    comment varchar(500),
-    smallplaces varchar(500),
+    comment varchar(1000),
+    smallplaces varchar(1000),
     departureplaceid integer REFERENCES PLACE (id),
     destinationplaceid integer REFERENCES PLACE (id),
     carrierid integer REFERENCES CARRIER (id)

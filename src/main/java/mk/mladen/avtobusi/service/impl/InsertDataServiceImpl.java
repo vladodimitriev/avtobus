@@ -1,5 +1,28 @@
 package mk.mladen.avtobusi.service.impl;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Stream;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
@@ -10,20 +33,6 @@ import mk.mladen.avtobusi.entity.BusLineEntity;
 import mk.mladen.avtobusi.entity.CarrierEntity;
 import mk.mladen.avtobusi.entity.PlaceEntity;
 import mk.mladen.avtobusi.service.InsertDataService;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.*;
-import java.util.stream.Stream;
 
 @Service
 @Transactional
@@ -39,31 +48,23 @@ public class InsertDataServiceImpl implements InsertDataService {
 
 	@Autowired
 	private CarrierDao carrierDao;
-
+	
 	@Autowired
 	private BusLineDao busLineDao;
 
 	private int line_count = 0;
 
 	private Set<String> citySet = new HashSet<String>();
+	
+	private Map<String, String> sinonimi = new HashMap<String, String>();
 
-	public void insertDataIntoHsqldbDb() {
+	public void insertDataIntoDb() {
 		try {
-			long placeCount = placeDao.countAll();
-//			if(placeCount < 1) {
-				createCitySet();
-				insertCities();
-				insertCarriers();
-//				Date d1 = new Date();
-//				long l1 = d1.getTime();
-//				System.out.println("create lines time1: " + l1);
-				createBusLines();
-//				d1 = new Date();
-//				long l2 = d1.getTime();
-//				System.out.println("finish create lines time2: " + l2);
-//				System.out.println("Time difference: " + (l2 - l1));
-//				System.out.println("Bus line count: " + line_count);
-//			}
+			createCitySet();
+			createSinonimi();
+			insertCities();
+			insertCarriers();
+			createBusLines();
 		} catch (IOException | BiffException e) {
 			e.printStackTrace();
 		}
@@ -82,6 +83,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 			String cell0 = sheet.getCell(0, i).getContents();
 			if (StringUtils.isNotBlank(cell0)) {
 				String cyrilic = cell0.trim();
+				cyrilic = createCyrillicName(i, cyrilic);
 				CarrierEntity ce = carrierDao.getByCarrierName(cyrilic);
 				if (ce == null) {
 					CarrierEntity carrier = new CarrierEntity();
@@ -95,6 +97,26 @@ public class InsertDataServiceImpl implements InsertDataService {
 		System.out.println("============================================================================================");
 	}
 
+	private String createCyrillicName(int counter, String cyrilic) {
+		String result = cyrilic;
+		result = result.replace(".","");
+		result = result.replace(",","");
+		result = result.replace("-"," ");
+		String[] names = result.split(" ");
+		StringBuilder sb = new StringBuilder();
+		for (String n : names) {
+			if (StringUtils.isNotBlank(n)
+				&& !"АД".equalsIgnoreCase(n.trim())
+				&& !"ДОО".equalsIgnoreCase(n.trim())
+				&& !"ДООЕЛ".equalsIgnoreCase(n.trim())) {
+				
+				sb.append(n + " ");
+			}
+		}
+		String endresult = sb.toString().trim();
+		return endresult;
+	}
+
 	@SuppressWarnings("unused")
 	private void createBusLines() throws BiffException, IOException {
 		logger.info("createBusLines()");
@@ -106,7 +128,6 @@ public class InsertDataServiceImpl implements InsertDataService {
 		int rows = sheet.getRows();
 		System.out.println("rows: " + rows);
 		List<City> cities = new ArrayList<City>();
-//		List<String> places = new ArrayList<String>();
 		int cityCount = 0;
 		int lineNumber = 0;
 		String carrier = null;
@@ -118,7 +139,6 @@ public class InsertDataServiceImpl implements InsertDataService {
 		boolean light2 = false;
 		for(int j = 5; j < 13; j++) {
 			for (int i = 0; i < rows; i++) {
-				//logger.info("createBusLines i=" + i);
 				String cell0 = sheet.getCell(0, i).getContents();  //carrier
 				String cell1 = sheet.getCell(1, i).getContents();  //line number (not unique)
 				String cell2 = sheet.getCell(2, i).getContents();  //first - last place
@@ -169,18 +189,17 @@ public class InsertDataServiceImpl implements InsertDataService {
 
 				if (StringUtils.isNotBlank(cell14)) {
 					light1 = true;
-					//createLines(cities);
 					daysOfWork = cell23;
 					cityCount = 0;
-					//cities.clear();
 				} else {
 					light1 = false;
 				}
 
 				if (light1) {
 					cityCount++;
-					if (StringUtils.isNotBlank(timeCell) && !timeCell.equals("/") && isCity(cell14.trim())) {
-						City city = new City(cell14, timeCell, cityCount);
+					String cn = createCityCN(cell14.trim());
+					if (StringUtils.isNotBlank(timeCell) && !timeCell.equals("/") && isCity(cn)) {
+						City city = new City(cn, timeCell, cityCount);
 						city.setCarrier(carrier);
 						city.setDaysOfWork(daysOfWork);
 						Integer linenumber = null;
@@ -203,20 +222,11 @@ public class InsertDataServiceImpl implements InsertDataService {
 							cities.add(city);
 						}
 					}
-//					else if (StringUtils.isNotBlank(timeCell) && !timeCell.equals("/")) {
-//						String smallplace = cell4.trim() + " - " + timeCell;
-//						places.add(smallplace);
-//					}
 					light2 = true;
-
-
 				}
-
 				if (!light1 && light2) {
-
 					createLines(cities);
 					cities.clear();
-//					places.clear();
 				}
 			}
 
@@ -286,8 +296,9 @@ public class InsertDataServiceImpl implements InsertDataService {
 
 				if (light1) {
 					cityCount++;
-					if (StringUtils.isNotBlank(timeCell) && !timeCell.equals("/") && isCity(cell14.trim())) {
-						City city = new City(cell14, timeCell, cityCount);
+					String cn = createCityCN(cell14.trim());
+					if (StringUtils.isNotBlank(timeCell) && !timeCell.equals("/") && isCity(cn)) {
+						City city = new City(cn, timeCell, cityCount);
 						city.setCarrier(carrier);
 						city.setDaysOfWork(daysOfWork);
 						Integer linenumber = null;
@@ -324,10 +335,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 		if (cities.isEmpty()) {
 			return;
 		}
-		//List<City> list1 = asSortedList(cities);
 		createBusLines(cities);
-		//List<City> list2 = asSortedReverseList(cities);
-		//createBusLines(list2);
 	}
 
 	private void createBusLines(List<City> list) {
@@ -358,8 +366,11 @@ public class InsertDataServiceImpl implements InsertDataService {
 		String daysOfWork = city1.getDaysOfWork();
 		String city1Carrier = city1.getCarrier();
 
-		PlaceEntity pe1 = placeDao.getByCyrilicName(city1.getName());
-		PlaceEntity pe2 = placeDao.getByCyrilicName(city2.getName());
+		String city1Name = city1.getName();
+		PlaceEntity pe1 = placeDao.getByCyrilicNameForInsert(city1Name);
+		
+		String city2Name = city2.getName();
+		PlaceEntity pe2 = placeDao.getByCyrilicNameForInsert(city2Name);
 
 		BusLineEntity ble = new BusLineEntity();
 		ble.setDeparture(pe1);
@@ -371,19 +382,18 @@ public class InsertDataServiceImpl implements InsertDataService {
 		ble.setComment(daysOfWork);
 		String smallplacesstr = createSmallPlaces(smallplaces);
 		ble.setSmallPlaces(smallplacesstr);
-		String lineName = createName(city1.getName(), city2.getName());
+		String lineName = createName(city1Name, city2Name);
 		ble.setName(lineName);
 		//ble.setOperationPeriod(OperationsUtil.getOperationPeriod(daysOfWork));
 		//ble.setOperationMonths(OperationsUtil.getOperationMonths(daysOfWork));
+		city1Carrier = createCyrillicName(0, city1Carrier);
 		CarrierEntity ce = carrierDao.getByCarrierName(city1Carrier);
 		ble.setCarrier(ce);
 
-		//System.out.println(ble);
-
 		if(ble != null) {
 			line_count = line_count + 1;
-			//System.out.println(ble);
 			busLineDao.persist(ble);
+			//System.out.println(ble);
 		}
 
 	}
@@ -445,7 +455,6 @@ public class InsertDataServiceImpl implements InsertDataService {
 		System.out.println("============================================================================================");
 		long placeCount = placeDao.countAll();
 		if(placeCount < 1) {
-			List list = placeDao.getAll();
 			URL url = getClass().getResource(inputFile);
 			File inputWorkbook = new File(url.getPath());
 			Workbook w = Workbook.getWorkbook(inputWorkbook);
@@ -455,15 +464,15 @@ public class InsertDataServiceImpl implements InsertDataService {
 				String cell14 = sheet.getCell(14, i).getContents();//place
 				if (StringUtils.isNotBlank(cell14)) {
 					String cyrilic = cell14.trim();
-					if (isCity(cyrilic)) {
-						PlaceEntity pe = placeDao.getByCyrilicName(cyrilic);
+					String cn = createCityCN(cyrilic);
+					if (isCity(cn)) {
+						PlaceEntity pe = placeDao.getByCyrilicNameForInsert(cn);
 						if (pe == null) {
 							PlaceEntity pen = new PlaceEntity();
-							pen.setNameCyrilic(cyrilic);
-							String latinName = OperationsUtil.createLatinName(cyrilic);
+							pen.setNameCyrilic(cn);
+							String latinName = OperationsUtil.createLatinName(cn);
 							pen.setName(latinName);
 							placeDao.persist(pen);
-							System.out.println(pen);
 						}
 					}
 				}
@@ -472,6 +481,15 @@ public class InsertDataServiceImpl implements InsertDataService {
 		}
 	}
 
+
+	private String createCityCN(String name) {
+		name = name.replace(".", " ");
+		name = name.replace("-", "");
+		if(sinonimi.containsKey(name)) {
+			return sinonimi.get(name);
+		}
+		return name;
+	}
 
 	private boolean isCity(String town) {
 		if (citySet.contains(town)) {
@@ -486,10 +504,45 @@ public class InsertDataServiceImpl implements InsertDataService {
 		Stream<String> stream = Files.lines(path);
 		Iterator<String> iterator = stream.iterator();
 		while (iterator.hasNext()) {
-			citySet.add(iterator.next());
+			String city = iterator.next();
+			citySet.add(city);
 		}
 		stream.close();
 	}
 
+	private void createSinonimi() {
+		sinonimi.put("Стар Дојран", "Стар Дојран");
+		sinonimi.put("Ст Дојран", "Стар Дојран");
+		sinonimi.put("С Дојран", "Стар Дојран");
+		
+		sinonimi.put("Нов Дојран", "Нов Дојран");
+		sinonimi.put("Н Дојран", "Нов Дојран");
+		
+		sinonimi.put("Демир Хисар", "Демир Хисар");
+		sinonimi.put("Д Хисар", "Демир Хисар");
+		
+		sinonimi.put("Крива Паланка", "Крива Паланка");
+		sinonimi.put("Кр Паланка", "Крива Паланка");
+		sinonimi.put("К Паланка", "Крива Паланка");
+		sinonimi.put("Паланка", "Крива Паланка");
+		
+		sinonimi.put("Демир Капија", "Демир Капија");
+		sinonimi.put("Д Капија", "Демир Капија");
+		
+		sinonimi.put("Свети Николе", "Свети Николе");
+		sinonimi.put("Св Николе", "Свети Николе");
+		sinonimi.put("С Николе", "Свети Николе");
+		
+		sinonimi.put("Македонски Брод", "Македонски Брод");
+		sinonimi.put("Мак Брод", "Македонски Брод");
+		sinonimi.put("М Брод", "Македонски Брод");
+		sinonimi.put("Брод", "Македонски Брод");
+		
+		sinonimi.put("Македонска Каменица", "Македонска Каменица");
+		sinonimi.put("Мак Каменица", "Македонска Каменица");
+		sinonimi.put("М Каменица", "Македонска Каменица");
+		sinonimi.put("Каменица", "Македонска Каменица");
+		
+	}
 
 }

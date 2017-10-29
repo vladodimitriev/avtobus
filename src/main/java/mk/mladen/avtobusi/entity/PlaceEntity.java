@@ -22,6 +22,9 @@ public class PlaceEntity {
 	
 	@Column(name = "postalcode", nullable=true)
 	private String postalCode;
+	
+	@Column(name = "sinonimi", nullable=true)
+	private String sinonimi;
 
 	@Column(name = "importance", nullable=true)
 	private Integer importance;
@@ -81,9 +84,17 @@ public class PlaceEntity {
 	public void setNameCyrilic(String nameCyrilic) {
 		this.nameCyrilic = nameCyrilic;
 	}
+	
+	public String getSinonimi() {
+		return sinonimi;
+	}
 
+	public void setSinonimi(String sinonimi) {
+		this.sinonimi = sinonimi;
+	}
+	
 	@Override
 	public String toString() {
-		return String.format("PlaceEntity[%s, %s]", name, nameCyrilic);
+		return String.format("PlaceEntity[%s, %s, %s]", name, nameCyrilic, sinonimi);
 	}
 }

@@ -1,34 +1,27 @@
 package mk.mladen.avtobusi.pages;
 
-import mk.mladen.avtobusi.WicketApplication;
-import mk.mladen.avtobusi.beans.SearchBean;
-import mk.mladen.avtobusi.service.PlaceService;
+import java.util.Iterator;
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
-import org.apache.wicket.MarkupContainer;
-import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
 import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteSettings;
 import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteTextField;
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.image.Image;
-import org.apache.wicket.markup.html.link.Link;
-import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.apache.wicket.util.string.Strings;
 
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import mk.mladen.avtobusi.WicketApplication;
+import mk.mladen.avtobusi.beans.SearchBean;
+import mk.mladen.avtobusi.service.PlaceService;
 
 @SuppressWarnings({ "rawtypes", "serial", "unchecked" })
 public class SearchPage extends BasePage {

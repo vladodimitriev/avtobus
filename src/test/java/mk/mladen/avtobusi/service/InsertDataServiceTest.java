@@ -27,10 +27,6 @@ import static org.junit.Assert.assertTrue;
 @ContextConfiguration(classes = {ApplicationTestConfig.class})
 public class InsertDataServiceTest {
 
-    private static final String inputFile = "linii-bad.xls";
-    private static final String outputFile = "output.txt";
-    private static final String citiesFile = "cities.txt";
-
     @Autowired
     private InsertDataService insertDataService;
 
@@ -39,7 +35,7 @@ public class InsertDataServiceTest {
     @Test
     public void insertDataIntoDvTest() {
         System.out.println("Inserting data into DB");
-        insertDataService.insertDataIntoHsqldbDb();
+        insertDataService.insertDataIntoDb();
         System.out.println("Data inserted into DB");
     }
 
@@ -48,6 +44,9 @@ public class InsertDataServiceTest {
     public void readDaysOfWorkTest() {
         boolean read = false;
         boolean written = false;
+
+        final String inputFile = "linii-bad.xls";
+        final String outputFile = "output.txt";
 
         try {
             createCitySet();
@@ -74,10 +73,7 @@ public class InsertDataServiceTest {
 
             URL url2 = getClass().getResource(outputFile);
             Path path = Paths.get(url2.getPath());
-            //String content = "Hello World !!";
             System.out.println("path: " + url2.getPath());
-            //Files.write(Paths.get(url2.getPath()), content.getBytes());
-
             try (BufferedWriter writer = Files.newBufferedWriter(path)) {
                 for(String s : list) {
                     writer.write(s);
@@ -101,6 +97,7 @@ public class InsertDataServiceTest {
     }
 
     private void createCitySet() throws IOException {
+    	final String citiesFile = "cities.txt";
         URL url = getClass().getResource(citiesFile);
         Path path = Paths.get(url.getPath());
         Stream<String> stream = Files.lines(path);
