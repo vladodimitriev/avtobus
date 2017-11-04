@@ -559,3 +559,7 @@ textarea {
     color: #ffffff;
     background-color: #2C3E50;
 }
+
+.title {
+	cursor:pointer;	
+}
