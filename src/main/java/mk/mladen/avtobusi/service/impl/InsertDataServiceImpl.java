@@ -53,6 +53,8 @@ public class InsertDataServiceImpl implements InsertDataService {
 	private BusLineDao busLineDao;
 
 	private int line_count = 0;
+	
+	private int blcounter = 0;
 
 	private Set<String> citySet = new HashSet<String>();
 	
@@ -65,6 +67,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 			insertCities();
 			insertCarriers();
 			createBusLines();
+			System.out.println("BL count: " + blcounter);
 		} catch (IOException | BiffException e) {
 			e.printStackTrace();
 		}
@@ -98,6 +101,9 @@ public class InsertDataServiceImpl implements InsertDataService {
 	}
 
 	private String createCyrillicName(int counter, String cyrilic) {
+		if(StringUtils.isBlank(cyrilic)) {
+			return " ";
+		}
 		String result = cyrilic;
 		result = result.replace(".","");
 		result = result.replace(",","");
@@ -183,6 +189,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 					timeCell = cell12;
 				}
 
+				//String carrier = "";
 				if (StringUtils.isNotBlank(cell0)) {
 					carrier = cell0;
 				}
@@ -225,12 +232,12 @@ public class InsertDataServiceImpl implements InsertDataService {
 					light2 = true;
 				}
 				if (!light1 && light2) {
-					createLines(cities);
+					createLines(cities, 1);
 					cities.clear();
 				}
 			}
 
-			createLines(cities);
+			createLines(cities, 1);
 		}
 
 		////////////////////////////////////////////////
@@ -280,9 +287,10 @@ public class InsertDataServiceImpl implements InsertDataService {
 					timeCell = cell22;
 				}
 
+				//String carrier = "";
 				if (StringUtils.isNotBlank(cell0)) {
 					carrier = cell0;
-				}
+				} 
 
 				if (StringUtils.isNotBlank(cell14)) {
 					light1 = true;
@@ -323,22 +331,24 @@ public class InsertDataServiceImpl implements InsertDataService {
 					light2 = true;
 				}
 				if (!light1 && light2) {
-					createLines(cities);
+					createLines(cities, 2);
 					cities.clear();
+					//carrier = null;
 				}
 			}
-			createLines(cities);
+			createLines(cities, 2);
 		}
 	}
 
-	private void createLines(List<City> cities) {
+	private void createLines(List<City> cities, int order) {
 		if (cities.isEmpty()) {
 			return;
 		}
-		createBusLines(cities);
+		createBusLines(cities, order);
+		
 	}
 
-	private void createBusLines(List<City> list) {
+	private void createBusLines(List<City> list, int order) {
 		if (list.isEmpty()) {
 			return;
 		}
@@ -350,22 +360,23 @@ public class InsertDataServiceImpl implements InsertDataService {
 		while (counter < size) {
 			City city1 = list.get(counter);
 			smallplaces.add(city1);
-			createBusLine(firstCity, city1, smallplaces);
+			createBusLine(firstCity, city1, smallplaces, order);
 			counter++;
 		}
 		list.remove(firstCity);
-		createBusLines(list);
+		createBusLines(list, order);
 	}
 
 
-	private void createBusLine(City city1, City city2, List<City> smallplaces) {
+	private void createBusLine(City city1, City city2, List<City> smallplaces, int order) {
 		if (!canCreateBusLine(city1, city2)) {
 			return;
 		}
 
 		String daysOfWork = city1.getDaysOfWork();
 		String city1Carrier = city1.getCarrier();
-
+		String city2Carrier = city2.getCarrier();
+		
 		String city1Name = city1.getName();
 		PlaceEntity pe1 = placeDao.getByCyrilicNameForInsert(city1Name);
 		
@@ -386,16 +397,23 @@ public class InsertDataServiceImpl implements InsertDataService {
 		ble.setName(lineName);
 		//ble.setOperationPeriod(OperationsUtil.getOperationPeriod(daysOfWork));
 		//ble.setOperationMonths(OperationsUtil.getOperationMonths(daysOfWork));
-		city1Carrier = createCyrillicName(0, city1Carrier);
-		CarrierEntity ce = carrierDao.getByCarrierName(city1Carrier);
-		ble.setCarrier(ce);
-
+		CarrierEntity ce = null;
+		if(StringUtils.isNotBlank(city1Carrier) && order == 1) {
+			city1Carrier = createCyrillicName(0, city1Carrier);
+			ce = carrierDao.getByCarrierName(city1Carrier);
+		} else if(StringUtils.isNotBlank(city2Carrier) && order == 2) {
+			city2Carrier = createCyrillicName(0, city2Carrier);
+			ce = carrierDao.getByCarrierName(city2Carrier);
+		}
+		
+		if(ce != null) {
+			ble.setCarrier(ce);
+		}
 		if(ble != null) {
 			line_count = line_count + 1;
 			busLineDao.persist(ble);
-			//System.out.println(ble);
 		}
-
+		blcounter = blcounter + 1;
 	}
 
 	private String createName(String name1, String name2) {

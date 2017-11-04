@@ -91,9 +91,14 @@ public class City implements Comparable<City>{
 		return false;
 	}
 	
+//	@Override
+//	public String toString() {
+//		return name + ", order: " + order + ", time: " + time + ", carrier: " + carrier + ", distance: " + distance + ", days of work: " + daysOfWork + ", line number: " + lineNumber;
+//	}
+	
 	@Override
 	public String toString() {
-		return name + ", order: " + order + ", time: " + time + ", carrier: " + carrier + ", distance: " + distance + ", days of work: " + daysOfWork + ", line number: " + lineNumber;
+		return String.format("City[%s, %s]", name, carrier);
 	}
 
 	@Override
