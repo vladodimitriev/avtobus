@@ -199,6 +199,7 @@ public class AdminBusLinePage extends BaseAdminPage {
     }
 
     private String generateTravelTime(String travelTime) {
+    	System.out.println("travel time start: " + travelTime);
         String result;
         try {
             String[] tta = travelTime.split(":");
@@ -211,6 +212,7 @@ public class AdminBusLinePage extends BaseAdminPage {
         } catch(Exception e) {
             result = travelTime;
         }
+        System.out.println("travel time end: " + result);
         return result;
     }
 

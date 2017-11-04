@@ -23,43 +23,44 @@ public class ModalPanelBusLineUpdate extends Panel {
     public ModalPanelBusLineUpdate(String id, UpdateBean bean, ModalWindow window) {
         super(id);
 
-        PropertyModel idModel = new PropertyModel(bean, "id");
-        PropertyModel departureModel = new PropertyModel(bean, "departurePlace");
-        PropertyModel arrivalModel = new PropertyModel(bean, "arrivalPlace");
-        PropertyModel departureTimeModel = new PropertyModel(bean, "departureTime");
-        PropertyModel arrivalTimeModel = new PropertyModel(bean, "arrivalTime");
+        PropertyModel<String> idModel = new PropertyModel<String>(bean, "id");
+        PropertyModel<String> departureModel = new PropertyModel<String>(bean, "departurePlace");
+        PropertyModel<String> arrivalModel = new PropertyModel<String>(bean, "arrivalPlace");
+        PropertyModel<String> departureTimeModel = new PropertyModel<String>(bean, "departureTime");
+        PropertyModel<String> arrivalTimeModel = new PropertyModel<String>(bean, "arrivalTime");
 
-        PropertyModel operationDaysModel = new PropertyModel(bean, "operationDays");
-        PropertyModel operationMonthsModel = new PropertyModel(bean, "operationMonths");
-        PropertyModel operationPeriodModel = new PropertyModel(bean, "operationPeriod");
+        PropertyModel<String> operationDaysModel = new PropertyModel<String>(bean, "operationDays");
+        PropertyModel<String> operationMonthsModel = new PropertyModel<String>(bean, "operationMonths");
+        PropertyModel<String> operationPeriodModel = new PropertyModel<String>(bean, "operationPeriod");
         PropertyModel<String> commentModel = new PropertyModel<String>(bean, "comment");
 
-        PropertyModel priceModel = new PropertyModel(bean, "price");
-        PropertyModel hasPriceModel = new PropertyModel(bean, "hasPrice");
-        PropertyModel lineNumberModel = new PropertyModel(bean, "lineNumber");
-        PropertyModel carrierModel = new PropertyModel(bean, "carrier");
+        PropertyModel<String> priceModel = new PropertyModel<String>(bean, "price");
+        PropertyModel<String> hasPriceModel = new PropertyModel<String>(bean, "hasPrice");
+        PropertyModel<String> lineNumberModel = new PropertyModel<String>(bean, "lineNumber");
+        PropertyModel<String> carrierModel = new PropertyModel<String>(bean, "carrier");
 
-        TextField idTxt = new TextField("id", idModel);
-        TextField departurePlaceTxt = new TextField("departurePlace", departureModel);
+        TextField<String> idTxt = new TextField<String>("id", idModel);
+        TextField<String> departurePlaceTxt = new TextField<String>("departurePlace", departureModel);
         departurePlaceTxt.setEnabled(false);
-        TextField arrivalPlaceTxt = new TextField("arrivalPlace", arrivalModel);
+        TextField<String> arrivalPlaceTxt = new TextField<String>("arrivalPlace", arrivalModel);
         arrivalPlaceTxt.setEnabled(false);
-        TextField departureTimeTxt = new TextField("departureTime", departureTimeModel);
-        TextField arrivalTimeTxt = new TextField("arrivalTime", arrivalTimeModel);
-        TextField operationDaysTxt = new TextField("operationDays", operationDaysModel);
-        TextField operationMonthsTxt = new TextField("operationMonths", operationMonthsModel);
-        TextField operationPeriodTxt = new TextField("operationPeriod", operationPeriodModel);
+        TextField<String> departureTimeTxt = new TextField<String>("departureTime", departureTimeModel);
+        TextField<String> arrivalTimeTxt = new TextField<String>("arrivalTime", arrivalTimeModel);
+        TextField<String> operationDaysTxt = new TextField<String>("operationDays", operationDaysModel);
+        TextField<String> operationMonthsTxt = new TextField<String>("operationMonths", operationMonthsModel);
+        TextField<String> operationPeriodTxt = new TextField<String>("operationPeriod", operationPeriodModel);
         TextArea<String> commentTxt = new TextArea<String>("comment", new PropertyModel<String>(bean, "comment"));
-        TextField priceTxt = new TextField("price", priceModel);
-        TextField hasPriceTxt = new TextField("hasPrice", hasPriceModel);
-        TextField lineNumberTxt = new TextField("lineNumber", lineNumberModel);
+        TextField<String> priceTxt = new TextField<String>("price", priceModel);
+        TextField<String> hasPriceTxt = new TextField<String>("hasPrice", hasPriceModel);
+        TextField<String> lineNumberTxt = new TextField<String>("lineNumber", lineNumberModel);
         TextArea<String> carrierTxt = new TextArea<String>("carrier", carrierModel);
         //carrierTxt.set
 
         Form<Void> form = new Form<Void>("updateForm"){
             @Override
             protected void onSubmit() {
-                busLineService.updateBusLine(bean);
+            	System.out.println("update bean: " + bean);
+            	busLineService.updateBusLine(bean);
             }
         };
 

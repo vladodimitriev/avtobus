@@ -101,6 +101,11 @@ public class BusLineDto implements Serializable, Comparable {
 		try {
 			String[] ata = arrivalTime.split("\\.");
 			String[] dta = departureTime.split("\\.");
+			
+			if(ata.length < 2 || dta.length < 2) {
+				ata = arrivalTime.split("\\:");
+				dta = departureTime.split("\\:");
+			}
 			Integer ah = Integer.valueOf(ata[0]);
 			Integer dh = Integer.valueOf(dta[0]);
 
