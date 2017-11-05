@@ -141,7 +141,7 @@ public class AdminCarrierPage extends BaseAdminPage {
                         modalWindowDelete.show(target);
                     }
                 };
-                item.add(link2);
+                //item.add(link2);
             }
         };
         return dataView;

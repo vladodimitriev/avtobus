@@ -188,6 +188,6 @@ public class UpdateBean implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("UpdateBean[comment = %s]", comment);
+        return String.format("UpdateBean[comment = %s, travel-time = %s]", comment, travelTime);
     }
 }

@@ -101,19 +101,36 @@ public class BusLineDto implements Serializable, Comparable {
 		try {
 			String[] ata = arrivalTime.split("\\.");
 			String[] dta = departureTime.split("\\.");
+			
+			if(ata.length < 2 || dta.length < 2) {
+				ata = arrivalTime.split("\\:");
+				dta = departureTime.split("\\:");
+			}
 			Integer ah = Integer.valueOf(ata[0]);
 			Integer dh = Integer.valueOf(dta[0]);
+			if(ah < dh) {
+				Integer am = Integer.valueOf(ata[1]);
+				Integer dm = Integer.valueOf(dta[1]);
+				dh = 24 - dh;
+				ah = 0 + ah;
+				int mm = am - dm;
+				int hh = ah + dh;
+				int tm = hh * 60 + mm;
+				int rh = tm / 60;
+				int rm = tm % 60;
+				return "" + rh + ":" + rm;
+			} else {
+				Integer am = Integer.valueOf(ata[1]);
+				Integer dm = Integer.valueOf(dta[1]);
 
-			Integer am = Integer.valueOf(ata[1]);
-			Integer dm = Integer.valueOf(dta[1]);
+				int at = ah * 60 + am;
+				int dt = dh * 60 + dm;
 
-			int at = ah * 60 + am;
-			int dt = dh * 60 + dm;
-
-			int rmt = at - dt;
-			int rh = rmt / 60;
-			int rm = rmt % 60;
-			return "" + rh + ":" + rm;
+				int rmt = at - dt;
+				int rh = rmt / 60;
+				int rm = rmt % 60;
+				return "" + rh + ":" + rm;
+			}
 		} catch(Exception e) {
 			return "";
 		}
