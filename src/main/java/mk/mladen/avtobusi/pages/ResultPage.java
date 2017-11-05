@@ -175,12 +175,36 @@ public class ResultPage extends BasePage {
 				  item.add(label3);
 
 				  Label label4 = new Label("details", new StringResourceModel("avtobusi.searchpage.btn.details", this, null));
-				  //label4.add(new AttributeModifier("style", "text-align: left"));
 				  item.add(label4);
 
 				  Label label5 = new Label("travelDistance", busLine.getDistance());
 				  label5.add(new AttributeModifier("style", "text-align: left"));
 				  item.add(label5);
+				  
+				  StringResourceModel priceModel = new StringResourceModel("avtobusi.price.denar.symbol", this, null);
+				  String priceBL = busLine.getPrice() == null ? "?" : busLine.getPrice();
+				  Label label6 = new Label("price", " " + priceBL);
+				  label6.add(new AttributeModifier("style", "text-align: left"));
+				  item.add(label6);
+				  
+				  label6 = new Label("priceSymbol", priceModel);
+				  label6.add(new AttributeModifier("style", "text-align: left"));
+				  item.add(label6);
+				  
+				  StringResourceModel priceReturnModel = new StringResourceModel("avtobusi.price.denar.return.symbol", this, null);
+				  StringResourceModel returnModel = new StringResourceModel("avtobusi.price.return", this, null);
+				  String returnPriceBL = busLine.getPriceReturn() == null ? "?" : busLine.getPriceReturn();
+				  String returnPrice = " " + returnPriceBL + " " + returnModel.getObject();
+				  
+				  Label label7 = new Label("priceReturn", returnPrice);
+				  label7.add(new AttributeModifier("style", "text-align: left"));
+				  item.add(label7);
+				  
+				  label7 = new Label("priceReturnSymbol", priceReturnModel);
+				  label7.add(new AttributeModifier("style", "text-align: left"));
+				  item.add(label7);
+				  
+				  
 
 				  WebMarkupContainer detailsPanel = new WebMarkupContainer("detailsPanel");
 				  detailsPanel.setOutputMarkupPlaceholderTag(true);

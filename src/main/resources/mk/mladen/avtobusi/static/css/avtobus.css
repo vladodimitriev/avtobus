@@ -563,3 +563,25 @@ textarea {
 .title {
 	cursor:pointer;	
 }
+
+.article-row .col-sm-2 .price {
+	margin-top: 35px;
+}
+
+.article-row .col-sm-2 .price .priceValue {
+	font-weight: bold;
+	font-size: large;
+}
+
+.article-row .col-sm-2 .price .priceSymbol{
+	font-size: small;
+}
+
+.article-row .col-sm-2 .priceReturn{
+	font-size: small;
+}
+
+.article-row .col-sm-3 .travel {
+	margin-top: 20px;
+	font-size: small;
+}

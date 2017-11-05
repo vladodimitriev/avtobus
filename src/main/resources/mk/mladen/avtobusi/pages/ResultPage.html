@@ -78,20 +78,34 @@
                 <div class="col-sm-1">
                     <img wicket:id="bus_img" alt="" height="21" width="21" />
                 </div>
-                <div class="col-sm-7">
+                <div class="col-sm-6">
                     <div class="row"><div wicket:id="carrier"></div></div>
                     <div class="row">
                         <div class="col-sm-4 dep-arr-time" wicket:id="departureArrivalTime"></div>
                         <div class="col-sm-4 dep-arr-time" wicket:id="departureArrivalPlace"></div>
+                        <div class="col-sm-4 dep-arr-time"></div>
                     </div>
                     <div class="row glyph">
                         <span wicket:id="glyphicon" class="glyphicon glyphicon-plus-sign"></span>
                         <span wicket:id="details" class="title" wicket:message="value :avtobusi.searchpage.btn.details"></span>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
+                	<div class="travel"></div>
                     <div class="row"><div wicket:id="travelTime"></div></div>
                     <div class="row"><div wicket:id="travelDistance"></div></div>
+                </div>
+                <div class="col-sm-2">
+                	<div class="price">
+                		<span class="priceSymbol" wicket:id="priceSymbol"></span>
+                		<span class="priceValue" wicket:id="price"></span>
+                	</div>
+                	<div class="priceReturn">
+                		<span>(</span>
+                		<span wicket:id="priceReturnSymbol"></span>
+                		<span wicket:id="priceReturn"></span>
+                		<span>)</span>
+                	</div>
                 </div>
                 <div wicket:id="detailsPanel" class="toggle-content">
                     <div class="segment-info">

@@ -35,6 +35,7 @@ public class ModalPanelBusLineUpdate extends Panel {
         PropertyModel<String> commentModel = new PropertyModel<String>(bean, "comment");
 
         PropertyModel<String> priceModel = new PropertyModel<String>(bean, "price");
+        PropertyModel<String> priceReturnModel = new PropertyModel<String>(bean, "priceReturn");
         PropertyModel<String> hasPriceModel = new PropertyModel<String>(bean, "hasPrice");
         PropertyModel<String> lineNumberModel = new PropertyModel<String>(bean, "lineNumber");
         PropertyModel<String> carrierModel = new PropertyModel<String>(bean, "carrier");
@@ -51,6 +52,7 @@ public class ModalPanelBusLineUpdate extends Panel {
         TextField<String> operationPeriodTxt = new TextField<String>("operationPeriod", operationPeriodModel);
         TextArea<String> commentTxt = new TextArea<String>("comment", new PropertyModel<String>(bean, "comment"));
         TextField<String> priceTxt = new TextField<String>("price", priceModel);
+        TextField<String> priceReturnTxt = new TextField<String>("priceReturn", priceReturnModel);
         TextField<String> hasPriceTxt = new TextField<String>("hasPrice", hasPriceModel);
         TextField<String> lineNumberTxt = new TextField<String>("lineNumber", lineNumberModel);
         TextArea<String> carrierTxt = new TextArea<String>("carrier", carrierModel);
@@ -76,6 +78,7 @@ public class ModalPanelBusLineUpdate extends Panel {
         form.add(commentTxt);
 
         form.add(priceTxt);
+        form.add(priceReturnTxt);
         //form.add(hasPriceTxt);
         //form.add(lineNumberTxt);
         form.add(carrierTxt);
