@@ -40,7 +40,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 
 	private final static Logger logger = Logger.getLogger(InsertDataServiceImpl.class);
 
-	private static final String inputFile = "linii-chikri.xls";
+	private static final String inputFile = "linii-bad.xls";
 	private static final String citiesFile = "cities.txt";
 
 	@Autowired
