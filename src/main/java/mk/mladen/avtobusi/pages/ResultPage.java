@@ -1,12 +1,11 @@
 package mk.mladen.avtobusi.pages;
 
-import mk.mladen.avtobusi.WicketApplication;
-import mk.mladen.avtobusi.beans.SearchBean;
-import mk.mladen.avtobusi.dto.BusLineDto;
-import mk.mladen.avtobusi.service.BusLineService;
-import mk.mladen.avtobusi.service.PlaceService;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+
 import org.apache.wicket.AttributeModifier;
-import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
@@ -18,21 +17,23 @@ import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.image.Image;
-import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.list.PropertyListView;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.apache.wicket.util.string.Strings;
 
-import java.util.*;
+import mk.mladen.avtobusi.WicketApplication;
+import mk.mladen.avtobusi.beans.SearchBean;
+import mk.mladen.avtobusi.dto.BusLineDto;
+import mk.mladen.avtobusi.service.BusLineService;
+import mk.mladen.avtobusi.service.PlaceService;
 
 @SuppressWarnings({ "rawtypes", "serial", "unchecked" })
 public class ResultPage extends BasePage {
@@ -173,7 +174,7 @@ public class ResultPage extends BasePage {
 				  label3.add(new AttributeModifier("style", "text-align: left"));
 				  item.add(label3);
 
-				  Label label4 = new Label("details", "details");
+				  Label label4 = new Label("details", new StringResourceModel("avtobusi.searchpage.btn.details", this, null));
 				  //label4.add(new AttributeModifier("style", "text-align: left"));
 				  item.add(label4);
 
