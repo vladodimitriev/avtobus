@@ -47,9 +47,13 @@ public class BusLineDto implements Serializable, Comparable {
 
 	private String operationPeriod;
 
-	private String lineNumber;
+	private Integer lineNumber;
 
 	private String smallPlaces;
+	
+	private int redenBroj;
+	
+	private String lineName;
 	
 	public BusLineDto() {
 	}
@@ -57,7 +61,7 @@ public class BusLineDto implements Serializable, Comparable {
 	public BusLineDto(int id, String name, String departurePlace, String destinationPlace,
 			String carrier, String carrierCyrilic, String price, String priceReturn,
 		    String departureTime, String arrivalTime, Double distance, String travelTime,
-		    String smallPlaces) {
+		    String smallPlaces, Integer redenBroj) {
 		this.id = id;
 		this.name = name;
 		this.departurePlace = departurePlace;
@@ -72,13 +76,14 @@ public class BusLineDto implements Serializable, Comparable {
 		this.distance = getStrDistance(distance);
 		this.travelTime = generateTravelTime(arrivalTime, departureTime);
 		this.smallPlaces = smallPlaces;
+		this.redenBroj = redenBroj != null ? redenBroj.intValue() : 0;
 	}
 
 	public BusLineDto(int id, String name, int departurePlaceId, String departurePlace, int destinationPlaceId,
 					  String destinationPlace, int carrierId, String carrier, String carrierCyrilic,
 					  String price, String priceReturn,
 					  String departureTime, String arrivalTime, Double distance, String travelTime,
-					  String smallPlaces) {
+					  String smallPlaces, Integer redenBroj) {
 		this.id = id;
 		this.departurePlaceId = departurePlaceId;
 		this.destinationPlaceId = destinationPlaceId;
@@ -95,6 +100,7 @@ public class BusLineDto implements Serializable, Comparable {
 		this.distance = getStrDistance(distance);
 		this.travelTime = generateTravelTime(arrivalTime, departureTime);
 		this.smallPlaces = smallPlaces;
+		this.redenBroj = redenBroj != null ? redenBroj.intValue() : 0;
 	}
 
 	private String generateTravelTime(String arrivalTime, String departureTime) {
@@ -313,14 +319,6 @@ public class BusLineDto implements Serializable, Comparable {
 		this.operationPeriod = operationPeriod;
 	}
 
-	public String getLineNumber() {
-		return lineNumber;
-	}
-
-	public void setLineNumber(String lineNumber) {
-		this.lineNumber = lineNumber;
-	}
-
 	public int getDeparturePlaceId() {
 		return departurePlaceId;
 	}
@@ -351,6 +349,30 @@ public class BusLineDto implements Serializable, Comparable {
 
 	public void setSmallPlaces(String smallPlaces) {
 		this.smallPlaces = smallPlaces;
+	}
+	
+	public int getRedenBroj() {
+		return redenBroj;
+	}
+
+	public void setRedenBroj(int redenBroj) {
+		this.redenBroj = redenBroj;
+	}
+
+	public String getLineName() {
+		return lineName;
+	}
+
+	public void setLineName(String lineName) {
+		this.lineName = lineName;
+	}
+
+	public Integer getLineNumber() {
+		return lineNumber;
+	}
+
+	public void setLineNumber(Integer lineNumber) {
+		this.lineNumber = lineNumber;
 	}
 
 	@Override

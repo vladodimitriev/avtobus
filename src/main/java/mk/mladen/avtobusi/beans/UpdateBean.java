@@ -30,7 +30,7 @@ public class UpdateBean implements Serializable {
 
     private String carrier;
 
-    private String lineNumber;
+    private Integer lineNumber;
 
     private String comment;
 
@@ -41,6 +41,10 @@ public class UpdateBean implements Serializable {
     private String priceReturn;
 
     private String travelTime;
+    
+    private int redenBroj;
+    
+    private String lineName;
 
     public String getId() {
         return id;
@@ -114,15 +118,15 @@ public class UpdateBean implements Serializable {
         this.carrier = carrier;
     }
 
-    public String getLineNumber() {
-        return lineNumber;
-    }
+    public Integer getLineNumber() {
+		return lineNumber;
+	}
 
-    public void setLineNumber(String lineNumber) {
-        this.lineNumber = lineNumber;
-    }
+	public void setLineNumber(Integer lineNumber) {
+		this.lineNumber = lineNumber;
+	}
 
-    public String getComment() {
+	public String getComment() {
         return comment;
     }
 
@@ -185,8 +189,24 @@ public class UpdateBean implements Serializable {
     public void setCarrierId(int carrierId) {
         this.carrierId = carrierId;
     }
+    
+    public int getRedenBroj() {
+		return redenBroj;
+	}
 
-    @Override
+	public void setRedenBroj(int redenBroj) {
+		this.redenBroj = redenBroj;
+	}
+
+	public String getLineName() {
+		return lineName;
+	}
+
+	public void setLineName(String lineName) {
+		this.lineName = lineName;
+	}
+
+	@Override
     public String toString() {
         return String.format("UpdateBean[comment = %s, travel-time = %s]", comment, travelTime);
     }

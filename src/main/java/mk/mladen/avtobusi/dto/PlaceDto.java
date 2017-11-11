@@ -1,8 +1,5 @@
 package mk.mladen.avtobusi.dto;
 
-import mk.mladen.avtobusi.entity.CountryEntity;
-
-import javax.persistence.*;
 import java.io.Serializable;
 
 public class PlaceDto implements Serializable {
@@ -22,6 +19,8 @@ public class PlaceDto implements Serializable {
     private Integer importance;
 
     private String country;
+    
+    private String sinonimi;
 
     public PlaceDto() {
 
@@ -82,4 +81,13 @@ public class PlaceDto implements Serializable {
     public void setCountry(String country) {
         this.country = country;
     }
+
+	public String getSinonimi() {
+		return sinonimi;
+	}
+
+	public void setSinonimi(String sinonimi) {
+		this.sinonimi = sinonimi;
+	}
+
 }

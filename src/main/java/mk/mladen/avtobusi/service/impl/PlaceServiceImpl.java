@@ -35,6 +35,8 @@ public class PlaceServiceImpl implements PlaceService {
 			dto.setId(entity.getId());
 			dto.setName(entity.getName());
 			dto.setNameCyrilic(entity.getNameCyrilic());
+			dto.setImportance(entity.getImportance());
+			dto.setSinonimi(entity.getSinonimi());
 			result.add(dto);
 		}
 
@@ -95,6 +97,8 @@ public class PlaceServiceImpl implements PlaceService {
 			dto.setId(entity.getId());
 			dto.setName(entity.getName());
 			dto.setNameCyrilic(entity.getNameCyrilic());
+			dto.setImportance(entity.getImportance());
+			dto.setSinonimi(entity.getSinonimi());
 			//dto.setCountry(entity.getCountry() != null ? entity.getCountry().get);
 			result.add(dto);
 		}
@@ -119,6 +123,8 @@ public class PlaceServiceImpl implements PlaceService {
 	private void updatePlaceEntity(PlaceEntity place, PlaceDto placeDto) {
 		place.setName(placeDto.getName());
 		place.setNameCyrilic(placeDto.getNameCyrilic());
+		place.setImportance(placeDto.getImportance());
+		place.setSinonimi(placeDto.getSinonimi());
 	}
 
 	@Override

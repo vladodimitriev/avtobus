@@ -51,7 +51,7 @@ public class AdminBusLinePage extends BaseAdminPage {
 
     public AdminBusLinePage(PageParameters parameters) {
         super(parameters);
-        Model imgSwitchModel = new Model();
+        Model<String> imgSwitchModel = new Model<String>();
         Image imgSwitch = new Image( "switch-img", imgSwitchModel);
         ResourceReference rr1 = new PackageResourceReference(WicketApplication.class, "static/img/switch50x999.jpg");
         imgSwitch.setImageResourceReference(rr1);
@@ -59,8 +59,9 @@ public class AdminBusLinePage extends BaseAdminPage {
         AutoCompleteSettings opts = new AutoCompleteSettings();
         opts.setShowListOnEmptyInput(true);
 
-        AutoCompleteTextField<String> actf1 = new AutoCompleteTextField<String>("departurePlace", new PropertyModel(searchBean, "departurePlace"), opts) {
-            @Override
+        AutoCompleteTextField<String> actf1 = new AutoCompleteTextField<String>("departurePlace", new PropertyModel<String>(searchBean, "departurePlace"), opts) {
+			private static final long serialVersionUID = 1L;
+			@Override
             public Iterator<String> getChoices(String input) {
                 List<String> choices = placeService.findAllPlacesNamesByLanguageAndName(lang, input);
                 return choices.iterator();
@@ -69,8 +70,9 @@ public class AdminBusLinePage extends BaseAdminPage {
         actf1.setRequired(true);
         actf1.setOutputMarkupId(true);
 
-        AutoCompleteTextField<String> actf2 = new AutoCompleteTextField<String>("destinationPlace", new PropertyModel(searchBean, "destinationPlace"), opts) {
-            @Override
+        AutoCompleteTextField<String> actf2 = new AutoCompleteTextField<String>("destinationPlace", new PropertyModel<String>(searchBean, "destinationPlace"), opts) {
+			private static final long serialVersionUID = 1L;
+			@Override
             protected Iterator<String> getChoices(String input) {
                 List<String> choices = placeService.findAllPlacesNamesByLanguageAndName(lang, input);
                 return choices.iterator();
@@ -85,8 +87,9 @@ public class AdminBusLinePage extends BaseAdminPage {
         wmc = new WebMarkupContainer("wmc");
         wmc.setOutputMarkupId(true);
 
-        Form form = new Form("resultSearchForm"){
-            @Override
+        Form<Void> form = new Form<Void>("resultSearchForm"){
+			private static final long serialVersionUID = 1L;
+			@Override
             protected void onSubmit() {
                 dataView = createDataView();
                 dataView.setOutputMarkupId(true);
@@ -95,6 +98,7 @@ public class AdminBusLinePage extends BaseAdminPage {
         };
         form.add(actf1);
         form.add(actf2);
+        form.add(imgSwitch);
 
         ModalWindow modalWindow = new ModalWindow("modalWindow");
         modalWindow.setOutputMarkupId(true);
@@ -104,7 +108,8 @@ public class AdminBusLinePage extends BaseAdminPage {
         modalWindow.showUnloadConfirmation(false);
         modalWindow.setWindowClosedCallback(new ModalWindow.WindowClosedCallback()
         {
-            @Override
+			private static final long serialVersionUID = 1L;
+			@Override
             public void onClose(AjaxRequestTarget target)
             {
                 dataView = createDataView();
@@ -115,7 +120,8 @@ public class AdminBusLinePage extends BaseAdminPage {
         add(modalWindow);
 
         AjaxLink<String> link = new AjaxLink<String>("addLink") {
-            @Override
+			private static final long serialVersionUID = 1L;
+			@Override
             public void onClick(AjaxRequestTarget target) {
                 modalWindow.show(target);
             }
@@ -129,11 +135,12 @@ public class AdminBusLinePage extends BaseAdminPage {
     private PropertyListView<BusLineDto> createDataView() {
         List<BusLineDto> busLines = loadRelations();
         PropertyListView<BusLineDto> dataView = new PropertyListView<BusLineDto>("rows", busLines) {
-            @Override
+			private static final long serialVersionUID = 1L;
+			@Override
             protected void populateItem(ListItem<BusLineDto> item) {
                 final BusLineDto busLine = item.getModelObject();
 
-                Model imgModel = new Model();
+                Model<String> imgModel = new Model<String>();
                 Image bus_img = new Image( "bus_img", imgModel);
                 bus_img.setImageResourceReference(busResourceReference);
                 item.add(bus_img);
@@ -179,7 +186,8 @@ public class AdminBusLinePage extends BaseAdminPage {
                 item.add(modalWindowDelete);
 
                 AjaxLink<String> link1 = new AjaxLink<String>("detailsLink") {
-                    @Override
+					private static final long serialVersionUID = 1L;
+					@Override
                     public void onClick(AjaxRequestTarget target) {
                         modalWindowUpdate.show(target);
                     }
@@ -187,7 +195,8 @@ public class AdminBusLinePage extends BaseAdminPage {
                 item.add(link1);
 
                 AjaxLink<String> link2 = new AjaxLink<String>("deleteLink") {
-                    @Override
+					private static final long serialVersionUID = 1L;
+					@Override
                     public void onClick(AjaxRequestTarget target) {
                         modalWindowDelete.show(target);
                     }
@@ -247,7 +256,8 @@ public class AdminBusLinePage extends BaseAdminPage {
         modalWindowUpdate.showUnloadConfirmation(false);
         modalWindowUpdate.setWindowClosedCallback(new ModalWindow.WindowClosedCallback()
         {
-            @Override
+			private static final long serialVersionUID = 1L;
+			@Override
             public void onClose(AjaxRequestTarget target)
             {
                 dataView = createDataView();
@@ -288,6 +298,8 @@ public class AdminBusLinePage extends BaseAdminPage {
         updateBean.setDeparturePlaceId(busLine.getDeparturePlaceId());
         updateBean.setDestinationPlaceId(busLine.getDestinationPlaceId());
         updateBean.setCarrierId(busLine.getCarrierId());
+        updateBean.setRedenBroj(busLine.getRedenBroj());
+        updateBean.setLineName(busLine.getLineName());
         return updateBean;
     }
 

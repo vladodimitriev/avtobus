@@ -23,7 +23,6 @@ public class ModalPanelBusLineUpdate extends Panel {
     public ModalPanelBusLineUpdate(String id, UpdateBean bean, ModalWindow window) {
         super(id);
 
-        PropertyModel<String> idModel = new PropertyModel<String>(bean, "id");
         PropertyModel<String> departureModel = new PropertyModel<String>(bean, "departurePlace");
         PropertyModel<String> arrivalModel = new PropertyModel<String>(bean, "arrivalPlace");
         PropertyModel<String> departureTimeModel = new PropertyModel<String>(bean, "departureTime");
@@ -33,14 +32,14 @@ public class ModalPanelBusLineUpdate extends Panel {
         PropertyModel<String> operationMonthsModel = new PropertyModel<String>(bean, "operationMonths");
         PropertyModel<String> operationPeriodModel = new PropertyModel<String>(bean, "operationPeriod");
         PropertyModel<String> commentModel = new PropertyModel<String>(bean, "comment");
+        PropertyModel<Integer> redenBrojModel = new PropertyModel<Integer>(bean, "redenBroj");
 
         PropertyModel<String> priceModel = new PropertyModel<String>(bean, "price");
         PropertyModel<String> priceReturnModel = new PropertyModel<String>(bean, "priceReturn");
-        PropertyModel<String> hasPriceModel = new PropertyModel<String>(bean, "hasPrice");
-        PropertyModel<String> lineNumberModel = new PropertyModel<String>(bean, "lineNumber");
+        PropertyModel<Integer> lineNumberModel = new PropertyModel<Integer>(bean, "lineNumber");
+        PropertyModel<String> lineNameModel = new PropertyModel<String>(bean, "lineName");
         PropertyModel<String> carrierModel = new PropertyModel<String>(bean, "carrier");
 
-        TextField<String> idTxt = new TextField<String>("id", idModel);
         TextField<String> departurePlaceTxt = new TextField<String>("departurePlace", departureModel);
         departurePlaceTxt.setEnabled(false);
         TextField<String> arrivalPlaceTxt = new TextField<String>("arrivalPlace", arrivalModel);
@@ -50,51 +49,53 @@ public class ModalPanelBusLineUpdate extends Panel {
         TextField<String> operationDaysTxt = new TextField<String>("operationDays", operationDaysModel);
         TextField<String> operationMonthsTxt = new TextField<String>("operationMonths", operationMonthsModel);
         TextField<String> operationPeriodTxt = new TextField<String>("operationPeriod", operationPeriodModel);
-        TextArea<String> commentTxt = new TextArea<String>("comment", new PropertyModel<String>(bean, "comment"));
+        TextArea<String> commentTxt = new TextArea<String>("comment", commentModel);
         TextField<String> priceTxt = new TextField<String>("price", priceModel);
+        TextField<Integer> redenBrojTxt = new TextField<Integer>("redenBroj", redenBrojModel);
+        TextField<Integer> lineNumberTxt = new TextField<Integer>("lineNumber", lineNumberModel);
         TextField<String> priceReturnTxt = new TextField<String>("priceReturn", priceReturnModel);
-        TextField<String> hasPriceTxt = new TextField<String>("hasPrice", hasPriceModel);
-        TextField<String> lineNumberTxt = new TextField<String>("lineNumber", lineNumberModel);
+        TextField<String> lineNameTxt = new TextField<String>("lineName", lineNameModel);
         TextArea<String> carrierTxt = new TextArea<String>("carrier", carrierModel);
         //carrierTxt.set
 
         Form<Void> form = new Form<Void>("updateForm"){
-            @Override
+            private static final long serialVersionUID = 1L;
+
+			@Override
             protected void onSubmit() {
-            	System.out.println("update bean: " + bean);
             	busLineService.updateBusLine(bean);
             }
         };
 
-        //form.add(idTxt);
         form.add(departurePlaceTxt);
         form.add(arrivalPlaceTxt);
         form.add(departureTimeTxt);
         form.add(arrivalTimeTxt);
-
+        form.add(redenBrojTxt);	
         form.add(operationDaysTxt);
         form.add(operationMonthsTxt);
         form.add(operationPeriodTxt);
         form.add(commentTxt);
-
         form.add(priceTxt);
         form.add(priceReturnTxt);
-        //form.add(hasPriceTxt);
-        //form.add(lineNumberTxt);
+        form.add(lineNumberTxt);
+        form.add(lineNameTxt);
         form.add(carrierTxt);
 
         AjaxLink<String> cancelLink = new AjaxLink<String>("cancelLink") {
-            @Override
+            private static final long serialVersionUID = 1L;
+
+			@Override
             public void onClick(AjaxRequestTarget target) {
                 window.close(target);
             }
         };
 
         AjaxButton saveBtn = new AjaxButton("saveBtn") {
-            @Override
+            private static final long serialVersionUID = 1L;
+
+			@Override
             protected void onSubmit(AjaxRequestTarget target) {
-                //System.out.println("save btn");
-                //busLineService.updateBusLine(bean);
                 window.close(target);
             }
         };

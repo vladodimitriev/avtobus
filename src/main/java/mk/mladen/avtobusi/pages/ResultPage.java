@@ -57,7 +57,6 @@ public class ResultPage extends BasePage {
 	private PropertyListView<BusLineDto> dataView;
 
 	public ResultPage(PageParameters params) {
-
 		super(params);
 
 		PageParameters params2 = new PageParameters();

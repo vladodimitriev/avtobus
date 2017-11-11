@@ -92,7 +92,15 @@ public class PlaceEntity {
 	public void setSinonimi(String sinonimi) {
 		this.sinonimi = sinonimi;
 	}
-	
+
+	public Integer getImportance() {
+		return importance;
+	}
+
+	public void setImportance(Integer importance) {
+		this.importance = importance;
+	}
+
 	@Override
 	public String toString() {
 		return String.format("PlaceEntity[%s, %s, %s]", name, nameCyrilic, sinonimi);
