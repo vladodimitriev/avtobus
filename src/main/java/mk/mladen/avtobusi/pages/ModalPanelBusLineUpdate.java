@@ -33,6 +33,7 @@ public class ModalPanelBusLineUpdate extends Panel {
         PropertyModel<String> operationMonthsModel = new PropertyModel<String>(bean, "operationMonths");
         PropertyModel<String> operationPeriodModel = new PropertyModel<String>(bean, "operationPeriod");
         PropertyModel<String> commentModel = new PropertyModel<String>(bean, "comment");
+        PropertyModel<Integer> redenBrojModel = new PropertyModel<Integer>(bean, "redenBroj");
 
         PropertyModel<String> priceModel = new PropertyModel<String>(bean, "price");
         PropertyModel<String> priceReturnModel = new PropertyModel<String>(bean, "priceReturn");
@@ -50,8 +51,9 @@ public class ModalPanelBusLineUpdate extends Panel {
         TextField<String> operationDaysTxt = new TextField<String>("operationDays", operationDaysModel);
         TextField<String> operationMonthsTxt = new TextField<String>("operationMonths", operationMonthsModel);
         TextField<String> operationPeriodTxt = new TextField<String>("operationPeriod", operationPeriodModel);
-        TextArea<String> commentTxt = new TextArea<String>("comment", new PropertyModel<String>(bean, "comment"));
+        TextArea<String> commentTxt = new TextArea<String>("comment", commentModel);
         TextField<String> priceTxt = new TextField<String>("price", priceModel);
+        TextField<Integer> redenBrojTxt = new TextField<Integer>("redenBroj", redenBrojModel);
         TextField<String> priceReturnTxt = new TextField<String>("priceReturn", priceReturnModel);
         TextField<String> hasPriceTxt = new TextField<String>("hasPrice", hasPriceModel);
         TextField<String> lineNumberTxt = new TextField<String>("lineNumber", lineNumberModel);
@@ -71,7 +73,7 @@ public class ModalPanelBusLineUpdate extends Panel {
         form.add(arrivalPlaceTxt);
         form.add(departureTimeTxt);
         form.add(arrivalTimeTxt);
-
+        form.add(redenBrojTxt);	
         form.add(operationDaysTxt);
         form.add(operationMonthsTxt);
         form.add(operationPeriodTxt);

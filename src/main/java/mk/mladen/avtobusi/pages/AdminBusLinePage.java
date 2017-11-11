@@ -288,6 +288,7 @@ public class AdminBusLinePage extends BaseAdminPage {
         updateBean.setDeparturePlaceId(busLine.getDeparturePlaceId());
         updateBean.setDestinationPlaceId(busLine.getDestinationPlaceId());
         updateBean.setCarrierId(busLine.getCarrierId());
+        updateBean.setRedenBroj(busLine.getRedenBroj());
         return updateBean;
     }
 

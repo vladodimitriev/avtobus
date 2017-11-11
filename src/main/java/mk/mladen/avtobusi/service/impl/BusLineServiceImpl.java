@@ -60,7 +60,8 @@ public class BusLineServiceImpl implements BusLineService {
 							ent.getArrivalTime(),
 							ent.getDist(),
 							ent.getJurneyTime(),
-							ent.getSmallPlaces());
+							ent.getSmallPlaces(),
+							ent.getRedenBroj());
 					dto.setOperationDays(ent.getOperationDays());
 					dto.setOperationMonths(ent.getOperationMonths());
 					dto.setOperationPeriod(ent.getOperationPeriod());
@@ -116,7 +117,8 @@ public class BusLineServiceImpl implements BusLineService {
 							ent.getArrivalTime(),
 							ent.getDist(),
 							ent.getJurneyTime(),
-							ent.getSmallPlaces());
+							ent.getSmallPlaces(),
+							ent.getRedenBroj());
 					result.add(dto);
 				}
 			} catch (Exception e) {
@@ -164,6 +166,7 @@ public class BusLineServiceImpl implements BusLineService {
 		ble.setPrice(bean.getPrice());
 		ble.setPriceReturn(bean.getPriceReturn());		
 		ble.setJurneyTime(bean.getTravelTime());
+		ble.setRedenBroj(bean.getRedenBroj());
 	}
 
 	@Override
@@ -181,6 +184,7 @@ public class BusLineServiceImpl implements BusLineService {
 		ble.setDeparture(pe1);
 		ble.setDestination(pe2);
 		ble.setCarrier(ce);
+		ble.setRedenBroj(bean.getRedenBroj());
 
 		System.out.println("add new bus line bean departure: " + bean.getDeparturePlace() + " carrier: " + ce);
 		busLineDao.persist(ble);
@@ -195,6 +199,7 @@ public class BusLineServiceImpl implements BusLineService {
 		ble.setDepartureTime(bean.getDepartureTime());
 		ble.setArrivalTime(bean.getArrivalTime());
 		ble.setPrice(bean.getPrice());
+		ble.setRedenBroj(bean.getRedenBroj());
 		return ble;
 	}
 }

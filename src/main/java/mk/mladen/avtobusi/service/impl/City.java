@@ -11,6 +11,7 @@ public class City implements Comparable<City>{
 	private int distance;
 	private double dist;
 	private String comment;
+	private int redenBroj;
 	
 	public City() {
 	}
@@ -84,6 +85,14 @@ public class City implements Comparable<City>{
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+	
+	public int getRedenBroj() {
+		return redenBroj;
+	}
+
+	public void setRedenBroj(int redenBroj) {
+		this.redenBroj = redenBroj;
 	}
 
 	@Override

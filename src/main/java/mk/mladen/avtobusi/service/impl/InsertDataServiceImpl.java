@@ -215,6 +215,11 @@ public class InsertDataServiceImpl implements InsertDataService {
 						city.setCarrier(carrier);
 						city.setDaysOfWork(daysOfWork);
 						city.setComment(comment);
+						if(j > 4) {
+							city.setRedenBroj(j - 4);
+						} else {
+							city.setRedenBroj(0);
+						}
 						Integer linenumber = null;
 						try {
 							linenumber = Integer.valueOf(cell1);
@@ -320,6 +325,11 @@ public class InsertDataServiceImpl implements InsertDataService {
 						city.setCarrier(carrier);
 						city.setDaysOfWork(daysOfWork);
 						city.setComment(comment);
+						if(j > 14) {
+							city.setRedenBroj(j - 14);
+						} else {
+							city.setRedenBroj(0);
+						}
 						Integer linenumber = null;
 						try {
 							linenumber = Integer.valueOf(cell1);
@@ -391,6 +401,9 @@ public class InsertDataServiceImpl implements InsertDataService {
 		String city1Comment = city1.getComment();
 		String city2Comment = city2.getComment();
 		
+		int city1RedenBroj = city1.getRedenBroj();
+		int city2RedenBroj = city2.getRedenBroj();
+		
 		String city1Name = city1.getName();
 		PlaceEntity pe1 = placeDao.getByCyrilicNameForInsert(city1Name);
 		
@@ -419,6 +432,14 @@ public class InsertDataServiceImpl implements InsertDataService {
 			comment = city2Comment;
 		}
 		ble.setComment(comment);
+		
+		int redenBroj = 0;
+		if(order == 1) {
+			redenBroj = city1RedenBroj;
+		} else if(order == 2) {
+			redenBroj = city2RedenBroj;
+		}
+		ble.setRedenBroj(redenBroj);
 		
 		CarrierEntity ce = null;
 		if(StringUtils.isNotBlank(city1Carrier) && order == 1) {

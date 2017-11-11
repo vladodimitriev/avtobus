@@ -31,6 +31,8 @@ public class AddBean implements Serializable {
     private String hasPrice;
 
     private String price;
+    
+    private int redenBroj;
 
     public AddBean() {
 
@@ -139,8 +141,16 @@ public class AddBean implements Serializable {
     public void setPrice(String price) {
         this.price = price;
     }
+    
+    public int getRedenBroj() {
+		return redenBroj;
+	}
 
-    @Override
+	public void setRedenBroj(int redenBroj) {
+		this.redenBroj = redenBroj;
+	}
+
+	@Override
     public String toString() {
         return String.format("AddBean[departure = %s, destination = %s, time = %s]", departurePlace, arrivalPlace, departureTime);
     }

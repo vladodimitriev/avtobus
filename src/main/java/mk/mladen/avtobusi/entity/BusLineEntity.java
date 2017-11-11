@@ -50,6 +50,9 @@ public class BusLineEntity {
 	@Column(name = "smallplaces", nullable = true)
 	private String smallPlaces;
 	
+	@Column(name = "redenbroj", nullable = true)
+	private Integer redenBroj; 
+	
 	@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="departureplaceid", nullable=true)
 	private PlaceEntity departure;
@@ -210,6 +213,14 @@ public class BusLineEntity {
 
 	public void setSmallPlaces(String smallPlaces) {
 		this.smallPlaces = smallPlaces;
+	}
+	
+	public Integer getRedenBroj() {
+		return redenBroj;
+	}
+
+	public void setRedenBroj(Integer redenBroj) {
+		this.redenBroj = redenBroj;
 	}
 
 	@Override

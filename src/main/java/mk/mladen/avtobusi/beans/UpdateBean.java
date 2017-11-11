@@ -41,6 +41,8 @@ public class UpdateBean implements Serializable {
     private String priceReturn;
 
     private String travelTime;
+    
+    private int redenBroj;
 
     public String getId() {
         return id;
@@ -185,8 +187,16 @@ public class UpdateBean implements Serializable {
     public void setCarrierId(int carrierId) {
         this.carrierId = carrierId;
     }
+    
+    public int getRedenBroj() {
+		return redenBroj;
+	}
 
-    @Override
+	public void setRedenBroj(int redenBroj) {
+		this.redenBroj = redenBroj;
+	}
+
+	@Override
     public String toString() {
         return String.format("UpdateBean[comment = %s, travel-time = %s]", comment, travelTime);
     }
