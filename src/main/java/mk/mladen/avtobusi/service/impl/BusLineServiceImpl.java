@@ -66,7 +66,8 @@ public class BusLineServiceImpl implements BusLineService {
 					dto.setOperationMonths(ent.getOperationMonths());
 					dto.setOperationPeriod(ent.getOperationPeriod());
 					dto.setComment(ent.getComment());
-					dto.setLineNumber(ent.getName());
+					dto.setLineNumber(ent.getLineNumber());
+					dto.setLineName(ent.getLineName());
 					result.add(dto);
 				}
 			} catch (Exception e) {
@@ -119,6 +120,8 @@ public class BusLineServiceImpl implements BusLineService {
 							ent.getJurneyTime(),
 							ent.getSmallPlaces(),
 							ent.getRedenBroj());
+					dto.setLineName(ent.getLineName());
+					dto.setLineNumber(ent.getLineNumber());
 					result.add(dto);
 				}
 			} catch (Exception e) {
@@ -167,6 +170,8 @@ public class BusLineServiceImpl implements BusLineService {
 		ble.setPriceReturn(bean.getPriceReturn());		
 		ble.setJurneyTime(bean.getTravelTime());
 		ble.setRedenBroj(bean.getRedenBroj());
+		ble.setLineName(bean.getLineName());
+		ble.setLineNumber(bean.getLineNumber());
 	}
 
 	@Override

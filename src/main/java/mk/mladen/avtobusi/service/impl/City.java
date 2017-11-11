@@ -1,6 +1,6 @@
 package mk.mladen.avtobusi.service.impl;
 
-public class City implements Comparable<City>{
+public class City implements Comparable<City> {
 
 	private String name;
 	private int order;
@@ -12,6 +12,7 @@ public class City implements Comparable<City>{
 	private double dist;
 	private String comment;
 	private int redenBroj;
+	private String lineName;
 	
 	public City() {
 	}
@@ -95,6 +96,14 @@ public class City implements Comparable<City>{
 		this.redenBroj = redenBroj;
 	}
 
+	public String getLineName() {
+		return lineName;
+	}
+
+	public void setLineName(String lineName) {
+		this.lineName = lineName;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if(obj != null && obj instanceof City) {
@@ -108,16 +117,6 @@ public class City implements Comparable<City>{
 		return false;
 	}
 	
-//	@Override
-//	public String toString() {
-//		return name + ", order: " + order + ", time: " + time + ", carrier: " + carrier + ", distance: " + distance + ", days of work: " + daysOfWork + ", line number: " + lineNumber;
-//	}
-	
-	@Override
-	public String toString() {
-		return String.format("City[%s, %s]", name, carrier);
-	}
-
 	@Override
 	public int compareTo(City o) {
 		if(this.order < o.order) {
@@ -129,5 +128,10 @@ public class City implements Comparable<City>{
 		}
 		
 		return 0;
-	} 
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("City[%s, %s]", name, carrier);
+	}
 }

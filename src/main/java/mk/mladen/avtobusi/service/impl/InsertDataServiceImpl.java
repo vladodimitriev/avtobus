@@ -136,6 +136,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 		List<City> cities = new ArrayList<City>();
 		int cityCount = 0;
 		int lineNumber = 0;
+		String lineName = "";
 		String carrier = null;
 		String comment = "";
 		String daysOfWork = null;
@@ -148,7 +149,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 			for (int i = 0; i < rows; i++) {
 				String cell0 = sheet.getCell(0, i).getContents();  //carrier
 				String cell1 = sheet.getCell(1, i).getContents();  //line number (not unique)
-				String cell2 = sheet.getCell(2, i).getContents();  //first - last place
+				String cell2 = sheet.getCell(2, i).getContents();  //first - last place / line name
 				String cell3 = sheet.getCell(3, i).getContents();  //number of lines
 				String cell4 = sheet.getCell(4, i).getContents();  //number of lines return
 				String cell5 = sheet.getCell(5, i).getContents();  //time1
@@ -198,6 +199,10 @@ public class InsertDataServiceImpl implements InsertDataService {
 				if (StringUtils.isNotBlank(cell23)) {
 					comment = cell23;
 				}
+				
+				if (StringUtils.isNotBlank(cell2)) {
+					lineName = cell2;
+				}
 
 				if (StringUtils.isNotBlank(cell14)) {
 					light1 = true;
@@ -215,6 +220,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 						city.setCarrier(carrier);
 						city.setDaysOfWork(daysOfWork);
 						city.setComment(comment);
+						city.setLineName(lineName);
 						if(j > 4) {
 							city.setRedenBroj(j - 4);
 						} else {
@@ -306,6 +312,10 @@ public class InsertDataServiceImpl implements InsertDataService {
 				if (StringUtils.isNotBlank(cell23)) {
 					comment = cell23;
 				}
+				
+				if (StringUtils.isNotBlank(cell2)) {
+					lineName = cell2;
+				}
 
 				if (StringUtils.isNotBlank(cell14)) {
 					light1 = true;
@@ -325,6 +335,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 						city.setCarrier(carrier);
 						city.setDaysOfWork(daysOfWork);
 						city.setComment(comment);
+						city.setLineName(lineName);
 						if(j > 14) {
 							city.setRedenBroj(j - 14);
 						} else {
@@ -404,6 +415,12 @@ public class InsertDataServiceImpl implements InsertDataService {
 		int city1RedenBroj = city1.getRedenBroj();
 		int city2RedenBroj = city2.getRedenBroj();
 		
+		String city1LineName = city1.getLineName();
+		String city2LineName = city2.getLineName();
+		
+		int city1LineNumber = city1.getLineNumber();
+		int city2LineNumber = city2.getLineNumber();
+		
 		String city1Name = city1.getName();
 		PlaceEntity pe1 = placeDao.getByCyrilicNameForInsert(city1Name);
 		
@@ -434,12 +451,20 @@ public class InsertDataServiceImpl implements InsertDataService {
 		ble.setComment(comment);
 		
 		int redenBroj = 0;
+		int lineNumber = 0;
+		String lineNameNonOfficial = "";
 		if(order == 1) {
 			redenBroj = city1RedenBroj;
+			lineNumber = city1LineNumber;
+			lineNameNonOfficial = city1LineName;
 		} else if(order == 2) {
 			redenBroj = city2RedenBroj;
+			lineNumber = city2LineNumber;
+			lineNameNonOfficial = city2LineName;
 		}
 		ble.setRedenBroj(redenBroj);
+		ble.setLineName(lineNameNonOfficial);
+		ble.setLineNumber(lineNumber);
 		
 		CarrierEntity ce = null;
 		if(StringUtils.isNotBlank(city1Carrier) && order == 1) {

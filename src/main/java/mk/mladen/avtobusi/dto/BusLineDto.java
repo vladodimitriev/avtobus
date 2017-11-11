@@ -47,11 +47,13 @@ public class BusLineDto implements Serializable, Comparable {
 
 	private String operationPeriod;
 
-	private String lineNumber;
+	private Integer lineNumber;
 
 	private String smallPlaces;
 	
 	private int redenBroj;
+	
+	private String lineName;
 	
 	public BusLineDto() {
 	}
@@ -317,14 +319,6 @@ public class BusLineDto implements Serializable, Comparable {
 		this.operationPeriod = operationPeriod;
 	}
 
-	public String getLineNumber() {
-		return lineNumber;
-	}
-
-	public void setLineNumber(String lineNumber) {
-		this.lineNumber = lineNumber;
-	}
-
 	public int getDeparturePlaceId() {
 		return departurePlaceId;
 	}
@@ -363,6 +357,22 @@ public class BusLineDto implements Serializable, Comparable {
 
 	public void setRedenBroj(int redenBroj) {
 		this.redenBroj = redenBroj;
+	}
+
+	public String getLineName() {
+		return lineName;
+	}
+
+	public void setLineName(String lineName) {
+		this.lineName = lineName;
+	}
+
+	public Integer getLineNumber() {
+		return lineNumber;
+	}
+
+	public void setLineNumber(Integer lineNumber) {
+		this.lineNumber = lineNumber;
 	}
 
 	@Override
