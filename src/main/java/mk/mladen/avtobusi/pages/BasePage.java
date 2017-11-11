@@ -37,7 +37,7 @@ public abstract class BasePage extends WebPage {
 	
 	protected PageParameters parameters;
 	
-	protected String lang = "EN";
+	protected String lang = "MK";
 	protected String ttmh;
 	protected String ttmm;
 	
@@ -55,7 +55,7 @@ public abstract class BasePage extends WebPage {
 		}
 		
 		if(StringUtils.isBlank(lang)) {
-			lang = "EN";
+			lang = "MK";
 		}
 		changeUserLocaleTo(lang);
 		
