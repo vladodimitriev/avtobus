@@ -24,7 +24,7 @@ apply plugin: 'war'
 apply plugin: 'org.akhikhl.gretty'
 
 group = 'mk.mladen'
-version = '1.0.3'
+version = '1.0.4'
 
 sourceCompatibility = 1.8
 
