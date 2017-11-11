@@ -10,7 +10,7 @@ public class City implements Comparable<City>{
 	private String daysOfWork; 
 	private int distance;
 	private double dist;
-
+	private String comment;
 	
 	public City() {
 	}
@@ -76,6 +76,14 @@ public class City implements Comparable<City>{
 
 	public void setDist(double dist) {
 		this.dist = dist;
+	}
+	
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 	@Override

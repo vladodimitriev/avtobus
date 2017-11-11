@@ -40,7 +40,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 
 	private final static Logger logger = Logger.getLogger(InsertDataServiceImpl.class);
 
-	private static final String inputFile = "linii-bad.xls";
+	private static final String inputFile = "linii-bad-small.xls";
 	private static final String citiesFile = "cities.txt";
 
 	@Autowired
@@ -137,6 +137,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 		int cityCount = 0;
 		int lineNumber = 0;
 		String carrier = null;
+		String comment = "";
 		String daysOfWork = null;
 		String towns = null;
 		boolean conditionAccomplished = false;
@@ -168,7 +169,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 				String cell20 = sheet.getCell(20, i).getContents();//return time6
 				String cell21 = sheet.getCell(21, i).getContents();//return time7
 				String cell22 = sheet.getCell(22, i).getContents();//return time8
-				String cell23 = sheet.getCell(23, i).getContents();//days of work
+				String cell23 = sheet.getCell(23, i).getContents();//days of work or comment
 
 				String timeCell = "";
 				if(j == 5) {
@@ -193,6 +194,10 @@ public class InsertDataServiceImpl implements InsertDataService {
 				if (StringUtils.isNotBlank(cell0)) {
 					carrier = cell0;
 				}
+				
+				if (StringUtils.isNotBlank(cell23)) {
+					comment = cell23;
+				}
 
 				if (StringUtils.isNotBlank(cell14)) {
 					light1 = true;
@@ -209,6 +214,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 						City city = new City(cn, timeCell, cityCount);
 						city.setCarrier(carrier);
 						city.setDaysOfWork(daysOfWork);
+						city.setComment(comment);
 						Integer linenumber = null;
 						try {
 							linenumber = Integer.valueOf(cell1);
@@ -291,6 +297,10 @@ public class InsertDataServiceImpl implements InsertDataService {
 				if (StringUtils.isNotBlank(cell0)) {
 					carrier = cell0;
 				} 
+				
+				if (StringUtils.isNotBlank(cell23)) {
+					comment = cell23;
+				}
 
 				if (StringUtils.isNotBlank(cell14)) {
 					light1 = true;
@@ -309,6 +319,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 						City city = new City(cn, timeCell, cityCount);
 						city.setCarrier(carrier);
 						city.setDaysOfWork(daysOfWork);
+						city.setComment(comment);
 						Integer linenumber = null;
 						try {
 							linenumber = Integer.valueOf(cell1);
@@ -377,6 +388,9 @@ public class InsertDataServiceImpl implements InsertDataService {
 		String city1Carrier = city1.getCarrier();
 		String city2Carrier = city2.getCarrier();
 		
+		String city1Comment = city1.getComment();
+		String city2Comment = city2.getComment();
+		
 		String city1Name = city1.getName();
 		PlaceEntity pe1 = placeDao.getByCyrilicNameForInsert(city1Name);
 		
@@ -390,13 +404,22 @@ public class InsertDataServiceImpl implements InsertDataService {
 		ble.setArrivalTime(city2.getTime());
 		ble.setDist(city2.getDist() - city1.getDist());
 		ble.setOperationDays(OperationsUtil.getOperationDays(daysOfWork));
-		ble.setComment(daysOfWork);
+		
 		String smallplacesstr = createSmallPlaces(smallplaces);
 		ble.setSmallPlaces(smallplacesstr);
 		String lineName = createName(city1Name, city2Name);
 		ble.setName(lineName);
 		//ble.setOperationPeriod(OperationsUtil.getOperationPeriod(daysOfWork));
 		//ble.setOperationMonths(OperationsUtil.getOperationMonths(daysOfWork));
+		
+		String comment = "";
+		if(StringUtils.isNotBlank(city1Comment) && order == 1) {
+			comment = city1Comment;
+		} else if(StringUtils.isNotBlank(city2Comment) && order == 2) {
+			comment = city2Comment;
+		}
+		ble.setComment(comment);
+		
 		CarrierEntity ce = null;
 		if(StringUtils.isNotBlank(city1Carrier) && order == 1) {
 			city1Carrier = createCyrillicName(0, city1Carrier);
