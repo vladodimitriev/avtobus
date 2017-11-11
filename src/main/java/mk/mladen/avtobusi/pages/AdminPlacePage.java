@@ -1,14 +1,12 @@
 package mk.mladen.avtobusi.pages;
 
-import mk.mladen.avtobusi.beans.SearchBean;
-import mk.mladen.avtobusi.dto.PlaceDto;
-import mk.mladen.avtobusi.service.BusLineService;
-import mk.mladen.avtobusi.service.PlaceService;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteSettings;
-import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteTextField;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -18,12 +16,11 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PropertyListView;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import mk.mladen.avtobusi.beans.SearchBean;
+import mk.mladen.avtobusi.dto.PlaceDto;
+import mk.mladen.avtobusi.service.PlaceService;
 
 public class AdminPlacePage extends BaseAdminPage {
 
@@ -43,7 +40,7 @@ public class AdminPlacePage extends BaseAdminPage {
         AutoCompleteSettings opts = new AutoCompleteSettings();
         opts.setShowListOnEmptyInput(true);
 
-        TextField<String> actf1 = new TextField<String>("place", new PropertyModel(searchBean, "place"));
+        TextField<String> actf1 = new TextField<String>("place", new PropertyModel<String>(searchBean, "place"));
         actf1.setOutputMarkupId(true);
 
         dataView = createDataView();
@@ -52,8 +49,9 @@ public class AdminPlacePage extends BaseAdminPage {
         wmc = new WebMarkupContainer("wmc");
         wmc.setOutputMarkupId(true);
 
-        Form form = new Form("resultSearchForm"){
-            @Override
+        Form<Void> form = new Form<Void>("resultSearchForm"){
+			private static final long serialVersionUID = 1L;
+			@Override
             protected void onSubmit() {
                 dataView = createDataView();
                 dataView.setOutputMarkupId(true);
@@ -68,9 +66,9 @@ public class AdminPlacePage extends BaseAdminPage {
         modalWindow.setInitialHeight(620);
         modalWindow.setContent(new ModalPanelPlaceAdd(modalWindow.getContentId(), modalWindow));
         modalWindow.showUnloadConfirmation(false);
-        modalWindow.setWindowClosedCallback(new ModalWindow.WindowClosedCallback()
-        {
-            @Override
+        modalWindow.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
+			private static final long serialVersionUID = 1L;
+			@Override
             public void onClose(AjaxRequestTarget target)
             {
                 dataView = createDataView();
@@ -81,7 +79,9 @@ public class AdminPlacePage extends BaseAdminPage {
         add(modalWindow);
 
         AjaxLink<String> link = new AjaxLink<String>("addLink") {
-            @Override
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void onClick(AjaxRequestTarget target) {
                 modalWindow.show(target);
             }
@@ -95,7 +95,8 @@ public class AdminPlacePage extends BaseAdminPage {
     private PropertyListView<PlaceDto> createDataView() {
         List<PlaceDto> places = loadPlaces();
         PropertyListView<PlaceDto> dataView = new PropertyListView<PlaceDto>("rows", places) {
-            @Override
+			private static final long serialVersionUID = 1L;
+			@Override
             protected void populateItem(ListItem<PlaceDto> item) {
                 final PlaceDto placeDto = item.getModelObject();
 
@@ -115,20 +116,24 @@ public class AdminPlacePage extends BaseAdminPage {
                 item.add(modalWindowDelete);
 
                 AjaxLink<String> link1 = new AjaxLink<String>("detailsLink") {
-                    @Override
+					private static final long serialVersionUID = 1L;
+					@Override
                     public void onClick(AjaxRequestTarget target) {
                         modalWindowUpdate.show(target);
                     }
                 };
                 item.add(link1);
 
+                /*	
                 AjaxLink<String> link2 = new AjaxLink<String>("deleteLink") {
-                    @Override
+					private static final long serialVersionUID = 1L;
+					@Override
                     public void onClick(AjaxRequestTarget target) {
                         modalWindowDelete.show(target);
                     }
                 };
-                //item.add(link2);
+                item.add(link2);
+                */
             }
         };
         return dataView;
@@ -141,11 +146,10 @@ public class AdminPlacePage extends BaseAdminPage {
         modalWindowUpdate.setResizable(true);
         modalWindowUpdate.setInitialHeight(620);
         modalWindowUpdate.showUnloadConfirmation(false);
-        modalWindowUpdate.setWindowClosedCallback(new ModalWindow.WindowClosedCallback()
-        {
-            @Override
-            public void onClose(AjaxRequestTarget target)
-            {
+        modalWindowUpdate.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
+			private static final long serialVersionUID = 1L;
+			@Override
+            public void onClose(AjaxRequestTarget target) {
                 dataView = createDataView();
                 wmc.addOrReplace(dataView);
                 target.add(wmc);
