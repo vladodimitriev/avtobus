@@ -51,7 +51,7 @@ public class AdminBusLinePage extends BaseAdminPage {
 
     public AdminBusLinePage(PageParameters parameters) {
         super(parameters);
-        Model imgSwitchModel = new Model();
+        Model<String> imgSwitchModel = new Model<String>();
         Image imgSwitch = new Image( "switch-img", imgSwitchModel);
         ResourceReference rr1 = new PackageResourceReference(WicketApplication.class, "static/img/switch50x999.jpg");
         imgSwitch.setImageResourceReference(rr1);
@@ -95,6 +95,7 @@ public class AdminBusLinePage extends BaseAdminPage {
         };
         form.add(actf1);
         form.add(actf2);
+        form.add(imgSwitch);
 
         ModalWindow modalWindow = new ModalWindow("modalWindow");
         modalWindow.setOutputMarkupId(true);
