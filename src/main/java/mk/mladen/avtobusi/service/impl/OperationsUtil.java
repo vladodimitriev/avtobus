@@ -79,11 +79,11 @@ public class OperationsUtil {
             } else if (daysOfWork.trim().equalsIgnoreCase("Само во недела")) {
                 daysOfWork = "7";
             } else if (daysOfWork.trim().equalsIgnoreCase("Секојдневно, освен недела")) {
-                daysOfWork = "1,2,3,4,5,7";
+                daysOfWork = "1,2,3,4,5,6";
             } else if (daysOfWork.trim().equalsIgnoreCase("Секојдневно освен недела")) {
-                daysOfWork = "1,2,3,4,5,7";
+                daysOfWork = "1,2,3,4,5,6";
             } else if (daysOfWork.trim().equalsIgnoreCase("Секој ден освен недела")) {
-                daysOfWork = "1,2,3,4,5,7";
+                daysOfWork = "1,2,3,4,5,6";
             } else if (daysOfWork.trim().equalsIgnoreCase("Секојден освен сабота и недела")) {
                 daysOfWork = "1,2,3,4,5";
             } else if (daysOfWork.trim().equalsIgnoreCase("Секој ден освен сабота и недела")) {
