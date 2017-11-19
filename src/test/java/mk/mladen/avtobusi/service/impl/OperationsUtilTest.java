@@ -9,7 +9,7 @@ public class OperationsUtilTest {
 
 	@Test
 	public void operationDaysTest() {
-		String text = "Секојдневно освен  недела";
+		String text = "Секојдневно освен недела";
 		String result = getOperationDays(text);
 		assertNotNull(result);
 		assertEquals("1,2,3,4,5,6", result);
