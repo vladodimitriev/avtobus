@@ -51,6 +51,8 @@ public class BusLineDto implements Serializable, Comparable {
 
 	private String smallPlaces;
 	
+	private String smallPlacesLatin;
+	
 	private int redenBroj;
 	
 	private String lineName;
@@ -373,6 +375,14 @@ public class BusLineDto implements Serializable, Comparable {
 
 	public void setLineNumber(Integer lineNumber) {
 		this.lineNumber = lineNumber;
+	}
+	
+	public String getSmallPlacesLatin() {
+		return smallPlacesLatin;
+	}
+
+	public void setSmallPlacesLatin(String smallPlacesLatin) {
+		this.smallPlacesLatin = smallPlacesLatin;
 	}
 
 	@Override

@@ -40,7 +40,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 
 	private final static Logger logger = Logger.getLogger(InsertDataServiceImpl.class);
 
-	private static final String inputFile = "linii-bad.xls";
+	private static final String inputFile = "linii-bad-small.xls";
 	private static final String citiesFile = "cities.txt";
 
 	@Autowired
@@ -437,6 +437,10 @@ public class InsertDataServiceImpl implements InsertDataService {
 		
 		String smallplacesstr = createSmallPlaces(smallplaces);
 		ble.setSmallPlaces(smallplacesstr);
+		System.out.println("Small places cyrillic name: " + smallplacesstr);
+		smallplacesstr = OperationsUtil.createLatinName(smallplacesstr);
+		System.out.println("Small places latin name: " + smallplacesstr);
+		ble.setSmallPlacesLatin(smallplacesstr);
 		String lineName = createName(city1Name, city2Name);
 		ble.setName(lineName);
 		//ble.setOperationPeriod(OperationsUtil.getOperationPeriod(daysOfWork));

@@ -43,6 +43,7 @@ CREATE TABLE BUSLINE (
     pricereturn varchar(20),
     comment varchar(1000),
     smallplaces varchar(1000),
+    smallplaceslatin varchar(1000),
     redenbroj integer,
     linenumber integer,
     linename varchar(100),

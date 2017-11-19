@@ -50,6 +50,9 @@ public class BusLineEntity {
 	@Column(name = "smallplaces", nullable = true)
 	private String smallPlaces;
 	
+	@Column(name = "smallplaceslatin", nullable = true)
+	private String smallPlacesLatin;
+	
 	@Column(name = "redenbroj", nullable = true)
 	private Integer redenBroj; 
 	
@@ -243,6 +246,14 @@ public class BusLineEntity {
 
 	public void setLineName(String lineName) {
 		this.lineName = lineName;
+	}
+	
+	public String getSmallPlacesLatin() {
+		return smallPlacesLatin;
+	}
+
+	public void setSmallPlacesLatin(String smallPlacesLatin) {
+		this.smallPlacesLatin = smallPlacesLatin;
 	}
 
 	@Override
