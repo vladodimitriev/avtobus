@@ -332,7 +332,7 @@ public class ResultPage extends BasePage {
 
 	@Override
 	protected void setResponse(PageParameters params) {
-		setResponsePage(SearchPage.class, getParams(params));
+		setResponsePage(ResultPage.class, getParams(params));
 	}
 
 	private PageParameters getParams(PageParameters parameters) {
