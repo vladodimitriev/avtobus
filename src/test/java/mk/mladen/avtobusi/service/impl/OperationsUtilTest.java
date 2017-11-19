@@ -6,6 +6,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 public class OperationsUtilTest {
+	
+	@Test
+	public void latinToMacedonianTest() {
+		String mkdName = OperationsUtil.createMacedonianName("Skopje");
+		System.out.println("MKD NAME: " + mkdName);
+		assertNotNull(mkdName);
+		assertEquals("Скопје", mkdName);
+	}
 
 	@Test
 	public void operationDaysTest() {

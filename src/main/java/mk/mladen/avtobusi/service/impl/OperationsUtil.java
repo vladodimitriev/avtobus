@@ -111,7 +111,19 @@ public class OperationsUtil {
 	}
 
     public static String createLatinName(String name) {
-        return MacedonianToLatin.getInstance().translate(name);
+    	try {
+    		return MacedonianToLatin.getInstance().translate(name);
+    	}catch(Exception e) {
+    		return "";
+    	}
+    }
+    
+    public static String createMacedonianName(String name) {
+    	try {
+    		return LatinToMacedonian.getInstance().translate(name);
+    	} catch(Exception e) {
+    		return "";
+    	}
     }
 
 

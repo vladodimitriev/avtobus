@@ -28,6 +28,10 @@ public class MacedonianToLatin {
 	private static Transliterator mkdToLatin = Transliterator.createFromRules("temp", rules, Transliterator.FORWARD);
 
 	public String translate(String mkd) {
-		return mkdToLatin.transliterate(mkd);
+		try {
+			return mkdToLatin.transliterate(mkd);
+		}catch(Exception e) {
+			return "";
+		}
 	}
 }
