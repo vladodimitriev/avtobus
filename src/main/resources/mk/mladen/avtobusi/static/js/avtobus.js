@@ -18,9 +18,15 @@ function initJQDatepicker(inputId, countryIsoCode, errorMessage, errorMessage1, 
         var str = str2 + "/" + str1 + "/" + str3;
 
         var _myDate = new Date(str);
-        var newDate = $.now();
-
-        if (_myDate.getTime() < newDate) {
+        _myDate.setHours(23, 59, 59);
+        
+        var newDate = new Date();
+        newDate.setHours(0, 0, 0);
+        
+        var _myTime = _myDate.getTime();
+        var diff = _myTime - newDate;
+        
+        if (_myTime < newDate) {
         	departureDate.get(0).setCustomValidity(errorMessage);
         	departureDate.datepicker("destroy");
         } else {
