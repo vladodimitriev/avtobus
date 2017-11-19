@@ -39,6 +39,9 @@ public class ModalPanelBusLineUpdate extends Panel {
         PropertyModel<Integer> lineNumberModel = new PropertyModel<Integer>(bean, "lineNumber");
         PropertyModel<String> lineNameModel = new PropertyModel<String>(bean, "lineName");
         PropertyModel<String> carrierModel = new PropertyModel<String>(bean, "carrier");
+        
+        PropertyModel<String> smallPlacesModel = new PropertyModel<String>(bean, "smallPlaces");
+        PropertyModel<String> smallPlacesLatinModel = new PropertyModel<String>(bean, "smallPlacesLatin");
 
         TextField<String> departurePlaceTxt = new TextField<String>("departurePlace", departureModel);
         departurePlaceTxt.setEnabled(false);
@@ -56,6 +59,8 @@ public class ModalPanelBusLineUpdate extends Panel {
         TextField<String> priceReturnTxt = new TextField<String>("priceReturn", priceReturnModel);
         TextField<String> lineNameTxt = new TextField<String>("lineName", lineNameModel);
         TextArea<String> carrierTxt = new TextArea<String>("carrier", carrierModel);
+        TextArea<String> smallPlacesTxt = new TextArea<String>("smallPlaces", smallPlacesModel);
+        TextArea<String> smallPlacesLatinTxt = new TextArea<String>("smallPlacesLatin", smallPlacesLatinModel);
         //carrierTxt.set
 
         Form<Void> form = new Form<Void>("updateForm"){
@@ -81,6 +86,8 @@ public class ModalPanelBusLineUpdate extends Panel {
         form.add(lineNumberTxt);
         form.add(lineNameTxt);
         form.add(carrierTxt);
+        form.add(smallPlacesTxt);
+        form.add(smallPlacesLatinTxt);
 
         AjaxLink<String> cancelLink = new AjaxLink<String>("cancelLink") {
             private static final long serialVersionUID = 1L;

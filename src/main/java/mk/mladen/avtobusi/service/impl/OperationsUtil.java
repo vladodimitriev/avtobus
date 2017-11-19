@@ -60,7 +60,8 @@ public class OperationsUtil {
         return daysOfWork;
     }
 
-    public static String getOperationDays(String daysOfWork) {
+    public static String getOperationDays(String dow) {
+    	String daysOfWork = createCorrectDaysOfWork(dow);
         if (StringUtils.isNotBlank(daysOfWork)) {
             if (daysOfWork.trim().equalsIgnoreCase("Секојдневно")) {
                 daysOfWork = "1,2,3,4,5,6,7";
@@ -79,11 +80,11 @@ public class OperationsUtil {
             } else if (daysOfWork.trim().equalsIgnoreCase("Само во недела")) {
                 daysOfWork = "7";
             } else if (daysOfWork.trim().equalsIgnoreCase("Секојдневно, освен недела")) {
-                daysOfWork = "1,2,3,4,5,7";
+                daysOfWork = "1,2,3,4,5,6";
             } else if (daysOfWork.trim().equalsIgnoreCase("Секојдневно освен недела")) {
-                daysOfWork = "1,2,3,4,5,7";
+                daysOfWork = "1,2,3,4,5,6";
             } else if (daysOfWork.trim().equalsIgnoreCase("Секој ден освен недела")) {
-                daysOfWork = "1,2,3,4,5,7";
+                daysOfWork = "1,2,3,4,5,6";
             } else if (daysOfWork.trim().equalsIgnoreCase("Секојден освен сабота и недела")) {
                 daysOfWork = "1,2,3,4,5";
             } else if (daysOfWork.trim().equalsIgnoreCase("Секој ден освен сабота и недела")) {
@@ -96,9 +97,33 @@ public class OperationsUtil {
         }
         return daysOfWork;
     }
+    
+    private static String createCorrectDaysOfWork(String dow) {
+		String[] dows = dow.split(" ");
+		StringBuilder result = new StringBuilder("");
+		for(String d : dows) {
+			if(StringUtils.isNotBlank(d)) {
+				result.append(d + " ");
+			}
+		}
+		String correct = result.toString().trim();
+		return correct;
+	}
 
     public static String createLatinName(String name) {
-        return MacedonianToLatin.getInstance().translate(name);
+    	try {
+    		return MacedonianToLatin.getInstance().translate(name);
+    	}catch(Exception e) {
+    		return "";
+    	}
+    }
+    
+    public static String createMacedonianName(String name) {
+    	try {
+    		return LatinToMacedonian.getInstance().translate(name);
+    	} catch(Exception e) {
+    		return "";
+    	}
     }
 
 

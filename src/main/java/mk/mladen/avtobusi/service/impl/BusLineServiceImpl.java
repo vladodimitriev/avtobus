@@ -68,6 +68,7 @@ public class BusLineServiceImpl implements BusLineService {
 					dto.setComment(ent.getComment());
 					dto.setLineNumber(ent.getLineNumber());
 					dto.setLineName(ent.getLineName());
+					dto.setSmallPlacesLatin(ent.getSmallPlacesLatin());
 					result.add(dto);
 				}
 			} catch (Exception e) {
@@ -122,6 +123,7 @@ public class BusLineServiceImpl implements BusLineService {
 							ent.getRedenBroj());
 					dto.setLineName(ent.getLineName());
 					dto.setLineNumber(ent.getLineNumber());
+					dto.setSmallPlacesLatin(ent.getSmallPlacesLatin());
 					result.add(dto);
 				}
 			} catch (Exception e) {

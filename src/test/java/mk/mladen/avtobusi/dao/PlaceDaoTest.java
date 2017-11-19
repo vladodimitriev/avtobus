@@ -24,6 +24,18 @@ public class PlaceDaoTest {
 
     @Autowired
     private PlaceDao placeDao;
+    
+    @Test
+    public void getAllPlacesCyrillicNamesByName() {
+    	String name = " Gra";
+    	List<String> result = placeDao.getAllPlacesCyrillicNamesByName("MK", name);
+    	assertNotNull(result);
+        assertFalse(result.isEmpty());
+        for(String s : result) {
+        	System.out.println(s);
+        }
+        assertEquals(1, result.size());
+    }
 
     @Test
     public void getPlacesWithCapitalLetterTest() {

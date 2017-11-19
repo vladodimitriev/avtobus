@@ -3,6 +3,8 @@ package mk.mladen.avtobusi.beans;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
+import mk.mladen.avtobusi.service.impl.OperationsUtil;
+
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -38,9 +40,15 @@ public class SearchBean implements Serializable {
 	
 	public SearchBean(PageParameters params) {
 		if(params != null) {
-			this.departurePlace = params.get("departure").toString();
-			this.destinationPlace = params.get("destination").toString();
-			this.departureDate = params.get("date").toString();
+			String language = params.get("lang") != null ? params.get("lang").toString() : "MK";
+			if("MK".equalsIgnoreCase(language)) {
+				this.departurePlace = params.get("departure") != null ? OperationsUtil.createMacedonianName(params.get("departure").toString()) : "";
+				this.destinationPlace = params.get("destination") != null ? OperationsUtil.createMacedonianName(params.get("destination").toString()) : "";
+			} else {
+				this.departurePlace = params.get("departure") != null ? OperationsUtil.createLatinName(params.get("departure").toString()) : "";
+				this.destinationPlace = params.get("destination") != null ? OperationsUtil.createLatinName(params.get("destination").toString()) : "";
+			}
+			this.departureDate = params.get("date") != null ? params.get("date").toString() : "";
 		}  
 			
 		if(StringUtils.isBlank(departureDate)) {

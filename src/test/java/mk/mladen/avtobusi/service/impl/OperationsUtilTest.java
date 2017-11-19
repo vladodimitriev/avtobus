@@ -1,13 +1,44 @@
 package mk.mladen.avtobusi.service.impl;
 
+import static org.junit.Assert.*;
+
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
-
 public class OperationsUtilTest {
+	
+	@Test
+	public void macedonianToLatinPrilepTest() {
+		String mkdName = OperationsUtil.createLatinName("Прилеп");
+		System.out.println("LATIN NAME: " + mkdName);
+		assertNotNull(mkdName);
+		assertEquals("Prilep", mkdName);
+	}
+	
+	@Test
+	public void macedonianToLatinTest() {
+		String mkdName = OperationsUtil.createLatinName("Крушево");
+		System.out.println("LATIN NAME: " + mkdName);
+		assertNotNull(mkdName);
+		assertEquals("Krushevo", mkdName);
+	}
+	
+	@Test
+	public void latinToMacedonianTest() {
+		String mkdName = OperationsUtil.createMacedonianName("Skopje");
+		System.out.println("MKD NAME: " + mkdName);
+		assertNotNull(mkdName);
+		assertEquals("Скопје", mkdName);
+	}
 
-
+	@Test
+	public void operationDaysTest() {
+		String text = "Секојдневно освен недела";
+		String result = getOperationDays(text);
+		assertNotNull(result);
+		assertEquals("1,2,3,4,5,6", result);
+	}
+	
     public static String getOperationPeriod(String daysOfWork) {
         daysOfWork = "01/01-31/12";
         if (StringUtils.isNotBlank(daysOfWork)) {
@@ -36,36 +67,57 @@ public class OperationsUtilTest {
         return daysOfWork;
     }
 
-    public static String getOperationDays(String daysOfWork) {
+    public static String getOperationDays(String dow) {
+    	String daysOfWork = createCorrectDaysOfWork(dow);
         if (StringUtils.isNotBlank(daysOfWork)) {
             if (daysOfWork.trim().equalsIgnoreCase("Секојдневно")) {
-                daysOfWork = "1,2,3,4,5,6,7,p";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Секојден освен недела")) {
-                daysOfWork = "1,2,3,4,5,6,p";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Линијата не сообраќа во недела и државни празници")) {
+                daysOfWork = "1,2,3,4,5,6,7";
+            } else if (daysOfWork.trim().equalsIgnoreCase("Режим на одржување: Секојдневно")) {
+                daysOfWork = "1,2,3,4,5,6,7";
+            } else if (daysOfWork.trim().equalsIgnoreCase("Секојдневна")) {
+                daysOfWork = "1,2,3,4,5,6,7";
+            } else if (daysOfWork.trim().equalsIgnoreCase("Секој ден")) {
+                daysOfWork = "1,2,3,4,5,6,7";
+            } else if (daysOfWork.trim().equalsIgnoreCase("Секојдневно, освен сабота")) {
+                daysOfWork = "1,2,3,4,5,7";
+            } else if (daysOfWork.trim().equalsIgnoreCase("Секојдневно освен сабота")) {
+                daysOfWork = "1,2,3,4,5,7";
+            } else if (daysOfWork.trim().equalsIgnoreCase("Секој ден освен сабота")) {
+                daysOfWork = "1,2,3,4,5,7";
+            } else if (daysOfWork.trim().equalsIgnoreCase("Само во недела")) {
+                daysOfWork = "7";
+            } else if (daysOfWork.trim().equalsIgnoreCase("Секојдневно, освен недела")) {
+                daysOfWork = "1,2,3,4,5,6";
+            } else if (daysOfWork.trim().equalsIgnoreCase("Секојдневно освен недела")) {
                 daysOfWork = "1,2,3,4,5,6";
             } else if (daysOfWork.trim().equalsIgnoreCase("Секој ден освен недела")) {
-                daysOfWork = "1,2,3,4,5,6,p";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Сообраќа од понеделник до петок во период од 15.09 до 31,12 во годината и секој ден од понеделник до петок во период од 01,02 до 15,05 во годината")) {
-                daysOfWork = "1,2,3,4,5,p";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Секојдневно освен сабота и недела во период од 01.09 до 10.06")) {
-                daysOfWork = "1,2,3,4,5,p";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Секој ден во периодот од 15.06 до 31.08, секој ден освен во вторник и петок сообраќа до и од Добрушево, во вторник и петок сообраќа до и од Ношпал")) {
-                daysOfWork = "1,2,3,4,5,6,7,p";
-            } else if (daysOfWork.trim().equalsIgnoreCase("секој ден освен среда и сабота")) {
-                daysOfWork = "1,2,4,5,7,p";
+                daysOfWork = "1,2,3,4,5,6";
+            } else if (daysOfWork.trim().equalsIgnoreCase("Секојден освен сабота и недела")) {
+                daysOfWork = "1,2,3,4,5";
+            } else if (daysOfWork.trim().equalsIgnoreCase("Секој ден освен сабота и недела")) {
+                daysOfWork = "1,2,3,4,5";
+            } else {
+                daysOfWork = "1,2,3,4,5,6,7";
             }
-            //секој ден освен среда и сабота
-            //Секој ден во периодот од 15.06 до 31.08, секој ден освен во вторник и петок сообраќа до и од Добрушево, во вторник и петок сообраќа до и од Ношпал
-            //Секојдневно освен сабота и недела во период од 01.09 до 10.06
-            //Сообраќа од понеделник до петок во период од 15.09 до 31,12 во годината и секој ден од понеделник до петок во период од 01,02 до 15,05 во годината
-            //Секој ден освен недела
-            //Линијата не сообраќа во недела и државни празници
+        } else {
+            daysOfWork = "1,2,3,4,5,6,7";
         }
         return daysOfWork;
     }
 
-    public static String createLatinName(String name) {
+    private static String createCorrectDaysOfWork(String dow) {
+		String[] dows = dow.split(" ");
+		StringBuilder result = new StringBuilder("");
+		for(String d : dows) {
+			if(StringUtils.isNotBlank(d)) {
+				result.append(d + " ");
+			}
+		}
+		String correct = result.toString().trim();
+		return correct;
+	}
+
+	public static String createLatinName(String name) {
         return MacedonianToLatin.getInstance().translate(name);
     }
 

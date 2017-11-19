@@ -46,6 +46,10 @@ public class UpdateBean implements Serializable {
     
     private String lineName;
 
+    private String smallPlaces;
+    
+    private String smallPlacesLatin;
+    
     public String getId() {
         return id;
     }
@@ -204,6 +208,22 @@ public class UpdateBean implements Serializable {
 
 	public void setLineName(String lineName) {
 		this.lineName = lineName;
+	}
+	
+	public String getSmallPlaces() {
+		return smallPlaces;
+	}
+
+	public void setSmallPlaces(String smallPlaces) {
+		this.smallPlaces = smallPlaces;
+	}
+	
+	public String getSmallPlacesLatin() {
+		return smallPlacesLatin;
+	}
+
+	public void setSmallPlacesLatin(String smallPlacesLatin) {
+		this.smallPlacesLatin = smallPlacesLatin;
 	}
 
 	@Override

@@ -70,7 +70,7 @@ public class SearchPage extends BasePage {
 		AutoCompleteTextField<String> actf2 = new AutoCompleteTextField<String>("destinationPlace", destinationModel, opts) {
 			@Override
 			protected Iterator<String> getChoices(String input) {
-                List<String> choices = placeService.findAllPlacesNamesByLanguageAndName(lang, input);
+                List<String> choices = placeService.findAllPlacesNamesByLanguageAndName(lang, "" + input);
 				return choices.iterator();
 			}
 		};

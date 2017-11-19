@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -58,14 +59,7 @@ public class ResultPage extends BasePage {
 
 	public ResultPage(PageParameters params) {
 		super(params);
-
-		PageParameters params2 = new PageParameters();
-		params2.add("departure", "Skopje");
-		params2.add("destination", "Negotino");
-		params2.add("date", "03/07/2017");
-		params2.add("lang", "EN");
 		searchBean = new SearchBean(params);
-
 		busResourceReference = new PackageResourceReference(WicketApplication.class, "static/img/bus21x21x999.jpg");
 
 		Model imgSwitchModel = new Model();
@@ -141,7 +135,7 @@ public class ResultPage extends BasePage {
 			  @Override
 			  protected void populateItem(ListItem<BusLineDto> item) {
 				  final BusLineDto busLine = item.getModelObject();
-				  List<String> placesList = createSmallPlaces(busLine.getSmallPlaces());
+				  List<String> placesList = createSmallPlaces(busLine);
 				  Model imgModel = new Model();
 				  Image bus_img = new Image( "bus_img", imgModel);
 				  bus_img.setImageResourceReference(busResourceReference);
@@ -202,8 +196,6 @@ public class ResultPage extends BasePage {
 				  label7 = new Label("priceReturnSymbol", priceReturnModel);
 				  label7.add(new AttributeModifier("style", "text-align: left"));
 				  item.add(label7);
-				  
-				  
 
 				  WebMarkupContainer detailsPanel = new WebMarkupContainer("detailsPanel");
 				  detailsPanel.setOutputMarkupPlaceholderTag(true);
@@ -260,8 +252,13 @@ public class ResultPage extends BasePage {
 		return newTime;
 	}
 
-	private List<String> createSmallPlaces(String smallPlaces) {
-		String[] array = smallPlaces.split(",");
+	private List<String> createSmallPlaces(BusLineDto busLine) {
+		String[] array = new String[0];
+		if("MK".equalsIgnoreCase(lang) && StringUtils.isNotBlank(busLine.getSmallPlaces())) {
+			array = busLine.getSmallPlaces().split(",");
+		} else if(StringUtils.isNotBlank(busLine.getSmallPlacesLatin())){
+			array = busLine.getSmallPlacesLatin().split(",");
+		}
 		return Arrays.asList(array);
 	}
 
@@ -335,7 +332,7 @@ public class ResultPage extends BasePage {
 
 	@Override
 	protected void setResponse(PageParameters params) {
-		setResponsePage(SearchPage.class, getParams(params));
+		setResponsePage(ResultPage.class, getParams(params));
 	}
 
 	private PageParameters getParams(PageParameters parameters) {

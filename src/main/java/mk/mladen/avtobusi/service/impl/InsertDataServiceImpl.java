@@ -437,6 +437,8 @@ public class InsertDataServiceImpl implements InsertDataService {
 		
 		String smallplacesstr = createSmallPlaces(smallplaces);
 		ble.setSmallPlaces(smallplacesstr);
+		smallplacesstr = OperationsUtil.createLatinName(smallplacesstr);
+		ble.setSmallPlacesLatin(smallplacesstr);
 		String lineName = createName(city1Name, city2Name);
 		ble.setName(lineName);
 		//ble.setOperationPeriod(OperationsUtil.getOperationPeriod(daysOfWork));
@@ -557,7 +559,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 						if (pe == null) {
 							PlaceEntity pen = new PlaceEntity();
 							pen.setNameCyrilic(cn);
-							String latinName = OperationsUtil.createLatinName(cn);
+							String latinName = OperationsUtil.createLatinName(cn.trim());
 							pen.setName(latinName);
 							placeDao.persist(pen);
 						}

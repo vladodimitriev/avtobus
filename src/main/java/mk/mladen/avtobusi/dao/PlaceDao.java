@@ -19,12 +19,16 @@ public interface PlaceDao extends GenericDao<PlaceEntity> {
 	public PlaceEntity getByCyrilicNameForInsert(String name);
 
 	public List<String> getAllPlacesNamesByLanguageAndName(String language, String name);
+	
+	public List<String> getAllPlacesCyrillicNamesByName(String language, String name);
 
     public List<String> getCommonPlaces(String language);
 
     public PlaceEntity getByName(String departurePlace);
 
 	public List<String> getAllPlacesNamesByLanguageAndNameAndMask(String language, String name);
+	
+	public List<String> getAllPlacesCyrillicNamesByNameAndMask(String language, String name);
 
 	public List<PlaceEntity> getAllPlaces(String name);
 }
