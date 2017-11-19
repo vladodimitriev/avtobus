@@ -132,11 +132,39 @@ public class PlaceDaoImpl extends GenericDaoImpl<PlaceEntity> implements PlaceDa
 		}
 		return results;
 	}
+	
+	@Override
+	public List<String> getAllPlacesCyrillicNamesByName(String language, String name) {
+		List<String> results = new ArrayList<String>();
+		String queryStr = "select ple.nameCyrilic from PlaceEntity ple where (LOWER(ple.name) like LOWER(:name) or ple.nameCyrilic like :name) order by importance desc";
+		Query query = getEntityManager().createQuery(queryStr);
+		query.setParameter("name",  name + "%");
+		query.setMaxResults(10);
+		Object object = query.getResultList();
+		if(object instanceof List) {
+			results = (List)object;
+		}
+		return results;
+	}
 
 	@Override
 	public List<String> getAllPlacesNamesByLanguageAndNameAndMask(String language, String name) {
 		List<String> results = new ArrayList<String>();
 		String queryStr = "select ple.name from PlaceEntity ple where (LOWER(ple.name) like LOWER(:name) or ple.nameCyrilic like :name) order by importance desc";
+		Query query = getEntityManager().createQuery(queryStr);
+		query.setParameter("name",  "%" + name + "%");
+		query.setMaxResults(10);
+		Object object = query.getResultList();
+		if(object instanceof List) {
+			results = (List)object;
+		}
+		return results;
+	}
+	
+	@Override
+	public List<String> getAllPlacesCyrillicNamesByNameAndMask(String language, String name) {
+		List<String> results = new ArrayList<String>();
+		String queryStr = "select ple.nameCyrilic from PlaceEntity ple where (LOWER(ple.name) like LOWER(:name) or ple.nameCyrilic like :name) order by importance desc";
 		Query query = getEntityManager().createQuery(queryStr);
 		query.setParameter("name",  "%" + name + "%");
 		query.setMaxResults(10);
