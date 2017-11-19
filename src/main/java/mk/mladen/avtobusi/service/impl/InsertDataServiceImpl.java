@@ -559,7 +559,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 						if (pe == null) {
 							PlaceEntity pen = new PlaceEntity();
 							pen.setNameCyrilic(cn);
-							String latinName = OperationsUtil.createLatinName(cn);
+							String latinName = OperationsUtil.createLatinName(cn.trim());
 							pen.setName(latinName);
 							placeDao.persist(pen);
 						}

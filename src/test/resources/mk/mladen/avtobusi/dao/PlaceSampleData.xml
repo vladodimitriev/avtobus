@@ -15,4 +15,5 @@
     <PLACE id="12" name="Bitola" importance="9" />
     <PLACE id="13" name="Prilep" importance="8" />
     <PLACE id="14" name="Start Dojran" importance="3" />
+    <PLACE id="15" name="Gradsko" nameCyrillic="Градско" importance="1" />
 </dataset>

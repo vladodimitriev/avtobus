@@ -8,6 +8,22 @@ import org.junit.Test;
 public class OperationsUtilTest {
 	
 	@Test
+	public void macedonianToLatinPrilepTest() {
+		String mkdName = OperationsUtil.createLatinName("Прилеп");
+		System.out.println("LATIN NAME: " + mkdName);
+		assertNotNull(mkdName);
+		assertEquals("Prilep", mkdName);
+	}
+	
+	@Test
+	public void macedonianToLatinTest() {
+		String mkdName = OperationsUtil.createLatinName("Крушево");
+		System.out.println("LATIN NAME: " + mkdName);
+		assertNotNull(mkdName);
+		assertEquals("Krushevo", mkdName);
+	}
+	
+	@Test
 	public void latinToMacedonianTest() {
 		String mkdName = OperationsUtil.createMacedonianName("Skopje");
 		System.out.println("MKD NAME: " + mkdName);

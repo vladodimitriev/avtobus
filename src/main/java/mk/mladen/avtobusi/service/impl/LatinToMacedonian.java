@@ -75,6 +75,7 @@ public class LatinToMacedonian {
 			"Pretor > Претор;" +
 			"Vevchani > Вевчани;" +
 			"Peshtani > Пештани;" +
+			"Rosoman > Росоман;" +
 			"Mavrovo > Маврово;";
 
 	private static Transliterator latinToMkd = Transliterator.createFromRules("temp", rules, Transliterator.FORWARD);
