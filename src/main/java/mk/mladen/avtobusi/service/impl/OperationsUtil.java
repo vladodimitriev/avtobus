@@ -51,6 +51,8 @@ public class OperationsUtil {
                 daysOfWork = "1,2,3,4,5";
             } else if (daysOfWork.trim().equalsIgnoreCase("Секој ден освен сабота и недела")) {
                 daysOfWork = "1,2,3,4,5";
+            } else if (daysOfWork.trim().equalsIgnoreCase("Секојдневно освен сабота и недела")) {
+                daysOfWork = "1,2,3,4,5";
             } else {
                 daysOfWork = "1,2,3,4,5,6,7";
             }
