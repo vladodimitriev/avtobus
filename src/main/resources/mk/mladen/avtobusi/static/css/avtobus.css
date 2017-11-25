@@ -542,6 +542,16 @@ textarea {
     margin-bottom: 5px;
 }
 
+.segment-details {
+    float: left;
+    width: 17%;
+}
+
+.segment-busline {
+    float: left;
+    width: 40%;
+}
+
 .circle-span {
     vertical-align: top;
 }

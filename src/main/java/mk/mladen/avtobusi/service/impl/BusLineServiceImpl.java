@@ -124,6 +124,7 @@ public class BusLineServiceImpl implements BusLineService {
 					dto.setLineName(ent.getLineName());
 					dto.setLineNumber(ent.getLineNumber());
 					dto.setSmallPlacesLatin(ent.getSmallPlacesLatin());
+					dto.setComment(ent.getComment());
 					result.add(dto);
 				}
 			} catch (Exception e) {
