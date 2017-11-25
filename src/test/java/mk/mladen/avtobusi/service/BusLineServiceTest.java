@@ -4,6 +4,7 @@ import mk.mladen.avtobusi.ApplicationTestConfig;
 import mk.mladen.avtobusi.beans.AddBean;
 import mk.mladen.avtobusi.beans.UpdateBean;
 import mk.mladen.avtobusi.dao.BusLineDao;
+import mk.mladen.avtobusi.dto.BusLineDto;
 import mk.mladen.avtobusi.entity.BusLineEntity;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
@@ -16,6 +17,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -28,7 +31,7 @@ public class BusLineServiceTest {
 
 	@Autowired
 	private BusLineDao busLineDao;
-
+	
 	@Test
 	@Ignore
 	public void dateConverterTest() {

@@ -1,6 +1,6 @@
 package mk.mladen.avtobusi.service.impl;
 
-public class City implements Comparable<City> {
+public class City {
 
 	private String name;
 	private int order;
@@ -117,18 +117,18 @@ public class City implements Comparable<City> {
 		return false;
 	}
 	
-	@Override
-	public int compareTo(City o) {
-		if(this.order < o.order) {
-			return -1;
-		}
-		
-		if(this.order > o.order) {
-			return 1;
-		}
-		
-		return 0;
-	}
+//	@Override
+//	public int compareTo(City o) {
+//		if(this.order < o.order) {
+//			return -1;
+//		}
+//		
+//		if(this.order > o.order) {
+//			return 1;
+//		}
+//		
+//		return 0;
+//	}
 	
 	@Override
 	public String toString() {

@@ -1,5 +1,20 @@
 package mk.mladen.avtobusi.service.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.TimeZone;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import mk.mladen.avtobusi.beans.AddBean;
 import mk.mladen.avtobusi.beans.UpdateBean;
 import mk.mladen.avtobusi.dao.BusLineDao;
@@ -11,19 +26,9 @@ import mk.mladen.avtobusi.entity.CarrierEntity;
 import mk.mladen.avtobusi.entity.PlaceEntity;
 import mk.mladen.avtobusi.service.BusLineService;
 import mk.mladen.avtobusi.util.DOW;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 @Transactional
 @Service
-@SuppressWarnings("unchecked")
 public class BusLineServiceImpl implements BusLineService {
 	
 	private final static Logger logger = Logger.getLogger(BusLineServiceImpl.class);
@@ -76,7 +81,7 @@ public class BusLineServiceImpl implements BusLineService {
 			}
 		}
 		
-		Collections.sort(result);
+		Collections.sort(result, (p1, p2) -> p1.getDepartureTime() != null ? p1.getDepartureTime().compareTo(p2.getDepartureTime()) : 1);
 		return result;
 	}
 	
@@ -132,7 +137,7 @@ public class BusLineServiceImpl implements BusLineService {
 			}
 		}
 		
-		Collections.sort(result);
+		Collections.sort(result, (p1, p2) -> p1.getDepartureTime() != null ? p1.getDepartureTime().compareTo(p2.getDepartureTime()) : 1);
 		return result;
 	}
 
