@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Avtobusi.mk</title>
+    <title><wicket:message key="avtobusi.mk"></wicket:message></title>
 </wicket:head>
 </head>
 <body>
@@ -17,28 +17,26 @@
         <form wicket:id="searchForm" id="searchForm" method="get">
         <section>
             <article class="article-search-row">
-
-                    <div class="row">
-                        <div class="city1 form-group">
-                            <input wicket:id="departurePlace" wicket:message="placeholder :avtobusi.searchpage.departureplace" type="text" class="form-control departurePlace" id="departurePlace" required />
-                        </div>
-                        <div class="city2 form-group">
-                            <img id="switchImg" wicket:id="switch-img" class="switch-button" src="static/img/switch50x999.jpg" height="30" width="30" />
-                        </div>
-                        <div class="city3 form-group">
-                            <input wicket:id="destinationPlace" wicket:message="placeholder :avtobusi.searchpage.destinationplace" type="text" class="form-control" id="destinationPlace" required />
-                        </div>
+                <div class="row">
+                    <div class="city1 form-group">
+                        <input wicket:id="departurePlace" wicket:message="placeholder :avtobusi.searchpage.departureplace" type="text" class="form-control departurePlace" id="departurePlace" required />
                     </div>
-                    <div class="row">
-                        <div class="city1 form-group">
-                            <input wicket:id="departureDate" type="text" class="form-control" name="departureDate" id="departureDate" wicket:message="placeholder :avtobusi.searchpage.departuredate.format" required />
-                        </div>
-                        <div class="city2 form-group"></div>
-                        <div class="city3 form-group">
-                            <input id="sbt" type="submit" class="btn btn-warning btn-block" wicket:message="value :avtobusi.searchpage.btn.search" />
-                        </div>
+                    <div class="city2 form-group">
+                        <img id="switchImg" wicket:id="switch-img" class="switch-button" src="static/img/switch50x999.jpg" height="30" width="30" />
                     </div>
-
+                    <div class="city3 form-group">
+                        <input wicket:id="destinationPlace" wicket:message="placeholder :avtobusi.searchpage.destinationplace" type="text" class="form-control" id="destinationPlace" required />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="city1 form-group">
+                        <input wicket:id="departureDate" type="text" class="form-control" name="departureDate" id="departureDate" wicket:message="placeholder :avtobusi.searchpage.departuredate.format" required />
+                    </div>
+                    <div class="city2 form-group"></div>
+                    <div class="city3 form-group">
+                        <input id="sbt" type="submit" class="btn btn-warning btn-block" wicket:message="value :avtobusi.searchpage.btn.search" />
+                    </div>
+                </div>
             </article>
         </section>
         </form>

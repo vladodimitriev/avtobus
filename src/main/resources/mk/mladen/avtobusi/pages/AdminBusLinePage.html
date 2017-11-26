@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:wicket="http://wicket.apache.org/">
 <head>
-    <title>Avtobusi - Admin Bus Line Page</title>
+    <title><wicket:message key="avtobusi.adminpage.title"></wicket:message></title>
 </head>
 <body>
 <wicket:extend>
@@ -26,7 +26,7 @@
                         <input type="submit" class="btn btn-warning btn-block" wicket:message="value :avtobusi.searchpage.btn.search" />
                     </div>
                     <div class="col-md-2">
-                        <a href="#" wicket:id="addLink" id="addBtn" class="btn btn-warning btn-block" wicket:message="value :avtobusi.searchpage.btn.add">Add</a>
+                        <a href="#" wicket:id="addLink" id="addBtn" class="btn btn-warning btn-block"><wicket:message key="avtobusi.adminpage.btn.add"></wicket:message></a>
                     </div>
                 </div>
             </div>
@@ -53,8 +53,8 @@
                     <div class="row"><div wicket:id="travelTime"></div></div>
                     <div class="row"><div wicket:id="travelDistance"></div></div>
                 </div>
-                <div class="col-sm-1 dep-arr-time"><a href="#" wicket:id="detailsLink" class="btn btn-warning btn-block">Details</a></div>
-                <div class="col-sm-1 dep-arr-time"><a href="#" wicket:id="deleteLink" class="btn btn-warning btn-block">Delete</a></div>
+                <div class="col-sm-1 dep-arr-time"><a href="#" wicket:id="detailsLink" class="btn btn-warning btn-block"><wicket:message key="avtobusi.adminpage.details"></wicket:message></a></div>
+                <div class="col-sm-1 dep-arr-time"><a href="#" wicket:id="deleteLink" class="btn btn-warning btn-block"><wicket:message key="avtobusi.adminpage.delete"></wicket:message></a></div>
                 <div wicket:id="modalWindowUpdate"></div>
                 <div wicket:id="modalWindowDelete"></div>
             </article>

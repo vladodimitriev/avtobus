@@ -3,13 +3,13 @@
         <section>
             <article class="article-modal">
                 <div class="row article-modal-row">
-                    <h1 class="text-center modal-title">Update carrier</h1>
+                    <h1 class="text-center modal-title"><wicket:message key="avtobusi.admin.carrier.modal.update.title"></wicket:message></h1>
                 </div>
                 <form wicket:id="form">
                     <div class="row modal-row">
                         <div class="form-group">
                             <div class="col-sm-4 text-left">
-                                <span>Name</span>
+                                <span><wicket:message key="avtobusi.admin.carrier.modal.update.name"></wicket:message></span>
                             </div>
                             <div class="col-sm-8">
                                 <input wicket:id="nameTxt" type="text" class="form-control"  />
@@ -19,7 +19,7 @@
                     <div class="row modal-row">
                         <div class="form-group">
                             <div class="col-sm-4 text-left">
-                                <span>Name cyrillic</span>
+                                <span><wicket:message key="avtobusi.admin.carrier.modal.update.nameCyrillic"></wicket:message></span>
                             </div>
                             <div class="col-sm-8">
                                 <input wicket:id="nameCyrillicTxt" type="text" class="form-control"  />
@@ -30,7 +30,7 @@
                     <div class="row modal-row">
                         <div class="form-group">
                             <div class="col-sm-4 text-left">
-                                <span>Place</span>
+                                <span><wicket:message key="avtobusi.admin.carrier.modal.update.place"></wicket:message></span>
                             </div>
                             <div class="col-sm-8">
                                 <input wicket:id="placeTxt" type="text" class="form-control"  />
@@ -43,7 +43,7 @@
                             <input type="submit" wicket:id="saveBtn" class="btn btn-warning btn-block" wicket:message="value :avtobusi.adminpage.btn.add.save" />
                         </div>
                         <div class="col-sm-3 button-modal-add">
-                            <a id="cancelLink" wicket:id="cancelLink" class="btn btn-warning btn-block" wicket:message="value :avtobusi.adminpage.btn.add.cancel">Cancel</a>
+                            <a id="cancelLink" wicket:id="cancelLink" class="btn btn-warning btn-block"><wicket:message key="avtobusi.admin.carrier.modal.update.cancel"></wicket:message></a>
                         </div>
                         <div class="col-sm-3"></div>
                     </div>
