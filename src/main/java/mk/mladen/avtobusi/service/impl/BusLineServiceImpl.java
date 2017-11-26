@@ -189,17 +189,13 @@ public class BusLineServiceImpl implements BusLineService {
 		PlaceEntity pe1 = placeDao.getByName(bean.getDeparturePlace());
 		PlaceEntity pe2 = placeDao.getByName(bean.getArrivalPlace());
 
-		//System.out.println("add new bus line place departure: " + pe1.getName());
-		//System.out.println("add new bus line carrier bean: " + bean.getCarrier());
 		CarrierEntity ce = carrierDao.getByName(bean.getCarrier());
 
-		//System.out.println("add new bus line carrier db: " + ce.getName() + " carrier bean: " + bean.getCarrier());
 		ble.setDeparture(pe1);
 		ble.setDestination(pe2);
 		ble.setCarrier(ce);
 		ble.setRedenBroj(bean.getRedenBroj());
 
-		System.out.println("add new bus line bean departure: " + bean.getDeparturePlace() + " carrier: " + ce);
 		busLineDao.persist(ble);
 	}
 

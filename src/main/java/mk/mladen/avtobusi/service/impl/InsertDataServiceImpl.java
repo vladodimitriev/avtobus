@@ -67,7 +67,6 @@ public class InsertDataServiceImpl implements InsertDataService {
 			insertCities();
 			insertCarriers();
 			createBusLines();
-			System.out.println("BL count: " + blcounter);
 		} catch (IOException | BiffException e) {
 			e.printStackTrace();
 		}
@@ -75,8 +74,6 @@ public class InsertDataServiceImpl implements InsertDataService {
 
 	private void insertCarriers() throws IOException, BiffException {
 		logger.info("insertCarriers()");
-		System.out.println("insertCarriers");
-		System.out.println("============================================================================================");
 		URL url = getClass().getResource(inputFile);
 		File inputWorkbook = new File(url.getPath());
 		Workbook w = Workbook.getWorkbook(inputWorkbook);
@@ -97,7 +94,6 @@ public class InsertDataServiceImpl implements InsertDataService {
 				}
 			}
 		}
-		System.out.println("============================================================================================");
 	}
 
 	private String createCyrillicName(int counter, String cyrilic) {
@@ -132,7 +128,6 @@ public class InsertDataServiceImpl implements InsertDataService {
 		Sheet sheet = w.getSheet(0);
 
 		int rows = sheet.getRows();
-		System.out.println("rows: " + rows);
 		List<City> cities = new ArrayList<City>();
 		int cityCount = 0;
 		int lineNumber = 0;
@@ -541,7 +536,6 @@ public class InsertDataServiceImpl implements InsertDataService {
 
 	private void insertCities() throws BiffException, IOException {
 		logger.info("insertCities()");
-		System.out.println("============================================================================================");
 		long placeCount = placeDao.countAll();
 		if(placeCount < 1) {
 			URL url = getClass().getResource(inputFile);
@@ -566,7 +560,6 @@ public class InsertDataServiceImpl implements InsertDataService {
 					}
 				}
 			}
-			System.out.println("============================================================================================");
 		}
 	}
 
