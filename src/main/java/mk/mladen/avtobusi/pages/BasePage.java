@@ -12,6 +12,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.markup.html.link.ResourceLink;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
@@ -155,6 +156,9 @@ public abstract class BasePage extends WebPage {
 		};
 		add(link2);
 		
+		ResourceReference resourceReferenceFavicon = new PackageResourceReference(WicketApplication.class, "static/img/bus16x16.png");
+		ResourceLink<ResourceReference> favicon = new ResourceLink<ResourceReference>("favicon", resourceReferenceFavicon);
+		add(favicon);
 		ttmh = new StringResourceModel("avtobusi.resultpage.traveltime.hour").getString();
 		ttmm = new StringResourceModel("avtobusi.resultpage.traveltime.min").getString();
 	}
