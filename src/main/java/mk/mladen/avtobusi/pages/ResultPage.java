@@ -59,6 +59,7 @@ public class ResultPage extends BasePage {
 
 	public ResultPage(PageParameters params) {
 		super(params);
+		
 		searchBean = new SearchBean(params);
 		busResourceReference = new PackageResourceReference(WicketApplication.class, "static/img/bus21x21x999.jpg");
 

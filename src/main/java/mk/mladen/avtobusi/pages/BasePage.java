@@ -155,8 +155,8 @@ public abstract class BasePage extends WebPage {
 		};
 		add(link2);
 		
-		ttmh = new StringResourceModel("avtobusi.resultpage.traveltime.hour").toString();
-		ttmm = new StringResourceModel("avtobusi.resultpage.traveltime.min").toString();
+		ttmh = new StringResourceModel("avtobusi.resultpage.traveltime.hour").getString();
+		ttmm = new StringResourceModel("avtobusi.resultpage.traveltime.min").getString();
 	}
 
 	protected abstract void setResponse(PageParameters params);

@@ -1,12 +1,9 @@
 package mk.mladen.avtobusi.pages;
 
-import mk.mladen.avtobusi.WicketApplication;
-import mk.mladen.avtobusi.beans.DeleteBean;
-import mk.mladen.avtobusi.beans.SearchBean;
-import mk.mladen.avtobusi.beans.UpdateBean;
-import mk.mladen.avtobusi.dto.BusLineDto;
-import mk.mladen.avtobusi.service.BusLineService;
-import mk.mladen.avtobusi.service.PlaceService;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -22,14 +19,19 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PropertyListView;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import mk.mladen.avtobusi.WicketApplication;
+import mk.mladen.avtobusi.beans.DeleteBean;
+import mk.mladen.avtobusi.beans.SearchBean;
+import mk.mladen.avtobusi.beans.UpdateBean;
+import mk.mladen.avtobusi.dto.BusLineDto;
+import mk.mladen.avtobusi.service.BusLineService;
+import mk.mladen.avtobusi.service.PlaceService;
 
 public class AdminBusLinePage extends BaseAdminPage {
 
@@ -81,7 +83,7 @@ public class AdminBusLinePage extends BaseAdminPage {
         actf2.setRequired(true);
         actf2.setOutputMarkupId(true);
 
-        dataView = createDataView();
+        dataView = createDataView(null);
         dataView.setOutputMarkupId(true);
 
         wmc = new WebMarkupContainer("wmc");
@@ -91,7 +93,7 @@ public class AdminBusLinePage extends BaseAdminPage {
 			private static final long serialVersionUID = 1L;
 			@Override
             protected void onSubmit() {
-                dataView = createDataView();
+                dataView = createDataView(null);
                 dataView.setOutputMarkupId(true);
                 wmc.addOrReplace(dataView);
             }
@@ -112,7 +114,7 @@ public class AdminBusLinePage extends BaseAdminPage {
 			@Override
             public void onClose(AjaxRequestTarget target)
             {
-                dataView = createDataView();
+                dataView = createDataView(null);
                 wmc.addOrReplace(dataView);
                 target.add(wmc);
             }
@@ -132,7 +134,7 @@ public class AdminBusLinePage extends BaseAdminPage {
         add(wmc);
     }
 
-    private PropertyListView<BusLineDto> createDataView() {
+    private PropertyListView<BusLineDto> createDataView(String itemId) {
         List<BusLineDto> busLines = loadRelations();
         PropertyListView<BusLineDto> dataView = new PropertyListView<BusLineDto>("rows", busLines) {
 			private static final long serialVersionUID = 1L;
@@ -177,7 +179,7 @@ public class AdminBusLinePage extends BaseAdminPage {
                 item.add(label5);
 
                 UpdateBean updateBean = createUpdateBean(busLine);
-                ModalWindow modalWindowUpdate = createModalWindowUpdate(updateBean);
+                ModalWindow modalWindowUpdate = createModalWindowUpdate(updateBean, item.getId());
                 item.add(modalWindowUpdate);
 
                 DeleteBean deleteBean = createDeleteBean(busLine);
@@ -202,6 +204,9 @@ public class AdminBusLinePage extends BaseAdminPage {
                     }
                 };
                 item.add(link2);
+                if(StringUtils.isNotBlank(itemId) && itemId.equalsIgnoreCase(item.getId())) {
+                	item.add(AttributeModifier.replace("class", "row article-row-visited"));
+                }
             }
         };
         return dataView;
@@ -247,7 +252,7 @@ public class AdminBusLinePage extends BaseAdminPage {
         return deleteBean;
     }
 
-    private ModalWindow createModalWindowUpdate(UpdateBean updateBean) {
+    private ModalWindow createModalWindowUpdate(UpdateBean updateBean, String itemId) {
         ModalWindow modalWindowUpdate = new ModalWindow("modalWindowUpdate");
         modalWindowUpdate.setOutputMarkupId(true);
         modalWindowUpdate.setContent(new ModalPanelBusLineUpdate(modalWindowUpdate.getContentId(), updateBean, modalWindowUpdate));
@@ -260,7 +265,7 @@ public class AdminBusLinePage extends BaseAdminPage {
 			@Override
             public void onClose(AjaxRequestTarget target)
             {
-                dataView = createDataView();
+                dataView = createDataView(itemId);
                 wmc.addOrReplace(dataView);
                 target.add(wmc);
             }
