@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:wicket="http://wicket.apache.org">
 <head>
+	<link rel="icon" type="image/png" href="bus32x32.png">
     <wicket:head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,6 +9,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <title>Avtobusi.mk</title>
+        <link wicket:id="favicon" rel="icon" type="image/png" />
     </wicket:head>
 </head>
 <body>
@@ -16,19 +18,19 @@
         <div class="container">
             <div class="navbar-header">
                 <a wicket:id="searchPage" class="navbar-brand" href="#">
-                    <wicket:message key="avtobusi.title">Avtobusi</wicket:message>
+                    <wicket:message key="avtobusi.title"></wicket:message>
                 </a>
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="#about" wicket:id="AboutPage"><wicket:message key="avtobusi.navbar.about">About</wicket:message></a>
+                        <a href="#about" wicket:id="AboutPage"><wicket:message key="avtobusi.navbar.about"></wicket:message></a>
                     </li>
                     <li>
-                        <a href="#contact" wicket:id="ContactPage"><wicket:message key="avtobusi.navbar.contact">Contact</wicket:message></a>
+                        <a href="#contact" wicket:id="ContactPage"><wicket:message key="avtobusi.navbar.contact"></wicket:message></a>
                     </li>
                     <li>
-                        <a href="#login" wicket:id="LoginPage"><wicket:message key="avtobusi.navbar.login">Login</wicket:message></a>
+                        <a href="#login" wicket:id="LoginPage"><wicket:message key="avtobusi.navbar.login"></wicket:message></a>
                     </li>
                     <li>
                         <a data-toggle="dropdown" href="#">

@@ -28,14 +28,12 @@ public class ModalPanelBusLineDelete extends Panel {
             bean = dbean;
         }
 
-        PropertyModel idModel = new PropertyModel(bean, "id");
-        PropertyModel departureModel = new PropertyModel(bean, "departurePlace");
-        PropertyModel arrivalModel = new PropertyModel(bean, "arrivalPlace");
-        PropertyModel departureTimeModel = new PropertyModel(bean, "departureTime");
-        PropertyModel arrivalTimeModel = new PropertyModel(bean, "arrivalTime");
-        PropertyModel carrierModel = new PropertyModel(bean, "carrier");
+        PropertyModel<String> departureModel = new PropertyModel<String>(bean, "departurePlace");
+        PropertyModel<String> arrivalModel = new PropertyModel<String>(bean, "arrivalPlace");
+        PropertyModel<String> departureTimeModel = new PropertyModel<String>(bean, "departureTime");
+        PropertyModel<String> arrivalTimeModel = new PropertyModel<String>(bean, "arrivalTime");
+        PropertyModel<String> carrierModel = new PropertyModel<String>(bean, "carrier");
 
-        Label idLbl = new Label("id", idModel);
         Label departurePlaceLbl = new Label("departurePlace", departureModel);
         Label destinationPlaceLbl = new Label("arrivalPlace", arrivalModel);
         Label departureTimeLbl = new Label("departureTime", departureTimeModel);
@@ -43,7 +41,8 @@ public class ModalPanelBusLineDelete extends Panel {
         Label carrierLbl = new Label("carrier", carrierModel);
 
         AjaxLink<String> deleteYesLink = new AjaxLink<String>("deleteYesLink") {
-            @Override
+            private static final long serialVersionUID = 1L;
+			@Override
             public void onClick(AjaxRequestTarget target) {
                 busLineService.deleteBusLine(bean.getId());
                 window.close(target);
@@ -51,13 +50,13 @@ public class ModalPanelBusLineDelete extends Panel {
         };
 
         AjaxLink<String> deleteNoLink = new AjaxLink<String>("deleteNoLink") {
-            @Override
+            private static final long serialVersionUID = 1L;
+			@Override
             public void onClick(AjaxRequestTarget target) {
                 window.close(target);
             }
         };
 
-        //add(idLbl);
         add(departurePlaceLbl);
         add(destinationPlaceLbl);
         add(departureTimeLbl);

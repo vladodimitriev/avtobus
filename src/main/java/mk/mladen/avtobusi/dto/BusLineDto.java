@@ -2,8 +2,7 @@ package mk.mladen.avtobusi.dto;
 
 import java.io.Serializable;
 
-@SuppressWarnings("rawtypes")
-public class BusLineDto implements Serializable, Comparable {
+public class BusLineDto implements Serializable {
 
 	private static final long serialVersionUID = 3314388063021551876L;
 
@@ -385,18 +384,4 @@ public class BusLineDto implements Serializable, Comparable {
 		this.smallPlacesLatin = smallPlacesLatin;
 	}
 
-	@Override
-	public int compareTo(Object o) {
-		if(o != null && o instanceof BusLineDto) {
-			BusLineDto d = (BusLineDto)o;
-			String dt1 = this.departureTime;
-			String dt2 = d.getDepartureTime();
-			if(dt1 == null) {
-				return -1;
-			}
-			return dt1.compareTo(dt2);
-		}
-		return 0;
-	}
-	
 }

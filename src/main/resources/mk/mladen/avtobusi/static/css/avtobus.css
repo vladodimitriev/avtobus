@@ -207,6 +207,16 @@ header .container {
     color: #999999;
 }
 
+.article-row-visited {
+    padding: 10px;
+    margin: 10px;
+    border-color: red;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 5px;
+    color: #999999;
+}
+
 .article-search-row {
     border-color: #337ab7;
     border-width: 2px;
@@ -540,6 +550,16 @@ textarea {
 .segment-info .entry .circle-wrapper .circle-city {
     margin-left: 5px;
     margin-bottom: 5px;
+}
+
+.segment-details {
+    float: left;
+    width: 17%;
+}
+
+.segment-busline {
+    float: left;
+    width: 40%;
 }
 
 .circle-span {

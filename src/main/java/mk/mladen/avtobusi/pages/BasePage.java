@@ -12,14 +12,15 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.markup.html.link.ResourceLink;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.settings.JavaScriptLibrarySettings;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.springframework.context.MessageSource;
 
 import mk.mladen.avtobusi.WicketApplication;
 import mk.mladen.avtobusi.service.InsertDataService;
@@ -32,9 +33,6 @@ public abstract class BasePage extends WebPage {
 	@SpringBean
 	private InsertDataService insertDataService;
 
-	@SpringBean
-	protected MessageSource messageSource;
-	
 	protected PageParameters parameters;
 	
 	protected String lang = "MK";
@@ -157,8 +155,12 @@ public abstract class BasePage extends WebPage {
 			}
 		};
 		add(link2);
-		ttmh = messageSource.getMessage("avtobusi.resultpage.traveltime.hour",null, getSession().getLocale());
-		ttmm = messageSource.getMessage("avtobusi.resultpage.traveltime.min",null, getSession().getLocale());
+		
+		ResourceReference resourceReferenceFavicon = new PackageResourceReference(WicketApplication.class, "static/img/bus16x16.png");
+		ResourceLink<ResourceReference> favicon = new ResourceLink<ResourceReference>("favicon", resourceReferenceFavicon);
+		add(favicon);
+		ttmh = new StringResourceModel("avtobusi.resultpage.traveltime.hour").getString();
+		ttmm = new StringResourceModel("avtobusi.resultpage.traveltime.min").getString();
 	}
 
 	protected abstract void setResponse(PageParameters params);

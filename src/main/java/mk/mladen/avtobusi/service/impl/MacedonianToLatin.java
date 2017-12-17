@@ -92,7 +92,8 @@ public class MacedonianToLatin {
 			+ "к > k;" + "Л > L;" + "л > l;" + "Љ > L;" + "љ > l;" + "М > M;" + "м > m;" + "Н > N;" + "н > n;"
 			+ "Њ > N;" + "њ > n;" + "О > O;" + "о > o;" + "П > P;" + "п > p;" + "Р > R;" + "р > r;" + "С > S;"
 			+ "с > s;" + "Т > T;" + "т > t;" + "Ќ > K;" + "ќ > k;" + "У > U;" + "у > u;" + "Ф > F;" + "ф > f;"
-			+ "Х > H;" + "х > h;" + "Ц > C;" + "ц > c;" + "Ч > CH;" + "ч > ch;" + "Џ > G;" + "џ > g;" + "Ш > SH;";
+			+ "Х > H;" + "х > h;" + "Ц > C;" + "ц > c;" + "Ч > CH;" + "ч > ch;" + "Џ > G;" + "џ > g;" 
+			+ "Ш > SH;" + "ш > sh;";
 	
 	private static Transliterator mkdToLatin = Transliterator.createFromRules("temp", rules, Transliterator.FORWARD);
 

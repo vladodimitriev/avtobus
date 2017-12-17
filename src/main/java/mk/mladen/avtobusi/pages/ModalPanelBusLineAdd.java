@@ -16,7 +16,6 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class ModalPanelBusLineAdd extends Panel {
@@ -32,8 +31,6 @@ public class ModalPanelBusLineAdd extends Panel {
     @SpringBean
     private CarrierService carrierService;
 
-    private static final List<String> CARRIERS = Arrays.asList(new String[] {"Rule Turs", "Sam-Vel", "Galeb" });
-
     public ModalPanelBusLineAdd(String id, ModalWindow window) {
         super(id);
 
@@ -41,56 +38,35 @@ public class ModalPanelBusLineAdd extends Panel {
         List<String> places = placeService.findAllPlacesNames();
 
         AddBean bean = new AddBean();
-//        bean.setDeparturePlace(searchBean.getDeparturePlace());
-//        bean.setArrivalPlace(searchBean.getDestinationPlace());
 
-        PropertyModel idModel = new PropertyModel(bean, "id");
-        PropertyModel departureModel = new PropertyModel(bean, "departurePlace");
-        PropertyModel arrivalModel = new PropertyModel(bean, "arrivalPlace");
-        PropertyModel departureTimeModel = new PropertyModel(bean, "departureTime");
-        PropertyModel arrivalTimeModel = new PropertyModel(bean, "arrivalTime");
+        PropertyModel<String> departureTimeModel = new PropertyModel<String>(bean, "departureTime");
+        PropertyModel<String> arrivalTimeModel = new PropertyModel<String>(bean, "arrivalTime");
+        PropertyModel<String> operationDaysModel = new PropertyModel<String>(bean, "operationDays");
+        PropertyModel<String> operationMonthsModel = new PropertyModel<String>(bean, "operationMonths");
+        PropertyModel<String> operationPeriodModel = new PropertyModel<String>(bean, "operationPeriod");
+        PropertyModel<String> commentModel = new PropertyModel<String>(bean, "comment");
+        PropertyModel<String> priceModel = new PropertyModel<String>(bean, "price");
 
-        PropertyModel operationDaysModel = new PropertyModel(bean, "operationDays");
-        PropertyModel operationMonthsModel = new PropertyModel(bean, "operationMonths");
-        PropertyModel operationPeriodModel = new PropertyModel(bean, "operationPeriod");
-        PropertyModel commentModel = new PropertyModel(bean, "comment");
-
-        PropertyModel priceModel = new PropertyModel(bean, "price");
-        PropertyModel hasPriceModel = new PropertyModel(bean, "hasPrice");
-        PropertyModel lineNumberModel = new PropertyModel(bean, "lineNumber");
-        PropertyModel carrierModel = new PropertyModel(bean, "carrier");
-
-        TextField idTxt = new TextField("id", idModel);
-        //TextField departurePlaceTxt = new TextField("departurePlace", departureModel);
-        //departurePlaceTxt.setEnabled(false);
-        //TextField arrivalPlaceTxt = new TextField("arrivalPlace", arrivalModel);
-        //arrivalPlaceTxt.setEnabled(false);
-        TextField departureTimeTxt = new TextField("departureTime", departureTimeModel);
-        TextField arrivalTimeTxt = new TextField("arrivalTime", arrivalTimeModel);
-        TextField operationDaysTxt = new TextField("operationDays", operationDaysModel);
-        TextField operationMonthsTxt = new TextField("operationMonths", operationMonthsModel);
-        TextField operationPeriodTxt = new TextField("operationPeriod", operationPeriodModel);
+        TextField<String> departureTimeTxt = new TextField<String>("departureTime", departureTimeModel);
+        TextField<String> arrivalTimeTxt = new TextField<String>("arrivalTime", arrivalTimeModel);
+        TextField<String> operationDaysTxt = new TextField<String>("operationDays", operationDaysModel);
+        TextField<String> operationMonthsTxt = new TextField<String>("operationMonths", operationMonthsModel);
+        TextField<String> operationPeriodTxt = new TextField<String>("operationPeriod", operationPeriodModel);
+        TextField<String> priceTxt = new TextField<String>("price", priceModel);
         TextArea<String> commentTxt = new TextArea<String>("comment", commentModel);
-        TextField priceTxt = new TextField("price", priceModel);
-        TextField hasPriceTxt = new TextField("hasPrice", hasPriceModel);
-        TextField lineNumberTxt = new TextField("lineNumber", lineNumberModel);
-        TextArea<String> carrierTxt = new TextArea<String>("carrier", carrierModel);
 
         DropDownChoice<String> departureList = new DropDownChoice<String>("departures", new PropertyModel<String>(bean, "departurePlace"), places);
         DropDownChoice<String> destinationList = new DropDownChoice<String>("destinations", new PropertyModel<String>(bean, "arrivalPlace"), places);
         DropDownChoice<String> carrierList = new DropDownChoice<String>("carriers", new PropertyModel<String>(bean, "carrier"), carriers);
 
-        Form form = new Form("addForm") {
-            @Override
+        Form<String> form = new Form<String>("addForm") {
+            private static final long serialVersionUID = 1L;
+			@Override
             protected void onSubmit() {
-                System.out.println("Carrier: " + bean.getCarrier());
-                System.out.println("Departure: " + bean.getDeparturePlace());
-                System.out.println("Destination: " + bean.getArrivalPlace());
                 busLineService.addNewBusLine(bean);
             }
         };
 
-        //form.add(idTxt);
         form.add(departureList);
         form.add(destinationList);
         form.add(departureTimeTxt);
@@ -102,19 +78,19 @@ public class ModalPanelBusLineAdd extends Panel {
         form.add(commentTxt);
 
         form.add(priceTxt);
-        //form.add(hasPriceTxt);
-        //form.add(lineNumberTxt);
         form.add(carrierList);
 
         AjaxLink<String> cancelLink = new AjaxLink<String>("cancelLink") {
-            @Override
+            private static final long serialVersionUID = 1L;
+			@Override
             public void onClick(AjaxRequestTarget target) {
                 window.close(target);
             }
         };
 
         AjaxButton saveBtn = new AjaxButton("saveBtn") {
-            @Override
+            private static final long serialVersionUID = 1L;
+			@Override
             protected void onSubmit(AjaxRequestTarget target) {
                 window.close(target);
             }

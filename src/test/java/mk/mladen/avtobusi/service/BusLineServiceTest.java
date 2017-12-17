@@ -1,10 +1,10 @@
 package mk.mladen.avtobusi.service;
 
-import mk.mladen.avtobusi.ApplicationTestConfig;
-import mk.mladen.avtobusi.beans.AddBean;
-import mk.mladen.avtobusi.beans.UpdateBean;
-import mk.mladen.avtobusi.dao.BusLineDao;
-import mk.mladen.avtobusi.entity.BusLineEntity;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -14,10 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import mk.mladen.avtobusi.ApplicationTestConfig;
+import mk.mladen.avtobusi.beans.AddBean;
+import mk.mladen.avtobusi.beans.UpdateBean;
+import mk.mladen.avtobusi.dao.BusLineDao;
+import mk.mladen.avtobusi.entity.BusLineEntity;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ApplicationTestConfig.class})
@@ -28,7 +29,7 @@ public class BusLineServiceTest {
 
 	@Autowired
 	private BusLineDao busLineDao;
-
+	
 	@Test
 	@Ignore
 	public void dateConverterTest() {

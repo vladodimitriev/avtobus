@@ -59,6 +59,7 @@ public class ResultPage extends BasePage {
 
 	public ResultPage(PageParameters params) {
 		super(params);
+		
 		searchBean = new SearchBean(params);
 		busResourceReference = new PackageResourceReference(WicketApplication.class, "static/img/bus21x21x999.jpg");
 
@@ -218,17 +219,40 @@ public class ResultPage extends BasePage {
 					  }
 				  };
 				  detailsPanel.add(places);
+				  
+				  StringResourceModel imeNaLinijaSram = new StringResourceModel("avtobusi.resultPage.table.imenalinija"); 
+				  Label imeNaLinijaLbl = new Label("imeNaLinija", imeNaLinijaSram);
+				  imeNaLinijaLbl.setOutputMarkupId(true);
+				  
+				  Label lineNameLbl = new Label("lineName", busLine.getLineName());
+				  lineNameLbl.setOutputMarkupId(true);
+				  
+				  StringResourceModel redenBrojSram = new StringResourceModel("avtobusi.resultPage.table.redenbrojnalinija"); 
+				  Label redenBrojLbl = new Label("redenBrojNaLinija", redenBrojSram);
+				  redenBrojLbl.setOutputMarkupId(true);
+				  
+				  Label lineOrderLbl = new Label("lineOrder", busLine.getRedenBroj());
+				  lineOrderLbl.setOutputMarkupId(true);
+				  
+				  String komentar = busLine.getComment();
+				  Label commentLbl = new Label("comment", komentar);
+				  commentLbl.setOutputMarkupId(true);
+				  
+				  detailsPanel.add(imeNaLinijaLbl);
+				  detailsPanel.add(lineNameLbl);
+				  
+				  detailsPanel.add(redenBrojLbl);
+				  detailsPanel.add(lineOrderLbl);
+				  
+				  detailsPanel.add(commentLbl);
+				  
 				  detailsPanel.setVisible(false);
 				  item.add(detailsPanel);
 
 				  Label glyphicon = new Label("glyphicon", "");
-				  //label4.add(new AttributeModifier("style", "text-align: left"));
 				  glyphicon.add(getAjaxBehavior(detailsPanel, glyphicon));
 				  label4.add(getAjaxBehavior(detailsPanel, glyphicon));
 				  item.add(glyphicon);
-
-
-
 			  }
 		};
 		return dataView;

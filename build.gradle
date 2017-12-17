@@ -7,15 +7,13 @@ buildscript {
     }
 }
 ext {
-    wicketVersion = '8.0.0-M6'
-    wicketStuffVersion = '8.0.0-M6'
-    wicketExtensionsVersion = '8.0.0-M6'
-    springVersion = '4.3.7.RELEASE'
-    jacksonVersion = '2.8.7'
-    springWsVersion = '2.4.0.RELEASE'
+    wicketVersion = '8.0.0-M8'
+    springVersion = '5.0.2.RELEASE'
+    jacksonVersion = '2.8.8'
     hibernateVersion = '5.0.4.Final'
     dozerVersion = '5.5.1'
-    derbyVersion = '10.13.1.1'
+    springSecurityVersion = '5.0.0.RELEASE'
+    log4jVersion = '2.6.2'
 }
 
 apply plugin: 'java'
@@ -47,10 +45,18 @@ dependencies {
     compile "org.springframework:spring-context:${springVersion}"
     compile "org.springframework:spring-tx:${springVersion}"
     compile "org.springframework:spring-web:${springVersion}"
+    
+    compile "org.springframework.security:spring-security-core:${springSecurityVersion}"
+    compile "org.springframework.security:spring-security-web:${springSecurityVersion}"
+    compile "org.springframework.security:spring-security-config:${springSecurityVersion}"
+    compile "org.springframework.security:spring-security-ldap:${springSecurityVersion}"
+    compile "org.springframework.security:spring-security-taglibs:${springSecurityVersion}"
 
     compile "org.apache.wicket:wicket-core:${wicketVersion}"
     compile "org.apache.wicket:wicket-spring:${wicketVersion}"
     compile "org.apache.wicket:wicket-extensions:${wicketVersion}"
+    compile "org.apache.wicket:wicket-ioc:${wicketVersion}"
+    compile "org.apache.wicket:wicket-auth-roles:${wicketVersion}"
     
     compile "org.hibernate:hibernate-core:${hibernateVersion}"
     compile "org.hibernate:hibernate-entitymanager:${hibernateVersion}"
@@ -58,17 +64,14 @@ dependencies {
     compile "net.sf.dozer:dozer:${dozerVersion}"
     compile "net.sf.dozer:dozer-spring:${dozerVersion}"
     
-    compile 'org.hsqldb:hsqldb:2.4.0'
-    compile 'com.h2database:h2:1.4.187'
-    compile 'org.apache.derby:derby:10.11.1.1'
     compile 'org.apache.commons:commons-dbcp2:2.1'
     compile "org.postgresql:postgresql:42.1.4"
     
-    compile 'log4j:log4j:1.2.17'
-    
-    compile 'org.apache.poi:poi:3.16'
     compile 'net.sourceforge.jexcelapi:jxl:2.6.12'
     compile 'com.ibm.icu:icu4j:59.1'
+    
+    compile "org.apache.logging.log4j:log4j-core:${log4jVersion}"
+    compile 'org.cfg4j:cfg4j-core:4.4.0'
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.dbunit:dbunit:2.5.2'

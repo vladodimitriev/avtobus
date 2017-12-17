@@ -1,5 +1,20 @@
 package mk.mladen.avtobusi.service.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.TimeZone;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import mk.mladen.avtobusi.beans.AddBean;
 import mk.mladen.avtobusi.beans.UpdateBean;
 import mk.mladen.avtobusi.dao.BusLineDao;
@@ -11,19 +26,9 @@ import mk.mladen.avtobusi.entity.CarrierEntity;
 import mk.mladen.avtobusi.entity.PlaceEntity;
 import mk.mladen.avtobusi.service.BusLineService;
 import mk.mladen.avtobusi.util.DOW;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 @Transactional
 @Service
-@SuppressWarnings("unchecked")
 public class BusLineServiceImpl implements BusLineService {
 	
 	private final static Logger logger = Logger.getLogger(BusLineServiceImpl.class);
@@ -76,7 +81,7 @@ public class BusLineServiceImpl implements BusLineService {
 			}
 		}
 		
-		Collections.sort(result);
+		Collections.sort(result, (p1, p2) -> p1.getDepartureTime() != null ? p1.getDepartureTime().compareTo(p2.getDepartureTime()) : 1);
 		return result;
 	}
 	
@@ -124,6 +129,7 @@ public class BusLineServiceImpl implements BusLineService {
 					dto.setLineName(ent.getLineName());
 					dto.setLineNumber(ent.getLineNumber());
 					dto.setSmallPlacesLatin(ent.getSmallPlacesLatin());
+					dto.setComment(ent.getComment());
 					result.add(dto);
 				}
 			} catch (Exception e) {
@@ -131,7 +137,7 @@ public class BusLineServiceImpl implements BusLineService {
 			}
 		}
 		
-		Collections.sort(result);
+		Collections.sort(result, (p1, p2) -> p1.getDepartureTime() != null ? p1.getDepartureTime().compareTo(p2.getDepartureTime()) : 1);
 		return result;
 	}
 
@@ -183,17 +189,13 @@ public class BusLineServiceImpl implements BusLineService {
 		PlaceEntity pe1 = placeDao.getByName(bean.getDeparturePlace());
 		PlaceEntity pe2 = placeDao.getByName(bean.getArrivalPlace());
 
-		//System.out.println("add new bus line place departure: " + pe1.getName());
-		//System.out.println("add new bus line carrier bean: " + bean.getCarrier());
 		CarrierEntity ce = carrierDao.getByName(bean.getCarrier());
 
-		//System.out.println("add new bus line carrier db: " + ce.getName() + " carrier bean: " + bean.getCarrier());
 		ble.setDeparture(pe1);
 		ble.setDestination(pe2);
 		ble.setCarrier(ce);
 		ble.setRedenBroj(bean.getRedenBroj());
 
-		System.out.println("add new bus line bean departure: " + bean.getDeparturePlace() + " carrier: " + ce);
 		busLineDao.persist(ble);
 	}
 

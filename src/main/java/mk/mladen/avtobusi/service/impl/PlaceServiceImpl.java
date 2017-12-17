@@ -1,18 +1,17 @@
 package mk.mladen.avtobusi.service.impl;
 
-import mk.mladen.avtobusi.dao.PlaceDao;
-import mk.mladen.avtobusi.dto.PlaceDto;
-import mk.mladen.avtobusi.entity.BusLineEntity;
-import mk.mladen.avtobusi.entity.PlaceEntity;
-import mk.mladen.avtobusi.service.PlaceService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import mk.mladen.avtobusi.dao.PlaceDao;
+import mk.mladen.avtobusi.dto.PlaceDto;
+import mk.mladen.avtobusi.entity.PlaceEntity;
+import mk.mladen.avtobusi.service.PlaceService;
 
 @Service
 @Transactional
@@ -79,6 +78,7 @@ public class PlaceServiceImpl implements PlaceService {
 				places = placeDao.getAllPlacesNamesByLanguageAndNameAndMask(language, name);
 			}
 		}
+		
 		if(places != null) {
 			Collections.sort(places);
 		} else {

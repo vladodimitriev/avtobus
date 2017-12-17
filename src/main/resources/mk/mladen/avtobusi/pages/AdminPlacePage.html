@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:wicket="http://wicket.apache.org/">
 <head>
-    <title>Avtobusi - Admin Place Page</title>
+    <title>Avtobusi.mk</title>
 </head>
 <body>
 <wicket:extend>
@@ -21,7 +21,7 @@
                             <input type="submit" class="btn btn-warning btn-block" wicket:message="value :avtobusi.searchpage.btn.search" />
                         </div>
                         <div class="col-md-2">
-                            <a href="#" wicket:id="addLink" id="addBtn" class="btn btn-warning btn-block" wicket:message="value :avtobusi.searchpage.btn.add">Add</a>
+                            <a href="#" wicket:id="addLink" id="addBtn" class="btn btn-warning btn-block"><wicket:message key="avtobusi.admin.place.add"></wicket:message></a>
                         </div>
                     </div>
                 </div>
@@ -35,9 +35,9 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <td class="col-md-1">ID:</td>
-                        <td class="col-md-4">Name:</td>
-                        <td class="col-md-4">Name cyrillic:</td>
+                        <td class="col-md-1"><wicket:message key="avtobusi.admin.place.id"></wicket:message></td>
+                        <td class="col-md-4"><wicket:message key="avtobusi.admin.place.name"></wicket:message></td>
+                        <td class="col-md-4"><wicket:message key="avtobusi.admin.place.nameCyrillic"></wicket:message></td>
                         <td class="col-md-1"></td>
                         <td class="col-md-1"></td>
                         <td class="col-md-1"></td>
@@ -48,15 +48,16 @@
                         <td><span wicket:id="id"></span></td>
                         <td><span wicket:id="name"></span></td>
                         <td><span wicket:id="nameCyrillic"></span></td>
-                        <td><a href="#" wicket:id="detailsLink">Details</a></td>
+                        <td><a href="#" wicket:id="detailsLink"><wicket:message key="avtobusi.admin.place.details"></wicket:message></a></td>
                         <!-- 
                         <td><a href="#" wicket:id="deleteLink">Delete</a></td>
                          -->
                         <div wicket:id="modalWindowUpdate"></div>
-                        <div wicket:id="modalWindowDelete"></div>
+                		<div wicket:id="modalWindowDelete"></div>
                     </tr>
                     </tbody>
                 </table>
+                
             </section>
         </div>
     </div>

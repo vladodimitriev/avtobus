@@ -3,13 +3,13 @@
         <section>
             <article class="article-modal">
                 <div class="row article-modal-row">
-                    <h1 class="text-center modal-title">Add new bus line</h1>
+                    <h1 class="text-center modal-title"><wicket:message key="avtobusi.admin.busline.modal.add.title"></wicket:message></h1>
                 </div>
                 <form wicket:id="addForm">
                     <div class="row modal-row">
                         <div class="form-group">
                             <div class="col-sm-4 text-left">
-                                <span>Departure place</span>
+                                <span><wicket:message key="avtobusi.admin.busline.modal.add.departurePlace"></wicket:message></span>
                             </div>
                             <div class="col-sm-8">
                                 <select wicket:id="departures" class="form-control"></select>
@@ -19,7 +19,7 @@
                     <div class="row modal-row">
                         <div class="form-group">
                             <div class="col-sm-4 text-left">
-                                <span>Arrival place</span>
+                                <span><wicket:message key="avtobusi.admin.busline.modal.add.arrivalPlace"></wicket:message></span>
                             </div>
                             <div class="col-sm-8">
                                 <select wicket:id="destinations" class="form-control"></select>
@@ -29,7 +29,7 @@
                     <div class="row modal-row">
                         <div class="form-group">
                             <div class="col-sm-4 text-left">
-                                <span>Departure time</span>
+                                <span><wicket:message key="avtobusi.admin.busline.modal.add.departureTime"></wicket:message></span>
                             </div>
                             <div class="col-sm-8">
                                 <input wicket:id="departureTime" type="text" class="form-control"  />
@@ -39,7 +39,7 @@
                     <div class="row modal-row">
                         <div class="form-group">
                             <div class="col-sm-4 text-left">
-                                <span>Arrival time</span>
+                                <span><wicket:message key="avtobusi.admin.busline.modal.add.arrivalTime"></wicket:message></span>
                             </div>
                             <div class="col-sm-8">
                                 <input wicket:id="arrivalTime" type="text" class="form-control"  />
@@ -50,7 +50,7 @@
                     <div class="row modal-row">
                         <div class="form-group">
                             <div class="col-sm-4 text-left">
-                                <span>Operation days</span>
+                                <span><wicket:message key="avtobusi.admin.busline.modal.add.operationDays"></wicket:message></span>
                             </div>
                             <div class="col-sm-8">
                                 <input wicket:id="operationDays" type="text" class="form-control"  />
@@ -60,7 +60,7 @@
                     <div class="row modal-row">
                         <div class="form-group">
                             <div class="col-sm-4 text-left">
-                                <span>Operation months</span>
+                                <span><wicket:message key="avtobusi.admin.busline.modal.add.operationMonths"></wicket:message></span>
                             </div>
                             <div class="col-sm-8">
                                 <input wicket:id="operationMonths" type="text" class="form-control"  />
@@ -70,7 +70,7 @@
                     <div class="row modal-row">
                         <div class="form-group">
                             <div class="col-sm-4 text-left">
-                                <span>Operation period</span>
+                                <span><wicket:message key="avtobusi.admin.busline.modal.add.operationPeriod"></wicket:message></span>
                             </div>
                             <div class="col-sm-8">
                                 <input wicket:id="operationPeriod" type="text" class="form-control"  />
@@ -80,7 +80,7 @@
                     <div class="row modal-row">
                         <div class="form-group">
                             <div class="col-sm-4 text-left">
-                                <span>Price</span>
+                                <span><wicket:message key="avtobusi.admin.busline.modal.add.price"></wicket:message></span>
                             </div>
                             <div class="col-sm-8">
                                 <input wicket:id="price" type="text" class="form-control"  />
@@ -90,7 +90,7 @@
                     <div class="row modal-row">
                         <div class="form-group">
                             <div class="col-sm-4 text-left">
-                                <span>Carrier</span>
+                                <span><wicket:message key="avtobusi.admin.busline.modal.add.carrier"></wicket:message></span>
                             </div>
                             <div class="col-sm-8">
                                 <select wicket:id="carriers" class="form-control"></select>
@@ -100,7 +100,7 @@
                     <div class="row modal-row">
                         <div class="form-group">
                             <div class="col-sm-4 text-left">
-                                <span>Comment</span>
+                                <span><wicket:message key="avtobusi.admin.busline.modal.add.comment"></wicket:message></span>
                             </div>
                             <div class="col-sm-8">
                                 <textarea wicket:id="comment" rows="2" cols="10" class="form-control"></textarea>
@@ -113,7 +113,7 @@
                             <input type="submit" wicket:id="saveBtn" class="btn btn-warning btn-block" wicket:message="value :avtobusi.adminpage.btn.add.save" />
                         </div>
                         <div class="col-sm-3 button-modal-add">
-                            <a id="cancelLink" wicket:id="cancelLink" class="btn btn-warning btn-block" wicket:message="value :avtobusi.adminpage.btn.add.cancel">Cancel</a>
+                            <a id="cancelLink" wicket:id="cancelLink" class="btn btn-warning btn-block"><wicket:message key="avtobusi.admin.busline.modal.add.cancel"></wicket:message></a>
                         </div>
                         <div class="col-sm-3"></div>
                     </div>
