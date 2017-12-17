@@ -1,10 +1,12 @@
 <wicket:panel xmlns:wicket="http://wicket.apache.org/">
     <div>
         <ul>
-            <li><a wicket:id="adminHomePage" href="#"><wicket:message key="menu.avtobusi"/></a></li>
+            <li><a href="#" wicket:id="adminHomePage"><wicket:message key="menu.avtobusi"/></a></li>
             <li><a href="#" wicket:id="adminBusLinesPage"><wicket:message key="menu.busLines"/></a></li>
             <li><a href="#" wicket:id="adminPlacesPage"><wicket:message key="menu.places"/></a></li>
             <li><a href="#" wicket:id="adminCarriersPage"><wicket:message key="menu.carriers"/></a></li>
+            <li><a href="#" wicket:id="signOut"><wicket:message key="menu.signOut"/></a></li>
+            <li><span wicket:id="username"></span></li>
         </ul>
     </div>
 </wicket:panel>

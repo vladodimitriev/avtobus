@@ -7,7 +7,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
-@Import(DbConfig.class)
+import mk.mladen.avtobusi.security.SecurityConfiguration;
+
+@Import({DbConfig.class, SecurityConfiguration.class})
 @Configuration
 @ComponentScan("mk.mladen.avtobusi")
 public class AppConfiguration {
