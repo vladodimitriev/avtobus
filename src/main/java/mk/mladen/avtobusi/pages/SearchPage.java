@@ -23,7 +23,7 @@ import mk.mladen.avtobusi.WicketApplication;
 import mk.mladen.avtobusi.beans.SearchBean;
 import mk.mladen.avtobusi.service.PlaceService;
 
-@SuppressWarnings({ "rawtypes", "serial", "unchecked" })
+@SuppressWarnings("unchecked")
 public class SearchPage extends BasePage {
 
 	private static final long serialVersionUID = 1L;
@@ -43,14 +43,15 @@ public class SearchPage extends BasePage {
 	public SearchPage(PageParameters params) {
 		super(params);
 		searchBean = new SearchBean(params);
-		PropertyModel departureModel = new PropertyModel(searchBean, "departurePlace");
-		PropertyModel destinationModel = new PropertyModel(searchBean, "destinationPlace");
-		PropertyModel dateModel = new PropertyModel(searchBean, "departureDate");
+		PropertyModel<String> departureModel = new PropertyModel<String>(searchBean, "departurePlace");
+		PropertyModel<String> destinationModel = new PropertyModel<String>(searchBean, "destinationPlace");
+		PropertyModel<String> dateModel = new PropertyModel<String>(searchBean, "departureDate");
 
 		AutoCompleteSettings opts = new AutoCompleteSettings();
 		opts.setShowListOnEmptyInput(true);
 
 		AutoCompleteTextField<String> actf1 = new AutoCompleteTextField<String>("departurePlace", departureModel, opts) {
+			private static final long serialVersionUID = 1L;
 			@Override
 			protected Iterator<String> getChoices(String input) {
                 List<String> choices = placeService.findAllPlacesNamesByLanguageAndName(lang, input);
@@ -58,6 +59,7 @@ public class SearchPage extends BasePage {
 			}
 		};
 		actf1.add(new OnChangeAjaxBehavior(){
+			private static final long serialVersionUID = 1L;
 			@Override
 			protected void onUpdate(final AjaxRequestTarget target){
 				ajax1 = ((AutoCompleteTextField<String>) getComponent()).getModelObject();
@@ -68,6 +70,7 @@ public class SearchPage extends BasePage {
 		actf1.setOutputMarkupPlaceholderTag(true);
 
 		AutoCompleteTextField<String> actf2 = new AutoCompleteTextField<String>("destinationPlace", destinationModel, opts) {
+			private static final long serialVersionUID = 1L;
 			@Override
 			protected Iterator<String> getChoices(String input) {
                 List<String> choices = placeService.findAllPlacesNamesByLanguageAndName(lang, "" + input);
@@ -75,6 +78,7 @@ public class SearchPage extends BasePage {
 			}
 		};
 		actf2.add(new OnChangeAjaxBehavior(){
+			private static final long serialVersionUID = 1L;
 			@Override
 			protected void onUpdate(final AjaxRequestTarget target){
 				ajax2 = ((AutoCompleteTextField<String>) getComponent()).getModelObject();
@@ -84,16 +88,18 @@ public class SearchPage extends BasePage {
 		actf2.setOutputMarkupId(true);
 		actf2.setOutputMarkupPlaceholderTag(true);
 		
-		TextField tf3 = new TextField<String>("departureDate", dateModel);
+		TextField<String> tf3 = new TextField<String>("departureDate", dateModel);
 		tf3.add(new OnChangeAjaxBehavior(){
-	        @Override
+	        private static final long serialVersionUID = 1L;
+			@Override
 	        protected void onUpdate(final AjaxRequestTarget target){
 	        	ajax3 = ((TextField<String>) getComponent()).getModelObject();
 	        }
 	    });
 		tf3.setRequired(true);
 		
-		Form form = new Form("searchForm") {
+		Form<Void> form = new Form<Void>("searchForm") {
+			private static final long serialVersionUID = 1L;
 			@Override
 			protected void onSubmit() {
 				actf1.validate();
@@ -112,7 +118,7 @@ public class SearchPage extends BasePage {
 						params.add("destination", destinationPlace);
 						params.add("date", departureDate);
 						params.add("lang", lang);
-						setResponsePage(ResultPage.class, params);
+						setResponsePage(new ResultPage(params));
 					} 
 				} 
 			}
@@ -122,7 +128,7 @@ public class SearchPage extends BasePage {
 		form.add(actf2);
 		form.add(tf3);
 		
-		Model img2Model = new Model();
+		Model<String> img2Model = new Model<>();
 		Image img2 = new Image( "switch-img", img2Model);
 		ResourceReference rr1 = new PackageResourceReference(WicketApplication.class, "static/img/switch50x999.jpg");
 		img2.setImageResourceReference(rr1);
@@ -133,7 +139,7 @@ public class SearchPage extends BasePage {
 
 	@Override
 	protected void setResponse(PageParameters params) {
-		setResponsePage(SearchPage.class, getParams(params));
+		setResponsePage(new SearchPage(getParams(params)));
 	}
 
 	private PageParameters getParams(PageParameters parameters) {

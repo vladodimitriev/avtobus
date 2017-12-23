@@ -3,7 +3,6 @@ package mk.mladen.avtobusi.pages;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
@@ -18,20 +17,36 @@ public class AdminMenuPanel extends Panel {
 
     public AdminMenuPanel(String id) {
         super(id);
-        add(new BookmarkablePageLink<String>("adminBusLinesPage", AdminBusLinePage.class));
-        add(new BookmarkablePageLink<String>("adminPlacesPage", AdminPlacePage.class));
-        add(new BookmarkablePageLink<String>("adminCarriersPage", AdminCarrierPage.class));
-        add(new Link<String>("adminHomePage") {
+        add(new Link<Void>("adminBusLinesPage") {
+        	private static final long serialVersionUID = 1L;
+			@Override
+            public void onClick() {
+                setResponsePage(AdminBusLinePage.class);
+            }
+        });
+        add(new Link<Void>("adminPlacesPage") {
+        	private static final long serialVersionUID = 1L;
+			@Override
+            public void onClick() {
+                setResponsePage(AdminPlacePage.class);
+            }
+        });
+        add(new Link<Void>("adminCarriersPage") {
+        	private static final long serialVersionUID = 1L;
+			@Override
+            public void onClick() {
+                setResponsePage(AdminCarrierPage.class);
+            }
+        });
+        add(new Link<Void>("adminHomePage") {
             private static final long serialVersionUID = 5357812371802339220L;
-
             @Override
-            public void onClick() {//iipaxIpvDataervice.getIpvDataTypes();
+            public void onClick() {
                 setResponsePage(AdminHomePage.class);
             }
         });
-        add(new Link<String>("signOut") {
+        add(new Link<Void>("signOut") {
             private static final long serialVersionUID = 5357812371802339220L;
-
             @Override
             public void onClick() {
                 AuthenticatedSession.get().signOut();

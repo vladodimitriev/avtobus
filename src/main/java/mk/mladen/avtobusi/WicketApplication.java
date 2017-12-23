@@ -28,7 +28,6 @@ public class WicketApplication extends AuthenticatedWebApplication {
 		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfiguration.class);
 		getComponentInstantiationListeners().add(new SpringComponentInjector(this, ctx));
 		ctx.register(AppConfiguration.class);
-		//mountPage("login", LoginPage.class);
 		mountPage("admin", AdminHomePage.class);
 		
 		getApplicationSettings().setAccessDeniedPage(AccessDeniedPage.class);

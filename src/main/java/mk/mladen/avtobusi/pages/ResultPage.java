@@ -36,7 +36,7 @@ import mk.mladen.avtobusi.dto.BusLineDto;
 import mk.mladen.avtobusi.service.BusLineService;
 import mk.mladen.avtobusi.service.PlaceService;
 
-@SuppressWarnings({ "rawtypes", "serial", "unchecked" })
+@SuppressWarnings("unchecked")
 public class ResultPage extends BasePage {
 
 	private static final long serialVersionUID = 1L;
@@ -63,7 +63,7 @@ public class ResultPage extends BasePage {
 		searchBean = new SearchBean(params);
 		busResourceReference = new PackageResourceReference(WicketApplication.class, "static/img/bus21x21x999.jpg");
 
-		Model imgSwitchModel = new Model();
+		Model<String> imgSwitchModel = new Model<>();
 		Image imgSwitch = new Image( "switch-img", imgSwitchModel);
 		ResourceReference rr1 = new PackageResourceReference(WicketApplication.class, "static/img/switch50x999.jpg");
 		imgSwitch.setImageResourceReference(rr1);
@@ -71,7 +71,8 @@ public class ResultPage extends BasePage {
 		AutoCompleteSettings opts = new AutoCompleteSettings();
 		opts.setShowListOnEmptyInput(true);
 		
-		AutoCompleteTextField<String> actf1 = new AutoCompleteTextField<String>("departurePlace", new PropertyModel(searchBean, "departurePlace"), opts) {
+		AutoCompleteTextField<String> actf1 = new AutoCompleteTextField<String>("departurePlace", new PropertyModel<String>(searchBean, "departurePlace"), opts) {
+			private static final long serialVersionUID = 1L;
 			@Override
 			protected Iterator<String> getChoices(String input) {
 				List<String> choices = placeService.findAllPlacesNamesByLanguageAndName(lang, input);
@@ -79,7 +80,8 @@ public class ResultPage extends BasePage {
 			}
 		};
 		actf1.add(new OnChangeAjaxBehavior(){
-	        @Override
+	        private static final long serialVersionUID = 1L;
+			@Override
 	        protected void onUpdate(final AjaxRequestTarget target){
 	        	ajax1 = ((AutoCompleteTextField<String>) getComponent()).getModelObject();
 	        }
@@ -87,7 +89,8 @@ public class ResultPage extends BasePage {
 		actf1.setRequired(true);
 		actf1.setOutputMarkupId(true);
 		
-		AutoCompleteTextField<String> actf2 = new AutoCompleteTextField<String>("destinationPlace", new PropertyModel(searchBean, "destinationPlace"), opts) {
+		AutoCompleteTextField<String> actf2 = new AutoCompleteTextField<String>("destinationPlace", new PropertyModel<String>(searchBean, "destinationPlace"), opts) {
+			private static final long serialVersionUID = 1L;
 			@Override
 			protected Iterator<String> getChoices(String input) {
 				List<String> choices = placeService.findAllPlacesNamesByLanguageAndName(lang, input);
@@ -95,7 +98,8 @@ public class ResultPage extends BasePage {
 			}
 		};
 		actf2.add(new OnChangeAjaxBehavior(){
-	        @Override
+	        private static final long serialVersionUID = 1L;
+			@Override
 	        protected void onUpdate(final AjaxRequestTarget target){
 	        	ajax2 = ((AutoCompleteTextField<String>) getComponent()).getModelObject();
 	        }
@@ -103,9 +107,10 @@ public class ResultPage extends BasePage {
 		actf2.setRequired(true);
 		actf2.setOutputMarkupId(true);
 		
-		TextField tf3 = new TextField<String>("departureDate", new PropertyModel(searchBean, "departureDate"));
+		TextField<String> tf3 = new TextField<String>("departureDate", new PropertyModel<String>(searchBean, "departureDate"));
 		tf3.add(new OnChangeAjaxBehavior(){
-	        @Override
+	        private static final long serialVersionUID = 1L;
+			@Override
 	        protected void onUpdate(final AjaxRequestTarget target){
 	        	ajax3 = ((TextField<String>) getComponent()).getModelObject();
 	        }
@@ -114,7 +119,8 @@ public class ResultPage extends BasePage {
 		dataView = createDataView();
 		dataView.setOutputMarkupId(true);
 
-		Form form = new Form("resultSearchForm"){
+		Form<Void> form = new Form<Void>("resultSearchForm"){
+			private static final long serialVersionUID = 1L;
 			@Override
 			protected void onSubmit() {
 				dataView = createDataView();
@@ -133,11 +139,12 @@ public class ResultPage extends BasePage {
 	private PropertyListView<BusLineDto> createDataView() {
 		List<BusLineDto> busLines = loadRelations();
 		dataView = new PropertyListView<BusLineDto>("rows", busLines) {
+			  private static final long serialVersionUID = 1L;
 			  @Override
 			  protected void populateItem(ListItem<BusLineDto> item) {
 				  final BusLineDto busLine = item.getModelObject();
 				  List<String> placesList = createSmallPlaces(busLine);
-				  Model imgModel = new Model();
+				  Model<String> imgModel = new Model<>();
 				  Image bus_img = new Image( "bus_img", imgModel);
 				  bus_img.setImageResourceReference(busResourceReference);
 
@@ -201,6 +208,7 @@ public class ResultPage extends BasePage {
 				  WebMarkupContainer detailsPanel = new WebMarkupContainer("detailsPanel");
 				  detailsPanel.setOutputMarkupPlaceholderTag(true);
 				  ListView<String> circles = new ListView<String>("circles", placesList.subList(0, placesList.size() - 1)) {
+					  private static final long serialVersionUID = 1L;
 					  @Override
 					  protected void populateItem(ListItem<String> item) {
 
@@ -209,6 +217,7 @@ public class ResultPage extends BasePage {
 				  detailsPanel.add(circles);
 
 				  ListView<String> places = new ListView<String>("places", placesList) {
+					  private static final long serialVersionUID = 1L;
 					  @Override
 					  protected void populateItem(ListItem<String> item2) {
 						  String object = item2.getModelObject();
@@ -289,7 +298,6 @@ public class ResultPage extends BasePage {
 	private AjaxEventBehavior getAjaxBehavior(WebMarkupContainer detailsPanel, Label glyphicon) {
 		return new AjaxEventBehavior("click") {
 			private static final long serialVersionUID = 42L;
-
 			@Override
 			protected void onEvent(AjaxRequestTarget target) {
 				if (detailsPanel.isVisible()) {
@@ -344,19 +352,16 @@ public class ResultPage extends BasePage {
 	}
 	
 	public class PurchasePanel extends Panel {
-		
 		private static final long serialVersionUID = 1L;
-		
 		public PurchasePanel(String id) {
 			super(id);
-			add(new Button(id, new Model("Purchase")));
+			add(new Button(id, new Model<>("Purchase")));
 		}
-		
 	}
 
 	@Override
 	protected void setResponse(PageParameters params) {
-		setResponsePage(ResultPage.class, getParams(params));
+		setResponsePage(new ResultPage(getParams(params)));
 	}
 
 	private PageParameters getParams(PageParameters parameters) {

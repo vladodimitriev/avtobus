@@ -3,7 +3,6 @@ package mk.mladen.avtobusi.pages;
 import java.util.Locale;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
@@ -13,7 +12,6 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.link.ResourceLink;
-import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -25,7 +23,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import mk.mladen.avtobusi.WicketApplication;
 import mk.mladen.avtobusi.service.InsertDataService;
 
-@SuppressWarnings("serial")
 public abstract class BasePage extends WebPage {
 
 	private static final long serialVersionUID = 1L;
@@ -44,7 +41,6 @@ public abstract class BasePage extends WebPage {
 		super.onInitialize();
 	}
 	
-	@SuppressWarnings("rawtypes")
 	public BasePage(PageParameters parameters) {
 		super(parameters);
 		this.parameters = parameters;
@@ -57,66 +53,48 @@ public abstract class BasePage extends WebPage {
 		}
 		changeUserLocaleTo(lang);
 		
-		Link searchPageLink = new Link("searchPage") {
-			@Override
-			public MarkupContainer setDefaultModel(IModel model) {
-				return null;
-			}
+		Link<Void> searchPageLink = new Link<Void>("searchPage") {
+			private static final long serialVersionUID = 1L;
 			@Override
 			public void onClick() {
-				setResponsePage(SearchPage.class, parameters);
+				setResponsePage(new SearchPage(parameters));
 			}
 		};
 		add(searchPageLink);
 		
-		Link<String> aboutPage = new Link<String>("AboutPage") {
-			
-			@Override
-			public MarkupContainer setDefaultModel(IModel model) {
-				return null;
-			}
-
+		Link<Void> aboutPage = new Link<Void>("AboutPage") {
+			private static final long serialVersionUID = 1L;
 			@Override
 			public void onClick() {
-				setResponsePage(AboutPage.class, parameters);
+				setResponsePage(new AboutPage(parameters));
 			}
 		};
 		add(aboutPage);
 		
-		Link<String> contactPage = new Link<String>("ContactPage") {
-
-			@Override
-			public MarkupContainer setDefaultModel(IModel model) {
-				return null;
-			}
-
+		Link<Void> contactPage = new Link<Void>("ContactPage") {
+			private static final long serialVersionUID = 1L;
 			@Override
 			public void onClick() {
-				setResponsePage(ContactPage.class, parameters);
+				setResponsePage(new ContactPage(parameters));
 			}
 		};
 		add(contactPage);
 
-		Link<String> adminPage = new Link<String>("LoginPage") {
-
-			@Override
-			public MarkupContainer setDefaultModel(IModel model) {
-				return null;
-			}
-
+		Link<Void> adminPage = new Link<Void>("LoginPage") {
+			private static final long serialVersionUID = 1L;
 			@Override
 			public void onClick() {
-				setResponsePage(LoginPage.class, parameters);
+				setResponsePage(new LoginPage(parameters));
 			}
 		};
 		add(adminPage);
 
-		Model langLabelModel = new Model<String>(lang);
+		Model<String> langLabelModel = new Model<String>(lang);
 		
 		Label languageLabel = new Label("language_label", langLabelModel);
 		add(languageLabel);
 
-		Model imgModel = new Model();
+		Model<String> imgModel = new Model<String>();
 		Image img = new Image( "language_img", imgModel);
 
 		ResourceReference resourceReference = new PackageResourceReference(WicketApplication.class, "static/flags/4x3/gb.svg");
@@ -128,33 +106,21 @@ public abstract class BasePage extends WebPage {
 		img.setImageResourceReference(resourceReference);
 		add(img);
 
-		Link link1 = new Link("english") {
-
-			@Override
-			public MarkupContainer setDefaultModel(IModel model) {
-				return null;
-			}
-
+		add(new Link<Void>("english") {
+			private static final long serialVersionUID = 1L;
 			@Override
 			public void onClick() {
 				setResponse(getParams("EN"));
 			}
-		};
-		add(link1);
+		});
 
-		Link link2 = new Link("macedonian") {
-
-			@Override
-			public MarkupContainer setDefaultModel(IModel model) {
-				return null;
-			}
-
+		add(new Link<Void>("macedonian") {
+			private static final long serialVersionUID = 1L;
 			@Override
 			public void onClick() {
 				setResponse(getParams("MK"));
 			}
-		};
-		add(link2);
+		});
 		
 		ResourceReference resourceReferenceFavicon = new PackageResourceReference(WicketApplication.class, "static/img/bus16x16.png");
 		ResourceLink<ResourceReference> favicon = new ResourceLink<ResourceReference>("favicon", resourceReferenceFavicon);

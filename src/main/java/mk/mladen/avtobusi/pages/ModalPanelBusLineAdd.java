@@ -80,7 +80,7 @@ public class ModalPanelBusLineAdd extends Panel {
         form.add(priceTxt);
         form.add(carrierList);
 
-        AjaxLink<String> cancelLink = new AjaxLink<String>("cancelLink") {
+        AjaxLink<Void> cancelLink = new AjaxLink<Void>("cancelLink") {
             private static final long serialVersionUID = 1L;
 			@Override
             public void onClick(AjaxRequestTarget target) {

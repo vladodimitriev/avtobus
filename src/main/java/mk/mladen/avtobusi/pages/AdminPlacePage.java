@@ -78,7 +78,7 @@ public class AdminPlacePage extends BaseAdminPage {
         });
         add(modalWindow);
 
-        AjaxLink<String> link = new AjaxLink<String>("addLink") {
+        AjaxLink<Void> link = new AjaxLink<Void>("addLink") {
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -115,7 +115,7 @@ public class AdminPlacePage extends BaseAdminPage {
                 ModalWindow modalWindowDelete = createModalWindowDelete(placeDto);
                 item.add(modalWindowDelete);
 
-                AjaxLink<String> link1 = new AjaxLink<String>("detailsLink") {
+                AjaxLink<Void> link1 = new AjaxLink<Void>("detailsLink") {
 					private static final long serialVersionUID = 1L;
 					@Override
                     public void onClick(AjaxRequestTarget target) {
@@ -125,7 +125,7 @@ public class AdminPlacePage extends BaseAdminPage {
                 item.add(link1);
 
                 /*	
-                AjaxLink<String> link2 = new AjaxLink<String>("deleteLink") {
+                AjaxLink<Void> link2 = new AjaxLink<Void>("deleteLink") {
 					private static final long serialVersionUID = 1L;
 					@Override
                     public void onClick(AjaxRequestTarget target) {
@@ -183,6 +183,6 @@ public class AdminPlacePage extends BaseAdminPage {
 
     @Override
     protected void setResponse(PageParameters params) {
-        setResponsePage(AdminPlacePage.class, params);
+        setResponsePage(new AdminPlacePage(params));
     }
 }

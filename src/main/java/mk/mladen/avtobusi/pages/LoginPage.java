@@ -84,7 +84,7 @@ public class LoginPage extends BasePage {
     
     @Override
     protected void setResponse(PageParameters params) {
-        setResponsePage(LoginPage.class, params);
+        setResponsePage(new LoginPage(params));
     }
 
 }

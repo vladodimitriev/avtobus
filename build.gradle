@@ -7,7 +7,7 @@ buildscript {
     }
 }
 ext {
-    wicketVersion = '8.0.0-M8'
+    wicketVersion = '8.0.0-M7'
     springVersion = '5.0.2.RELEASE'
     jacksonVersion = '2.8.8'
     hibernateVersion = '5.0.4.Final'
