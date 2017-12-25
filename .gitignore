@@ -8,6 +8,11 @@ log/
 log/*
 /log/
 /log/*
+log2
+log2/
+log2/*
+/log2/
+/log2/*
 /seg0/
 /seg0/*
 /tmp/

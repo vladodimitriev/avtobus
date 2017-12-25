@@ -159,7 +159,7 @@ public class SearchPage extends BasePage {
 		
 		if(ajax1 != null) {
 			String departurePlace = ajax1;
-			if(departurePlace != null) {
+			if(StringUtils.isNotBlank(departurePlace)) {
 				if(language.equals("mk")) {
 					departurePlace = OperationsUtil.createMacedonianName(departurePlace);
 				} else if(language.equals("en")) {
@@ -169,7 +169,7 @@ public class SearchPage extends BasePage {
 			}
 		} else {
 			String departurePlace = searchBean.getDeparturePlace();
-			if(departurePlace != null) {
+			if(StringUtils.isNotBlank(departurePlace)) {
 				if(language.equals("mk")) {
 					departurePlace = OperationsUtil.createMacedonianName(departurePlace);
 				} else if(language.equals("en")) {
@@ -181,7 +181,7 @@ public class SearchPage extends BasePage {
 
 		if(ajax2 != null) {
 			String destinationPlace = ajax2;
-			if(destinationPlace != null) {
+			if(StringUtils.isNotBlank(destinationPlace)) {
 				if(language.equals("mk")) {
 					destinationPlace = OperationsUtil.createMacedonianName(destinationPlace);
 				} else if(language.equals("en")) {
@@ -191,7 +191,7 @@ public class SearchPage extends BasePage {
 			}
 		} else if(searchBean.getDestinationPlace() != null) {
 			String destinationPlace = searchBean.getDestinationPlace();
-			if(destinationPlace != null) {
+			if(StringUtils.isNotBlank(destinationPlace)) {
 				if(language.equals("mk")) {
 					destinationPlace = OperationsUtil.createMacedonianName(destinationPlace);
 				} else if(language.equals("en")) {
