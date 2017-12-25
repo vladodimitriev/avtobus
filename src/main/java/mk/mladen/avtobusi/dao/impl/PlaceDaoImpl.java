@@ -4,7 +4,6 @@ import mk.mladen.avtobusi.dao.PlaceDao;
 import mk.mladen.avtobusi.entity.PlaceEntity;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
@@ -16,6 +15,7 @@ import java.util.List;
 @Repository(value = "placeDao")
 public class PlaceDaoImpl extends GenericDaoImpl<PlaceEntity> implements PlaceDao {
 	
+	@SuppressWarnings("unused")
 	private final static Logger logger = Logger.getLogger(PlaceDaoImpl.class);
 
 	public PlaceDaoImpl() {
@@ -179,7 +179,7 @@ public class PlaceDaoImpl extends GenericDaoImpl<PlaceEntity> implements PlaceDa
 	public List<String> getCommonPlaces(String language) {
 		List<String> results = new ArrayList<String>();
 		String queryStr = "select ple.name from PlaceEntity ple";
-		if("MK".equals(language)) {
+		if("mk".equalsIgnoreCase(language)) {
 			queryStr = "select ple.nameCyrilic from PlaceEntity ple";
 		}
 		Query query = getEntityManager().createQuery(queryStr);

@@ -1,8 +1,5 @@
 package mk.mladen.avtobusi.pages;
 
-import mk.mladen.avtobusi.dto.CarrierDto;
-import mk.mladen.avtobusi.dto.PlaceDto;
-import mk.mladen.avtobusi.service.CarrierService;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
@@ -13,6 +10,9 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
+import mk.mladen.avtobusi.dto.CarrierDto;
+import mk.mladen.avtobusi.service.CarrierService;
+
 public class ModalPanelCarrierUpdate extends Panel {
 
     private static final long serialVersionUID = 1L;
@@ -22,16 +22,17 @@ public class ModalPanelCarrierUpdate extends Panel {
 
     public ModalPanelCarrierUpdate(String id, CarrierDto dto, ModalWindow window) {
         super(id);
-        Form form = new Form("form") {
-            @Override
+        Form<String> form = new Form<String>("form") {
+            private static final long serialVersionUID = 1L;
+			@Override
             protected void onSubmit() {
                 carrierService.updateCarrier(dto);
             }
         };
 
-        PropertyModel nameModel = new PropertyModel(dto, "name");
-        PropertyModel nameCyrillicModel = new PropertyModel(dto, "nameCyrilic");
-        PropertyModel placeModel = new PropertyModel(dto, "place");
+        PropertyModel<String> nameModel = new PropertyModel<String>(dto, "name");
+        PropertyModel<String> nameCyrillicModel = new PropertyModel<String>(dto, "nameCyrilic");
+        PropertyModel<String> placeModel = new PropertyModel<String>(dto, "place");
 
         TextField<String> nameTxt = new TextField<String>("nameTxt", nameModel);
         TextField<String> nameCyrillicTxt = new TextField<String>("nameCyrillicTxt", nameCyrillicModel);
@@ -41,15 +42,17 @@ public class ModalPanelCarrierUpdate extends Panel {
         form.add(nameCyrillicTxt);
         form.add(placeTxt);
 
-        AjaxLink<String> cancelLink = new AjaxLink<String>("cancelLink") {
-            @Override
+        AjaxLink<Void> cancelLink = new AjaxLink<Void>("cancelLink") {
+            private static final long serialVersionUID = 1L;
+			@Override
             public void onClick(AjaxRequestTarget target) {
                 window.close(target);
             }
         };
 
         AjaxButton saveBtn = new AjaxButton("saveBtn") {
-            @Override
+            private static final long serialVersionUID = 1L;
+			@Override
             protected void onSubmit(AjaxRequestTarget target) {
                 window.close(target);
             }

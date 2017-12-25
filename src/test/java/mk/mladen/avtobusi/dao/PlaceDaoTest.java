@@ -28,7 +28,7 @@ public class PlaceDaoTest {
     @Test
     public void getAllPlacesCyrillicNamesByName() {
     	String name = " Gra";
-    	List<String> result = placeDao.getAllPlacesCyrillicNamesByName("MK", name);
+    	List<String> result = placeDao.getAllPlacesCyrillicNamesByName("mk", name);
     	assertNotNull(result);
         assertFalse(result.isEmpty());
         for(String s : result) {
@@ -39,7 +39,7 @@ public class PlaceDaoTest {
 
     @Test
     public void getPlacesWithCapitalLetterTest() {
-        List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("EN", "S");
+        List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "S");
         assertNotNull(result);
         assertFalse(result.isEmpty());
         assertEquals(4, result.size());
@@ -47,7 +47,7 @@ public class PlaceDaoTest {
 
     @Test
     public void getPlacesWithLowerLetterTest() {
-        List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("EN", "s");
+        List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "s");
         assertNotNull(result);
         assertFalse(result.isEmpty());
         assertEquals(4, result.size());
@@ -55,7 +55,7 @@ public class PlaceDaoTest {
 
     @Test
     public void getPlacesWith3LettersTest() {
-        List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("EN", "Str");
+        List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "Str");
         assertNotNull(result);
         assertFalse(result.isEmpty());
         assertEquals(2, result.size());
@@ -63,7 +63,7 @@ public class PlaceDaoTest {
 
     @Test
     public void getPlacesWith2LettersTest() {
-        List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("EN", "St");
+        List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "St");
         assertNotNull(result);
         assertFalse(result.isEmpty());
         assertEquals(3, result.size());
@@ -71,7 +71,7 @@ public class PlaceDaoTest {
 
     @Test
     public void getPlacesWith4LettersTest() {
-        List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("EN", "Stru");
+        List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "Stru");
         assertNotNull(result);
         assertFalse(result.isEmpty());
         assertEquals(2, result.size());
@@ -79,7 +79,7 @@ public class PlaceDaoTest {
 
     @Test
     public void getPlacesWithKLetterTest() {
-        List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("EN", "k");
+        List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "k");
         assertNotNull(result);
         assertFalse(result.isEmpty());
         assertEquals(6, result.size());
@@ -87,7 +87,7 @@ public class PlaceDaoTest {
 
     @Test
     public void getPlacesWithKrLettersTest() {
-        List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("EN", "Kr");
+        List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "Kr");
         assertNotNull(result);
         assertFalse(result.isEmpty());
         assertEquals(2, result.size());
@@ -95,7 +95,7 @@ public class PlaceDaoTest {
 
     @Test
     public void getPlacesWithEmptyInputTest() {
-        List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("EN", "");
+        List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "");
         assertNotNull(result);
         assertFalse(result.isEmpty());
         assertEquals(10, result.size());
@@ -104,14 +104,14 @@ public class PlaceDaoTest {
 
     @Test
     public void getPlacesWithMiddleInputTest() {
-        List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("EN", "gotin");
+        List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "gotin");
         assertNotNull(result);
         assertTrue(result.isEmpty());
     }
 
     @Test
     public void getDojranTest() {
-        List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("EN", "Dojran");
+        List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "Dojran");
         assertNotNull(result);
         assertTrue(result.isEmpty());
     }

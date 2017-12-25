@@ -19,19 +19,21 @@ public class ModalPanelPlaceDelete extends Panel {
 
     public ModalPanelPlaceDelete(String id, PlaceDto dto, ModalWindow window) {
         super(id);
-        PropertyModel nameModel = new PropertyModel(dto, "name");
+        PropertyModel<String> nameModel = new PropertyModel<String>(dto, "name");
         Label nameLbl = new Label("nameLbl", nameModel);
 
-        AjaxLink<String> deleteYesLink = new AjaxLink<String>("deleteYesLink") {
-            @Override
+        AjaxLink<Void> deleteYesLink = new AjaxLink<Void>("deleteYesLink") {
+            private static final long serialVersionUID = 1L;
+			@Override
             public void onClick(AjaxRequestTarget target) {
                 placeService.deletePlace(dto.getId());
                 window.close(target);
             }
         };
 
-        AjaxLink<String> deleteNoLink = new AjaxLink<String>("deleteNoLink") {
-            @Override
+        AjaxLink<Void> deleteNoLink = new AjaxLink<Void>("deleteNoLink") {
+            private static final long serialVersionUID = 1L;
+			@Override
             public void onClick(AjaxRequestTarget target) {
                 window.close(target);
             }

@@ -19,7 +19,6 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PropertyListView;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
-import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
@@ -121,7 +120,7 @@ public class AdminBusLinePage extends BaseAdminPage {
         });
         add(modalWindow);
 
-        AjaxLink<String> link = new AjaxLink<String>("addLink") {
+        AjaxLink<Void> link = new AjaxLink<Void>("addLink") {
 			private static final long serialVersionUID = 1L;
 			@Override
             public void onClick(AjaxRequestTarget target) {
@@ -160,11 +159,11 @@ public class AdminBusLinePage extends BaseAdminPage {
                 label1.add(new AttributeModifier("style", "text-align: left"));
                 item.add(label1);
 
-                if("EN".equalsIgnoreCase(lang)) {
+                if("en".equalsIgnoreCase(lang)) {
                     final Label label = new Label("carrier", busLine.getCarrier());
                     label.add(new AttributeModifier("style", "text-align: left"));
                     item.add(label);
-                } else if("MK".equalsIgnoreCase(lang)) {
+                } else if("mk".equalsIgnoreCase(lang)) {
                     final Label label = new Label("carrier", busLine.getCarrierCyrilic());
                     label.add(new AttributeModifier("style", "text-align: left"));
                     item.add(label);
@@ -187,7 +186,7 @@ public class AdminBusLinePage extends BaseAdminPage {
                 ModalWindow modalWindowDelete = createModalWindowDelete(deleteBean);
                 item.add(modalWindowDelete);
 
-                AjaxLink<String> link1 = new AjaxLink<String>("detailsLink") {
+                AjaxLink<Void> link1 = new AjaxLink<Void>("detailsLink") {
 					private static final long serialVersionUID = 1L;
 					@Override
                     public void onClick(AjaxRequestTarget target) {
@@ -196,7 +195,7 @@ public class AdminBusLinePage extends BaseAdminPage {
                 };
                 item.add(link1);
 
-                AjaxLink<String> link2 = new AjaxLink<String>("deleteLink") {
+                AjaxLink<Void> link2 = new AjaxLink<Void>("deleteLink") {
 					private static final long serialVersionUID = 1L;
 					@Override
                     public void onClick(AjaxRequestTarget target) {
@@ -324,6 +323,6 @@ public class AdminBusLinePage extends BaseAdminPage {
 
     @Override
     protected void setResponse(PageParameters params) {
-        setResponsePage(AdminBusLinePage.class, params);
+        setResponsePage(new AdminBusLinePage(params));
     }
 }

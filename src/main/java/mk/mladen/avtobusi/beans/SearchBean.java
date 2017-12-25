@@ -40,21 +40,24 @@ public class SearchBean implements Serializable {
 	
 	public SearchBean(PageParameters params) {
 		if(params != null) {
-			String language = params.get("lang") != null ? params.get("lang").toString() : "MK";
-			if("MK".equalsIgnoreCase(language)) {
-				this.departurePlace = params.get("departure") != null ? OperationsUtil.createMacedonianName(params.get("departure").toString()) : "";
-				this.destinationPlace = params.get("destination") != null ? OperationsUtil.createMacedonianName(params.get("destination").toString()) : "";
+			String language = params.get("lang") != null ? params.get("lang").toString() : "mk";
+			if("mk".equalsIgnoreCase(language)) {
+				departurePlace = params.get("departure") != null ? OperationsUtil.createMacedonianName(params.get("departure").toString()) : "";
+				destinationPlace = params.get("destination") != null ? OperationsUtil.createMacedonianName(params.get("destination").toString()) : "";
 			} else {
-				this.departurePlace = params.get("departure") != null ? OperationsUtil.createLatinName(params.get("departure").toString()) : "";
-				this.destinationPlace = params.get("destination") != null ? OperationsUtil.createLatinName(params.get("destination").toString()) : "";
+				departurePlace = params.get("departure") != null ? OperationsUtil.createLatinName(params.get("departure").toString()) : "";
+				destinationPlace = params.get("destination") != null ? OperationsUtil.createLatinName(params.get("destination").toString()) : "";
 			}
-			this.departureDate = params.get("date") != null ? params.get("date").toString() : "";
+			departureDate = params.get("date").isEmpty() ? "" : params.get("date").toString();
+			if(StringUtils.isNotBlank(departureDate)) {
+				departureDate = this.departureDate.replace("-", "/");
+			}
 		}  
 			
 		if(StringUtils.isBlank(departureDate)) {
 			Date d = new Date();
 			SimpleDateFormat sde = new SimpleDateFormat("dd/MM/yyyy");
-			this.departureDate = sde.format(d);
+			departureDate = sde.format(d);
 		}
 	}
 	

@@ -44,7 +44,7 @@ public class ModalPanelPlaceUpdate extends Panel {
         form.add(countryTxt);
         form.add(importanceTxt);
 
-        AjaxLink<String> cancelLink = new AjaxLink<String>("cancelLink") {
+        AjaxLink<Void> cancelLink = new AjaxLink<Void>("cancelLink") {
 			private static final long serialVersionUID = 1L;
 			@Override
             public void onClick(AjaxRequestTarget target) {

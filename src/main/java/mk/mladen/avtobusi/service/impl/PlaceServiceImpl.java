@@ -65,14 +65,14 @@ public class PlaceServiceImpl implements PlaceService {
 	@Override
 	public List<String> findAllPlacesNamesByLanguageAndName(String language, String name) {
 		List<String> places = null;
-		if("MK".equalsIgnoreCase(language)) {
+		if("mk".equalsIgnoreCase(language)) {
 			places = placeDao.getAllPlacesCyrillicNamesByName(language, name);
 		} else {
 			places = placeDao.getAllPlacesNamesByLanguageAndName(language, name);
 		}
 		
 		if(places == null || places.isEmpty()) {
-			if("MK".equalsIgnoreCase(language)) {
+			if("mk".equalsIgnoreCase(language)) {
 				places = placeDao.getAllPlacesCyrillicNamesByNameAndMask(language, name);
 			} else {
 				places = placeDao.getAllPlacesNamesByLanguageAndNameAndMask(language, name);

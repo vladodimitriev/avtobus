@@ -18,6 +18,6 @@ public class AdminHomePage extends BaseAdminPage {
 
     @Override
     protected void setResponse(PageParameters params) {
-        setResponsePage(AdminHomePage.class, params);
+        setResponsePage(new AdminHomePage(params));
     }
 }

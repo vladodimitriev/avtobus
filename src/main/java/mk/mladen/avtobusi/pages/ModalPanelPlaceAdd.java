@@ -22,17 +22,18 @@ public class ModalPanelPlaceAdd extends Panel {
     public ModalPanelPlaceAdd(String id, ModalWindow window) {
         super(id);
         PlaceDto placeDto = new PlaceDto();
-        Form form = new Form("addForm") {
-            @Override
+        Form<String> form = new Form<String>("addForm") {
+            private static final long serialVersionUID = 1L;
+			@Override
             protected void onSubmit() {
                 //placeService.addNewPlace(placeDto);
             }
         };
 
-        PropertyModel nameModel = new PropertyModel(placeDto, "name");
-        PropertyModel nameCyrillicModel = new PropertyModel(placeDto, "nameCyrilic");
-        PropertyModel countryModel = new PropertyModel(placeDto, "country");
-        PropertyModel importanceModel = new PropertyModel(placeDto, "importance");
+        PropertyModel<String> nameModel = new PropertyModel<String>(placeDto, "name");
+        PropertyModel<String> nameCyrillicModel = new PropertyModel<String>(placeDto, "nameCyrilic");
+        PropertyModel<String> countryModel = new PropertyModel<String>(placeDto, "country");
+        PropertyModel<Integer> importanceModel = new PropertyModel<Integer>(placeDto, "importance");
 
         TextField<String> nameTxt = new TextField<String>("nameTxt", nameModel);
         TextField<String> nameCyrillicTxt = new TextField<String>("nameCyrillicTxt", nameCyrillicModel);
@@ -44,15 +45,17 @@ public class ModalPanelPlaceAdd extends Panel {
         form.add(countryTxt);
         form.add(importanceTxt);
 
-        AjaxLink<String> cancelLink = new AjaxLink<String>("cancelLink") {
-            @Override
+        AjaxLink<Void> cancelLink = new AjaxLink<Void>("cancelLink") {
+            private static final long serialVersionUID = 1L;
+			@Override
             public void onClick(AjaxRequestTarget target) {
                 window.close(target);
             }
         };
 
         AjaxButton saveBtn = new AjaxButton("saveBtn") {
-            @Override
+            private static final long serialVersionUID = 1L;
+			@Override
             protected void onSubmit(AjaxRequestTarget target) {
                 window.close(target);
             }

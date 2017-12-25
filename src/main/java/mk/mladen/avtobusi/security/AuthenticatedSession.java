@@ -39,7 +39,8 @@ public class AuthenticatedSession extends AuthenticatedWebSession {
         this.username = username;
         if (authentication.isAuthenticated()) {
         	SecurityContextHolder.getContext().setAuthentication(authentication);
-            httpSession.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
+            httpSession.setAttribute(
+            		HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
                     SecurityContextHolder.getContext());
             return true;
         } else {

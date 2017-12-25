@@ -89,9 +89,8 @@ public class ModalPanelBusLineUpdate extends Panel {
         form.add(smallPlacesTxt);
         form.add(smallPlacesLatinTxt);
 
-        AjaxLink<String> cancelLink = new AjaxLink<String>("cancelLink") {
+        AjaxLink<Void> cancelLink = new AjaxLink<Void>("cancelLink") {
             private static final long serialVersionUID = 1L;
-
 			@Override
             public void onClick(AjaxRequestTarget target) {
                 window.close(target);
@@ -100,7 +99,6 @@ public class ModalPanelBusLineUpdate extends Panel {
 
         AjaxButton saveBtn = new AjaxButton("saveBtn") {
             private static final long serialVersionUID = 1L;
-
 			@Override
             protected void onSubmit(AjaxRequestTarget target) {
                 window.close(target);

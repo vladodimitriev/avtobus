@@ -7,7 +7,7 @@ buildscript {
     }
 }
 ext {
-    wicketVersion = '8.0.0-M8'
+    wicketVersion = '8.0.0-M7'
     springVersion = '5.0.2.RELEASE'
     jacksonVersion = '2.8.8'
     hibernateVersion = '5.0.4.Final'
@@ -57,6 +57,7 @@ dependencies {
     compile "org.apache.wicket:wicket-extensions:${wicketVersion}"
     compile "org.apache.wicket:wicket-ioc:${wicketVersion}"
     compile "org.apache.wicket:wicket-auth-roles:${wicketVersion}"
+    compile "org.wicketstuff:wicketstuff-annotation:${wicketVersion}"
     
     compile "org.hibernate:hibernate-core:${hibernateVersion}"
     compile "org.hibernate:hibernate-entitymanager:${hibernateVersion}"

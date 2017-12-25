@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
 import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteSettings;
@@ -22,15 +21,13 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import mk.mladen.avtobusi.WicketApplication;
 import mk.mladen.avtobusi.beans.SearchBean;
 import mk.mladen.avtobusi.service.PlaceService;
+import mk.mladen.avtobusi.service.impl.OperationsUtil;
 
-@SuppressWarnings({ "rawtypes", "serial", "unchecked" })
+@SuppressWarnings("unchecked")
 public class SearchPage extends BasePage {
 
 	private static final long serialVersionUID = 1L;
 	
-	@SuppressWarnings("unused")
-	private final static Logger logger = Logger.getLogger(SearchPage.class);
-
 	private String ajax1;
 	private String ajax2;
 	private String ajax3;
@@ -43,14 +40,15 @@ public class SearchPage extends BasePage {
 	public SearchPage(PageParameters params) {
 		super(params);
 		searchBean = new SearchBean(params);
-		PropertyModel departureModel = new PropertyModel(searchBean, "departurePlace");
-		PropertyModel destinationModel = new PropertyModel(searchBean, "destinationPlace");
-		PropertyModel dateModel = new PropertyModel(searchBean, "departureDate");
+		final PropertyModel<String> departureModel = new PropertyModel<String>(searchBean, "departurePlace");
+		final PropertyModel<String> destinationModel = new PropertyModel<String>(searchBean, "destinationPlace");
+		final PropertyModel<String> dateModel = new PropertyModel<String>(searchBean, "departureDate");
 
-		AutoCompleteSettings opts = new AutoCompleteSettings();
+		final AutoCompleteSettings opts = new AutoCompleteSettings();
 		opts.setShowListOnEmptyInput(true);
 
-		AutoCompleteTextField<String> actf1 = new AutoCompleteTextField<String>("departurePlace", departureModel, opts) {
+		final AutoCompleteTextField<String> actf1 = new AutoCompleteTextField<String>("departurePlace", departureModel, opts) {
+			private static final long serialVersionUID = 1L;
 			@Override
 			protected Iterator<String> getChoices(String input) {
                 List<String> choices = placeService.findAllPlacesNamesByLanguageAndName(lang, input);
@@ -58,8 +56,9 @@ public class SearchPage extends BasePage {
 			}
 		};
 		actf1.add(new OnChangeAjaxBehavior(){
+			private static final long serialVersionUID = 1L;
 			@Override
-			protected void onUpdate(final AjaxRequestTarget target){
+			protected void onUpdate(AjaxRequestTarget target){
 				ajax1 = ((AutoCompleteTextField<String>) getComponent()).getModelObject();
 			}
 		});
@@ -67,7 +66,8 @@ public class SearchPage extends BasePage {
 		actf1.setOutputMarkupId(true);
 		actf1.setOutputMarkupPlaceholderTag(true);
 
-		AutoCompleteTextField<String> actf2 = new AutoCompleteTextField<String>("destinationPlace", destinationModel, opts) {
+		final AutoCompleteTextField<String> actf2 = new AutoCompleteTextField<String>("destinationPlace", destinationModel, opts) {
+			private static final long serialVersionUID = 1L;
 			@Override
 			protected Iterator<String> getChoices(String input) {
                 List<String> choices = placeService.findAllPlacesNamesByLanguageAndName(lang, "" + input);
@@ -75,8 +75,9 @@ public class SearchPage extends BasePage {
 			}
 		};
 		actf2.add(new OnChangeAjaxBehavior(){
+			private static final long serialVersionUID = 1L;
 			@Override
-			protected void onUpdate(final AjaxRequestTarget target){
+			protected void onUpdate(AjaxRequestTarget target){
 				ajax2 = ((AutoCompleteTextField<String>) getComponent()).getModelObject();
 			}
 		});
@@ -84,16 +85,18 @@ public class SearchPage extends BasePage {
 		actf2.setOutputMarkupId(true);
 		actf2.setOutputMarkupPlaceholderTag(true);
 		
-		TextField tf3 = new TextField<String>("departureDate", dateModel);
+		final TextField<String> tf3 = new TextField<String>("departureDate", dateModel);
 		tf3.add(new OnChangeAjaxBehavior(){
-	        @Override
-	        protected void onUpdate(final AjaxRequestTarget target){
+	        private static final long serialVersionUID = 1L;
+			@Override
+	        protected void onUpdate(AjaxRequestTarget target){
 	        	ajax3 = ((TextField<String>) getComponent()).getModelObject();
 	        }
 	    });
 		tf3.setRequired(true);
 		
-		Form form = new Form("searchForm") {
+		final Form<Void> form = new Form<Void>("searchForm") {
+			private static final long serialVersionUID = 1L;
 			@Override
 			protected void onSubmit() {
 				actf1.validate();
@@ -103,16 +106,28 @@ public class SearchPage extends BasePage {
 				    String departurePlace = searchBean.getDeparturePlace();
 				    String destinationPlace = searchBean.getDestinationPlace();
 				    String departureDate = searchBean.getDepartureDate();
+				    
 					if(StringUtils.isNotBlank(departurePlace) &&
 							StringUtils.isNotBlank(destinationPlace) &&
 							StringUtils.isNotBlank(departureDate)) {
 						
+						departureDate = departureDate.replace("/", "-");
 						PageParameters params = new PageParameters();
-						params.add("departure", departurePlace);
-						params.add("destination", destinationPlace);
-						params.add("date", departureDate);
 						params.add("lang", lang);
-						setResponsePage(ResultPage.class, params);
+						if(StringUtils.isNotBlank(departurePlace)) {
+							params.add("departure", departurePlace);
+						}
+						
+						if(StringUtils.isNotBlank(destinationPlace)) {
+							params.add("destination", destinationPlace);
+						}
+						
+						if(StringUtils.isNotBlank(departureDate)) {
+							params.add("date", departureDate);
+						}
+						
+						ResultPage resultPage = new ResultPage(params);
+						setResponsePage(resultPage);
 					} 
 				} 
 			}
@@ -122,49 +137,88 @@ public class SearchPage extends BasePage {
 		form.add(actf2);
 		form.add(tf3);
 		
-		Model img2Model = new Model();
-		Image img2 = new Image( "switch-img", img2Model);
-		ResourceReference rr1 = new PackageResourceReference(WicketApplication.class, "static/img/switch50x999.jpg");
-		img2.setImageResourceReference(rr1);
-		form.add(img2);
+		final Model<String> imgSwitchModel = new Model<>();
+		final Image imgSwitch = new Image( "switch-img", imgSwitchModel);
+		final ResourceReference rrSwitch = new PackageResourceReference(WicketApplication.class, "static/img/switch50x999.jpg");
+		imgSwitch.setImageResourceReference(rrSwitch);
+		form.add(imgSwitch);
 
 		add(form);
 	}
 
 	@Override
-	protected void setResponse(PageParameters params) {
-		setResponsePage(SearchPage.class, getParams(params));
-	}
-
-	private PageParameters getParams(PageParameters parameters) {
-		PageParameters params = new PageParameters();
-		if(ajax1 != null) {
-			params.add("departure", ajax1);
-		} else if(searchBean.getDeparturePlace() != null) {
-			params.add("departure", searchBean.getDeparturePlace());
-		}
-
-		if(ajax2 != null) {
-			params.add("destination", ajax2);
-		} else if(searchBean.getDestinationPlace() != null) {
-			params.add("destination", searchBean.getDestinationPlace());
-		}
-
-		if(ajax3 != null) {
-			params.add("date", ajax3);
-		} else if(searchBean.getDepartureDate() != null) {
-			params.add("date", searchBean.getDepartureDate());
-		}
-
-		String language = "EN";
-		if(params != null && parameters.get("lang") != null) {
+	protected void setResponse(PageParameters parameters) {
+		final PageParameters params = new PageParameters();
+		String language = "mk";
+		if(!parameters.get("lang").isEmpty()) {
 			language = parameters.get("lang").toString();
 		}
 		if(language != null) {
 			params.add("lang", language);
 		}
+		
+		if(ajax1 != null) {
+			String departurePlace = ajax1;
+			if(departurePlace != null) {
+				if(language.equals("mk")) {
+					departurePlace = OperationsUtil.createMacedonianName(departurePlace);
+				} else if(language.equals("en")) {
+					departurePlace = OperationsUtil.createLatinName(departurePlace);
+				}
+				params.add("departure", departurePlace);
+			}
+		} else {
+			String departurePlace = searchBean.getDeparturePlace();
+			if(departurePlace != null) {
+				if(language.equals("mk")) {
+					departurePlace = OperationsUtil.createMacedonianName(departurePlace);
+				} else if(language.equals("en")) {
+					departurePlace = OperationsUtil.createLatinName(departurePlace);
+				}
+				params.add("departure", departurePlace);
+			}
+		}
 
-		return params;
+		if(ajax2 != null) {
+			String destinationPlace = ajax2;
+			if(destinationPlace != null) {
+				if(language.equals("mk")) {
+					destinationPlace = OperationsUtil.createMacedonianName(destinationPlace);
+				} else if(language.equals("en")) {
+					destinationPlace = OperationsUtil.createLatinName(destinationPlace);
+				}
+				params.add("destination", destinationPlace);
+			}
+		} else if(searchBean.getDestinationPlace() != null) {
+			String destinationPlace = searchBean.getDestinationPlace();
+			if(destinationPlace != null) {
+				if(language.equals("mk")) {
+					destinationPlace = OperationsUtil.createMacedonianName(destinationPlace);
+				} else if(language.equals("en")) {
+					destinationPlace = OperationsUtil.createLatinName(destinationPlace);
+				}
+				params.add("destination", destinationPlace);
+			}
+		}
+
+		if(ajax3 != null) {
+			String departureDate = ajax3;
+			if(StringUtils.isNotBlank(departureDate) && departureDate.contains("/")) {
+				departureDate = departureDate.replace("/", "-");
+			}
+			params.add("date", departureDate);
+		} else if(StringUtils.isNotBlank(searchBean.getDepartureDate())) {
+			String departureDate = searchBean.getDepartureDate();
+			if(StringUtils.isNotBlank(departureDate) && departureDate.contains("/")) {
+				departureDate = departureDate.replace("/", "-");
+			} else if(StringUtils.isNotBlank(departureDate) && departureDate.contains("-")) {
+				departureDate = departureDate.replace("-", "/");
+			}
+			params.add("date", departureDate);
+		}
+
+		final SearchPage searchPage = new SearchPage(params);
+		setResponsePage(searchPage);
 	}
-	
+
 }

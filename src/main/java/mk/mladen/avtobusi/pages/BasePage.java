@@ -3,7 +3,6 @@ package mk.mladen.avtobusi.pages;
 import java.util.Locale;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
@@ -13,148 +12,124 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.link.ResourceLink;
-import org.apache.wicket.model.IModel;
+import org.apache.wicket.markup.html.link.StatelessLink;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.settings.JavaScriptLibrarySettings;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import mk.mladen.avtobusi.WicketApplication;
-import mk.mladen.avtobusi.service.InsertDataService;
 
-@SuppressWarnings("serial")
 public abstract class BasePage extends WebPage {
 
 	private static final long serialVersionUID = 1L;
 
-	@SpringBean
-	private InsertDataService insertDataService;
-
-	protected PageParameters parameters;
-	
-	protected String lang = "MK";
+	protected String lang = "mk";
 	protected String ttmh;
 	protected String ttmm;
 	
-	@Override
-	protected void onInitialize() {
-		super.onInitialize();
-	}
-	
-	@SuppressWarnings("rawtypes")
 	public BasePage(PageParameters parameters) {
 		super(parameters);
-		this.parameters = parameters;
-		if(parameters != null && parameters.get("lang") != null) {
+		if(!parameters.get("lang").isEmpty()) {
 			lang = parameters.get("lang").toString();
 		}
 		
 		if(StringUtils.isBlank(lang)) {
-			lang = "MK";
+			lang = "mk";
 		}
 		changeUserLocaleTo(lang);
 		
-		Link searchPageLink = new Link("searchPage") {
-			@Override
-			public MarkupContainer setDefaultModel(IModel model) {
-				return null;
-			}
+		final Link<Void> searchPageLink = new Link<Void>("searchPage") {
+			private static final long serialVersionUID = 1L;
 			@Override
 			public void onClick() {
-				setResponsePage(SearchPage.class, parameters);
+				SearchPage searchPage = new SearchPage(parameters);
+				setResponsePage(searchPage);
 			}
 		};
 		add(searchPageLink);
 		
-		Link<String> aboutPage = new Link<String>("AboutPage") {
-			
-			@Override
-			public MarkupContainer setDefaultModel(IModel model) {
-				return null;
-			}
-
+		final StatelessLink<Void> aboutPage = new StatelessLink<Void>("AboutPage") {
+			private static final long serialVersionUID = 1L;
 			@Override
 			public void onClick() {
-				setResponsePage(AboutPage.class, parameters);
+				PageParameters newParams = new PageParameters();
+				newParams.add("lang", lang);
+				setResponsePage(new AboutPage(newParams));
 			}
 		};
 		add(aboutPage);
 		
-		Link<String> contactPage = new Link<String>("ContactPage") {
-
-			@Override
-			public MarkupContainer setDefaultModel(IModel model) {
-				return null;
-			}
-
+		final StatelessLink<Void> contactPage = new StatelessLink<Void>("ContactPage") {
+			private static final long serialVersionUID = 1L;
 			@Override
 			public void onClick() {
-				setResponsePage(ContactPage.class, parameters);
+				PageParameters newParams = new PageParameters();
+				newParams.add("lang", lang);
+				setResponsePage(new ContactPage(newParams));
 			}
 		};
 		add(contactPage);
 
-		Link<String> adminPage = new Link<String>("LoginPage") {
-
-			@Override
-			public MarkupContainer setDefaultModel(IModel model) {
-				return null;
-			}
-
+		final StatelessLink<Void> loginPage = new StatelessLink<Void>("LoginPage") {
+			private static final long serialVersionUID = 1L;
 			@Override
 			public void onClick() {
-				setResponsePage(LoginPage.class, parameters);
+				PageParameters newParams = new PageParameters();
+				newParams.add("lang", lang);
+				setResponsePage(new LoginPage(newParams));
 			}
 		};
-		add(adminPage);
+		add(loginPage);
 
-		Model langLabelModel = new Model<String>(lang);
+		Model<String> langLabelModel = new Model<String>(lang);
 		
 		Label languageLabel = new Label("language_label", langLabelModel);
 		add(languageLabel);
 
-		Model imgModel = new Model();
+		Model<String> imgModel = new Model<String>();
 		Image img = new Image( "language_img", imgModel);
 
 		ResourceReference resourceReference = new PackageResourceReference(WicketApplication.class, "static/flags/4x3/gb.svg");
-		if("EN".equalsIgnoreCase(lang)) {
+		if("en".equalsIgnoreCase(lang)) {
 			resourceReference = new PackageResourceReference(WicketApplication.class, "static/flags/4x3/gb.svg");
-		} else if("MK".equalsIgnoreCase(lang)) {
+		} else if("mk".equalsIgnoreCase(lang)) {
 			resourceReference = new PackageResourceReference(WicketApplication.class, "static/flags/4x3/mk.svg");
 		}
 		img.setImageResourceReference(resourceReference);
 		add(img);
 
-		Link link1 = new Link("english") {
-
-			@Override
-			public MarkupContainer setDefaultModel(IModel model) {
-				return null;
-			}
-
+		Link<Void> englishLink = new Link<Void>("english") {
+			private static final long serialVersionUID = 1L;
 			@Override
 			public void onClick() {
-				setResponse(getParams("EN"));
+				setResponse(getParams("en"));
 			}
 		};
-		add(link1);
+		
+		Model<String> imgEnglishModel = new Model<String>();
+		Image imgEnglish = new Image( "language_en_img", imgEnglishModel);
+		ResourceReference rr1 = new PackageResourceReference(WicketApplication.class, "static/flags/4x3/gb.svg");
+		imgEnglish.setImageResourceReference(rr1);
+		englishLink.add(imgEnglish);
+		add(englishLink);
 
-		Link link2 = new Link("macedonian") {
-
-			@Override
-			public MarkupContainer setDefaultModel(IModel model) {
-				return null;
-			}
-
+		Link<Void> mkLink = new Link<Void>("macedonian") {
+			private static final long serialVersionUID = 1L;
 			@Override
 			public void onClick() {
-				setResponse(getParams("MK"));
+				setResponse(getParams("mk"));
 			}
 		};
-		add(link2);
+		
+		Model<String> imgMkModel = new Model<String>();
+		Image imgMk = new Image( "language_mk_img", imgMkModel);
+		ResourceReference rrMk = new PackageResourceReference(WicketApplication.class, "static/flags/4x3/mk.svg");
+		imgMk.setImageResourceReference(rrMk);
+		mkLink.add(imgMk);
+		add(mkLink);
 		
 		ResourceReference resourceReferenceFavicon = new PackageResourceReference(WicketApplication.class, "static/img/bus16x16.png");
 		ResourceLink<ResourceReference> favicon = new ResourceLink<ResourceReference>("favicon", resourceReferenceFavicon);
@@ -243,14 +218,14 @@ public abstract class BasePage extends WebPage {
         
         String initScript = "";
         
-        String departureDateValidationMsg = getString("avtobusi.departureDate.validationMsg");
         String departureDateEmptyValidationMsg = getString("avtobusi.departureDate.validationMsg.empty");
         String departurePlaceValidationMsg = getString("avtobusi.departurePlace.validationMsg");
         String destinationPlaceValidationMsg = getString("avtobusi.destinationPlace.validationMsg");
+        String departureDateValidationMsg = getString("avtobusi.departureDate.validationMsg");
         
-        if("EN".equalsIgnoreCase(lang)) {
+        if("en".equalsIgnoreCase(lang)) {
         	initScript = ";initJQDatepicker('departureDate', 'en-GB', '"+ departureDateValidationMsg + "', '"+ departureDateEmptyValidationMsg + "', '"+ departurePlaceValidationMsg + "', '"+ destinationPlaceValidationMsg + "');";
-		} else if("MK".equalsIgnoreCase(lang)) {
+		} else if("mk".equalsIgnoreCase(lang)) {
 			initScript = ";initJQDatepicker('departureDate', 'mk', '"+ departureDateValidationMsg + "', '"+ departureDateEmptyValidationMsg + "', '"+ departurePlaceValidationMsg + "', '"+ destinationPlaceValidationMsg + "');";
 		}
         

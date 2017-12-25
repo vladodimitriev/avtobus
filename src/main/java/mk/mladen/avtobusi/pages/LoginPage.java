@@ -3,8 +3,8 @@ package mk.mladen.avtobusi.pages;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
-import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
+import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -29,7 +29,7 @@ public class LoginPage extends BasePage {
         add(new LoginForm("loginForm", parameters));
     }
 
-    private class LoginForm extends Form<Void> {
+    private class LoginForm extends StatelessForm<Void> {
         private static final long serialVersionUID = 1L;
 
         private Model<String> modelUsername;
@@ -75,7 +75,7 @@ public class LoginPage extends BasePage {
                 } 
 				
 				logger.info("user [{}], tries to log into the application", username);
-				setResponsePage(AdminHomePage.class, pageParameters);
+				setResponsePage(new AdminHomePage(pageParameters));
             } catch (AuthenticationException e) {
                 logger.error(e.getMessage());
             }
@@ -84,7 +84,7 @@ public class LoginPage extends BasePage {
     
     @Override
     protected void setResponse(PageParameters params) {
-        setResponsePage(LoginPage.class, params);
+        setResponsePage(new LoginPage(params));
     }
 
 }

@@ -40,7 +40,7 @@ public class ModalPanelBusLineDelete extends Panel {
         Label arrivalTimeLbl = new Label("arrivalTime", arrivalTimeModel);
         Label carrierLbl = new Label("carrier", carrierModel);
 
-        AjaxLink<String> deleteYesLink = new AjaxLink<String>("deleteYesLink") {
+        AjaxLink<Void> deleteYesLink = new AjaxLink<Void>("deleteYesLink") {
             private static final long serialVersionUID = 1L;
 			@Override
             public void onClick(AjaxRequestTarget target) {
@@ -49,7 +49,7 @@ public class ModalPanelBusLineDelete extends Panel {
             }
         };
 
-        AjaxLink<String> deleteNoLink = new AjaxLink<String>("deleteNoLink") {
+        AjaxLink<Void> deleteNoLink = new AjaxLink<Void>("deleteNoLink") {
             private static final long serialVersionUID = 1L;
 			@Override
             public void onClick(AjaxRequestTarget target) {

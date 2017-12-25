@@ -1,17 +1,17 @@
 package mk.mladen.avtobusi.dao.impl;
 
-import mk.mladen.avtobusi.dao.CarrierDao;
-import mk.mladen.avtobusi.entity.CarrierEntity;
-import mk.mladen.avtobusi.entity.PlaceEntity;
-import org.apache.log4j.Logger;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
-import java.util.ArrayList;
-import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Repository;
+
+import mk.mladen.avtobusi.dao.CarrierDao;
+import mk.mladen.avtobusi.entity.CarrierEntity;
 
 @Repository(value = "carrierDao")
 public class CarrierDaoImpl extends GenericDaoImpl<CarrierEntity> implements CarrierDao {
@@ -60,13 +60,14 @@ public class CarrierDaoImpl extends GenericDaoImpl<CarrierEntity> implements Car
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<String> getAllCarrierNames() {
 		List<String> results = new ArrayList<String>();
 		Query query = getEntityManager().createQuery("select ce.name from CarrierEntity ce order by ce.name asc");
 		query.setMaxResults(100);
 		Object object = query.getResultList();
 		if(object instanceof List) {
-			results = (List)object;
+			results = (List<String>)object;
 		}
 		return results;
 	}
@@ -92,6 +93,7 @@ public class CarrierDaoImpl extends GenericDaoImpl<CarrierEntity> implements Car
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<CarrierEntity> getCarriers(String carrier) {
 		List<CarrierEntity> results = new ArrayList<CarrierEntity>();
 		Query query = getEntityManager().createQuery("select ple from CarrierEntity ple where (ple.name like :name or ple.nameCyrilic like :name) order by ple.name desc");
@@ -99,7 +101,7 @@ public class CarrierDaoImpl extends GenericDaoImpl<CarrierEntity> implements Car
 		query.setMaxResults(100);
 		Object object = query.getResultList();
 		if(object instanceof List) {
-			results = (List)object;
+			results = (List<CarrierEntity>)object;
 		}
 		return results;
 	}
