@@ -27,10 +27,10 @@ public class DbConfig {
 	
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+		final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 		em.setDataSource(dataSource());
 		em.setPackagesToScan(new String[] { "mk.mladen.avtobusi.entity" });
-		JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+		final JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		em.setJpaVendorAdapter(vendorAdapter);
 		em.setJpaProperties(additionalProperties());
 		return em;
@@ -38,7 +38,7 @@ public class DbConfig {
 
 	@Bean
 	public DataSource dataSource() {
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		final DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName(environment.getRequiredProperty("postgres.jdbc.driverClassName"));
 		dataSource.setUrl(environment.getRequiredProperty("postgres.jdbc.url"));
 		dataSource.setUsername(environment.getRequiredProperty("postgres.jdbc.username"));
@@ -48,9 +48,8 @@ public class DbConfig {
 
 	@Bean
 	public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
-		JpaTransactionManager transactionManager = new JpaTransactionManager();
+		final JpaTransactionManager transactionManager = new JpaTransactionManager();
 		transactionManager.setEntityManagerFactory(emf);
-
 		return transactionManager;
 	}
 
@@ -67,7 +66,7 @@ public class DbConfig {
 	}
 
 	protected Properties additionalProperties() {
-		Properties properties = new Properties();
+		final Properties properties = new Properties();
 		properties.put("hibernate.dialect", environment.getRequiredProperty("postgres.hibernate.dialect"));
 		properties.put("hibernate.show_sql", environment.getRequiredProperty("postgres.hibernate.show_sql"));
 		properties.put("hibernate.format_sql", environment.getRequiredProperty("postgres.hibernate.format_sql"));

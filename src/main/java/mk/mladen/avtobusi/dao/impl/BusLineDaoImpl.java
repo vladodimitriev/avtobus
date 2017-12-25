@@ -56,7 +56,7 @@ public class BusLineDaoImpl extends GenericDaoImpl<BusLineEntity> implements Bus
 	public void delete(int id) {
 		Query query = getEntityManager().createQuery("delete from BusLineEntity ble where ble.id = :id");
 		query.setParameter("id", id);
-		int result = query.executeUpdate();
+		query.executeUpdate();
 	}
 
 }

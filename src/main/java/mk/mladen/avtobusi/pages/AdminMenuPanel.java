@@ -4,8 +4,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.markup.html.link.StatelessLink;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import mk.mladen.avtobusi.security.AuthenticatedSession;
 
@@ -15,34 +17,34 @@ public class AdminMenuPanel extends Panel {
     
     private static Logger logger = LogManager.getLogger(AdminMenuPanel.class);
 
-    public AdminMenuPanel(String id) {
+    public AdminMenuPanel(String id, PageParameters parameters) {
         super(id);
-        add(new Link<Void>("adminBusLinesPage") {
+        add(new StatelessLink<Void>("adminBusLinesPage") {
         	private static final long serialVersionUID = 1L;
 			@Override
             public void onClick() {
-                setResponsePage(AdminBusLinePage.class);
+                setResponsePage(new AdminBusLinePage(parameters));
             }
         });
-        add(new Link<Void>("adminPlacesPage") {
+        add(new StatelessLink<Void>("adminPlacesPage") {
         	private static final long serialVersionUID = 1L;
 			@Override
             public void onClick() {
-                setResponsePage(AdminPlacePage.class);
+                setResponsePage(new AdminPlacePage(parameters));
             }
         });
-        add(new Link<Void>("adminCarriersPage") {
+        add(new StatelessLink<Void>("adminCarriersPage") {
         	private static final long serialVersionUID = 1L;
 			@Override
             public void onClick() {
-                setResponsePage(AdminCarrierPage.class);
+                setResponsePage(new AdminCarrierPage(parameters));
             }
         });
-        add(new Link<Void>("adminHomePage") {
+        add(new StatelessLink<Void>("adminHomePage") {
             private static final long serialVersionUID = 5357812371802339220L;
             @Override
             public void onClick() {
-                setResponsePage(AdminHomePage.class);
+                setResponsePage(new AdminHomePage(parameters));
             }
         });
         add(new Link<Void>("signOut") {
@@ -50,7 +52,7 @@ public class AdminMenuPanel extends Panel {
             @Override
             public void onClick() {
                 AuthenticatedSession.get().signOut();
-                setResponsePage(LoginPage.class);
+                setResponsePage(new SearchPage(parameters));
             }
         });
         

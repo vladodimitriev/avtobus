@@ -57,6 +57,7 @@ dependencies {
     compile "org.apache.wicket:wicket-extensions:${wicketVersion}"
     compile "org.apache.wicket:wicket-ioc:${wicketVersion}"
     compile "org.apache.wicket:wicket-auth-roles:${wicketVersion}"
+    compile "org.wicketstuff:wicketstuff-annotation:${wicketVersion}"
     
     compile "org.hibernate:hibernate-core:${hibernateVersion}"
     compile "org.hibernate:hibernate-entitymanager:${hibernateVersion}"

@@ -1,18 +1,16 @@
 package mk.mladen.avtobusi.service.impl;
 
-import mk.mladen.avtobusi.dao.CarrierDao;
-import mk.mladen.avtobusi.dto.CarrierDto;
-import mk.mladen.avtobusi.dto.PlaceDto;
-import mk.mladen.avtobusi.entity.CarrierEntity;
-import mk.mladen.avtobusi.entity.PlaceEntity;
-import mk.mladen.avtobusi.service.CarrierService;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import mk.mladen.avtobusi.dao.CarrierDao;
+import mk.mladen.avtobusi.dto.CarrierDto;
+import mk.mladen.avtobusi.entity.CarrierEntity;
+import mk.mladen.avtobusi.service.CarrierService;
 
 @Service
 @Transactional

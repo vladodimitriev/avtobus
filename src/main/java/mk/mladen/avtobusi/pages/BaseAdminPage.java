@@ -8,7 +8,7 @@ public abstract class BaseAdminPage extends BasePage {
 
     public BaseAdminPage(PageParameters parameters) {
         super(parameters);
-        add(new AdminMenuPanel("adminMenuPanel"));
+        add(new AdminMenuPanel("adminMenuPanel", parameters));
     }
 
 }

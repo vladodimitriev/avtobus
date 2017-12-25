@@ -16,7 +16,7 @@ public class AppConfiguration {
 	
 	@Bean
     public MessageSource messageSource() {
-        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        final ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         messageSource.setBasename("mk/mladen/avtobusi/WicketApplication");
         return messageSource;
     }

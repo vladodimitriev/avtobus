@@ -1,6 +1,8 @@
 package mk.mladen.avtobusi.dto;
 
-public class CountryDto {
+import java.io.Serializable;
+
+public class CountryDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 }

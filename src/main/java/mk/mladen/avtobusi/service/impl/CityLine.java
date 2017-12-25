@@ -1,9 +1,10 @@
 package mk.mladen.avtobusi.service.impl;
 
+@SuppressWarnings("unused")
 public class CityLine {
 
     private String name;
-    private String name2;
+	private String name2;
     private int order;
     private String time;
     private String time2;

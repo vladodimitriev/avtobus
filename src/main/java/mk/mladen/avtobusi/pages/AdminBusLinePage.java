@@ -159,11 +159,11 @@ public class AdminBusLinePage extends BaseAdminPage {
                 label1.add(new AttributeModifier("style", "text-align: left"));
                 item.add(label1);
 
-                if("EN".equalsIgnoreCase(lang)) {
+                if("en".equalsIgnoreCase(lang)) {
                     final Label label = new Label("carrier", busLine.getCarrier());
                     label.add(new AttributeModifier("style", "text-align: left"));
                     item.add(label);
-                } else if("MK".equalsIgnoreCase(lang)) {
+                } else if("mk".equalsIgnoreCase(lang)) {
                     final Label label = new Label("carrier", busLine.getCarrierCyrilic());
                     label.add(new AttributeModifier("style", "text-align: left"));
                     item.add(label);

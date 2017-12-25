@@ -3,6 +3,9 @@
 *.project
 *.classpath
 *.dat
+log
+log/
+log/*
 /log/
 /log/*
 /seg0/
@@ -25,3 +28,4 @@ out
 *.iws
 .DS_Store
 bin
+*.gz

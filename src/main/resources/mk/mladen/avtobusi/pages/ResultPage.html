@@ -34,8 +34,8 @@
                             <img wicket:id="language_img" alt="EN" height="21" width="21" /> <span wicket:id="language_label"></span> <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu language-dropdown-menu">
-                            <li><a wicket:id="english" class="dropdown-item" href="#"><img src="static/flags/4x3/gb.svg" alt="EN" height="21" width="21" /> EN</a></li>
-                            <li><a wicket:id="macedonian" class="dropdown-item" href="#"><img src="static/flags/4x3/mk.svg" alt="MK" height="21" width="21" /> MK</a></li>
+                            <li><a wicket:id="english" class="dropdown-item" href="#"><img wicket:id="language_en_img" src="static/flags/4x3/gb.svg" alt="EN" height="21" width="21" /> EN</a></li>
+                            <li><a wicket:id="macedonian" class="dropdown-item" href="#"><img wicket:id="language_mk_img" src="static/flags/4x3/mk.svg" alt="MK" height="21" width="21" /> MK</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -44,106 +44,108 @@
     </nav>
 </div>
 <form wicket:id="resultSearchForm" class="form-inline">
-<div class="row avtobusicontainer">
-   <div class="col-sm-1"></div>
-   <div class="col-sm-10">
-       <div class="panel avtobusi-panel">
-
-               <div class="row avtobusi-row">
-                   <div class="form-group col-md-3">
-                       <div class="avtobusi-space"></div>
-                       <input wicket:id="departurePlace" wicket:message="placeholder :avtobusi.searchpage.departureplace" type="text" class="form-control avtobusi-text" id="departurePlace" required/>
-                   </div>
-                   <div class="col-sm-1">
-                       <img id="switchImg" wicket:id="switch-img" class="switch-button" src="static/img/switch50x999.jpg" height="30" width="30" />
-                   </div>
-                   <div class="form-group col-md-3">
-                       <input wicket:id="destinationPlace" wicket:message="placeholder :avtobusi.searchpage.destinationplace" type="text" class="form-control avtobusi-text" id="destinationPlace" required/>
-                   </div>
-                   <div class="form-group col-md-3">
-                       <input wicket:id="departureDate" type="text" class="form-control avtobusidate" id="departureDate" wicket:message="placeholder :avtobusi.searchpage.departuredate.format" required/>
-                   </div>
-                   <div class="form-group col-md-2">
-                       <input type="submit" class="btn btn-warning btn-block" wicket:message="value :avtobusi.searchpage.btn.search" />
-                   </div>
-               </div>
-
-       </div>
-   </div>
-   <div class="col-sm-1"></div>
-</div>
-<div class="row">
-   <div class="col-sm-8 col-sm-offset-2">
-        <section>
-            <article class="row article-row" wicket:id="rows">
-                <div class="col-sm-1">
-                    <img wicket:id="bus_img" alt="" height="21" width="21" />
-                </div>
-                <div class="col-sm-6">
-                    <div class="row"><div wicket:id="carrier"></div></div>
-                    <div class="row">
-                        <div class="col-sm-4 dep-arr-time" wicket:id="departureArrivalTime"></div>
-                        <div class="col-sm-4 dep-arr-time" wicket:id="departureArrivalPlace"></div>
-                        <div class="col-sm-4 dep-arr-time"></div>
-                    </div>
-                    <div class="row glyph">
-                        <span wicket:id="glyphicon" class="glyphicon glyphicon-plus-sign"></span>
-                        <span wicket:id="details" class="title" wicket:message="value :avtobusi.searchpage.btn.details"></span>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                	<div class="travel"></div>
-                    <div class="row"><div wicket:id="travelTime"></div></div>
-                    <div class="row"><div wicket:id="travelDistance"></div></div>
-                </div>
-                <div class="col-sm-2">
-                	<div class="price">
-                		<span class="priceSymbol" wicket:id="priceSymbol"></span>
-                		<span class="priceValue" wicket:id="price"></span>
-                	</div>
-                	<div class="priceReturn">
-                		<span>(</span>
-                		<span wicket:id="priceReturnSymbol"></span>
-                		<span wicket:id="priceReturn"></span>
-                		<span>)</span>
-                	</div>
-                </div>
-                <div wicket:id="detailsPanel" class="toggle-content">
-                    <div class="segment-info">
-                        <div class="entry" wicket:id="circles">
-                            <div class="circle"></div>
-                            <div class="verticalline"></div>
-                        </div>
-                        <div class="entry">
-                            <div class="circle"></div>
-                        </div>
-                    </div>
-                    <div class="segment-details">
-                        <div class="location-platform" wicket:id="places">
-                            <div wicket:id="segment-place"></div>
-                        </div>
-                    </div>
-                    <div class="segment-busline">
-                        <div>
-                        	<span wicket:id="imeNaLinija"></span>
-                        	<span wicket:id="lineName"></span>
-                        </div>
-                        <div>
-                        	<span wicket:id="redenBrojNaLinija"></span>
-                        	<span wicket:id="lineOrder"></span>
-                        </div>
-                        <div>
-                        	<p>-------------------------------</p>
-                        </div>
-                        <div>
-                        	<span wicket:id="comment"></span>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        </section>
-   </div>
-</div>
+	<div class="row avtobusicontainer">
+	   <div class="col-sm-1"></div>
+	   <div class="col-sm-10">
+	       <div class="panel avtobusi-panel">
+	
+	               <div class="row avtobusi-row">
+	                   <div class="form-group col-md-3">
+	                       <div class="avtobusi-space"></div>
+	                       <input wicket:id="departurePlace" wicket:message="placeholder :avtobusi.searchpage.departureplace" type="text" class="form-control avtobusi-text" id="departurePlace" required />
+	                   </div>
+	                   <div class="col-sm-1">
+	                       <img id="switchImg" wicket:id="switch-img" class="switch-button" src="static/img/switch50x999.jpg" height="30" width="30" />
+	                   </div>
+	                   <div class="form-group col-md-3">
+	                       <input wicket:id="destinationPlace" wicket:message="placeholder :avtobusi.searchpage.destinationplace" type="text" class="form-control avtobusi-text" id="destinationPlace" required />
+	                   </div>
+	                   <div class="form-group col-md-3">
+	                       <input wicket:id="departureDate" type="text" class="form-control avtobusidate" id="departureDate" wicket:message="placeholder :avtobusi.searchpage.departuredate.format" required />
+	                   </div>
+	                   <div class="form-group col-md-2">
+	                       <input type="submit" class="btn btn-warning btn-block" wicket:message="value :avtobusi.searchpage.btn.search" />
+	                   </div>
+	               </div>
+	
+	       </div>
+	   </div>
+	   <div class="col-sm-1"></div>
+	</div>
+	<wicket:container wicket:id="dataContainer">
+		<div class="row">
+		   <div class="col-sm-8 col-sm-offset-2">
+		        <section>
+		            <article class="row article-row" wicket:id="rows">
+		                <div class="col-sm-1">
+		                    <img wicket:id="bus_img" alt="" height="21" width="21" />
+		                </div>
+		                <div class="col-sm-6">
+		                    <div class="row"><div wicket:id="carrier"></div></div>
+		                    <div class="row">
+		                        <div class="col-sm-4 dep-arr-time" wicket:id="departureArrivalTime"></div>
+		                        <div class="col-sm-4 dep-arr-time" wicket:id="departureArrivalPlace"></div>
+		                        <div class="col-sm-4 dep-arr-time"></div>
+		                    </div>
+		                    <div class="row glyph">
+		                        <span wicket:id="glyphicon" class="glyphicon glyphicon-plus-sign"></span>
+		                        <span wicket:id="details" class="title" wicket:message="value :avtobusi.searchpage.btn.details"></span>
+		                    </div>
+		                </div>
+		                <div class="col-sm-3">
+		                	<div class="travel"></div>
+		                    <div class="row"><div wicket:id="travelTime"></div></div>
+		                    <div class="row"><div wicket:id="travelDistance"></div></div>
+		                </div>
+		                <div class="col-sm-2">
+		                	<div class="price">
+		                		<span class="priceSymbol" wicket:id="priceSymbol"></span>
+		                		<span class="priceValue" wicket:id="price"></span>
+		                	</div>
+		                	<div class="priceReturn">
+		                		<span>(</span>
+		                		<span wicket:id="priceReturnSymbol"></span>
+		                		<span wicket:id="priceReturn"></span>
+		                		<span>)</span>
+		                	</div>
+		                </div>
+		                <div wicket:id="detailsPanel" class="toggle-content">
+		                    <div class="segment-info">
+		                        <div class="entry" wicket:id="circles">
+		                            <div class="circle"></div>
+		                            <div class="verticalline"></div>
+		                        </div>
+		                        <div class="entry">
+		                            <div class="circle"></div>
+		                        </div>
+		                    </div>
+		                    <div class="segment-details">
+		                        <div class="location-platform" wicket:id="places">
+		                            <div wicket:id="segment-place"></div>
+		                        </div>
+		                    </div>
+		                    <div class="segment-busline">
+		                        <div>
+		                        	<span wicket:id="imeNaLinija"></span>
+		                        	<span wicket:id="lineName"></span>
+		                        </div>
+		                        <div>
+		                        	<span wicket:id="redenBrojNaLinija"></span>
+		                        	<span wicket:id="lineOrder"></span>
+		                        </div>
+		                        <div>
+		                        	<p>-------------------------------</p>
+		                        </div>
+		                        <div>
+		                        	<span wicket:id="comment"></span>
+		                        </div>
+		                    </div>
+		                </div>
+		            </article>
+		        </section>
+		   </div>
+		</div>
+	</wicket:container>
 </form>
 </body>
 </html>

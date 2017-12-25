@@ -6,6 +6,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.wicket.Application;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -35,16 +38,15 @@ import mk.mladen.avtobusi.beans.SearchBean;
 import mk.mladen.avtobusi.dto.BusLineDto;
 import mk.mladen.avtobusi.service.BusLineService;
 import mk.mladen.avtobusi.service.PlaceService;
+import mk.mladen.avtobusi.service.impl.OperationsUtil;
 
 @SuppressWarnings("unchecked")
 public class ResultPage extends BasePage {
 
+	private static Logger logger = LogManager.getLogger(ResultPage.class);
+	
 	private static final long serialVersionUID = 1L;
 
-	private String ajax1;
-	private String ajax2;
-	private String ajax3;
-	
 	private SearchBean searchBean = new SearchBean();
 	
 	@SpringBean
@@ -56,6 +58,12 @@ public class ResultPage extends BasePage {
 	private ResourceReference busResourceReference;
 
 	private PropertyListView<BusLineDto> dataView;
+	
+	private String ajax1;
+	
+	private String ajax2;
+	
+	private String ajax3;
 
 	public ResultPage(PageParameters params) {
 		super(params);
@@ -63,15 +71,15 @@ public class ResultPage extends BasePage {
 		searchBean = new SearchBean(params);
 		busResourceReference = new PackageResourceReference(WicketApplication.class, "static/img/bus21x21x999.jpg");
 
-		Model<String> imgSwitchModel = new Model<>();
-		Image imgSwitch = new Image( "switch-img", imgSwitchModel);
-		ResourceReference rr1 = new PackageResourceReference(WicketApplication.class, "static/img/switch50x999.jpg");
-		imgSwitch.setImageResourceReference(rr1);
+		final Model<String> imgSwitchModel = new Model<>();
+		final Image imgSwitch = new Image( "switch-img", imgSwitchModel);
+		final ResourceReference rrSwitch = new PackageResourceReference(WicketApplication.class, "static/img/switch50x999.jpg");
+		imgSwitch.setImageResourceReference(rrSwitch);
 
-		AutoCompleteSettings opts = new AutoCompleteSettings();
+		final AutoCompleteSettings opts = new AutoCompleteSettings();
 		opts.setShowListOnEmptyInput(true);
 		
-		AutoCompleteTextField<String> actf1 = new AutoCompleteTextField<String>("departurePlace", new PropertyModel<String>(searchBean, "departurePlace"), opts) {
+		final AutoCompleteTextField<String> actf1 = new AutoCompleteTextField<String>("departurePlace", new PropertyModel<String>(searchBean, "departurePlace"), opts) {
 			private static final long serialVersionUID = 1L;
 			@Override
 			protected Iterator<String> getChoices(String input) {
@@ -89,7 +97,7 @@ public class ResultPage extends BasePage {
 		actf1.setRequired(true);
 		actf1.setOutputMarkupId(true);
 		
-		AutoCompleteTextField<String> actf2 = new AutoCompleteTextField<String>("destinationPlace", new PropertyModel<String>(searchBean, "destinationPlace"), opts) {
+		final AutoCompleteTextField<String> actf2 = new AutoCompleteTextField<String>("destinationPlace", new PropertyModel<String>(searchBean, "destinationPlace"), opts) {
 			private static final long serialVersionUID = 1L;
 			@Override
 			protected Iterator<String> getChoices(String input) {
@@ -107,7 +115,7 @@ public class ResultPage extends BasePage {
 		actf2.setRequired(true);
 		actf2.setOutputMarkupId(true);
 		
-		TextField<String> tf3 = new TextField<String>("departureDate", new PropertyModel<String>(searchBean, "departureDate"));
+		final TextField<String> tf3 = new TextField<String>("departureDate", new PropertyModel<String>(searchBean, "departureDate"));
 		tf3.add(new OnChangeAjaxBehavior(){
 	        private static final long serialVersionUID = 1L;
 			@Override
@@ -116,28 +124,33 @@ public class ResultPage extends BasePage {
 	        }
 	    });
 
-		dataView = createDataView();
+		createDataView();
 		dataView.setOutputMarkupId(true);
+		
+		final WebMarkupContainer dataContainer = new WebMarkupContainer("dataContainer");
+		dataContainer.setOutputMarkupId(true);
+		dataContainer.addOrReplace(dataView);
 
-		Form<Void> form = new Form<Void>("resultSearchForm"){
+		final Form<String> form = new Form<String>("resultSearchForm"){
 			private static final long serialVersionUID = 1L;
 			@Override
 			protected void onSubmit() {
-				dataView = createDataView();
-				this.addOrReplace(dataView);
+				setResponse(params);
 			}
 		};
+		form.setOutputMarkupId(true);
 		form.add(actf1);
 		form.add(actf2);
 		form.add(tf3);
 		form.add(imgSwitch);
-		form.addOrReplace(dataView);
+		form.add(dataContainer);
 
 		add(form);
 	}
 
-	private PropertyListView<BusLineDto> createDataView() {
-		List<BusLineDto> busLines = loadRelations();
+	private void createDataView() {
+		logger.info("create data view");
+		final List<BusLineDto> busLines = loadRelations();
 		dataView = new PropertyListView<BusLineDto>("rows", busLines) {
 			  private static final long serialVersionUID = 1L;
 			  @Override
@@ -145,15 +158,15 @@ public class ResultPage extends BasePage {
 				  final BusLineDto busLine = item.getModelObject();
 				  List<String> placesList = createSmallPlaces(busLine);
 				  Model<String> imgModel = new Model<>();
-				  Image bus_img = new Image( "bus_img", imgModel);
-				  bus_img.setImageResourceReference(busResourceReference);
+				  Image imgBus = new Image( "bus_img", imgModel);
+				  imgBus.setImageResourceReference(busResourceReference);
 
-				  item.add(bus_img);
-				  if("EN".equalsIgnoreCase(lang)) {
+				  item.add(imgBus);
+				  if("en".equalsIgnoreCase(lang)) {
 					  final Label label = new Label("carrier", busLine.getCarrier());
 					  label.add(new AttributeModifier("style", "text-align: left"));
 					  item.add(label);
-				  } else if("MK".equalsIgnoreCase(lang)) {
+				  } else if("mk".equalsIgnoreCase(lang)) {
 					  final Label label = new Label("carrier", busLine.getCarrierCyrilic());
 					  label.add(new AttributeModifier("style", "text-align: left"));
 					  item.add(label);
@@ -175,14 +188,14 @@ public class ResultPage extends BasePage {
 				  label3.add(new AttributeModifier("style", "text-align: left"));
 				  item.add(label3);
 
-				  Label label4 = new Label("details", new StringResourceModel("avtobusi.searchpage.btn.details", this, null));
+				  Label label4 = new Label("details", new StringResourceModel("avtobusi.searchpage.btn.details", this));
 				  item.add(label4);
 
 				  Label label5 = new Label("travelDistance", busLine.getDistance());
 				  label5.add(new AttributeModifier("style", "text-align: left"));
 				  item.add(label5);
 				  
-				  StringResourceModel priceModel = new StringResourceModel("avtobusi.price.denar.symbol", this, null);
+				  StringResourceModel priceModel = new StringResourceModel("avtobusi.price.denar.symbol", this);
 				  String priceBL = busLine.getPrice() == null ? "?" : busLine.getPrice();
 				  Label label6 = new Label("price", " " + priceBL);
 				  label6.add(new AttributeModifier("style", "text-align: left"));
@@ -192,10 +205,12 @@ public class ResultPage extends BasePage {
 				  label6.add(new AttributeModifier("style", "text-align: left"));
 				  item.add(label6);
 				  
-				  StringResourceModel priceReturnModel = new StringResourceModel("avtobusi.price.denar.return.symbol", this, null);
-				  StringResourceModel returnModel = new StringResourceModel("avtobusi.price.return", this, null);
+				  StringResourceModel priceReturnModel = new StringResourceModel("avtobusi.price.denar.return.symbol", this);
+				  StringResourceModel returnModel = new StringResourceModel("avtobusi.price.return", this);
+				  
 				  String returnPriceBL = busLine.getPriceReturn() == null ? "?" : busLine.getPriceReturn();
-				  String returnPrice = " " + returnPriceBL + " " + returnModel.getObject();
+				  //String returnPrice = " " + returnPriceBL;
+				  String returnPrice = " " + returnPriceBL + " " + (returnModel == null ? "" : returnModel.getObject());
 				  
 				  Label label7 = new Label("priceReturn", returnPrice);
 				  label7.add(new AttributeModifier("style", "text-align: left"));
@@ -205,8 +220,9 @@ public class ResultPage extends BasePage {
 				  label7.add(new AttributeModifier("style", "text-align: left"));
 				  item.add(label7);
 
-				  WebMarkupContainer detailsPanel = new WebMarkupContainer("detailsPanel");
+				  final WebMarkupContainer detailsPanel = new WebMarkupContainer("detailsPanel");
 				  detailsPanel.setOutputMarkupPlaceholderTag(true);
+				  detailsPanel.setOutputMarkupId(true);
 				  ListView<String> circles = new ListView<String>("circles", placesList.subList(0, placesList.size() - 1)) {
 					  private static final long serialVersionUID = 1L;
 					  @Override
@@ -229,14 +245,16 @@ public class ResultPage extends BasePage {
 				  };
 				  detailsPanel.add(places);
 				  
-				  StringResourceModel imeNaLinijaSram = new StringResourceModel("avtobusi.resultPage.table.imenalinija"); 
+				  //Do not use StringResourceModel!!
+				  String imeNaLinijaSram = Application.get().getResourceSettings().getLocalizer().getString("avtobusi.resultPage.table.imenalinija", detailsPanel); 
 				  Label imeNaLinijaLbl = new Label("imeNaLinija", imeNaLinijaSram);
 				  imeNaLinijaLbl.setOutputMarkupId(true);
 				  
 				  Label lineNameLbl = new Label("lineName", busLine.getLineName());
 				  lineNameLbl.setOutputMarkupId(true);
 				  
-				  StringResourceModel redenBrojSram = new StringResourceModel("avtobusi.resultPage.table.redenbrojnalinija"); 
+				  //Do not use StringResourceModel!! 
+				  String redenBrojSram = Application.get().getResourceSettings().getLocalizer().getString("avtobusi.resultPage.table.redenbrojnalinija", detailsPanel);
 				  Label redenBrojLbl = new Label("redenBrojNaLinija", redenBrojSram);
 				  redenBrojLbl.setOutputMarkupId(true);
 				  
@@ -264,7 +282,6 @@ public class ResultPage extends BasePage {
 				  item.add(glyphicon);
 			  }
 		};
-		return dataView;
 	}
 
 	private String convertTime(String time) {
@@ -287,7 +304,7 @@ public class ResultPage extends BasePage {
 
 	private List<String> createSmallPlaces(BusLineDto busLine) {
 		String[] array = new String[0];
-		if("MK".equalsIgnoreCase(lang) && StringUtils.isNotBlank(busLine.getSmallPlaces())) {
+		if("mk".equalsIgnoreCase(lang) && StringUtils.isNotBlank(busLine.getSmallPlaces())) {
 			array = busLine.getSmallPlaces().split(",");
 		} else if(StringUtils.isNotBlank(busLine.getSmallPlacesLatin())){
 			array = busLine.getSmallPlacesLatin().split(",");
@@ -297,7 +314,7 @@ public class ResultPage extends BasePage {
 
 	private AjaxEventBehavior getAjaxBehavior(WebMarkupContainer detailsPanel, Label glyphicon) {
 		return new AjaxEventBehavior("click") {
-			private static final long serialVersionUID = 42L;
+			private static final long serialVersionUID = 1L;
 			@Override
 			protected void onEvent(AjaxRequestTarget target) {
 				if (detailsPanel.isVisible()) {
@@ -346,7 +363,9 @@ public class ResultPage extends BasePage {
 			String departurePlace = searchBean.getDeparturePlace();
 			String destinationPlace = searchBean.getDestinationPlace();
 			String date = searchBean.getDepartureDate();
-			dtos = busLineService.getRelation(departurePlace, destinationPlace, date);
+			if(StringUtils.isNoneBlank(departurePlace, destinationPlace, date)) {
+				dtos = busLineService.getRelation(departurePlace, destinationPlace, date);
+			}
 		} 
 		return dtos;
 	}
@@ -360,39 +379,78 @@ public class ResultPage extends BasePage {
 	}
 
 	@Override
-	protected void setResponse(PageParameters params) {
-		setResponsePage(new ResultPage(getParams(params)));
-	}
-
-	private PageParameters getParams(PageParameters parameters) {
+	protected void setResponse(PageParameters parameters) {
 		PageParameters params = new PageParameters();
-		if(ajax1 != null) {
-			params.add("departure", ajax1);
-		} else if(searchBean.getDeparturePlace() != null) {
-			params.add("departure", searchBean.getDeparturePlace());
-		}
-
-		if(ajax2 != null) {
-			params.add("destination", ajax2);
-		} else if(searchBean.getDestinationPlace() != null) {
-			params.add("destination", searchBean.getDestinationPlace());
-		}
-
-		if(ajax3 != null) {
-			params.add("date", ajax3);
-		} else if(searchBean.getDepartureDate() != null) {
-			params.add("date", searchBean.getDepartureDate());
-		}
-
-		String language = "EN";
-		if(params != null && parameters.get("lang") != null) {
+		String language = "mk";
+		if(!parameters.get("lang").isEmpty()) {
 			language = parameters.get("lang").toString();
 		}
 		if(language != null) {
 			params.add("lang", language);
 		}
+		
+		if(ajax1 != null) {
+			String departurePlace = ajax1;
+			if(departurePlace != null) {
+				if(language.equals("mk")) {
+					departurePlace = OperationsUtil.createMacedonianName(departurePlace);
+				} else if(language.equals("en")) {
+					departurePlace = OperationsUtil.createLatinName(departurePlace);
+				}
+				params.add("departure", departurePlace);
+			}
+		} else {
+			String departurePlace = searchBean.getDeparturePlace();
+			if(departurePlace != null) {
+				if(language.equals("mk")) {
+					departurePlace = OperationsUtil.createMacedonianName(departurePlace);
+				} else if(language.equals("en")) {
+					departurePlace = OperationsUtil.createLatinName(departurePlace);
+				}
+				params.add("departure", departurePlace);
+			}
+		}
 
-		return params;
+		if(ajax2 != null) {
+			String destinationPlace = ajax2;
+			if(destinationPlace != null) {
+				if(language.equals("mk")) {
+					destinationPlace = OperationsUtil.createMacedonianName(destinationPlace);
+				} else if(language.equals("en")) {
+					destinationPlace = OperationsUtil.createLatinName(destinationPlace);
+				}
+				params.add("destination", destinationPlace);
+			}
+		} else if(searchBean.getDestinationPlace() != null) {
+			String destinationPlace = searchBean.getDestinationPlace();
+			if(destinationPlace != null) {
+				if(language.equals("mk")) {
+					destinationPlace = OperationsUtil.createMacedonianName(destinationPlace);
+				} else if(language.equals("en")) {
+					destinationPlace = OperationsUtil.createLatinName(destinationPlace);
+				}
+				params.add("destination", destinationPlace);
+			}
+		}
+
+		if(ajax3 != null) {
+			String departureDate = ajax3;
+			if(StringUtils.isNotBlank(departureDate) && departureDate.contains("/")) {
+				departureDate = departureDate.replace("/", "-");
+			}
+			params.add("date", departureDate);
+		} else if(searchBean.getDepartureDate() != null) {
+			String departureDate = searchBean.getDepartureDate();
+			if(StringUtils.isNotBlank(departureDate) && departureDate.contains("/")) {
+				departureDate = departureDate.replace("/", "-");
+			} 
+			params.add("date", departureDate);
+		}
+
+		logger.info("result page response params = " + params);
+		logger.info("result page response parameters = " + parameters);
+		ResultPage page = new ResultPage(params);
+		setResponsePage(page);
 	}
 	
 }

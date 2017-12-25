@@ -22,6 +22,7 @@
                 </a>
             </div>
             <div class="collapse navbar-collapse">
+            <wicket:link>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a href="#" wicket:id="AboutPage"><wicket:message key="avtobusi.navbar.about"></wicket:message></a>
@@ -37,11 +38,19 @@
                             <img wicket:id="language_img" alt="" height="21" width="21" /> <span wicket:id="language_label"></span> <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu language-dropdown-menu">
-                            <li><a wicket:id="macedonian" id="mk" class="dropdown-item" href="#"><img src="static/flags/4x3/mk.svg" alt="MK" height="21" width="21" /> MK</a></li>
-                            <li><a wicket:id="english" id="en" class="dropdown-item" href="#"><img src="static/flags/4x3/gb.svg" alt="EN" height="21" width="21" /> EN</a></li>
+                            <li><a wicket:id="macedonian" id="mk" class="dropdown-item" href="#">
+                            		<img wicket:id="language_mk_img" src="static/flags/4x3/mk.svg" alt="mk" height="21" width="21" /> mk
+                            	</a>
+                            </li>
+                            <li>
+                            	<a wicket:id="english" id="en" class="dropdown-item" href="#">
+                            		<img wicket:id="language_en_img" src="static/flags/4x3/gb.svg" alt="en" height="21" width="21" /> en
+                            	</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
+            </wicket:link>
             </div>
         </div>
     </nav>
