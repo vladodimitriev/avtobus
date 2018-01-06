@@ -17,17 +17,17 @@
     </Appenders>
     <Loggers>
         <Logger name="mk.mladen.avtobusi" level="debug"/>
-        <Logger name="org.hibernate.SQL" level="debug" />
-		<Logger name="org.hibernate.type" level="debug" />
-		<Logger name="org.hibernate.tool.hbm2ddl" level="debug" />
-		<Logger name="org.hibernate.pretty" level="debug" />
-		<Logger name="org.hibernate.cache" level="debug" />
-		<Logger name="org.hibernate.transaction" level="debug" />
-		<Logger name="org.hibernate.jdbc" level="debug" />
-		<Logger name="org.hibernate.hql.ast.AST" level="debug" />
-		<Logger name="org.hibernate.secure" level="debug" />
-		<Logger name="org.hibernate" level="debug" />
-		<Logger name="org.springframework" level="debug" />
+        <Logger name="org.hibernate.SQL" level="info" />
+		<Logger name="org.hibernate.type" level="info" />
+		<Logger name="org.hibernate.tool.hbm2ddl" level="info" />
+		<Logger name="org.hibernate.pretty" level="info" />
+		<Logger name="org.hibernate.cache" level="info" />
+		<Logger name="org.hibernate.transaction" level="info" />
+		<Logger name="org.hibernate.jdbc" level="info" />
+		<Logger name="org.hibernate.hql.ast.AST" level="info" />
+		<Logger name="org.hibernate.secure" level="info" />
+		<Logger name="org.hibernate" level="info" />
+		<Logger name="org.springframework" level="info" />
         <Root level="info">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="RollingFile"/>

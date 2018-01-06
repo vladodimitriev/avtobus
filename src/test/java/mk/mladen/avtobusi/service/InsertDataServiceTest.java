@@ -46,7 +46,7 @@ public class InsertDataServiceTest {
         boolean read = false;
         boolean written = false;
 
-        final String inputFile = "linii-bad.xls";
+        final String inputFile = "linii-v2.xls";
         final String outputFile = "output.txt";
 
         try {
@@ -74,7 +74,6 @@ public class InsertDataServiceTest {
 
             URL url2 = getClass().getResource(outputFile);
             Path path = Paths.get(url2.getPath());
-            System.out.println("path: " + url2.getPath());
             try (BufferedWriter writer = Files.newBufferedWriter(path)) {
                 for(String s : list) {
                     writer.write(s);

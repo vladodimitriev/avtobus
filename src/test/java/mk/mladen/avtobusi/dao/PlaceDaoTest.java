@@ -7,7 +7,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,20 +31,15 @@ public class PlaceDaoTest {
     private PlaceDao placeDao;
     
     @Test
-    @Ignore
     public void getAllPlacesCyrillicNamesByName() {
     	String name = " Gra";
     	List<String> result = placeDao.getAllPlacesCyrillicNamesByName("mk", name);
     	assertNotNull(result);
         assertFalse(result.isEmpty());
-        for(String s : result) {
-        	System.out.println(s);
-        }
         assertEquals(1, result.size());
     }
 
     @Test
-    @Ignore
     public void getPlacesWithCapitalLetterTest() {
         List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "S");
         assertNotNull(result);
@@ -54,7 +48,6 @@ public class PlaceDaoTest {
     }
 
     @Test
-    @Ignore
     public void getPlacesWithLowerLetterTest() {
         List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "s");
         assertNotNull(result);
@@ -63,7 +56,6 @@ public class PlaceDaoTest {
     }
 
     @Test
-    @Ignore
     public void getPlacesWith3LettersTest() {
         List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "Str");
         assertNotNull(result);
@@ -72,7 +64,6 @@ public class PlaceDaoTest {
     }
 
     @Test
-    @Ignore
     public void getPlacesWith2LettersTest() {
         List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "St");
         assertNotNull(result);
@@ -81,7 +72,6 @@ public class PlaceDaoTest {
     }
 
     @Test
-    @Ignore
     public void getPlacesWith4LettersTest() {
         List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "Stru");
         assertNotNull(result);
@@ -90,7 +80,6 @@ public class PlaceDaoTest {
     }
 
     @Test
-    @Ignore
     public void getPlacesWithKLetterTest() {
         List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "k");
         assertNotNull(result);
@@ -99,7 +88,6 @@ public class PlaceDaoTest {
     }
 
     @Test
-    @Ignore
     public void getPlacesWithKrLettersTest() {
         List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "Kr");
         assertNotNull(result);
@@ -108,7 +96,6 @@ public class PlaceDaoTest {
     }
 
     @Test
-    @Ignore
     public void getPlacesWithEmptyInputTest() {
         List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "");
         assertNotNull(result);
@@ -118,7 +105,6 @@ public class PlaceDaoTest {
     }
 
     @Test
-    @Ignore
     public void getPlacesWithMiddleInputTest() {
         List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "gotin");
         assertNotNull(result);
@@ -126,7 +112,6 @@ public class PlaceDaoTest {
     }
 
     @Test
-    @Ignore
     public void getDojranTest() {
         List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "Dojran");
         assertNotNull(result);
