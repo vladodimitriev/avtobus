@@ -57,7 +57,6 @@ public class BusLineServiceTest {
 		List<BusLineEntity> bles = busLineDao.getAll();
 		assertNotNull(bles);
 		assertFalse(bles.isEmpty());
-		assertEquals(1, bles.size());
 
 		UpdateBean ub = new UpdateBean();
 		int id = bles.get(0).getId();

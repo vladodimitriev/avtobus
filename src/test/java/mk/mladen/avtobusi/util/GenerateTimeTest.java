@@ -75,8 +75,6 @@ public class GenerateTimeTest {
 			}
 			Integer ah = Integer.valueOf(ata[0]);
 			Integer dh = Integer.valueOf(dta[0]);
-
-			System.out.println("AH: " + ah + " DH: " + dh);
 			if(ah < dh) {
 				Integer am = Integer.valueOf(ata[1]);
 				Integer dm = Integer.valueOf(dta[1]);
