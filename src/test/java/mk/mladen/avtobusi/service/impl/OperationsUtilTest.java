@@ -10,7 +10,6 @@ public class OperationsUtilTest {
 	@Test
 	public void macedonianToLatinPrilepTest() {
 		String mkdName = OperationsUtil.createLatinName("Прилеп");
-		System.out.println("LATIN NAME: " + mkdName);
 		assertNotNull(mkdName);
 		assertEquals("Prilep", mkdName);
 	}
@@ -18,7 +17,6 @@ public class OperationsUtilTest {
 	@Test
 	public void macedonianToLatinTest() {
 		String mkdName = OperationsUtil.createLatinName("Крушево");
-		System.out.println("LATIN NAME: " + mkdName);
 		assertNotNull(mkdName);
 		assertEquals("Krushevo", mkdName);
 	}
@@ -26,7 +24,6 @@ public class OperationsUtilTest {
 	@Test
 	public void latinToMacedonianTest() {
 		String mkdName = OperationsUtil.createMacedonianName("Skopje");
-		System.out.println("MKD NAME: " + mkdName);
 		assertNotNull(mkdName);
 		assertEquals("Скопје", mkdName);
 	}
@@ -121,11 +118,11 @@ public class OperationsUtilTest {
         return MacedonianToLatin.getInstance().translate(name);
     }
 
-    @Test
+    @SuppressWarnings("unused")
+	@Test
     public void generateTravelTime() {
         String arrivalTime = "18.55";
         String departureTime = "16.45";
-        System.out.println("Travel time3: " + "" + arrivalTime + " - " + departureTime);
         try {
             String[] ata = arrivalTime.split("\\.");
             String[] dta = departureTime.split("\\.");
@@ -142,29 +139,16 @@ public class OperationsUtilTest {
             int rmt = at - dt;
             int rh = rmt / 60;
             int rm = rmt % 60;
-
-            System.out.println("AH: " + at);
-            System.out.println("DH: " + dt);
-            System.out.println("AM: " + am);
-            System.out.println("DM: " + dm);
-            System.out.println("AT: " + at);
-            System.out.println("DT: " + dt);
-            System.out.println("RMT: " + rmt);
-            System.out.println("RH: " + dt);
-            System.out.println("RM: " + dt);
-
-            System.out.println("Travel time3: " + "" + rh + ":" + rm);
         } catch(Exception e) {
         }
         assertTrue(true);
     }
 
-    @Test
+    @SuppressWarnings("unused")
+	@Test
     public void generateTravelTime2() {
-        //09:00 - 12:40
         String arrivalTime = "09.00";
         String departureTime = "12.40";
-        System.out.println("Travel time3: " + "" + arrivalTime + " - " + departureTime);
         try {
             String[] ata = arrivalTime.split("\\.");
             String[] dta = departureTime.split("\\.");
@@ -176,33 +160,19 @@ public class OperationsUtilTest {
 
             int at = ah * 60 + am;
             int dt = dh * 60 + dm;
-
-
             int rmt = at - dt;
             int rh = rmt / 60;
             int rm = rmt % 60;
-
-            System.out.println("AH: " + at);
-            System.out.println("DH: " + dt);
-            System.out.println("AM: " + am);
-            System.out.println("DM: " + dm);
-            System.out.println("AT: " + at);
-            System.out.println("DT: " + dt);
-            System.out.println("RMT: " + rmt);
-            System.out.println("RH: " + dt);
-            System.out.println("RM: " + dt);
-
-            System.out.println("Travel time3: " + "" + rh + ":" + rm);
         } catch(Exception e) {
             e.printStackTrace();
         }
         assertTrue(true);
     }
 
-    @Test
+    @SuppressWarnings("unused")
+	@Test
     public void generateTravelTime3() {
         String travelTime = "3:40";
-        System.out.println("Travel time1: " + travelTime);
         String result;
         try {
             String[] tta = travelTime.split(":");
@@ -215,7 +185,6 @@ public class OperationsUtilTest {
         } catch(Exception e) {
             result = travelTime;
         }
-        System.out.println("Travel time2: " + result);
     }
 
     private boolean hasMinutes(String s) {

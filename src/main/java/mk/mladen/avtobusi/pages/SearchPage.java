@@ -46,6 +46,9 @@ public class SearchPage extends BasePage {
 
 		final AutoCompleteSettings opts = new AutoCompleteSettings();
 		opts.setShowListOnEmptyInput(true);
+		opts.setAdjustInputWidth(true);
+		opts.setShowCompleteListOnFocusGain(false);
+		opts.setShowListOnFocusGain(false);
 
 		final AutoCompleteTextField<String> actf1 = new AutoCompleteTextField<String>("departurePlace", departureModel, opts) {
 			private static final long serialVersionUID = 1L;
@@ -55,6 +58,7 @@ public class SearchPage extends BasePage {
 				return choices.iterator();
 			}
 		};
+		
 		actf1.add(new OnChangeAjaxBehavior(){
 			private static final long serialVersionUID = 1L;
 			@Override
@@ -64,7 +68,6 @@ public class SearchPage extends BasePage {
 		});
 		actf1.setRequired(true);
 		actf1.setOutputMarkupId(true);
-		actf1.setOutputMarkupPlaceholderTag(true);
 
 		final AutoCompleteTextField<String> actf2 = new AutoCompleteTextField<String>("destinationPlace", destinationModel, opts) {
 			private static final long serialVersionUID = 1L;
@@ -83,7 +86,6 @@ public class SearchPage extends BasePage {
 		});
 		actf2.setRequired(true);
 		actf2.setOutputMarkupId(true);
-		actf2.setOutputMarkupPlaceholderTag(true);
 		
 		final TextField<String> tf3 = new TextField<String>("departureDate", dateModel);
 		tf3.add(new OnChangeAjaxBehavior(){
