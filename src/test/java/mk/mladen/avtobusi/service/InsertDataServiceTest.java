@@ -33,7 +33,6 @@ public class InsertDataServiceTest {
     private Set<String> citySet = new HashSet<String>();
 
     @Test
-    @Ignore
     public void insertDataIntoDvTest() {
         System.out.println("Inserting data into DB");
         insertDataService.insertDataIntoDb();

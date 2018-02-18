@@ -1,5 +1,7 @@
 package mk.mladen.avtobusi;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.apache.wicket.Page;
 import org.apache.wicket.RuntimeConfigurationType;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
@@ -7,6 +9,8 @@ import org.apache.wicket.core.request.mapper.MountedMapper;
 import org.apache.wicket.markup.html.pages.AccessDeniedPage;
 import org.apache.wicket.markup.html.pages.InternalErrorPage;
 import org.apache.wicket.markup.html.pages.PageExpiredErrorPage;
+import org.apache.wicket.session.ISessionStore;
+import org.apache.wicket.settings.ExceptionSettings;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -20,6 +24,8 @@ import mk.mladen.avtobusi.security.AuthenticatedSession;
 
 public class WicketApplication extends AuthenticatedWebApplication {
 	
+	private static final Logger logger = LogManager.getLogger(WicketApplication.class);
+	
 	@Override
     public Class<SearchPage> getHomePage() {
         return SearchPage.class;
@@ -31,6 +37,9 @@ public class WicketApplication extends AuthenticatedWebApplication {
 		
 		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfiguration.class);
 		getComponentInstantiationListeners().add(new SpringComponentInjector(this, ctx));
+		getSessionListeners().add(new MySessionListener());
+		//getExceptionSettings().setAjaxErrorHandlingStrategy(ExceptionSettings.AjaxErrorStrategy.INVOKE_FAILURE_HANDLER);
+		getExceptionSettings().setUnexpectedExceptionDisplay(ExceptionSettings.SHOW_INTERNAL_ERROR_PAGE);
 		
 		mountPage("/#{lang}/#{departure}/#{destination}/#{date}", SearchPage.class);
 		mountPage("/search/#{lang}/#{departure}/#{destination}/#{date}", ResultPage.class);

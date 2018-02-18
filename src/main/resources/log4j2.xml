@@ -17,17 +17,17 @@
     </Appenders>
     <Loggers>
         <Logger name="mk.mladen.avtobusi" level="debug"/>
-        <Logger name="org.hibernate.SQL" level="info" />
-		<Logger name="org.hibernate.type" level="info" />
-		<Logger name="org.hibernate.tool.hbm2ddl" level="info" />
-		<Logger name="org.hibernate.pretty" level="info" />
-		<Logger name="org.hibernate.cache" level="info" />
-		<Logger name="org.hibernate.transaction" level="info" />
-		<Logger name="org.hibernate.jdbc" level="info" />
-		<Logger name="org.hibernate.hql.ast.AST" level="info" />
-		<Logger name="org.hibernate.secure" level="info" />
-		<Logger name="org.hibernate" level="info" />
-		<Logger name="org.springframework" level="info" />
+        <Logger name="org.hibernate.SQL" level="error" />
+		<Logger name="org.hibernate.type" level="error" />
+		<Logger name="org.hibernate.tool.hbm2ddl" level="error" />
+		<Logger name="org.hibernate.pretty" level="error" />
+		<Logger name="org.hibernate.cache" level="error" />
+		<Logger name="org.hibernate.transaction" level="error" />
+		<Logger name="org.hibernate.jdbc" level="error" />
+		<Logger name="org.hibernate.hql.ast.AST" level="error" />
+		<Logger name="org.hibernate.secure" level="error" />
+		<Logger name="org.hibernate" level="error" />
+		<Logger name="org.springframework" level="error" />
         <Root level="info">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="RollingFile"/>

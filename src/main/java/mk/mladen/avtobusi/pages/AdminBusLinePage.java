@@ -5,8 +5,12 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.AjaxSelfUpdatingTimerBehavior;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteSettings;
 import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteTextField;
@@ -23,6 +27,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.util.time.Duration;
 
 import mk.mladen.avtobusi.WicketApplication;
 import mk.mladen.avtobusi.beans.DeleteBean;
@@ -33,6 +38,8 @@ import mk.mladen.avtobusi.service.BusLineService;
 import mk.mladen.avtobusi.service.PlaceService;
 
 public class AdminBusLinePage extends BaseAdminPage {
+	
+	private static final Logger logger = LogManager.getLogger(AdminCarrierPage.class);
 
     private static final long serialVersionUID = 1L;
 
@@ -131,6 +138,17 @@ public class AdminBusLinePage extends BaseAdminPage {
         wmc.add(dataView);
         add(form);
         add(wmc);
+        
+        add(new AjaxEventBehavior("beforeunload") {
+			private static final long serialVersionUID = 1L;
+			@Override
+			protected void onEvent(AjaxRequestTarget target) {
+				logger.info("before unload event");	
+				logger.info("session is invalidated = " + getSession().isSessionInvalidated());
+			}
+		});
+		
+		add(new AjaxSelfUpdatingTimerBehavior(Duration.seconds(10)));
     }
 
     private PropertyListView<BusLineDto> createDataView(String itemId) {

@@ -3,6 +3,9 @@ package mk.mladen.avtobusi.pages;
 import java.util.Locale;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.wicket.event.IEvent;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
@@ -21,8 +24,11 @@ import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.settings.JavaScriptLibrarySettings;
 
 import mk.mladen.avtobusi.WicketApplication;
+import mk.mladen.avtobusi.security.AuthenticatedSession;
 
 public abstract class BasePage extends WebPage {
+	
+	private static Logger logger = LogManager.getLogger(BasePage.class);
 
 	private static final long serialVersionUID = 1L;
 
@@ -50,6 +56,12 @@ public abstract class BasePage extends WebPage {
 			}
 		};
 		add(searchPageLink);
+		
+		final AuthenticatedSession session = (AuthenticatedSession) AuthenticatedSession.get();
+        String username = session.getUsername();
+        final Model<String> model = new Model<String>(username);
+        final Label label = new Label("usernameLbl", model);
+        add(label);
 		
 		final StatelessLink<Void> aboutPage = new StatelessLink<Void>("AboutPage") {
 			private static final long serialVersionUID = 1L;
@@ -136,6 +148,7 @@ public abstract class BasePage extends WebPage {
 		add(favicon);
 		ttmh = new StringResourceModel("avtobusi.resultpage.traveltime.hour").getString();
 		ttmm = new StringResourceModel("avtobusi.resultpage.traveltime.min").getString();
+		
 	}
 
 	protected abstract void setResponse(PageParameters params);
@@ -235,6 +248,11 @@ public abstract class BasePage extends WebPage {
 	private void changeUserLocaleTo(String localeString) {
         getSession().setLocale(new Locale(localeString));
     }
+	
+	@Override
+	public void onEvent(IEvent<?> event) {
+//		}
+	}
 	
 }
 

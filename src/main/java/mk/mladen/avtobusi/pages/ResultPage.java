@@ -12,6 +12,7 @@ import org.apache.wicket.Application;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.AjaxSelfUpdatingTimerBehavior;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
 import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteSettings;
 import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteTextField;
@@ -32,6 +33,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.util.time.Duration;
 
 import mk.mladen.avtobusi.WicketApplication;
 import mk.mladen.avtobusi.beans.SearchBean;
@@ -146,6 +148,17 @@ public class ResultPage extends BasePage {
 		form.add(dataContainer);
 
 		add(form);
+		
+		add(new AjaxEventBehavior("beforeunload") {
+			private static final long serialVersionUID = 1L;
+			@Override
+			protected void onEvent(AjaxRequestTarget target) {
+				logger.info("before unload event");	
+				logger.info("session is invalidated = " + getSession().isSessionInvalidated());
+			}
+		});
+		
+		add(new AjaxSelfUpdatingTimerBehavior(Duration.seconds(10)));
 	}
 
 	private void createDataView() {

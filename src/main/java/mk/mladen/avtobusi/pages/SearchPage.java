@@ -4,7 +4,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.AjaxSelfUpdatingTimerBehavior;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
 import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteSettings;
 import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteTextField;
@@ -17,6 +21,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.util.time.Duration;
 
 import mk.mladen.avtobusi.WicketApplication;
 import mk.mladen.avtobusi.beans.SearchBean;
@@ -25,6 +30,8 @@ import mk.mladen.avtobusi.service.impl.OperationsUtil;
 
 @SuppressWarnings("unchecked")
 public class SearchPage extends BasePage {
+	
+	private static Logger logger = LogManager.getLogger(SearchPage.class);
 
 	private static final long serialVersionUID = 1L;
 	
@@ -146,6 +153,17 @@ public class SearchPage extends BasePage {
 		form.add(imgSwitch);
 
 		add(form);
+		
+		add(new AjaxEventBehavior("beforeunload") {
+			private static final long serialVersionUID = 1L;
+			@Override
+			protected void onEvent(AjaxRequestTarget target) {
+				logger.info("before unload event");	
+				logger.info("session is invalidated = " + getSession().isSessionInvalidated());
+			}
+		});
+		
+		add(new AjaxSelfUpdatingTimerBehavior(Duration.seconds(10)));
 	}
 
 	@Override

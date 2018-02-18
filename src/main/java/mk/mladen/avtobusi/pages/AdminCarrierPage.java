@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.AjaxSelfUpdatingTimerBehavior;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteSettings;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
@@ -17,6 +21,7 @@ import org.apache.wicket.markup.html.list.PropertyListView;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.util.time.Duration;
 
 import mk.mladen.avtobusi.beans.SearchBean;
 import mk.mladen.avtobusi.dto.CarrierDto;
@@ -24,6 +29,8 @@ import mk.mladen.avtobusi.service.CarrierService;
 import mk.mladen.avtobusi.service.PlaceService;
 
 public class AdminCarrierPage extends BaseAdminPage {
+	
+	private static final Logger logger = LogManager.getLogger(AdminCarrierPage.class);
 
     private static final long serialVersionUID = 1L;
 
@@ -94,6 +101,17 @@ public class AdminCarrierPage extends BaseAdminPage {
         wmc.add(dataView);
         add(form);
         add(wmc);
+        
+        add(new AjaxEventBehavior("beforeunload") {
+			private static final long serialVersionUID = 1L;
+			@Override
+			protected void onEvent(AjaxRequestTarget target) {
+				logger.info("before unload event");	
+				logger.info("session is invalidated = " + getSession().isSessionInvalidated());
+			}
+		});
+		
+		add(new AjaxSelfUpdatingTimerBehavior(Duration.seconds(10)));
     }
 
     private PropertyListView<CarrierDto> createDataView() {

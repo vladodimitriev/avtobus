@@ -1,7 +1,10 @@
 package mk.mladen.avtobusi.security;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
+import org.apache.wicket.event.IEvent;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -11,10 +14,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 
+import mk.mladen.avtobusi.pages.BasePage;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public class AuthenticatedSession extends AuthenticatedWebSession {
+	
+	private static Logger logger = LogManager.getLogger(AuthenticatedSession.class);
 
     private static final long serialVersionUID = 1L;
     
@@ -28,6 +35,7 @@ public class AuthenticatedSession extends AuthenticatedWebSession {
     public AuthenticatedSession(Request request) {
         super(request);
         this.httpSession = ((HttpServletRequest) request.getContainerRequest()).getSession();
+        this.httpSession.setMaxInactiveInterval(20);
         Injector.get().inject(this);
     }
 
@@ -46,6 +54,12 @@ public class AuthenticatedSession extends AuthenticatedWebSession {
         } else {
             return false;
         }
+    }
+    
+    @Override
+    public void onInvalidate() {
+    	logger.info("on invalidate session " + httpSession.getId());
+    	logger.info("on invalidate session username = " + username);
     }
 
     @Override
@@ -78,4 +92,33 @@ public class AuthenticatedSession extends AuthenticatedWebSession {
 		return username;
 	}
 
+	@Override
+	public void invalidateNow() {
+		super.invalidateNow();
+		logger.debug("invalidateNow()");
+	}
+	
+	@Override
+	public void invalidate() {
+		super.invalidate();
+		logger.debug("invalidate()");
+	}
+	
+	@Override
+	public void detach() {
+		super.detach();
+		//logger.debug("detach()");
+	}
+	
+	@Override
+	protected void finalize() throws Throwable {
+		super.finalize();
+		//logger.debug("finalize()");
+	}
+	
+	@Override
+	public void internalDetach() {
+		super.internalDetach();
+		//logger.debug("internalDetach()");
+	}
 }
