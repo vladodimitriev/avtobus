@@ -1,5 +1,7 @@
 package mk.mladen.avtobusi.util;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -33,14 +35,14 @@ public class PlaceTest {
 		result.add(dto);
 		
 		Collections.sort(result, (p1, p2) -> p1.getDepartureTime() != null ? p1.getDepartureTime().compareTo(p2.getDepartureTime()) : 1);
-		result.forEach((res) -> System.out.print(res.getDepartureTime() + "; "));
+		//result.forEach((res) -> assertNotNull(res.getDepartureTime()));
 	}
 
 	@Test
 	public void test() {
 		String kamenica = "Мак.Каменица";
 		kamenica = createCityCN(kamenica);
-		System.out.println(kamenica);
+		assertNotNull(kamenica);
 	}
 	
 	private String createCityCN(String name) {

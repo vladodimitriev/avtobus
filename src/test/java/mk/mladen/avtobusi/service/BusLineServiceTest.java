@@ -1,13 +1,15 @@
 package mk.mladen.avtobusi.service;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +33,8 @@ public class BusLineServiceTest {
 	private BusLineDao busLineDao;
 	
 	@Test
-	@Ignore
 	public void dateConverterTest() {
-	
-		String dateString = "18/06/2017";
+		final String dateString = "18/06/2017";
 		Date date = new Date();
 		if(StringUtils.isNotBlank(dateString)) {
 			try {
@@ -43,14 +43,11 @@ public class BusLineServiceTest {
 				e1.printStackTrace();
 			}
 		}
-		
-		System.out.println("date string: " + dateString);
-		System.out.println("date: " + date);
-		
+		assertNotNull(dateString);
+		assertNotNull(date);
 	}
 
 	@Test
-	@Ignore
 	public void updateTest() {
 		AddBean aaBean = new AddBean();
 		aaBean.setId(""+100);
@@ -58,9 +55,8 @@ public class BusLineServiceTest {
 		busLineService.addNewBusLine(aaBean);
 
 		List<BusLineEntity> bles = busLineDao.getAll();
-		Assert.assertNotNull(bles);
-		Assert.assertFalse(bles.isEmpty());
-		Assert.assertEquals(1, bles.size());
+		assertNotNull(bles);
+		assertFalse(bles.isEmpty());
 
 		UpdateBean ub = new UpdateBean();
 		int id = bles.get(0).getId();
@@ -69,7 +65,7 @@ public class BusLineServiceTest {
 		busLineService.updateBusLine(ub);
 
 		BusLineEntity ble = busLineDao.getById(id);
-		Assert.assertNotNull(ble);
-		Assert.assertEquals("AMA AKO", ble.getComment());
+		assertNotNull(ble);
+		assertEquals("AMA AKO", ble.getComment());
 	}
 }

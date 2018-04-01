@@ -38,17 +38,16 @@ public class ApplicationTestConfig {
 		JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		em.setJpaVendorAdapter(vendorAdapter);
 		em.setJpaProperties(additionalProperties());
-
 		return em;
 	}
 
 	@Bean
     public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName(environment.getRequiredProperty("postgres.jdbc.driverClassName"));
-		dataSource.setUrl(environment.getRequiredProperty("postgres.jdbc.url"));
-		dataSource.setUsername(environment.getRequiredProperty("postgres.jdbc.username"));
-		dataSource.setPassword(environment.getRequiredProperty("postgres.jdbc.password"));
+		dataSource.setDriverClassName(environment.getRequiredProperty("hsqldb.jdbc.driverClassName"));
+		dataSource.setUrl(environment.getRequiredProperty("hsqldb.jdbc.url"));
+		dataSource.setUsername(environment.getRequiredProperty("hsqldb.jdbc.username"));
+		dataSource.setPassword(environment.getRequiredProperty("hsqldb.jdbc.password"));
 		return dataSource;
     }
 
@@ -68,13 +67,13 @@ public class ApplicationTestConfig {
 
 	protected Properties additionalProperties() {
 		Properties properties = new Properties();
-		properties.put("hibernate.dialect", environment.getRequiredProperty("postgres.hibernate.dialect"));
-		properties.put("hibernate.show_sql", environment.getRequiredProperty("postgres.hibernate.show_sql"));
-		properties.put("hibernate.format_sql", environment.getRequiredProperty("postgres.hibernate.format_sql"));
-		properties.put("hibernate.hbm2ddl.auto", environment.getRequiredProperty("postgres.hibernate.hbm2ddl.auto"));
-		properties.put("hibernate.dialect", environment.getRequiredProperty("postgres.hibernate.dialect"));
-		properties.put("hibernate.cache.provider_class", environment.getRequiredProperty("postgres.hibernate.cache.provider_class"));
-		properties.put("hibernate.enable_lazy_load_no_trans", environment.getRequiredProperty("postgres.hibernate.enable_lazy_load_no_trans"));
+		properties.put("hibernate.dialect", environment.getRequiredProperty("hsqldb.hibernate.dialect"));
+		properties.put("hibernate.show_sql", environment.getRequiredProperty("hsqldb.hibernate.show_sql"));
+		properties.put("hibernate.format_sql", environment.getRequiredProperty("hsqldb.hibernate.format_sql"));
+		properties.put("hibernate.hbm2ddl.auto", environment.getRequiredProperty("hsqldb.hibernate.hbm2ddl.auto"));
+		properties.put("hibernate.dialect", environment.getRequiredProperty("hsqldb.hibernate.dialect"));
+		properties.put("hibernate.cache.provider_class", environment.getRequiredProperty("hsqldb.hibernate.cache.provider_class"));
+		properties.put("hibernate.enable_lazy_load_no_trans", environment.getRequiredProperty("hsqldb.hibernate.enable_lazy_load_no_trans"));
 		return properties;
 	}
 }

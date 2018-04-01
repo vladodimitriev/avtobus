@@ -1,15 +1,18 @@
 package mk.mladen.avtobusi.dao.impl;
 
-import mk.mladen.avtobusi.dao.PlaceDao;
-import mk.mladen.avtobusi.entity.PlaceEntity;
-import org.apache.log4j.Logger;
-import org.springframework.stereotype.Repository;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
-import java.util.ArrayList;
-import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Repository;
+
+import mk.mladen.avtobusi.dao.PlaceDao;
+import mk.mladen.avtobusi.entity.PlaceEntity;
 
 @SuppressWarnings({ "unchecked", "rawtypes" })
 @Repository(value = "placeDao")
@@ -138,7 +141,8 @@ public class PlaceDaoImpl extends GenericDaoImpl<PlaceEntity> implements PlaceDa
 		List<String> results = new ArrayList<String>();
 		String queryStr = "select ple.nameCyrilic from PlaceEntity ple where (LOWER(ple.name) like LOWER(:name) or LOWER(ple.nameCyrilic) like LOWER(:name)) order by importance desc";
 		Query query = getEntityManager().createQuery(queryStr);
-		query.setParameter("name",  name + "%");
+		String nameTrimmed = StringUtils.strip(name, null);
+		query.setParameter("name",  nameTrimmed + "%");
 		query.setMaxResults(10);
 		Object object = query.getResultList();
 		if(object instanceof List) {

@@ -43,8 +43,7 @@ public class AdminPlacePage extends BaseAdminPage {
         TextField<String> actf1 = new TextField<String>("place", new PropertyModel<String>(searchBean, "place"));
         actf1.setOutputMarkupId(true);
 
-        dataView = createDataView();
-        dataView.setOutputMarkupId(true);
+        createDataView();
 
         wmc = new WebMarkupContainer("wmc");
         wmc.setOutputMarkupId(true);
@@ -53,9 +52,7 @@ public class AdminPlacePage extends BaseAdminPage {
 			private static final long serialVersionUID = 1L;
 			@Override
             protected void onSubmit() {
-                dataView = createDataView();
-                dataView.setOutputMarkupId(true);
-                wmc.addOrReplace(dataView);
+                updateDataView();
             }
         };
         form.add(actf1);
@@ -71,8 +68,7 @@ public class AdminPlacePage extends BaseAdminPage {
 			@Override
             public void onClose(AjaxRequestTarget target)
             {
-                dataView = createDataView();
-                wmc.addOrReplace(dataView);
+				updateDataView();
                 target.add(wmc);
             }
         });
@@ -80,7 +76,6 @@ public class AdminPlacePage extends BaseAdminPage {
 
         AjaxLink<Void> link = new AjaxLink<Void>("addLink") {
 			private static final long serialVersionUID = 1L;
-
 			@Override
             public void onClick(AjaxRequestTarget target) {
                 modalWindow.show(target);
@@ -92,9 +87,14 @@ public class AdminPlacePage extends BaseAdminPage {
         add(wmc);
     }
 
-    private PropertyListView<PlaceDto> createDataView() {
+    private void updateDataView() {
+    	List<PlaceDto> places = loadPlaces();
+    	dataView.setList(places);
+    }
+    
+    private void createDataView() {
         List<PlaceDto> places = loadPlaces();
-        PropertyListView<PlaceDto> dataView = new PropertyListView<PlaceDto>("rows", places) {
+        dataView = new PropertyListView<PlaceDto>("rows", places) {
 			private static final long serialVersionUID = 1L;
 			@Override
             protected void populateItem(ListItem<PlaceDto> item) {
@@ -111,7 +111,7 @@ public class AdminPlacePage extends BaseAdminPage {
 
                 ModalWindow modalWindowUpdate = createModalWindowUpdate(placeDto);
                 item.add(modalWindowUpdate);
-
+                
                 ModalWindow modalWindowDelete = createModalWindowDelete(placeDto);
                 item.add(modalWindowDelete);
 
@@ -122,21 +122,20 @@ public class AdminPlacePage extends BaseAdminPage {
                         modalWindowUpdate.show(target);
                     }
                 };
+                
+//                AjaxLink<Void> link2 = new AjaxLink<Void>("deleteLink") {
+//					private static final long serialVersionUID = 1L;
+//					@Override
+//                    public void onClick(AjaxRequestTarget target) {
+//                        modalWindowDelete.show(target);
+//                    }
+//                };
+//                item.add(link2);
                 item.add(link1);
-
-                /*	
-                AjaxLink<Void> link2 = new AjaxLink<Void>("deleteLink") {
-					private static final long serialVersionUID = 1L;
-					@Override
-                    public void onClick(AjaxRequestTarget target) {
-                        modalWindowDelete.show(target);
-                    }
-                };
-                item.add(link2);
-                */
+                item.setOutputMarkupId(true);
             }
         };
-        return dataView;
+        dataView.setOutputMarkupId(true);
     }
 
     private ModalWindow createModalWindowUpdate(PlaceDto placeDto) {
@@ -150,8 +149,7 @@ public class AdminPlacePage extends BaseAdminPage {
 			private static final long serialVersionUID = 1L;
 			@Override
             public void onClose(AjaxRequestTarget target) {
-                dataView = createDataView();
-                wmc.addOrReplace(dataView);
+                updateDataView();
                 target.add(wmc);
             }
         });
@@ -170,7 +168,7 @@ public class AdminPlacePage extends BaseAdminPage {
 
     private List<PlaceDto> loadPlaces() {
         List<PlaceDto> dtos = new ArrayList<PlaceDto>();
-        if(placeService != null) {
+        if(placeService != null && searchBean != null) {
             String place = searchBean.getPlace();
             if(StringUtils.isNotBlank(place)) {
                 dtos = placeService.findPlaces(place);

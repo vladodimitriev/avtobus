@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-    <PLACE id="0" name="Skopje" importance="10"/>
-    <PLACE id="1" name="Strumica" importance="8" />
-    <PLACE id="2" name="Struga" importance="5" />
+    <PLACE id="0" name="Skopje" nameCyrillic="Скопје" importance="10"/>
+    <PLACE id="1" name="Strumica" nameCyrillic="Струмица" importance="8" />
+    <PLACE id="2" name="Struga" nameCyrillic="Струга" importance="5" />
     <PLACE id="3" name="Kavadarci" importance="7" />
     <PLACE id="4" name="Kumanovo" importance="9" />
     <PLACE id="5" name="Kriva Palanka" importance="2" />

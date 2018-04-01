@@ -1,17 +1,15 @@
 package mk.mladen.avtobusi.util;
 
+import static org.junit.Assert.assertNotNull;
+
+import org.junit.Test;
+
 import com.ibm.icu.text.Transliterator;
 
 public class MacedonianToLatin {
 	
-	public static String MACEDONIAN_TO_LATIN = "Macedonian-Latin/BGN";
-
-	public static void main(String[] args) {
-		MacedonianToLatin mtl = new MacedonianToLatin();
-		mtl.run();
-	}
-
-	private void run() {
+	@Test	
+	public void macedonianToLatinTest() {
 		String rules=
 				"A > A;" +
 				"a > a;" +
@@ -75,29 +73,30 @@ public class MacedonianToLatin {
 		        "џ > g;" +
 		        "Ш > SH;" +
 		        "ш > sh"; 
-		//Transliterator mkdToLatin = Transliterator.getInstance(MACEDONIAN_TO_LATIN);
 		
 		String mkString = "Джокович";
 		Transliterator mkdToLatin = Transliterator.createFromRules("temp", rules, Transliterator.FORWARD);
         String result = mkdToLatin.transliterate(mkString);
         String result2 = mkdToLatin.transform(mkString);
-        System.out.println("Macedonian to Latin - result1:" + result + " - result2: " + result2);
+        
+        assertNotNull(result);
+        assertNotNull(result2);
         
         mkString = "ПЕЛАГОНИЈА ТРАНС А.Д - ПРИЛЕП";
         result = mkdToLatin.transliterate(mkString);
-        System.out.println("Macedonian to Latin:" + result);
+        assertNotNull(result);
         
         mkString = "ЃОКО ГЛИГОР ШОНТЕВСКИ-БЕРОВО";
         result = mkdToLatin.transliterate(mkString);
-        System.out.println("Macedonian to Latin:" + result);
+        assertNotNull(result);
         
         mkString = "МАРЈАН ТУРС ДООЕЛ-ПРОБИШТИП";
         result = mkdToLatin.transliterate(mkString);
-        System.out.println("Macedonian to Latin:" + result);
+        assertNotNull(result);
         
         mkString = "АНДОН КОМПАНИ ДОО - ПЕХЧЕВО";
         result = mkdToLatin.transliterate(mkString);
-        System.out.println("Macedonian to Latin:" + result);
+        assertNotNull(result);
 	}
-	
+
 }

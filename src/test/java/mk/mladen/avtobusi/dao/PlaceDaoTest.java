@@ -1,8 +1,12 @@
 package mk.mladen.avtobusi.dao;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
-import mk.mladen.avtobusi.ApplicationTestConfig;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +16,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
-import java.util.List;
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
 
-import static org.junit.Assert.*;
+import mk.mladen.avtobusi.ApplicationTestConfig;
 
 @DatabaseSetup("PlaceSampleData.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -31,9 +36,6 @@ public class PlaceDaoTest {
     	List<String> result = placeDao.getAllPlacesCyrillicNamesByName("mk", name);
     	assertNotNull(result);
         assertFalse(result.isEmpty());
-        for(String s : result) {
-        	System.out.println(s);
-        }
         assertEquals(1, result.size());
     }
 

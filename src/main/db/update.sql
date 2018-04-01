@@ -1,4 +1,3 @@
-ALTER TABLE place ADD importance integer;
 update place set importance = 10 where name = 'Skopje';
 update place set importance = 10 where name = 'Bitola';
 update place set importance = 10 where name = 'Ohrid';
