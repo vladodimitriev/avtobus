@@ -58,7 +58,6 @@ public class AdminMenuPanel extends Panel {
         
         AuthenticatedSession session = (AuthenticatedSession) AuthenticatedSession.get();
         String username = session.getUsername();
-        logger.debug("username = {}", username);
         Model<String> model = new Model<String>(username);
         Label label = new Label("username", model);
         add(label);

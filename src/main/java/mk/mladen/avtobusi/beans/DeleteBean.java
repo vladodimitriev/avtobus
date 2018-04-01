@@ -135,4 +135,9 @@ public class DeleteBean implements Serializable {
     public void setPrice(String price) {
         this.price = price;
     }
+    
+    @Override
+    public String toString() {
+    	return String.format("DeleteBean[id = %s, departure = %s, destination = %s, time = %s]", ""+id, departurePlace, arrivalPlace, departureTime);
+    }
 }

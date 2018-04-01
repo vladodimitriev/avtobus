@@ -2,6 +2,9 @@ package mk.mladen.avtobusi.pages;
 
 import mk.mladen.avtobusi.beans.DeleteBean;
 import mk.mladen.avtobusi.service.BusLineService;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
@@ -13,20 +16,14 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 public class ModalPanelBusLineDelete extends Panel {
 
     private static final long serialVersionUID = 1L;
+    
+    private static Logger logger = LogManager.getLogger(ModalPanelBusLineDelete.class);
 
     @SpringBean
     private BusLineService busLineService;
 
-    private DeleteBean bean;
-
-    public ModalPanelBusLineDelete(String id, DeleteBean dbean, ModalWindow window) {
+    public ModalPanelBusLineDelete(String id, final DeleteBean bean, ModalWindow window) {
         super(id);
-
-        if(dbean == null) {
-            bean = new DeleteBean();
-        } else {
-            bean = dbean;
-        }
 
         PropertyModel<String> departureModel = new PropertyModel<String>(bean, "departurePlace");
         PropertyModel<String> arrivalModel = new PropertyModel<String>(bean, "arrivalPlace");
@@ -44,8 +41,12 @@ public class ModalPanelBusLineDelete extends Panel {
             private static final long serialVersionUID = 1L;
 			@Override
             public void onClick(AjaxRequestTarget target) {
-                busLineService.deleteBusLine(bean.getId());
-                window.close(target);
+				if(bean != null) {
+					busLineService.deleteBusLine(bean.getId());
+				} else {
+					logger.debug("delete bean == null");
+				}
+				window.close(target);
             }
         };
 

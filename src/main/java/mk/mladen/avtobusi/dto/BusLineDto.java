@@ -384,4 +384,8 @@ public class BusLineDto implements Serializable {
 		this.smallPlacesLatin = smallPlacesLatin;
 	}
 
+	@Override
+	public String toString() {
+		return String.format("\nBusLineDto[id = %s, name = %s]", "" + id, name);
+	}
 }

@@ -47,8 +47,7 @@ public class AdminCarrierPage extends BaseAdminPage {
         TextField<String> actf1 = new TextField<String>("carrier", new PropertyModel<String>(searchBean, "carrier"));
         actf1.setOutputMarkupId(true);
 
-        dataView = createDataView();
-        dataView.setOutputMarkupId(true);
+        createDataView();
 
         wmc = new WebMarkupContainer("wmc");
         wmc.setOutputMarkupId(true);
@@ -57,9 +56,7 @@ public class AdminCarrierPage extends BaseAdminPage {
             private static final long serialVersionUID = 1L;
 			@Override
             protected void onSubmit() {
-                dataView = createDataView();
-                dataView.setOutputMarkupId(true);
-                wmc.addOrReplace(dataView);
+				updateDataView();
             }
         };
         form.add(actf1);
@@ -76,8 +73,7 @@ public class AdminCarrierPage extends BaseAdminPage {
 			@Override
             public void onClose(AjaxRequestTarget target)
             {
-                dataView = createDataView();
-                wmc.addOrReplace(dataView);
+				updateDataView();
                 target.add(wmc);
             }
         });
@@ -96,9 +92,14 @@ public class AdminCarrierPage extends BaseAdminPage {
         add(wmc);
     }
 
-    private PropertyListView<CarrierDto> createDataView() {
+    private void updateDataView() {
+    	List<CarrierDto> places = loadPlaces();
+    	dataView.setList(places);
+    }
+    
+    private void createDataView() {
         List<CarrierDto> places = loadPlaces();
-        PropertyListView<CarrierDto> dataView = new PropertyListView<CarrierDto>("rows", places) {
+        dataView = new PropertyListView<CarrierDto>("rows", places) {
             private static final long serialVersionUID = 1L;
 			@Override
             protected void populateItem(ListItem<CarrierDto> item) {
@@ -126,10 +127,20 @@ public class AdminCarrierPage extends BaseAdminPage {
                         modalWindowUpdate.show(target);
                     }
                 };
+                
+//                AjaxLink<Void> link2 = new AjaxLink<Void>("deleteLink") {
+//					private static final long serialVersionUID = 1L;
+//					@Override
+//                    public void onClick(AjaxRequestTarget target) {
+//                        modalWindowDelete.show(target);
+//                    }
+//                };
+//                item.add(link2);
                 item.add(link1);
+                item.setOutputMarkupId(true);
             }
         };
-        return dataView;
+        dataView.setOutputMarkupId(true);
     }
 
     private ModalWindow createModalWindowUpdate(CarrierDto placeDto) {
@@ -145,8 +156,7 @@ public class AdminCarrierPage extends BaseAdminPage {
 			@Override
             public void onClose(AjaxRequestTarget target)
             {
-                dataView = createDataView();
-                wmc.addOrReplace(dataView);
+				updateDataView();
                 target.add(wmc);
             }
         });

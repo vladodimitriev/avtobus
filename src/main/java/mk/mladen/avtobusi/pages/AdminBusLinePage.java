@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -35,6 +37,8 @@ import mk.mladen.avtobusi.service.PlaceService;
 public class AdminBusLinePage extends BaseAdminPage {
 
     private static final long serialVersionUID = 1L;
+    
+    private static Logger logger = LogManager.getLogger(AdminBusLinePage.class);
 
     private SearchBean searchBean = new SearchBean();
 
@@ -49,6 +53,8 @@ public class AdminBusLinePage extends BaseAdminPage {
     private PropertyListView<BusLineDto> dataView;
 
     private WebMarkupContainer wmc;
+    
+    private String dataItemId;
 
     public AdminBusLinePage(PageParameters parameters) {
         super(parameters);
@@ -56,6 +62,8 @@ public class AdminBusLinePage extends BaseAdminPage {
         Image imgSwitch = new Image( "switch-img", imgSwitchModel);
         ResourceReference rr1 = new PackageResourceReference(WicketApplication.class, "static/img/switch50x999.jpg");
         imgSwitch.setImageResourceReference(rr1);
+        
+        busResourceReference = new PackageResourceReference(WicketApplication.class, "static/img/bus21x21x999.jpg");
 
         AutoCompleteSettings opts = new AutoCompleteSettings();
         opts.setShowListOnEmptyInput(true);
@@ -82,8 +90,7 @@ public class AdminBusLinePage extends BaseAdminPage {
         actf2.setRequired(true);
         actf2.setOutputMarkupId(true);
 
-        dataView = createDataView(null);
-        dataView.setOutputMarkupId(true);
+        createDataView(null);
 
         wmc = new WebMarkupContainer("wmc");
         wmc.setOutputMarkupId(true);
@@ -92,20 +99,20 @@ public class AdminBusLinePage extends BaseAdminPage {
 			private static final long serialVersionUID = 1L;
 			@Override
             protected void onSubmit() {
-                dataView = createDataView(null);
-                dataView.setOutputMarkupId(true);
-                wmc.addOrReplace(dataView);
+                updateDataView();
             }
         };
+        form.setOutputMarkupId(true);
         form.add(actf1);
         form.add(actf2);
         form.add(imgSwitch);
 
-        ModalWindow modalWindow = new ModalWindow("modalWindow");
+        ModalWindow modalWindow = new ModalWindow("modalWindowAdd");
         modalWindow.setOutputMarkupId(true);
         modalWindow.setResizable(true);
         modalWindow.setInitialHeight(620);
-        modalWindow.setContent(new ModalPanelBusLineAdd(modalWindow.getContentId(), modalWindow));
+        ModalPanelBusLineAdd modalPanelAdd = new ModalPanelBusLineAdd(modalWindow.getContentId(), modalWindow);
+		modalWindow.setContent(modalPanelAdd);
         modalWindow.showUnloadConfirmation(false);
         modalWindow.setWindowClosedCallback(new ModalWindow.WindowClosedCallback()
         {
@@ -113,8 +120,7 @@ public class AdminBusLinePage extends BaseAdminPage {
 			@Override
             public void onClose(AjaxRequestTarget target)
             {
-                dataView = createDataView(null);
-                wmc.addOrReplace(dataView);
+                updateDataView();
                 target.add(wmc);
             }
         });
@@ -133,9 +139,14 @@ public class AdminBusLinePage extends BaseAdminPage {
         add(wmc);
     }
 
-    private PropertyListView<BusLineDto> createDataView(String itemId) {
+    private void updateDataView() {
+    	List<BusLineDto> busLines = loadRelations();
+    	dataView.setList(busLines);
+    };	
+    
+    private void createDataView(String itemId) {
         List<BusLineDto> busLines = loadRelations();
-        PropertyListView<BusLineDto> dataView = new PropertyListView<BusLineDto>("rows", busLines) {
+        dataView = new PropertyListView<BusLineDto>("rows", busLines) {
 			private static final long serialVersionUID = 1L;
 			@Override
             protected void populateItem(ListItem<BusLineDto> item) {
@@ -203,15 +214,20 @@ public class AdminBusLinePage extends BaseAdminPage {
                     }
                 };
                 item.add(link2);
-                if(StringUtils.isNotBlank(itemId) && itemId.equalsIgnoreCase(item.getId())) {
+                if(StringUtils.isNotBlank(dataItemId) && dataItemId.equalsIgnoreCase(item.getId())) {
                 	item.add(AttributeModifier.replace("class", "row article-row-visited"));
                 }
+                
+                item.setOutputMarkupId(true);
             }
         };
-        return dataView;
+        dataView.setOutputMarkupId(true);
     }
 
     private String generateTravelTime(String travelTime) {
+    	if(StringUtils.isBlank(travelTime)) {
+    		return StringUtils.EMPTY;
+    	}
         String result;
         try {
             String[] tta = travelTime.split(":");
@@ -222,6 +238,7 @@ public class AdminBusLinePage extends BaseAdminPage {
             }
             result = tth + " " + ttm;
         } catch(Exception e) {
+        	logger.error(e);
             result = travelTime;
         }
         return result;
@@ -235,6 +252,7 @@ public class AdminBusLinePage extends BaseAdminPage {
             }
             return false;
         }catch(Exception e) {
+        	logger.error(e);
             return false;
         }
     }
@@ -242,7 +260,6 @@ public class AdminBusLinePage extends BaseAdminPage {
     private DeleteBean createDeleteBean(BusLineDto busLine) {
         DeleteBean deleteBean = new DeleteBean();
         deleteBean.setId(String.valueOf(busLine.getId()));
-
         deleteBean.setArrivalPlace(busLine.getDestinationPlace());
         deleteBean.setArrivalTime(busLine.getArrivalTime());
         deleteBean.setDeparturePlace(busLine.getDeparturePlace());
@@ -258,14 +275,13 @@ public class AdminBusLinePage extends BaseAdminPage {
         modalWindowUpdate.setResizable(true);
         modalWindowUpdate.setInitialHeight(620);
         modalWindowUpdate.showUnloadConfirmation(false);
-        modalWindowUpdate.setWindowClosedCallback(new ModalWindow.WindowClosedCallback()
-        {
+        modalWindowUpdate.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
 			private static final long serialVersionUID = 1L;
 			@Override
             public void onClose(AjaxRequestTarget target)
             {
-                dataView = createDataView(itemId);
-                wmc.addOrReplace(dataView);
+				dataItemId = itemId;
+				updateDataView();
                 target.add(wmc);
             }
         });
@@ -275,10 +291,12 @@ public class AdminBusLinePage extends BaseAdminPage {
     private ModalWindow createModalWindowDelete(DeleteBean deleteBean) {
         ModalWindow modalWindowDelete = new ModalWindow("modalWindowDelete");
         modalWindowDelete.setOutputMarkupId(true);
-        modalWindowDelete.setContent(new ModalPanelBusLineDelete(modalWindowDelete.getContentId(), deleteBean, modalWindowDelete));
+        ModalPanelBusLineDelete modalPanel = new ModalPanelBusLineDelete(modalWindowDelete.getContentId(), deleteBean, modalWindowDelete);
+		modalWindowDelete.setContent(modalPanel);
         modalWindowDelete.setResizable(true);
         modalWindowDelete.setInitialHeight(400);
         modalWindowDelete.setInitialWidth(800);
+        modalWindowDelete.showUnloadConfirmation(false);
         return modalWindowDelete;
     }
 
