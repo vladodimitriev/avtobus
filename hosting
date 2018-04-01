@@ -1,0 +1,22 @@
+================================================
+Avtobusi domain hosting
+================================================
+
+http://www.mkhost.com.mk
+avtobusi.mk.herokudns.com.
+wildcard.avtobusi.mk.herokudns.com.
+www.avtobusi.mk.herokudns.com.
+
+-----------------------------------------------
+
+https://centrum.active24.cz/
+avtobusi.sk.herokudns.com.
+wildcard.avtobusi.sk.herokudns.com.
+www.avtobusi.sk.herokudns.com.
+
+================================================
+Heroku:
+heroku login --app avtobusi
+heroku domains --app avtobusi
+heroku domains:add avtobusi.mk--app avtobusi
+================================================
