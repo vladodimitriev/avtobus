@@ -84,9 +84,4 @@ dependencies {
     testCompile group: 'org.hsqldb', name: 'hsqldb', version: '2.4.0'
     
 }
-/*
-gretty {
-    contextPath = '/avtobus'
-    port = 4242
-}
-*/
+task stage(dependsOn: ['clean', 'build'])
