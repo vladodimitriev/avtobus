@@ -49,4 +49,9 @@ public class CarrierDto implements Serializable {
     public void setPlace(String place) {
         this.place = place;
     }
+    
+    @Override
+    public String toString() {
+    	return String.format("CarrierDto[id = %s, name = %s]", "" + id, name);
+    }
 }

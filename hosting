@@ -16,7 +16,7 @@ www.avtobusi.sk.herokudns.com.
 
 ================================================
 Heroku:
-heroku login --app avtobusi
+heroku login
 heroku domains --app avtobusi
 heroku domains:add avtobusi.mk--app avtobusi
 ================================================

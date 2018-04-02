@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteSettings;
@@ -26,6 +28,8 @@ import mk.mladen.avtobusi.service.PlaceService;
 public class AdminCarrierPage extends BaseAdminPage {
 
     private static final long serialVersionUID = 1L;
+    
+    private static Logger logger = LogManager.getLogger(AdminCarrierPage.class);
 
     private SearchBean searchBean = new SearchBean();
 
@@ -56,7 +60,7 @@ public class AdminCarrierPage extends BaseAdminPage {
             private static final long serialVersionUID = 1L;
 			@Override
             protected void onSubmit() {
-				updateDataView();
+				//updateDataView();
             }
         };
         form.add(actf1);
@@ -73,8 +77,8 @@ public class AdminCarrierPage extends BaseAdminPage {
 			@Override
             public void onClose(AjaxRequestTarget target)
             {
-				updateDataView();
-                target.add(wmc);
+				//updateDataView();
+                //target.add(wmc);
             }
         });
         add(modalWindow);
@@ -94,7 +98,8 @@ public class AdminCarrierPage extends BaseAdminPage {
 
     private void updateDataView() {
     	List<CarrierDto> places = loadPlaces();
-    	dataView.setList(places);
+    	//dataView.setList(places);
+    	dataView.setModelObject(places);
     }
     
     private void createDataView() {
@@ -104,30 +109,31 @@ public class AdminCarrierPage extends BaseAdminPage {
 			@Override
             protected void populateItem(ListItem<CarrierDto> item) {
                 final CarrierDto placeDto = item.getModelObject();
+                logger.debug("CarrierDto = {}", placeDto);
 
-                Label labelId = new Label("id", placeDto.getId());
-                item.add(labelId);
-
-                Label labelName = new Label("name", placeDto.getName());
-                item.add(labelName);
-
-                Label labelNameCyrillic = new Label("nameCyrillic", placeDto.getNameCyrilic());
-                item.add(labelNameCyrillic);
-
-                ModalWindow modalWindowUpdate = createModalWindowUpdate(placeDto);
-                item.add(modalWindowUpdate);
-
-                ModalWindow modalWindowDelete = createModalWindowDelete(placeDto);
-                item.add(modalWindowDelete);
-
-                AjaxLink<Void> link1 = new AjaxLink<Void>("detailsLink") {
-                    private static final long serialVersionUID = 1L;
-					@Override
-                    public void onClick(AjaxRequestTarget target) {
-                        modalWindowUpdate.show(target);
-                    }
-                };
-                
+//                Label labelId = new Label("id", placeDto.getId());
+//                item.add(labelId);
+//
+//                Label labelName = new Label("name", placeDto.getName());
+//                item.add(labelName);
+//
+//                Label labelNameCyrillic = new Label("nameCyrillic", placeDto.getNameCyrilic());
+//                item.add(labelNameCyrillic);
+//
+//                ModalWindow modalWindowUpdate = createModalWindowUpdate(placeDto);
+//                item.add(modalWindowUpdate);
+//
+//                ModalWindow modalWindowDelete = createModalWindowDelete(placeDto);
+//                item.add(modalWindowDelete);
+//
+//                AjaxLink<Void> link1 = new AjaxLink<Void>("detailsLink") {
+//                    private static final long serialVersionUID = 1L;
+//					@Override
+//                    public void onClick(AjaxRequestTarget target) {
+//                        modalWindowUpdate.show(target);
+//                    }
+//                };
+//                
 //                AjaxLink<Void> link2 = new AjaxLink<Void>("deleteLink") {
 //					private static final long serialVersionUID = 1L;
 //					@Override
@@ -136,8 +142,8 @@ public class AdminCarrierPage extends BaseAdminPage {
 //                    }
 //                };
 //                item.add(link2);
-                item.add(link1);
-                item.setOutputMarkupId(true);
+//                item.add(link1);
+//                item.setOutputMarkupId(true);
             }
         };
         dataView.setOutputMarkupId(true);
