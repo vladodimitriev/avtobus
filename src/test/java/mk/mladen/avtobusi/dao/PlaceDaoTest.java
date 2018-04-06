@@ -41,6 +41,7 @@ public class PlaceDaoTest {
         assertFalse(result.isEmpty());
         assertEquals(1, result.size());
     }
+    
     @Ignore
     @Test
     public void getPlacesWithCapitalLetterTest() {
@@ -49,6 +50,7 @@ public class PlaceDaoTest {
         assertFalse(result.isEmpty());
         assertEquals(4, result.size());
     }
+    
     @Ignore
     @Test
     public void getPlacesWithLowerLetterTest() {
@@ -57,6 +59,7 @@ public class PlaceDaoTest {
         assertFalse(result.isEmpty());
         assertEquals(4, result.size());
     }
+    
     @Ignore
     @Test
     public void getPlacesWith3LettersTest() {
@@ -65,6 +68,7 @@ public class PlaceDaoTest {
         assertFalse(result.isEmpty());
         assertEquals(2, result.size());
     }
+    
     @Ignore
     @Test
     public void getPlacesWith2LettersTest() {
@@ -73,6 +77,7 @@ public class PlaceDaoTest {
         assertFalse(result.isEmpty());
         assertEquals(3, result.size());
     }
+    
     @Ignore
     @Test
     public void getPlacesWith4LettersTest() {
@@ -81,6 +86,7 @@ public class PlaceDaoTest {
         assertFalse(result.isEmpty());
         assertEquals(2, result.size());
     }
+    
     @Ignore
     @Test
     public void getPlacesWithKLetterTest() {
@@ -89,6 +95,7 @@ public class PlaceDaoTest {
         assertFalse(result.isEmpty());
         assertEquals(6, result.size());
     }
+    
     @Ignore
     @Test
     public void getPlacesWithKrLettersTest() {
@@ -97,6 +104,7 @@ public class PlaceDaoTest {
         assertFalse(result.isEmpty());
         assertEquals(2, result.size());
     }
+    
     @Ignore
     @Test
     public void getPlacesWithEmptyInputTest() {
@@ -106,6 +114,7 @@ public class PlaceDaoTest {
         assertEquals(10, result.size());
         assertEquals("Skopje", result.get(0));
     }
+    
     @Ignore
     @Test
     public void getPlacesWithMiddleInputTest() {
@@ -113,6 +122,7 @@ public class PlaceDaoTest {
         assertNotNull(result);
         assertTrue(result.isEmpty());
     }
+    
     @Ignore
     @Test
     public void getDojranTest() {
@@ -120,4 +130,5 @@ public class PlaceDaoTest {
         assertNotNull(result);
         assertTrue(result.isEmpty());
     }
+    
 }

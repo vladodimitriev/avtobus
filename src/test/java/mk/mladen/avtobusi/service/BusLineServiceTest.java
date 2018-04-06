@@ -49,6 +49,7 @@ public class BusLineServiceTest {
 		assertNotNull(dateString);
 		assertNotNull(date);
 	}
+    
     @Ignore
 	@Test
 	public void updateTest() {

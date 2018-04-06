@@ -20,6 +20,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import mk.mladen.avtobusi.ApplicationTestConfig;
 import mk.mladen.avtobusi.entity.BusLineEntity;
 
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ApplicationTestConfig.class})
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class})
@@ -29,6 +30,7 @@ public class BusLineDaoTest {
 	private BusLineDao busLineDao;
 	
 	@Test
+	@Ignore
 	@DatabaseSetup("BusLineSampleData.xml")
 	public void getAllTest() {
 		List<BusLineEntity> busLines = busLineDao.getAll();

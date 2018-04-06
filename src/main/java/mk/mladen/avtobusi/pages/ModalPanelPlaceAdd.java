@@ -21,7 +21,7 @@ public class ModalPanelPlaceAdd extends Panel {
 
     public ModalPanelPlaceAdd(String id, ModalWindow window) {
         super(id);
-        PlaceDto placeDto = new PlaceDto();
+        final PlaceDto placeDto = new PlaceDto();
         Form<String> form = new Form<String>("addForm") {
             private static final long serialVersionUID = 1L;
 			@Override

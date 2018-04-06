@@ -22,12 +22,12 @@ public class ModalPanelCarrierAdd extends Panel {
 
     public ModalPanelCarrierAdd(String id, ModalWindow window) {
         super(id);
-        CarrierDto dto = new CarrierDto();
+        final CarrierDto dto = new CarrierDto();
         Form<String> form = new Form<String>("addForm") {
             private static final long serialVersionUID = 1L;
 			@Override
             protected void onSubmit() {
-                //carrierService.addNewCarrier(placeDto);
+                //carrierService.addNewCarrier(dto);
             }
         };
 

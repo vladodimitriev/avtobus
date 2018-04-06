@@ -52,7 +52,7 @@ public class AdminPlacePage extends BaseAdminPage {
 			private static final long serialVersionUID = 1L;
 			@Override
             protected void onSubmit() {
-                //updateDataView();
+                updateDataView();
             }
         };
         form.add(actf1);
@@ -68,8 +68,8 @@ public class AdminPlacePage extends BaseAdminPage {
 			@Override
             public void onClose(AjaxRequestTarget target)
             {
-				//updateDataView();
-                //target.add(wmc);
+				updateDataView();
+                target.add(wmc);
             }
         });
         add(modalWindow);
@@ -98,41 +98,41 @@ public class AdminPlacePage extends BaseAdminPage {
 			private static final long serialVersionUID = 1L;
 			@Override
             protected void populateItem(ListItem<PlaceDto> item) {
-//                final PlaceDto placeDto = item.getModelObject();
-//
-//                Label labelId = new Label("id", placeDto.getId());
-//                item.add(labelId);
-//
-//                Label labelName = new Label("name", placeDto.getName());
-//                item.add(labelName);
-//
-//                Label labelNameCyrillic = new Label("nameCyrillic", placeDto.getNameCyrilic());
-//                item.add(labelNameCyrillic);
-//
-//                ModalWindow modalWindowUpdate = createModalWindowUpdate(placeDto);
-//                item.add(modalWindowUpdate);
-//                
-//                ModalWindow modalWindowDelete = createModalWindowDelete(placeDto);
-//                item.add(modalWindowDelete);
-//
-//                AjaxLink<Void> link1 = new AjaxLink<Void>("detailsLink") {
-//					private static final long serialVersionUID = 1L;
-//					@Override
-//                    public void onClick(AjaxRequestTarget target) {
-//                        modalWindowUpdate.show(target);
-//                    }
-//                };
-//                
-//                AjaxLink<Void> link2 = new AjaxLink<Void>("deleteLink") {
-//					private static final long serialVersionUID = 1L;
-//					@Override
-//                    public void onClick(AjaxRequestTarget target) {
-//                        modalWindowDelete.show(target);
-//                    }
-//                };
-//                item.add(link2);
-//                item.add(link1);
-//                item.setOutputMarkupId(true);
+                final PlaceDto placeDto = item.getModelObject();
+
+                Label labelId = new Label("id", placeDto.getId());
+                item.add(labelId);
+
+                Label labelName = new Label("name", placeDto.getName());
+                item.add(labelName);
+
+                Label labelNameCyrillic = new Label("nameCyrillic", placeDto.getNameCyrilic());
+                item.add(labelNameCyrillic);
+
+                ModalWindow modalWindowUpdate = createModalWindowUpdate(placeDto);
+                item.add(modalWindowUpdate);
+                
+                ModalWindow modalWindowDelete = createModalWindowDelete(placeDto);
+                item.add(modalWindowDelete);
+
+                AjaxLink<Void> link1 = new AjaxLink<Void>("detailsLink") {
+					private static final long serialVersionUID = 1L;
+					@Override
+                    public void onClick(AjaxRequestTarget target) {
+                        modalWindowUpdate.show(target);
+                    }
+                };
+                
+                AjaxLink<Void> link2 = new AjaxLink<Void>("deleteLink") {
+					private static final long serialVersionUID = 1L;
+					@Override
+                    public void onClick(AjaxRequestTarget target) {
+                        modalWindowDelete.show(target);
+                    }
+                };
+                item.add(link2);
+                item.add(link1);
+                item.setOutputMarkupId(true);
             }
         };
         dataView.setOutputMarkupId(true);
