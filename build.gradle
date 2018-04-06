@@ -22,7 +22,7 @@ apply plugin: 'war'
 apply plugin: 'org.akhikhl.gretty'
 
 group = 'mk.mladen'
-version = '1.0.0-SNAPSHOT'
+version = '1.0.9-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
@@ -82,11 +82,7 @@ dependencies {
     testCompile "org.springframework:spring-aop:${springVersion}"
     testCompile 'com.github.springtestdbunit:spring-test-dbunit:1.3.0'
     testCompile group: 'org.hsqldb', name: 'hsqldb', version: '2.4.0'
-    
 }
-/*
-gretty {
-    contextPath = '/avtobus'
-    port = 4242
-}
-*/
+
+task stage(dependsOn: ['clean', 'build'])
+build.mustRunAfter clean
