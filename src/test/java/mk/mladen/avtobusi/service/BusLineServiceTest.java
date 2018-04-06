@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -22,6 +23,7 @@ import mk.mladen.avtobusi.beans.UpdateBean;
 import mk.mladen.avtobusi.dao.BusLineDao;
 import mk.mladen.avtobusi.entity.BusLineEntity;
 
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ApplicationTestConfig.class})
 public class BusLineServiceTest {
@@ -32,6 +34,7 @@ public class BusLineServiceTest {
 	@Autowired
 	private BusLineDao busLineDao;
 	
+    @Ignore
 	@Test
 	public void dateConverterTest() {
 		final String dateString = "18/06/2017";
@@ -46,7 +49,7 @@ public class BusLineServiceTest {
 		assertNotNull(dateString);
 		assertNotNull(date);
 	}
-
+    @Ignore
 	@Test
 	public void updateTest() {
 		AddBean aaBean = new AddBean();

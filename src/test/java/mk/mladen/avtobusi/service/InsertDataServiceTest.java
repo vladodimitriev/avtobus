@@ -23,6 +23,7 @@ import java.util.stream.Stream;
 
 import static org.junit.Assert.assertTrue;
 
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ApplicationTestConfig.class})
 public class InsertDataServiceTest {

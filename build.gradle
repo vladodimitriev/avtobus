@@ -22,7 +22,7 @@ apply plugin: 'war'
 apply plugin: 'org.akhikhl.gretty'
 
 group = 'mk.mladen'
-version = '1.0.8'
+version = '1.0.9'
 
 sourceCompatibility = 1.8
 
@@ -85,3 +85,4 @@ dependencies {
     
 }
 task stage(dependsOn: ['clean', 'build'])
+build.mustRunAfter clean
