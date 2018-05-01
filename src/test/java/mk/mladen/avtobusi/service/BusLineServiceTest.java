@@ -34,7 +34,6 @@ public class BusLineServiceTest {
 	@Autowired
 	private BusLineDao busLineDao;
 	
-    @Ignore
 	@Test
 	public void dateConverterTest() {
 		final String dateString = "18/06/2017";
@@ -49,7 +48,6 @@ public class BusLineServiceTest {
 		assertNotNull(dateString);
 		assertNotNull(date);
 	}
-    @Ignore
 	@Test
 	public void updateTest() {
 		AddBean aaBean = new AddBean();

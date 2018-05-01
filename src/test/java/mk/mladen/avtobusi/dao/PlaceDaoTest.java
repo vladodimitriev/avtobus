@@ -32,7 +32,6 @@ public class PlaceDaoTest {
     @Autowired
     private PlaceDao placeDao;
     
-    @Ignore
     @Test
     public void getAllPlacesCyrillicNamesByName() {
     	String name = " Gra";
@@ -41,7 +40,6 @@ public class PlaceDaoTest {
         assertFalse(result.isEmpty());
         assertEquals(1, result.size());
     }
-    @Ignore
     @Test
     public void getPlacesWithCapitalLetterTest() {
         List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "S");
@@ -49,7 +47,6 @@ public class PlaceDaoTest {
         assertFalse(result.isEmpty());
         assertEquals(4, result.size());
     }
-    @Ignore
     @Test
     public void getPlacesWithLowerLetterTest() {
         List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "s");
@@ -57,7 +54,6 @@ public class PlaceDaoTest {
         assertFalse(result.isEmpty());
         assertEquals(4, result.size());
     }
-    @Ignore
     @Test
     public void getPlacesWith3LettersTest() {
         List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "Str");
@@ -65,7 +61,6 @@ public class PlaceDaoTest {
         assertFalse(result.isEmpty());
         assertEquals(2, result.size());
     }
-    @Ignore
     @Test
     public void getPlacesWith2LettersTest() {
         List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "St");
@@ -73,7 +68,6 @@ public class PlaceDaoTest {
         assertFalse(result.isEmpty());
         assertEquals(3, result.size());
     }
-    @Ignore
     @Test
     public void getPlacesWith4LettersTest() {
         List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "Stru");
@@ -81,7 +75,6 @@ public class PlaceDaoTest {
         assertFalse(result.isEmpty());
         assertEquals(2, result.size());
     }
-    @Ignore
     @Test
     public void getPlacesWithKLetterTest() {
         List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "k");
@@ -89,7 +82,6 @@ public class PlaceDaoTest {
         assertFalse(result.isEmpty());
         assertEquals(6, result.size());
     }
-    @Ignore
     @Test
     public void getPlacesWithKrLettersTest() {
         List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "Kr");
@@ -97,7 +89,6 @@ public class PlaceDaoTest {
         assertFalse(result.isEmpty());
         assertEquals(2, result.size());
     }
-    @Ignore
     @Test
     public void getPlacesWithEmptyInputTest() {
         List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "");
@@ -106,14 +97,12 @@ public class PlaceDaoTest {
         assertEquals(10, result.size());
         assertEquals("Skopje", result.get(0));
     }
-    @Ignore
     @Test
     public void getPlacesWithMiddleInputTest() {
         List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "gotin");
         assertNotNull(result);
         assertTrue(result.isEmpty());
     }
-    @Ignore
     @Test
     public void getDojranTest() {
         List<String> result = placeDao.getAllPlacesNamesByLanguageAndName("en", "Dojran");
