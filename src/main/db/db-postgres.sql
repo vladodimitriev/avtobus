@@ -1,7 +1,7 @@
-drop table busline;
-drop table carrier;
-drop table place;
-drop table country;
+drop table BUSLINE;
+drop table CARRIER;
+drop table PLACE;
+drop table COUNTRY;
 
 CREATE TABLE COUNTRY (
     id SERIAL PRIMARY KEY,

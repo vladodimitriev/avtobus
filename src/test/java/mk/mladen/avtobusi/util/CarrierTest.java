@@ -47,6 +47,7 @@ public class CarrierTest {
     }
 
     @Test
+    @Ignore
     public void twoStringsTest() {
         System.setProperty("file.encoding","UTF-8");
         String n = "АD";

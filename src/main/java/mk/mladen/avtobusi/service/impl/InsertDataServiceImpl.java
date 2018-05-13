@@ -2,7 +2,6 @@ package mk.mladen.avtobusi.service.impl;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -40,8 +39,10 @@ public class InsertDataServiceImpl implements InsertDataService {
 
 	private final static Logger logger = Logger.getLogger(InsertDataServiceImpl.class);
 
-	private static final String inputFile = "linii-v2.xls";
-	private static final String citiesFile = "cities.txt";
+	//private static final String liniiFile = "src/main/resources/mk/mladen/avtobusi/service/impl/linii-v2.xls";
+	//private static final String liniiFile = "src/test/resources/mk/mladen/avtobusi/service/linii-v2-test2.xls";
+	private static final String liniiFile = "src/test/resources/mk/mladen/avtobusi/service/linii-v2-test.xls";
+	private static final String citiesFile = "src/main/resources/mk/mladen/avtobusi/service/impl/cities.txt";
 
 	@Autowired
 	private PlaceDao placeDao;
@@ -60,6 +61,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 	
 	private Map<String, String> sinonimi = new HashMap<String, String>();
 
+	@Override
 	public void insertDataIntoDb() {
 		try {
 			createCitySet();
@@ -70,12 +72,15 @@ public class InsertDataServiceImpl implements InsertDataService {
 		} catch (IOException | BiffException e) {
 			e.printStackTrace();
 		}
+		
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	private void insertCarriers() throws IOException, BiffException {
 		logger.info("insertCarriers()");
-		URL url = getClass().getResource(inputFile);
-		File inputWorkbook = new File(url.getPath());
+		File inputWorkbook = new File(liniiFile);
 		Workbook w = Workbook.getWorkbook(inputWorkbook);
 		Sheet sheet = w.getSheet(0);
 		int rows = sheet.getRows();
@@ -122,8 +127,8 @@ public class InsertDataServiceImpl implements InsertDataService {
 	@SuppressWarnings("unused")
 	private void createBusLines() throws BiffException, IOException {
 		logger.info("createBusLines()");
-		URL url = getClass().getResource(inputFile);
-		File inputWorkbook = new File(url.getPath());
+		String inputFilePath = "src/main/resources/mk/mladen/avtobusi/service/impl/linii-v2.xls";
+		File inputWorkbook = new File(liniiFile);
 		Workbook w = Workbook.getWorkbook(inputWorkbook);
 		Sheet sheet = w.getSheet(0);
 
@@ -166,7 +171,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 				String cell21 = sheet.getCell(21, i).getContents();//return time7
 				String cell22 = sheet.getCell(22, i).getContents();//return time8
 				String cell23 = sheet.getCell(23, i).getContents();//days of work or comment
-
+				
 				String timeCell = "";
 				if(j == 5) {
 					timeCell = cell5;
@@ -193,6 +198,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 				
 				if (StringUtils.isNotBlank(cell23)) {
 					comment = cell23;
+					daysOfWork = cell23;
 				}
 				
 				if (StringUtils.isNotBlank(cell2)) {
@@ -201,11 +207,14 @@ public class InsertDataServiceImpl implements InsertDataService {
 
 				if (StringUtils.isNotBlank(cell14)) {
 					light1 = true;
-					daysOfWork = cell23;
 					cityCount = 0;
 				} else {
 					light1 = false;
 				}
+				
+//				if(StringUtils.isNotBlank(lineName) && lineName.trim().equalsIgnoreCase("Скопје - Богданци")) {
+//					logger.info("Скопје - Богданци days of work = " + daysOfWork + " comment = " + comment);
+//				}
 
 				if (light1) {
 					cityCount++;
@@ -306,6 +315,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 				
 				if (StringUtils.isNotBlank(cell23)) {
 					comment = cell23;
+					daysOfWork = cell23;
 				}
 				
 				if (StringUtils.isNotBlank(cell2)) {
@@ -314,14 +324,15 @@ public class InsertDataServiceImpl implements InsertDataService {
 
 				if (StringUtils.isNotBlank(cell14)) {
 					light1 = true;
-					//createLines(cities);
-					daysOfWork = cell23;
 					cityCount = 0;
-					//cities.clear();
 				} else {
 					light1 = false;
 				}
-
+				
+//				if(StringUtils.isNotBlank(lineName) && lineName.trim().equalsIgnoreCase("Скопје - Богданци")) {
+//					logger.info("Скопје - Богданци days of work = " + daysOfWork + " comment = " + comment);
+//				}
+				
 				if (light1) {
 					cityCount++;
 					String cn = createCityCN(cell14.trim());
@@ -400,7 +411,9 @@ public class InsertDataServiceImpl implements InsertDataService {
 			return;
 		}
 
-		String daysOfWork = city1.getDaysOfWork();
+		String daysOfWorkCity1 = city1.getDaysOfWork();
+		String daysOfWorkCity2 = city2.getDaysOfWork();
+		
 		String city1Carrier = city1.getCarrier();
 		String city2Carrier = city2.getCarrier();
 		
@@ -428,7 +441,8 @@ public class InsertDataServiceImpl implements InsertDataService {
 		ble.setDepartureTime(city1.getTime());
 		ble.setArrivalTime(city2.getTime());
 		ble.setDist(city2.getDist() - city1.getDist());
-		ble.setOperationDays(OperationsUtil.getOperationDays(daysOfWork));
+		
+		
 		
 		String smallplacesstr = createSmallPlaces(smallplaces);
 		ble.setSmallPlaces(smallplacesstr);
@@ -440,11 +454,15 @@ public class InsertDataServiceImpl implements InsertDataService {
 		//ble.setOperationMonths(OperationsUtil.getOperationMonths(daysOfWork));
 		
 		String comment = "";
+		String operationDays = "";
 		if(StringUtils.isNotBlank(city1Comment) && order == 1) {
 			comment = city1Comment;
+			operationDays = OperationsUtil.getOperationDays(daysOfWorkCity1);
 		} else if(StringUtils.isNotBlank(city2Comment) && order == 2) {
 			comment = city2Comment;
+			operationDays = OperationsUtil.getOperationDays(daysOfWorkCity2);
 		}
+		ble.setOperationDays(operationDays);
 		ble.setComment(comment);
 		
 		int redenBroj = 0;
@@ -475,6 +493,13 @@ public class InsertDataServiceImpl implements InsertDataService {
 		if(ce != null) {
 			ble.setCarrier(ce);
 		}
+		
+//		if(StringUtils.isNotBlank(city1.getLineName()) && city1.getLineName().trim().equalsIgnoreCase("Скопје - Богданци")) {
+//			logger.info("City1: " + city1);
+//			logger.info("City2: " + city2);
+//			logger.info("BLE: " + ble);
+//			logger.info("------------------------------------------");
+//		}
 		if(ble != null) {
 			line_count = line_count + 1;
 			busLineDao.persist(ble);
@@ -538,8 +563,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 		logger.info("insertCities()");
 		long placeCount = placeDao.countAll();
 		if(placeCount < 1) {
-			URL url = getClass().getResource(inputFile);
-			File inputWorkbook = new File(url.getPath());
+			File inputWorkbook = new File(liniiFile);
 			Workbook w = Workbook.getWorkbook(inputWorkbook);
 			Sheet sheet = w.getSheet(0);
 			int rows = sheet.getRows();
@@ -563,7 +587,6 @@ public class InsertDataServiceImpl implements InsertDataService {
 		}
 	}
 
-
 	private String createCityCN(String name) {
 		name = name.replace(".", " ");
 		name = name.replace("-", "");
@@ -581,8 +604,7 @@ public class InsertDataServiceImpl implements InsertDataService {
 	}
 
 	private void createCitySet() throws IOException {
-		URL url = getClass().getResource(citiesFile);
-		Path path = Paths.get(url.getPath());
+		Path path = Paths.get(citiesFile);
 		Stream<String> stream = Files.lines(path);
 		Iterator<String> iterator = stream.iterator();
 		while (iterator.hasNext()) {

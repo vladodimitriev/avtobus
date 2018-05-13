@@ -13,10 +13,10 @@ public class CarrierEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "name", nullable=true)
+	@Column(name = "name", nullable=true, length = 100)
 	private String name;
 	
-	@Column(name = "namecyrilic", nullable=true)
+	@Column(name = "namecyrilic", nullable=true, length = 100)
 	private String nameCyrilic;
 	
 	@ManyToOne(fetch=FetchType.LAZY)

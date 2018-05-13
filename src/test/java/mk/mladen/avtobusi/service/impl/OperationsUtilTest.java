@@ -1,12 +1,57 @@
 package mk.mladen.avtobusi.service.impl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
-import org.junit.Ignore;
 
 public class OperationsUtilTest {
+	
+	@Test
+	public void readWriteThroughResources() {
+		try {
+			PrintWriter writer = new PrintWriter(new File("src/test/resources/mk/mladen/avtobusi/service/impl/some-file-1.txt"));
+			writer.write("Hello writer 1");
+			writer.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void whenWriteStringUsingBufferedWritter_thenCorrect() throws IOException {
+		String str = "Hello writer 2";
+		BufferedWriter writer = new BufferedWriter(new FileWriter("src/test/resources/mk/mladen/avtobusi/service/impl/some-file-2.txt"));
+		writer.write(str);
+		writer.close();
+	}
+	
+	@Test
+    public void writeToFileTest() {
+    	try {
+    		List<String> lines = Arrays.asList("The first line", "The second line");
+	        Path file = Paths.get("src/test/resources/mk/mladen/avtobusi/service/impl/some-file-3.txt");
+    		Files.write(file, lines, Charset.forName("UTF-8"));
+    	} catch(Exception e) {
+    		e.printStackTrace();
+    	} finally {
+    	}
+    }
 	
 	@Test
 	public void macedonianToLatinPrilepTest() {

@@ -25,37 +25,26 @@ public class OperationsUtil {
         }
 
         if (StringUtils.isNotBlank(daysOfWork)) {
-            if (daysOfWork.trim().equalsIgnoreCase("Секојдневно")) {
-                daysOfWork = "1,2,3,4,5,6,7";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Режим на одржување: Секојдневно")) {
-                daysOfWork = "1,2,3,4,5,6,7";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Секојдневна")) {
-                daysOfWork = "1,2,3,4,5,6,7";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Секој ден")) {
-                daysOfWork = "1,2,3,4,5,6,7";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Секојдневно, освен сабота")) {
-                daysOfWork = "1,2,3,4,5,7";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Секојдневно освен сабота")) {
-                daysOfWork = "1,2,3,4,5,7";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Секој ден освен сабота")) {
-                daysOfWork = "1,2,3,4,5,7";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Само во недела")) {
-                daysOfWork = "7";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Секојдневно, освен недела")) {
-                daysOfWork = "1,2,3,4,5,7";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Секојдневно освен недела")) {
-                daysOfWork = "1,2,3,4,5,7";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Секој ден освен недела")) {
-                daysOfWork = "1,2,3,4,5,7";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Секојден освен сабота и недела")) {
-                daysOfWork = "1,2,3,4,5";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Секој ден освен сабота и недела")) {
-                daysOfWork = "1,2,3,4,5";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Секојдневно освен сабота и недела")) {
-                daysOfWork = "1,2,3,4,5";
-            } else {
-                daysOfWork = "1,2,3,4,5,6,7";
-            }
+        	final String down = daysOfWork.trim();
+        	switch(down) {
+	        	case "Секојдневно": return "1,2,3,4,5,6,7";
+	        	case "Режим на одржување: Секојдневно": return "1,2,3,4,5,6,7";
+	        	case "Секојдневна": return "1,2,3,4,5,6,7";
+	        	case "Секој ден": return "1,2,3,4,5,6,7";
+	        	case "Секојдневно, освен сабота": return "1,2,3,4,5,7";
+	        	case "Секојдневно освен сабота": return "1,2,3,4,5,7";
+	        	case "Секој ден освен сабота": return "1,2,3,4,5,7";
+	        	case "Само во сабота": return "6";
+	        	case "Само во недела": return "7";
+	        	case "Секојдневно освен недела": return "1,2,3,4,5,6";
+	        	case "Секој ден освен недела": return "1,2,3,4,5,6";
+	        	case "Секојден освен сабота и недела": return "1,2,3,4,5";
+	        	case "Секој ден освен сабота и недела": return "1,2,3,4,5";
+	        	case "Секојдневно освен сабота и недела": return "1,2,3,4,5";
+	        	case "Секојдневно освен  сабота и недела": return "1,2,3,4,5";
+	        	case "Секојдневно, освен недела": return "1,2,3,4,5,6";
+	        	default: return "1,2,3,4,5,6,7";
+        	}
         } else {
             daysOfWork = "1,2,3,4,5,6,7";
         }
@@ -64,36 +53,27 @@ public class OperationsUtil {
 
     public static String getOperationDays(String dow) {
     	String daysOfWork = createCorrectDaysOfWork(dow);
-        if (StringUtils.isNotBlank(daysOfWork)) {
-            if (daysOfWork.trim().equalsIgnoreCase("Секојдневно")) {
-                daysOfWork = "1,2,3,4,5,6,7";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Режим на одржување: Секојдневно")) {
-                daysOfWork = "1,2,3,4,5,6,7";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Секојдневна")) {
-                daysOfWork = "1,2,3,4,5,6,7";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Секој ден")) {
-                daysOfWork = "1,2,3,4,5,6,7";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Секојдневно, освен сабота")) {
-                daysOfWork = "1,2,3,4,5,7";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Секојдневно освен сабота")) {
-                daysOfWork = "1,2,3,4,5,7";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Секој ден освен сабота")) {
-                daysOfWork = "1,2,3,4,5,7";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Само во недела")) {
-                daysOfWork = "7";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Секојдневно, освен недела")) {
-                daysOfWork = "1,2,3,4,5,6";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Секојдневно освен недела")) {
-                daysOfWork = "1,2,3,4,5,6";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Секој ден освен недела")) {
-                daysOfWork = "1,2,3,4,5,6";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Секојден освен сабота и недела")) {
-                daysOfWork = "1,2,3,4,5";
-            } else if (daysOfWork.trim().equalsIgnoreCase("Секој ден освен сабота и недела")) {
-                daysOfWork = "1,2,3,4,5";
-            } else {
-                daysOfWork = "1,2,3,4,5,6,7";
-            }
+    	if (StringUtils.isNotBlank(daysOfWork)) {
+        	final String down = daysOfWork.trim();
+        	switch(down) {
+	        	case "Секојдневно": return "1,2,3,4,5,6,7";
+	        	case "Режим на одржување: Секојдневно": return "1,2,3,4,5,6,7";
+	        	case "Секојдневна": return "1,2,3,4,5,6,7";
+	        	case "Секој ден": return "1,2,3,4,5,6,7";
+	        	case "Секојдневно, освен сабота": return "1,2,3,4,5,7";
+	        	case "Секојдневно освен сабота": return "1,2,3,4,5,7";
+	        	case "Секој ден освен сабота": return "1,2,3,4,5,7";
+	        	case "Само во сабота": return "6";
+	        	case "Само во недела": return "7";
+	        	case "Секојдневно освен недела": return "1,2,3,4,5,6";
+	        	case "Секој ден освен недела": return "1,2,3,4,5,6";
+	        	case "Секојден освен сабота и недела": return "1,2,3,4,5";
+	        	case "Секој ден освен сабота и недела": return "1,2,3,4,5";
+	        	case "Секојдневно освен сабота и недела": return "1,2,3,4,5";
+	        	case "Секојдневно освен  сабота и недела": return "1,2,3,4,5";
+	        	case "Секојдневно, освен недела": return "1,2,3,4,5,6";
+	        	default: return "1,2,3,4,5,6,7";
+        	}
         } else {
             daysOfWork = "1,2,3,4,5,6,7";
         }

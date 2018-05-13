@@ -132,6 +132,6 @@ public class City {
 	
 	@Override
 	public String toString() {
-		return String.format("City[%s, %s]", name, carrier);
+		return String.format("City[%s, %s, %s, %s]", name, lineName, daysOfWork, comment);
 	}
 }

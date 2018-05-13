@@ -11,19 +11,19 @@ public class PlaceEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "name", nullable=true)
+	@Column(name = "name", nullable=true, length = 100)
 	private String name;
 	
-	@Column(name = "namecyrillic", nullable=true)
+	@Column(name = "namecyrillic", nullable=true, length = 100)
 	private String nameCyrilic;
 	
 	@Column(name = "population", nullable=true)
 	private Integer population;
 	
-	@Column(name = "postalcode", nullable=true)
+	@Column(name = "postalcode", nullable=true, length = 10)
 	private String postalCode;
 	
-	@Column(name = "sinonimi", nullable=true)
+	@Column(name = "sinonimi", nullable=true, length = 200)
 	private String sinonimi;
 
 	@Column(name = "importance", nullable=true)

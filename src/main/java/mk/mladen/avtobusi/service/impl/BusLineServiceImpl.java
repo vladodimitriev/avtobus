@@ -185,10 +185,8 @@ public class BusLineServiceImpl implements BusLineService {
 	@Override
 	public void addNewBusLine(AddBean bean) {
 		BusLineEntity ble = createNewBusLineEntity(bean);
-		
 		PlaceEntity pe1 = placeDao.getByName(bean.getDeparturePlace());
 		PlaceEntity pe2 = placeDao.getByName(bean.getArrivalPlace());
-
 		CarrierEntity ce = carrierDao.getByName(bean.getCarrier());
 
 		ble.setDeparture(pe1);

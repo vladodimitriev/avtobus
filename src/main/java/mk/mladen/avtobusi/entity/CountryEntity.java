@@ -11,16 +11,16 @@ public class CountryEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "name", nullable=true)
+	@Column(name = "name", nullable=true, length = 100)
 	private String name;
 
-	@Column(name = "namecyrillic", nullable=true)
+	@Column(name = "namecyrillic", nullable=true, length = 100)
 	private String namecyrillic;
 	
 	@Column(name = "population", nullable=true)
 	private Integer population;
 	
-	@Column(name = "countrycode", nullable=true)
+	@Column(name = "countrycode", nullable=true, length = 5)
 	private String countryCode;
 
 	public int getId() {

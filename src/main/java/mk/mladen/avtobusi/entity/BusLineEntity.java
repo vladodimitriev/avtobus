@@ -11,13 +11,13 @@ public class BusLineEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "name", nullable=true)
+	@Column(name = "name", nullable=true, length = 100)
 	private String name;
 	
-	@Column(name = "departuretime", nullable=true)
+	@Column(name = "departuretime", nullable=true, length = 20)
 	private String departureTime;
 	
-	@Column(name = "arrivaltime", nullable=true)
+	@Column(name = "arrivaltime", nullable=true, length = 20)
 	private String arrivalTime;
 	
 	@Column(name = "distance", nullable=true)
@@ -26,31 +26,31 @@ public class BusLineEntity {
 	@Column(name = "dist", nullable=true)
 	private Double dist;
 	
-	@Column(name = "jurneytime", nullable=true)
+	@Column(name = "jurneytime", nullable=true, length = 20)
 	private String jurneyTime;
 	
-	@Column(name = "operationdays", nullable=true)
+	@Column(name = "operationdays", nullable=true, length = 30)
 	private String operationDays;
 	
-	@Column(name = "operationperiod", nullable=true)
+	@Column(name = "operationperiod", nullable=true, length = 50)
 	private String operationPeriod;
 
-	@Column(name = "operationmonths", nullable=true)
+	@Column(name = "operationmonths", nullable=true, length = 50)
 	private String operationMonths;
 	
-	@Column(name = "price", nullable=true)
+	@Column(name = "price", nullable=true, length = 20)
 	private String price;
 	
-	@Column(name = "pricereturn", nullable=true)
+	@Column(name = "pricereturn", nullable=true, length = 20)
 	private String priceReturn;
 
-	@Column(name = "comment", nullable = true)
+	@Column(name = "comment", nullable = true, length = 1000)
 	private String comment;
 
-	@Column(name = "smallplaces", nullable = true)
+	@Column(name = "smallplaces", nullable = true, length = 1000)
 	private String smallPlaces;
 	
-	@Column(name = "smallplaceslatin", nullable = true)
+	@Column(name = "smallplaceslatin", nullable = true, length = 1000)
 	private String smallPlacesLatin;
 	
 	@Column(name = "redenbroj", nullable = true)
@@ -59,7 +59,7 @@ public class BusLineEntity {
 	@Column(name = "linenumber", nullable = true)
 	private Integer lineNumber;
 	
-	@Column(name = "linename", nullable = true)
+	@Column(name = "linename", nullable = true, length = 100)
 	private String lineName;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -258,7 +258,7 @@ public class BusLineEntity {
 
 	@Override
 	public String toString() {
-		return "BusLineEntity: [" + departure + " " + destination + " " + departureTime + " " + arrivalTime + " " + carrier + ", distance: " + distance + ", days of work: " + operationDays + "]";
+		return "BusLineEntity: [" + departure + " " + destination + " " + departureTime + " " + arrivalTime + " " + carrier + ", distance: " + distance + ", days of work: " + operationDays + ", comment: " + comment + "]";
 	}
 
 }
