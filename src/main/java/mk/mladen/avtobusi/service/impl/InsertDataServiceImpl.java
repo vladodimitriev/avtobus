@@ -39,11 +39,9 @@ public class InsertDataServiceImpl implements InsertDataService {
 
 	private final static Logger logger = Logger.getLogger(InsertDataServiceImpl.class);
 
-	//private static final String liniiFile = "src/main/resources/mk/mladen/avtobusi/service/impl/linii-v2.xls";
-	//private static final String liniiFile = "src/test/resources/mk/mladen/avtobusi/service/linii-v2-test2.xls";
-	private static final String liniiFile = "src/test/resources/mk/mladen/avtobusi/service/linii-v2-test.xls";
+	private static final String liniiFile = "src/main/resources/mk/mladen/avtobusi/service/impl/linii-v2.xls";
 	private static final String citiesFile = "src/main/resources/mk/mladen/avtobusi/service/impl/cities.txt";
-
+	
 	@Autowired
 	private PlaceDao placeDao;
 
@@ -72,10 +70,6 @@ public class InsertDataServiceImpl implements InsertDataService {
 		} catch (IOException | BiffException e) {
 			e.printStackTrace();
 		}
-		
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
 	}
 
 	private void insertCarriers() throws IOException, BiffException {

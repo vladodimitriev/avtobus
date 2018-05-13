@@ -11,6 +11,6 @@ $ heroku open --app avtobusi
 ```
 ### Database
 postgresql-corrugated-20593
-
+ 
 ### jetty-runner
 java -jar libs/jetty-runner.jar build/libs/*.war

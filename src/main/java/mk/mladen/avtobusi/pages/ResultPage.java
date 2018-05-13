@@ -253,24 +253,12 @@ public class ResultPage extends BasePage {
 				  Label lineNameLbl = new Label("lineName", busLine.getLineName());
 				  lineNameLbl.setOutputMarkupId(true);
 				  
-				  //Do not use StringResourceModel!! 
-				  String redenBrojSram = Application.get().getResourceSettings().getLocalizer().getString("avtobusi.resultPage.table.redenbrojnalinija", detailsPanel);
-				  Label redenBrojLbl = new Label("redenBrojNaLinija", redenBrojSram);
-				  redenBrojLbl.setOutputMarkupId(true);
-				  
-				  Label lineOrderLbl = new Label("lineOrder", busLine.getRedenBroj());
-				  lineOrderLbl.setOutputMarkupId(true);
-				  
 				  String komentar = busLine.getComment();
 				  Label commentLbl = new Label("comment", komentar);
 				  commentLbl.setOutputMarkupId(true);
 				  
 				  detailsPanel.add(imeNaLinijaLbl);
 				  detailsPanel.add(lineNameLbl);
-				  
-				  detailsPanel.add(redenBrojLbl);
-				  detailsPanel.add(lineOrderLbl);
-				  
 				  detailsPanel.add(commentLbl);
 				  
 				  detailsPanel.setVisible(false);
